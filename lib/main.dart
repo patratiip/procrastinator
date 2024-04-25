@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:procrastinator/ui/widgets/app/procrastinator.dart';
 import 'package:procrastinator/ui/widgets/app/procrastinator_model.dart';
 
-import 'domain/api_client/firebase_options.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
