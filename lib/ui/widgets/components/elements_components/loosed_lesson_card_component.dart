@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import '../../../../domain/api_client/firebase_service.dart';
 import '../../../../resources/resources.dart';
 import '../../../../fake_data/kursplan_fake_data/kursplan_fake.dart';
 import '../../../theme/color_scheme_my.dart';

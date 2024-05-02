@@ -96,9 +96,10 @@ class _LogOutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 600),
       height: 60,
+      width: double.infinity,
       child: ElevatedButton(
           onPressed: () {
             FirebaseService().logOut();
@@ -127,8 +128,8 @@ class _DeleteProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 600),
       height: 60,
       child: ElevatedButton(
           onPressed: () {

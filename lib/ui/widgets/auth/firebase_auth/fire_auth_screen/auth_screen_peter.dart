@@ -41,37 +41,45 @@ class _HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          const SizedBox(
-            height: 25,
-            width: double.infinity, // WARNING
+      child: Center(
+        child: Container(
+          alignment: Alignment.topCenter,
+          constraints: const BoxConstraints(
+            maxWidth: 600,
           ),
-          Container(
-            width: 180,
-            height: 180,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(shape: BoxShape.circle),
-            child: Image(
-              image: lugImg,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(height: 25),
-          const Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Text(
-                'Hast du noch kein Profil?',
-                style: TextStyle(fontSize: 16),
+              const SizedBox(
+                height: 25,
+                width: double.infinity, // WARNING
               ),
-              _ChangeSignInModeButton(),
+              Container(
+                width: 180,
+                height: 180,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Image(
+                  image: lugImg,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 25),
+              const Row(
+                children: [
+                  Text(
+                    'Hast du noch kein Profil?',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  _ChangeSignInModeButton(),
+                ],
+              ),
+              const SizedBox(height: 25),
+              const _AuthFormWidget()
             ],
           ),
-          const SizedBox(height: 25),
-          _AuthFormWidget()
-        ],
+        ),
       ),
     );
   }
@@ -87,7 +95,8 @@ class _ChangeSignInModeButton extends StatefulWidget {
 
 class _ChangeSignInModeButtonState extends State<_ChangeSignInModeButton> {
   void _navigateTo() {
-    Navigator.of(context).pushReplacementNamed(MainNavigationRoutes.registration);
+    Navigator.of(context)
+        .pushReplacementNamed(MainNavigationRoutes.registration);
   }
 
   @override
@@ -110,8 +119,9 @@ class _AuthFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 600,
-      child: Column(
+      width: double.infinity,
+      constraints: const BoxConstraints(maxWidth: 600),
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
@@ -338,9 +348,9 @@ class _ErrorMessageWidget extends StatelessWidget {
     }
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
-      child: Text(
+      child: SelectableText(
         errorMessage,
-        style: TextStyle(color: MyAppColorScheme.errorColor),
+        style: const TextStyle(color: MyAppColorScheme.errorColor),
       ),
     );
   }

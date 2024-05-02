@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../../resources/resources.dart';
 import '../../../../theme/color_scheme_my.dart';
 import '../../../components/elements_components/lesson_card_component.dart';
 import '../../../../../fake_data/kursplan_fake_data/kursplan_fake.dart';
@@ -67,11 +66,12 @@ class _KursplanPageWidgetState extends State<KursplanPageWidget> {
                 fillColor: Theme.of(context).cardColor.withAlpha(230),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(width: 1)),
+                    borderSide:
+                        const BorderSide(width: 1, color: Colors.white)),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide:
-                      BorderSide(width: 1, color: MyAppColorScheme.primary),
+                  borderSide: const BorderSide(
+                      width: 1, color: MyAppColorScheme.primary),
                 )),
           ),
         ),

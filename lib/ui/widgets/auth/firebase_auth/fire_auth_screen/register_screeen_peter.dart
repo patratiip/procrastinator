@@ -41,37 +41,45 @@ class _HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          const SizedBox(
-            height: 25,
-            width: double.infinity, // WARNING
+      child: Center(
+        child: Container(
+          alignment: Alignment.topCenter,
+          constraints: const BoxConstraints(
+            maxWidth: 600,
           ),
-          Container(
-            width: 180,
-            height: 180,
-            clipBehavior: Clip.antiAlias,
-            decoration: BoxDecoration(shape: BoxShape.circle),
-            child: Image(
-              image: lugImg,
-              fit: BoxFit.cover,
-            ),
-          ),
-          const SizedBox(height: 25),
-          const Row(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Text(
-                'Hast du shon ein Profil?',
-                style: TextStyle(fontSize: 16),
+              const SizedBox(
+                height: 25,
+                width: double.infinity, // WARNING
               ),
-              _ChangeSignInModeButton()
+              Container(
+                width: 180,
+                height: 180,
+                clipBehavior: Clip.antiAlias,
+                decoration: BoxDecoration(shape: BoxShape.circle),
+                child: Image(
+                  image: lugImg,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              const SizedBox(height: 25),
+              const Row(
+                children: [
+                  Text(
+                    'Hast du shon ein Profil?',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  _ChangeSignInModeButton()
+                ],
+              ),
+              const SizedBox(height: 25),
+              _RegisterFormWidget(),
             ],
           ),
-          const SizedBox(height: 25),
-          _RegisterFormWidget(),
-        ],
+        ),
       ),
     );
   }
