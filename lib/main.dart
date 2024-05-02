@@ -15,7 +15,6 @@ Future<void> main() async {
 
   final model = ProcrastinatorModel();
   await model.checkAuth();
-  final db = FirebaseFirestore.instance;
 
   runApp(Procrastinator(model: model));
 }
