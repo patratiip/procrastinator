@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:procrastinator/main.dart';
-import 'package:procrastinator/ui/widgets/app/procrastinator.dart';
-import 'package:procrastinator/ui/widgets/app/procrastinator_model.dart';
+import 'package:procrastinator/src/features/app/data/procrastinator.dart';
+import 'package:procrastinator/src/features/app/data/procrastinator_model.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

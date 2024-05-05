@@ -44,23 +44,26 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
+/android/app/google-services.json
 
 
 #My
-firebase_options.dart
+/web/
 /assets/
-/n/
+
+#lib
+/lib/old_files/
+
+#firebase
+firebase_options.dart
 firebase.json
-/lib/domain/
-/lib/fake_data/
-/lib/ui/auth/firebase_auth/old/
-android/app/google-services.json
+.firebase
+
 
 *.plist
 
-/web/
-.firebase
+
+
 
 
 #My
@@ -206,4 +209,4 @@ app.*.symbols
 !/dev/ci/**/Gemfile.lock
 !.vscode/settings.json
 
-web/index.html
+
