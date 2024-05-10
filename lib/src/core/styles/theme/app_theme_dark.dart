@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'color_scheme_my.dart';
+import '../color_scheme_my.dart';
 
 abstract class MyAppThemeDark {
   static final darkTheme = ThemeData(

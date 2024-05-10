@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/data/lection_model.dart';
 import '../../../shared/resources/resources.dart';
-import '../../../../old_files/fake_data/kursplan_fake_data/kursplan_fake.dart';
 import '../../../core/styles/color_scheme_my.dart';
 
 class LessonCardComponent extends StatefulWidget {
-  final KursplanEntry entryData;
+  final Lection entryData;
   const LessonCardComponent({super.key, required this.entryData});
 
   @override
@@ -20,7 +20,7 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
 
   @override
   Widget build(BuildContext context) {
-    var entryData = widget.entryData;
+    final entryData = widget.entryData;
     return Container(
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.symmetric(vertical: 8),
@@ -45,7 +45,7 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(
-                      entryData.theme,
+                      entryData.theme!,
                       style: const TextStyle(color: Colors.white),
                       maxLines: 1,
                     )
@@ -73,15 +73,13 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
               flex: 2,
               child: Text(
                 /////maxCharacters
-                entryData.trainer.length > 10
-                    ? entryData.trainer.substring(0, 10) + '...'
-                    : entryData.trainer,
+                '${entryData.trainer!.length > 10 ? entryData.trainer!.substring(0, 10) + '...' : entryData.trainer}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Text(
-                '${dateFormat.format(entryData.date)},${entryData.dayOfWeek.length > 2 ? entryData.dayOfWeek.substring(0, 2) : entryData.dayOfWeek}'),
+                '${dateFormat.format(entryData.date!)},${entryData.dayOfWeek!.length > 2 ? entryData.dayOfWeek!.substring(0, 2) : entryData.dayOfWeek}'),
           ]),
     );
   }

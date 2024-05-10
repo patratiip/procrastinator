@@ -6,7 +6,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
-import 'color_scheme_my.dart';
+import '../color_scheme_my.dart';
 
 abstract class MyAppThemeLight {
   static final themeLight = ThemeData(

@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/auth/domain/firebase_service.dart';
+import 'package:procrastinator/src/features/auth/domain/auth_firebase_service.dart';
 import 'package:procrastinator/src/core/router/main_navigation.dart';
 import 'package:procrastinator/src/features/app/data/procrastinator_model.dart';
 
 
 
-import '../../../core/styles/app_theme_dark.dart';
-import '../../../core/styles/app_theme_light.dart';
+import '../../../core/styles/theme/app_theme_dark.dart';
+import '../../../core/styles/theme/app_theme_light.dart';
 
 class Procrastinator extends StatelessWidget {
   final ProcrastinatorModel model;

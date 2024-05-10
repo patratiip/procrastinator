@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:procrastinator/old_files/fake_data/user_fake_data/user_fake_data.dart';
 import 'package:procrastinator/src/core/router/main_navigation.dart';
 
-import '../../../auth/domain/firebase_service.dart';
+import '../../../auth/domain/auth_firebase_service.dart';
 import '../../../../shared/resources/resources.dart';
 import '../../../../core/styles/color_scheme_my.dart';
 import '../../../components/elements_components/user_profile_options_component.dart';
@@ -102,7 +101,7 @@ class _LogOutButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
           onPressed: () {
-            FirebaseService().logOut();
+            AuthFirebaseService().logOut();
 
             Navigator.of(context)
                 .pushReplacementNamed(MainNavigationRoutes.auth);
@@ -133,8 +132,8 @@ class _DeleteProfileButton extends StatelessWidget {
       height: 60,
       child: ElevatedButton(
           onPressed: () {
-            FirebaseService().deleteProfile();
-            FirebaseService().logOut();
+            AuthFirebaseService().deleteProfile();
+            AuthFirebaseService().logOut();
 
             Navigator.of(context)
                 .pushReplacementNamed(MainNavigationRoutes.auth);

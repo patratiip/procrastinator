@@ -22,9 +22,9 @@ class HeutigeUnterrichtWidget extends StatelessWidget {
                 'Heutige Lektion',
                 style: Theme.of(context).textTheme.titleMedium,
               ),
-              LessonCardComponent(
-                entryData: _lesson,
-              ),
+              // LessonCardComponent(
+              //   entryData: _lesson,
+              // ),
             ],
           ),
         ),

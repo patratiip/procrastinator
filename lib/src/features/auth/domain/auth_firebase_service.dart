@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class FirebaseService {
-  static final FirebaseService _singleton = FirebaseService._internal();
+class AuthFirebaseService {
+  static final AuthFirebaseService _singleton = AuthFirebaseService._internal();
 
-  factory FirebaseService() => _singleton;
+  factory AuthFirebaseService() => _singleton;
 
-  FirebaseService._internal();
+  AuthFirebaseService._internal();
 
   final auth = FirebaseAuth.instance;
   final currentUser = FirebaseAuth.instance.currentUser;

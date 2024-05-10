@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/router/main_navigation.dart';
 
-import '../domain/firebase_service.dart';
+import '../domain/auth_firebase_service.dart';
 
 class PeterAuthModel extends ChangeNotifier {
-  final _firebaseClient = FirebaseService();
+  final _firebaseClient = AuthFirebaseService();
   final emailTextController = TextEditingController();
   final passTextController = TextEditingController();
   final nameTextController = TextEditingController();
@@ -29,13 +28,15 @@ class PeterAuthModel extends ChangeNotifier {
     _errorMessage = null;
     _isAuthInProgress = true;
     notifyListeners();
-    final sucsess = await _firebaseClient.onLogin(email: email, password: password);
+    final sucsess =
+        await _firebaseClient.onLogin(email: email, password: password);
 
     notifyListeners();
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       _errorMessage = _firebaseClient.error?.message;
       if (_errorMessage == null) {
-        Navigator.of(context).pushReplacementNamed(MainNavigationRoutes.mainScreen);
+        Navigator.of(context)
+            .pushReplacementNamed(MainNavigationRoutes.mainScreen);
       } else {
         _isAuthInProgress = false;
         notifyListeners();
@@ -64,7 +65,8 @@ class PeterAuthModel extends ChangeNotifier {
     Future.delayed(Duration(seconds: 1), () {
       _errorMessage = _firebaseClient.error?.message;
       if (_errorMessage == null) {
-        Navigator.of(context).pushReplacementNamed(MainNavigationRoutes.mainScreen);
+        Navigator.of(context)
+            .pushReplacementNamed(MainNavigationRoutes.mainScreen);
       } else {
         _isAuthInProgress = false;
         notifyListeners();
@@ -85,7 +87,7 @@ class PeterAuthModel extends ChangeNotifier {
     _isAuthInProgress = true;
     notifyListeners();
     await _firebaseClient.onPasswordReseting(email: email);
-    Future.delayed(Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 1), () {
       _errorMessage = _firebaseClient.error?.message;
       _isAuthInProgress = false;
       notifyListeners();

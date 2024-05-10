@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:procrastinator/old_files/fake_data/user_fake_data/user_fake_data.dart';
 
-import '../1_anmeldung_page_home/last_entrys_list_widget/last_entrys_list_widget.dart';
+import '../1_anmeldung_page_home/last_entrys_list_widget/presentation/last_entrys_list_widget.dart';
 import 'unactual_widgets/statistic_circle_widget.dart';
 import 'actual_statistic_circle_widget.dart';
 import 'unactual_widgets/statistic_circle_widget_new.dart';

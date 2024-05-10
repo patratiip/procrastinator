@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/auth/domain/firebase_service.dart';
+import 'package:procrastinator/src/features/auth/domain/auth_firebase_service.dart';
 
 import '../../features/auth/data/auth_model_peter.dart';
 import '../../features/auth/presentation/auth_screen_peter.dart';

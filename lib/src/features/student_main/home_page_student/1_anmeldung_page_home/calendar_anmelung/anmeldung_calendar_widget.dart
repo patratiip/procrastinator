@@ -34,17 +34,6 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
     const DropdownMenuEntry(label: 'Fehl', value: 3),
   ];
 
-  // void _changeCalendarFormat() {
-  //   setState(() {
-  //     if (formatOfCalendar == CalendarFormat.week) {
-  //       formatOfCalendar = CalendarFormat.month;
-  //     } else if (formatOfCalendar == CalendarFormat.month) {
-  //       formatOfCalendar = CalendarFormat.week;
-  //     }
-  //   });
-  //   print(formatOfCalendar.toString());
-  // }
-
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
       today = day;
@@ -81,6 +70,7 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
                 Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                ////////////////////CALENDAR/////////////////////////////
                 TableCalendar(
                   rowHeight: 66,
 
