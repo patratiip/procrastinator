@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/data/lection_model.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/heutige_unterricht_widget/data/today_lection_model.dart';
 
 final currentUser = FirebaseAuth.instance.currentUser!.uid;
 
-class LectionFirestoreRepository {
-  final CollectionReference _lectionsCollectionRef =
+class TodayLectionFirestoreRepository {
+  final CollectionReference _lectionsCollection =
       FirebaseFirestore.instance.collection('kursplan_flutter')
       // FirebaseFirestore.instance.collection('kursplan_flutter')
 
@@ -16,12 +16,12 @@ class LectionFirestoreRepository {
       // .collection('userVisits')
       ;
 
-  Stream<List<Lection>> getLections() {
-    return _lectionsCollectionRef.snapshots().map((snapshot) {
+  Stream<List<TodayLection>> getTodayLection() {
+    return _lectionsCollection.snapshots().map((snapshot) {
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         print('$data loaded');
-        return Lection(
+        return TodayLection(
           theme: data['teme'],
           date: (data['date'] as Timestamp).toDate(),
           // user: (data?['user'] as DocumentReference).toString(),

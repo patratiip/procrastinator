@@ -11,5 +11,5 @@ In future development plans, there’s consideration for adding separate logins 
 Project Development Plan:
 
     1.	Firestore integration: Connect to Firestore. ✅
-    2.	Bloc management: Implement blocs.
+    2.	Bloc management: Implement blocs. ✅
     3.	Architecture improvement: Optimize architecture.
