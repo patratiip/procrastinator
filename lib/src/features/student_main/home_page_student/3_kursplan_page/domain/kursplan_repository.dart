@@ -15,12 +15,19 @@ class LectionFirestoreRepository {
       // .doc(currentUser)
       // .collection('userVisits')
       ;
+  final _today = DateTime.now();
 
   Stream<List<Lection>> getLections() {
-    return _lectionsCollectionRef.snapshots().map((snapshot) {
+    final Timestamp _now =
+        Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
+    return _lectionsCollectionRef
+        .where('date', isGreaterThanOrEqualTo: _now)
+        .orderBy('date', descending: false)
+        .snapshots()
+        .map((snapshot) {
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        print('$data loaded');
+        // print('$data loaded');
         return Lection(
           theme: data['teme'],
           date: (data['date'] as Timestamp).toDate(),

@@ -44,7 +44,7 @@ class _HeutigeUnterrichtWidgetState extends State<HeutigeUnterrichtWidget> {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     TodayLessonCardComponent(
-                      entryData: state.lectionsList.first,
+                      entryData: state.todayLection!,
                     ),
                   ],
                 ),
@@ -54,8 +54,8 @@ class _HeutigeUnterrichtWidgetState extends State<HeutigeUnterrichtWidget> {
         } else {
           return const Center(
               child: SizedBox(
-            height: 100,
-            width: 100,
+            height: 40,
+            width: 40,
             child: CircularProgressIndicator(
               color: MyAppColorScheme.primary,
             ),

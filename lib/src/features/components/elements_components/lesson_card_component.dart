@@ -44,10 +44,13 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
                       borderRadius: BorderRadius.circular(8)),
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
-                    Text(
-                      entryData.theme!,
-                      style: const TextStyle(color: Colors.white),
-                      maxLines: 1,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        entryData.theme!,
+                        style: const TextStyle(color: Colors.white),
+                        maxLines: 1,
+                      ),
                     )
                   ])),
             ),

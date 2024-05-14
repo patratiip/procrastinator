@@ -15,22 +15,48 @@ class TodayLectionFirestoreRepository {
       // .doc(currentUser)
       // .collection('userVisits')
       ;
+  final _today = DateTime.now();
+  // final Timestamp _now = Timestamp.fromDate(DateTime.now());
 
-  Stream<List<TodayLection>> getTodayLection() {
-    return _lectionsCollection.snapshots().map((snapshot) {
-      return snapshot.docs.map((doc) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        print('$data loaded');
-        return TodayLection(
-          theme: data['teme'],
-          date: (data['date'] as Timestamp).toDate(),
-          // user: (data?['user'] as DocumentReference).toString(),
-          trainer: data['trainer'],
-          dayOfWeek: data['day'],
-        );
-      }).toList();
-    });
+  Future<TodayLection?> getTodayLection() async {
+    final Timestamp now =
+        Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
+
+    final todayQuery =
+        await _lectionsCollection.where('date', isEqualTo: now).get();
+    Map<String, dynamic> data =
+        todayQuery.docs.first.data() as Map<String, dynamic>;
+    // print('$data loaded');
+    return TodayLection(
+      theme: data['teme'],
+      date: (data['date'] as Timestamp).toDate(),
+      // user: (data?['user'] as DocumentReference).toString(),
+      trainer: data['trainer'],
+      dayOfWeek: data['day'],
+    );
   }
+
+  // Stream<List<TodayLection>> getTodayLectionStream() {
+  //   final Timestamp _now =
+  //       Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
+  //   print(_now);
+  //   return _lectionsCollection
+  //       .where('date', isEqualTo: _now)
+  //       .snapshots()
+  //       .map((snapshot) {
+  //     return snapshot.docs.map((doc) {
+  //       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+  //       print('$data loaded');
+  //       return TodayLection(
+  //         theme: data['teme'],
+  //         date: (data['date'] as Timestamp).toDate(),
+  //         // user: (data?['user'] as DocumentReference).toString(),
+  //         trainer: data['trainer'],
+  //         dayOfWeek: data['day'],
+  //       );
+  //     }).toList();
+  //   });
+  // }
 
   // Future<void> addVisit(UserVisit visit) {
   //   return _userVisits.add({

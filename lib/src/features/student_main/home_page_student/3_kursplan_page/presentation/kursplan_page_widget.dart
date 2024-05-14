@@ -77,8 +77,8 @@ class _KursplanPageWidgetState extends State<KursplanPageWidget> {
                     } else if (state is LectionsListLoading) {
                       return const Center(
                           child: SizedBox(
-                        height: 100,
-                        width: 100,
+                        height: 40,
+                        width: 40,
                         child: CircularProgressIndicator(
                           color: MyAppColorScheme.primary,
                         ),

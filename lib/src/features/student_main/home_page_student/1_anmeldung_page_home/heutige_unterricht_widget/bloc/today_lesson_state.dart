@@ -16,13 +16,13 @@ final class TodayLectionLoading extends TodayLessonState {
 }
 
 final class TodayLectionLoaded extends TodayLessonState {
-  final List<TodayLection> lectionsList;
+  final TodayLection? todayLection;
 
-  TodayLectionLoaded({required this.lectionsList});
+  TodayLectionLoaded({required this.todayLection});
 
   @override
   // TODO: implement props
-  List<Object?> get props => [lectionsList];
+  List<Object?> get props => [todayLection];
 }
 
 final class TodayLectionFailure extends TodayLessonState {

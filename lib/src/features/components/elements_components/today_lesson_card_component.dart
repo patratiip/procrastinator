@@ -11,7 +11,8 @@ class TodayLessonCardComponent extends StatefulWidget {
   const TodayLessonCardComponent({super.key, required this.entryData});
 
   @override
-  State<TodayLessonCardComponent> createState() => _TodayLessonCardComponentState();
+  State<TodayLessonCardComponent> createState() =>
+      _TodayLessonCardComponentState();
 }
 
 class _TodayLessonCardComponentState extends State<TodayLessonCardComponent> {
@@ -44,10 +45,13 @@ class _TodayLessonCardComponentState extends State<TodayLessonCardComponent> {
                       borderRadius: BorderRadius.circular(8)),
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
-                    Text(
-                      entryData.theme!,
-                      style: const TextStyle(color: Colors.white),
-                      maxLines: 1,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        entryData.theme!,
+                        style: const TextStyle(color: Colors.white),
+                        maxLines: 1,
+                      ),
                     )
                   ])),
             ),

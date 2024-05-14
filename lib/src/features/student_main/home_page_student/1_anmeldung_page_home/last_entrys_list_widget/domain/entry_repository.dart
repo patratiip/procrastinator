@@ -12,10 +12,13 @@ class EntryFirestoreRepository {
       .collection('userVisits');
 
   Stream<List<UserVisit>> getVisits() {
-    return _userVisits.snapshots().map((snapshot) {
+    return _userVisits
+        .orderBy('date', descending: true)
+        .snapshots()
+        .map((snapshot) {
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        print('$data loaded');
+        // print('$data loaded');
         return UserVisit(
           // visitID: data?['visitID'],
           visitID: doc.id,
