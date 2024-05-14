@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 import '../data/last_entry_model.dart';
 import '../domain/entry_repository.dart';
@@ -15,7 +13,6 @@ class LastEntrysListBloc
   LastEntrysListBloc(this._firestoreService) : super(LastEntrysListInitial()) {
     on<LoadLastEntrys>((event, emit) async {
       emit(LastEntrysListLoading());
-      Future.delayed(const Duration(seconds: 15));
       try {
         final visits = await _firestoreService.getVisits().first;
         emit(LastEntrysListLoaded(userVisits: visits));

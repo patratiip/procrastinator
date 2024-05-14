@@ -21,7 +21,7 @@ class LectionFirestoreRepository {
     final Timestamp _now =
         Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
     return _lectionsCollectionRef
-        .where('date', isGreaterThanOrEqualTo: _now)
+        .where('date', isGreaterThan: _now)
         .orderBy('date', descending: false)
         .snapshots()
         .map((snapshot) {

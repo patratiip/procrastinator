@@ -15,25 +15,31 @@ class TodayLectionFirestoreRepository {
       // .doc(currentUser)
       // .collection('userVisits')
       ;
-  final _today = DateTime.now();
-  // final Timestamp _now = Timestamp.fromDate(DateTime.now());
+  final _now = DateTime.now();
+  //Testing No Lections
+  // final _now = DateTime(2024, 02, 22);
 
-  Future<TodayLection?> getTodayLection() async {
-    final Timestamp now =
-        Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
+  Future getTodayLection() async {
+    final Timestamp today =
+        Timestamp.fromDate(DateTime(_now.year, _now.month, _now.day));
 
-    final todayQuery =
-        await _lectionsCollection.where('date', isEqualTo: now).get();
-    Map<String, dynamic> data =
-        todayQuery.docs.first.data() as Map<String, dynamic>;
-    // print('$data loaded');
-    return TodayLection(
-      theme: data['teme'],
-      date: (data['date'] as Timestamp).toDate(),
-      // user: (data?['user'] as DocumentReference).toString(),
-      trainer: data['trainer'],
-      dayOfWeek: data['day'],
-    );
+    try {
+      final todayQuery =
+          await _lectionsCollection.where('date', isEqualTo: today).get();
+      Map<String, dynamic> data =
+          todayQuery.docs.first.data() as Map<String, dynamic>;
+      // print('$data loaded');
+      return TodayLection(
+        theme: data['teme'],
+        date: (data['date'] as Timestamp).toDate(),
+        // user: (data?['user'] as DocumentReference).toString(),
+        trainer: data['trainer'],
+        dayOfWeek: data['day'],
+      );
+    } catch (e) {
+      print(e.toString());
+      return e;
+    }
   }
 
   // Stream<List<TodayLection>> getTodayLectionStream() {
