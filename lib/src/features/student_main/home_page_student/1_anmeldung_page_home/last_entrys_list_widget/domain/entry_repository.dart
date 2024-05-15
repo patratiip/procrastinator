@@ -14,6 +14,7 @@ class EntryFirestoreRepository {
   Stream<List<UserVisit>> getVisits() {
     return _userVisits
         .orderBy('date', descending: true)
+        .limit(5)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {

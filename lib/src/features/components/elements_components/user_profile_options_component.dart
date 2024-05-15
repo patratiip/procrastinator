@@ -63,17 +63,17 @@ class _UserProfilePageOptionsCardComponentState
                             border: Border.all(
                                 width: 1, color: MyAppColorScheme.secondary),
                             borderRadius: BorderRadius.circular(8)),
-                        child: Stack(
+                        child: const Stack(
                             alignment: AlignmentDirectional.center,
                             children: [
                               Text(
                                 'new',
-                                style: const TextStyle(color: Colors.white),
+                                style: TextStyle(color: Colors.white),
                                 maxLines: 1,
                               )
                             ])),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.chevron_right_rounded,
                     size: 40,
                   ),

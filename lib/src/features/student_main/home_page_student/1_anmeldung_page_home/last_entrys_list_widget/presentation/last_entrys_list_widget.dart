@@ -41,7 +41,7 @@ class _LastEntrysListWidgetState extends State<LastEntrysListWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Letzte Anmeldungen',
+                        'Letzte 5 Anmeldungen',
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       ListView.builder(

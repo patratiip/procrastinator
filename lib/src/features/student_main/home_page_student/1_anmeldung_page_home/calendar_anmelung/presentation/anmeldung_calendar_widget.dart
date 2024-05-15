@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -10,9 +9,10 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/calendar_anmelung/bloc/calendar_anmeldung_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/calendar_anmelung/data/add_entry_model.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/calendar_anmelung/domain/add_entry_repository.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/domain/entry_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../../../../../old_files/fake_data/anmeldungen_fake_data/anmeldungen_fake.dart';
 import '../../../../../../core/styles/color_scheme_my.dart';
 
 class CalendarAnmeldungWidget extends StatefulWidget {
@@ -26,6 +26,7 @@ class CalendarAnmeldungWidget extends StatefulWidget {
 class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
   final _block =
       CalendarAnmeldungBloc(GetIt.I<CalenarEntryFirestoreRepository>());
+  final _entrysBlock = LastEntrysListBloc(GetIt.I<EntryFirestoreRepository>());
 
   DateTime today = DateTime.now();
   DateTime usersDay = DateTime.now();
@@ -58,13 +59,6 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
   }
 
   void _anmeldenButtonAction() {
-    // print(fakePittyAnmeldungen.length);
-    // fakePittyAnmeldungen.add(
-    //   AnmeldungEntry(type: _dDText, date: today, userRef: 'fdviaudvainvaibv'),
-    // );
-    // print(fakePittyAnmeldungen.length);
-
-    //
     _visitModel.date = today;
     if (_dDText == 'Schule') {
       _visitModel.schoolVisit = true;
@@ -75,9 +69,9 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
     } else if (_dDText == 'Fehl') {
       _visitModel.fehl = true;
     }
+    //Blocks
     _block.add(AddEntry(newEntry: _visitModel));
-
-    print(_visitModel.date);
+    _entrysBlock.add(LoadLastEntrys());
   }
 
   @override
@@ -235,7 +229,7 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
                         shape: MaterialStatePropertyAll(OutlinedBorder.lerp(
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12)),
-                            RoundedRectangleBorder(),
+                            const RoundedRectangleBorder(),
                             0.1))),
                     onSelected: (value) {
                       setState(() {
@@ -244,12 +238,15 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
                     },
                   ),
                 ),
+
                 //Button
                 Container(
                   width: double.infinity,
                   height: 60,
                   child: ElevatedButton(
                       style: const ButtonStyle(
+                          backgroundColor: MaterialStatePropertyAll(
+                              MyAppColorScheme.primary),
                           shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(

@@ -12,13 +12,20 @@ class CalenarEntryFirestoreRepository {
       .collection('userVisits');
 
   Future<void> addVisit(AddVisitModel visit) {
-    return _userVisits.add({
-      'date': Timestamp.fromDate(visit.date!),
-      'schoolVisit': visit.schoolVisit,
-      'homeOffice': visit.homeOffice,
-      'Krank': visit.krank,
-      'Fehl': visit.fehl
-    });
+    String type = '';
+
+    if (visit.schoolVisit == true) {
+      type = 'schoolVisit';
+    } else if (visit.homeOffice == true) {
+      type = 'homeOffice';
+    } else if (visit.fehl == true) {
+      type = 'Fehl';
+    } else if (visit.krank == true) {
+      type = 'Krank';
+    }
+
+    return _userVisits
+        .add({'date': Timestamp.fromDate(visit.date!), type: true});
   }
 
   // Stream<List<UserVisit>> getVisits() {
