@@ -10,7 +10,7 @@ import 'package:procrastinator/src/features/student_main/home_page_student/1_anm
 import '../../../core/styles/color_scheme_my.dart';
 
 class EntrysCardComponent extends StatelessWidget {
-  final UserVisit visitData;
+  final Entry visitData;
   EntrysCardComponent({super.key, required this.visitData});
 
   var dateFormat = DateFormat('dd.MM.yy');

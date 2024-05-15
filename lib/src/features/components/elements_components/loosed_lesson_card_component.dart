@@ -2,13 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import '../../auth/domain/auth_firebase_service.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/data/lection_model.dart';
 import '../../../shared/resources/resources.dart';
-import '../../../../old_files/fake_data/kursplan_fake_data/kursplan_fake.dart';
 import '../../../core/styles/color_scheme_my.dart';
 
 class LoosedLessonCardComponent extends StatefulWidget {
-  final KursplanEntry lessonData;
+  final Lection lessonData;
   const LoosedLessonCardComponent({super.key, required this.lessonData});
 
   @override
@@ -58,7 +57,7 @@ class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(
-                      lessonData.theme,
+                      lessonData.theme!,
                       style: const TextStyle(color: Colors.white),
                       maxLines: 1,
                     )
@@ -82,7 +81,7 @@ class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
                 ),
               ),
             ),
-            Text(dateFormat.format(lessonData.date)),
+            Text(dateFormat.format(lessonData.date!)),
             IconButton(
                 onPressed: addEntry,
                 icon: const Icon(

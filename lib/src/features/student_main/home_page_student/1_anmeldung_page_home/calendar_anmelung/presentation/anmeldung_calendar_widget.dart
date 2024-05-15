@@ -31,7 +31,7 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
   DateTime today = DateTime.now();
   DateTime usersDay = DateTime.now();
   String _dDText = '';
-  AddVisitModel _visitModel = AddVisitModel();
+  final AddVisitModel _visitModel = AddVisitModel();
 
   CalendarFormat formatOfCalendar = CalendarFormat.week;
 
@@ -44,13 +44,6 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
     const DropdownMenuEntry(label: 'Krank', value: 2),
     const DropdownMenuEntry(label: 'Fehl', value: 3),
   ];
-
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
 
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
@@ -194,8 +187,8 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
 
                 //Drop
                 Container(
-                  margin:
-                      EdgeInsets.only(top: 12, bottom: 22, left: 8, right: 8),
+                  margin: const EdgeInsets.only(
+                      top: 12, bottom: 22, left: 8, right: 8),
 
                   // width: double.infinity,
                   child: DropdownMenu(

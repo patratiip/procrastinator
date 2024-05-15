@@ -15,7 +15,7 @@ final class LastEntrysListLoading extends LastEntrysListState {
 }
 
 final class LastEntrysListLoaded extends LastEntrysListState {
-  final List<UserVisit> userVisits;
+  final List<Entry> userVisits;
 
   LastEntrysListLoaded({required this.userVisits});
 

@@ -10,7 +10,6 @@ import 'package:procrastinator/src/features/student_main/home_page_student/3_kur
 
 import '../../../../../core/styles/color_scheme_my.dart';
 import '../../../../components/elements_components/lesson_card_component.dart';
-import '../../../../../../old_files/fake_data/kursplan_fake_data/kursplan_fake.dart';
 
 class KursplanPageWidget extends StatefulWidget {
   KursplanPageWidget({super.key});

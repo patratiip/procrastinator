@@ -17,11 +17,12 @@ class LastEntrysListWidget extends StatefulWidget {
 }
 
 class _LastEntrysListWidgetState extends State<LastEntrysListWidget> {
-  final _block = LastEntrysListBloc(GetIt.I<EntryFirestoreRepository>());
+  final _blockLastEntrys =
+      LastEntrysListBloc(GetIt.I<EntryFirestoreRepository>());
 
   @override
   void initState() {
-    _block.add(LoadLastEntrys());
+    _blockLastEntrys.add(LoadLastEntrys());
     super.initState();
   }
 
@@ -33,7 +34,7 @@ class _LastEntrysListWidgetState extends State<LastEntrysListWidget> {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 600),
           child: BlocBuilder<LastEntrysListBloc, LastEntrysListState>(
-            bloc: _block,
+            bloc: _blockLastEntrys,
             builder: (context, state) {
               if (state is LastEntrysListLoaded) {
                 return Center(
@@ -47,7 +48,7 @@ class _LastEntrysListWidgetState extends State<LastEntrysListWidget> {
                       ListView.builder(
                           primary: false,
                           shrinkWrap: true,
-                          itemCount: state.userVisits.length,
+                          itemCount: 5,
                           itemBuilder: (BuildContext context, int index) {
                             return EntrysCardComponent(
                               visitData: state.userVisits[index],

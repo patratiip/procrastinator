@@ -26,6 +26,7 @@ class LectionFirestoreRepository {
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {
+       
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         // print('$data loaded');
         return Lection(

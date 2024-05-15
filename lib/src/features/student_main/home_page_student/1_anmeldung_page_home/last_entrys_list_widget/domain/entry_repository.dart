@@ -11,25 +11,23 @@ class EntryFirestoreRepository {
       .doc(currentUser)
       .collection('userVisits');
 
-  Stream<List<UserVisit>> getVisits() {
+  Stream<List<Entry>> getVisits() {
     return _userVisits
         .orderBy('date', descending: true)
-        .limit(5)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         // print('$data loaded');
-        return UserVisit(
-          // visitID: data?['visitID'],
-          visitID: doc.id,
-          date: (data['date'] as Timestamp).toDate(),
-          // user: (data?['user'] as DocumentReference).toString(),
-          schoolVisit: data['schoolVisit'],
-          homeOffice: data['homeOffice'],
-          krank: data['Krank'],
-          fehl: data['Fehl'],
-        );
+        return Entry(
+            // visitID: data?['visitID'],
+            visitID: doc.id,
+            date: (data['date'] as Timestamp).toDate(),
+            // user: (data?['user'] as DocumentReference).toString(),
+            schoolVisit: data['schoolVisit'],
+            homeOffice: data['homeOffice'],
+            krank: data['Krank'],
+            fehl: data['Fehl']);
       }).toList();
     });
   }

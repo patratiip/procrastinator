@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,12 +20,11 @@ class StatisticCircle extends StatefulWidget {
 
 class _StatisticCircleState extends State<StatisticCircle> {
   final _blocStatistic = StatisticDiagrammBloc(GetIt.I<StatisticRepository>());
-  final user = userPitty;
+
   var percent = NumberFormat("##%");
 
-  var totalVisits = userPitty.userGroup.daysQty;
-  var userVisits = userPitty.userVisits;
-  // var homeOffice = userPitty.userVisits;
+////TO-DO Get Total visits qty from firebase, user - group
+  var totalVisits = 256;
 
   @override
   void initState() {
@@ -34,28 +32,11 @@ class _StatisticCircleState extends State<StatisticCircle> {
     super.initState();
   }
 
-  int? schoolVisitsQty() {
-    int qty = 0;
-    for (var element in userVisits!) {
-      if (element.type.contains('Schule')) {
-        qty++;
-      }
-    }
-    return qty;
-  }
-
-  int? homeOfficeQty() {
-    int qty = 0;
-    for (var element in userVisits!) {
-      if (element.type.contains('Heim')) {
-        qty++;
-      }
-    }
-    return qty;
-  }
-
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    String? userDisplayname = user?.displayName;
+
     return Center(
       child: Container(
         height: 500,
@@ -76,7 +57,7 @@ class _StatisticCircleState extends State<StatisticCircle> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        '${user.userName} Anmeldungen',
+                        '${userDisplayname} Anmeldungen',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
@@ -99,7 +80,7 @@ class _StatisticCircleState extends State<StatisticCircle> {
                             height: 220,
                             width: 220,
                             child: StatisticProgressDiagrammComponent(
-                              totalVisits: user.userGroup.daysQty,
+                              totalVisits: totalVisits,
                               schoolVisits: state.schoolVisitsCount,
                               homeOffice: state.homeOfficeCount,
                             ),
@@ -122,7 +103,7 @@ class _StatisticCircleState extends State<StatisticCircle> {
                                           .textTheme
                                           .bodyLarge),
                                   Text(
-                                    '${(percent.format(state.schoolVisitsCount! / user.userGroup.daysQty)).toString()} ',
+                                    '${(percent.format(state.schoolVisitsCount! / totalVisits)).toString()} ',
                                     style: const TextStyle(
                                         color: MyAppColorScheme.primary,
                                         fontSize: 32,
@@ -150,7 +131,7 @@ class _StatisticCircleState extends State<StatisticCircle> {
                                   ),
                                   Text(
                                     (percent.format(state.homeOfficeCount! /
-                                            user.userGroup.daysQty))
+                                            totalVisits))
                                         .toString(),
                                     style: const TextStyle(
                                         color: MyAppColorScheme.secondary,

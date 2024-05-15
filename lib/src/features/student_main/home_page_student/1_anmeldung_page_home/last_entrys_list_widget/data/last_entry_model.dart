@@ -1,4 +1,4 @@
-class UserVisit {
+class Entry {
   final String? visitID;
   final DateTime? date;
   final String? user;
@@ -7,7 +7,7 @@ class UserVisit {
   final bool? krank;
   final bool? fehl;
 
-  UserVisit(
+  Entry(
       {this.visitID,
       this.date,
       this.user,
