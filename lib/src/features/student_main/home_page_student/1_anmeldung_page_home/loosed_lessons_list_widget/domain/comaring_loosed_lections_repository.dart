@@ -14,7 +14,12 @@ class ComparingLectionsAndEntrysRepository {
     for (final kurs in kursplanQueryList) {
       bool found = false;
       for (final visit in visitsQueryList) {
-        if (visit.date == kurs.date) {
+        final DateTime visitDate =
+            DateTime(visit.date!.year, visit.date!.month, visit.date!.day);
+        final DateTime kursDate =
+            DateTime(kurs.date!.year, kurs.date!.month, kurs.date!.day);
+
+        if (visitDate == kursDate) {
           found = true;
           break;
         }
@@ -23,7 +28,6 @@ class ComparingLectionsAndEntrysRepository {
         fehlUnterrichtenList.add(kurs);
       }
     }
-    print(fehlUnterrichtenList);
     return fehlUnterrichtenList;
   }
 }

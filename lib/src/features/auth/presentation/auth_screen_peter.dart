@@ -58,15 +58,19 @@ class _HeaderWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25),
-              const Row(
-                children: [
-                  Text(
-                    'Hast du noch kein Profil?',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  _ChangeSignInModeButton(),
-                ],
-              ),
+
+              //
+              const SizedBox(height: 44),
+
+              // const Row(
+              //   children: [
+              //     Text(
+              //       'Hast du noch kein Profil?',
+              //       style: TextStyle(fontSize: 16),
+              //     ),
+              //     _ChangeSignInModeButton(),
+              //   ],
+              // ),
               const SizedBox(height: 25),
               const _AuthFormWidget()
             ],
@@ -77,31 +81,31 @@ class _HeaderWidget extends StatelessWidget {
   }
 }
 
-class _ChangeSignInModeButton extends StatefulWidget {
-  const _ChangeSignInModeButton({super.key});
+// class _ChangeSignInModeButton extends StatefulWidget {
+//   const _ChangeSignInModeButton({super.key});
 
-  @override
-  State<_ChangeSignInModeButton> createState() =>
-      _ChangeSignInModeButtonState();
-}
+//   @override
+//   State<_ChangeSignInModeButton> createState() =>
+//       _ChangeSignInModeButtonState();
+// }
 
-class _ChangeSignInModeButtonState extends State<_ChangeSignInModeButton> {
-  void _navigateTo() {
-    Navigator.of(context)
-        .pushReplacementNamed(MainNavigationRoutes.registration);
-  }
+// class _ChangeSignInModeButtonState extends State<_ChangeSignInModeButton> {
+//   void _navigateTo() {
+//     Navigator.of(context)
+//         .pushReplacementNamed(MainNavigationRoutes.registration);
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: _navigateTo,
-      child: const Text(
-        'Registrireren',
-        style: TextStyle(fontSize: 20),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextButton(
+//       onPressed: _navigateTo,
+//       child: const Text(
+//         'Registrireren',
+//         style: TextStyle(fontSize: 20),
+//       ),
+//     );
+//   }
+// }
 
 ////////////////
 ///

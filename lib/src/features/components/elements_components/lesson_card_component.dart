@@ -15,7 +15,7 @@ class LessonCardComponent extends StatefulWidget {
 }
 
 class _LessonCardComponentState extends State<LessonCardComponent> {
-  var dateFormat = DateFormat('dd.MM.yy');
+  final dateFormat = DateFormat('dd.MM.yy');
   // var percent = NumberFormat("##");
 
   @override

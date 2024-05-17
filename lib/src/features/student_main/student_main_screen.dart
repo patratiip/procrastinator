@@ -1,8 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../auth/domain/auth_firebase_service.dart';
 import 'home_page_student/1_anmeldung_page_home/anmeldung_page_widget.dart';
 import 'home_page_student/2_statistic_page/statistic_page_widget.dart';
 import 'home_page_student/3_kursplan_page/presentation/kursplan_page_widget.dart';

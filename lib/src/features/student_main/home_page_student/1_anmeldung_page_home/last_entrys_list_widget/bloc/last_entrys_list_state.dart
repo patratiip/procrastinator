@@ -4,14 +4,12 @@ abstract class LastEntrysListState extends Equatable {}
 
 final class LastEntrysListInitial extends LastEntrysListState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 final class LastEntrysListLoading extends LastEntrysListState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 final class LastEntrysListLoaded extends LastEntrysListState {
@@ -20,7 +18,6 @@ final class LastEntrysListLoaded extends LastEntrysListState {
   LastEntrysListLoaded({required this.userVisits});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [userVisits];
 }
 
@@ -29,6 +26,5 @@ final class LastEntrysListFailure extends LastEntrysListState {
 
   LastEntrysListFailure({required this.exception});
   @override
-  // TODO: implement props
   List<Object?> get props => [exception];
 }

@@ -16,6 +16,7 @@ class LastEntrysListBloc
       try {
         final visits = await _firestoreService.getVisits().first;
         emit(LastEntrysListLoaded(userVisits: visits));
+        print('loaded');
       } catch (e) {
         emit(LastEntrysListFailure(exception: 'Failure'));
       }
@@ -25,8 +26,6 @@ class LastEntrysListBloc
       (event, emit) async {
         emit(LastEntrysListLoading());
         await _firestoreService.deleteVisit(event.entryRef);
-
-        // Future.delayed(const Duration(seconds: 15));
         try {
           final visits = await _firestoreService.getVisits().first;
           emit(LastEntrysListLoaded(userVisits: visits));
@@ -36,6 +35,4 @@ class LastEntrysListBloc
       },
     );
   }
-  // final currentUser = FirebaseAuth.instance.currentUser;
-  // final db = FirebaseFirestore.instance;
 }

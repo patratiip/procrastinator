@@ -11,10 +11,11 @@ class KursplanBloc extends Bloc<KursplanEvent, KursplanState> {
   KursplanBloc(this._lectionsRepository) : super(KursplanInitial()) {
     on<LoadLections>((event, emit) async {
       emit(LectionsListLoading());
-      Future.delayed(const Duration(seconds: 15));
       try {
         final lections = await _lectionsRepository.getLections().first;
-        emit(LectionsListLoaded(lectionsList: lections));
+        final filteredLections =
+            lections.where((x) => x.date!.isAfter(DateTime.now())).toList();
+        emit(LectionsListLoaded(lectionsList: filteredLections));
       } catch (e) {
         emit(LectionsListFailure(exception: 'Failure'));
       }

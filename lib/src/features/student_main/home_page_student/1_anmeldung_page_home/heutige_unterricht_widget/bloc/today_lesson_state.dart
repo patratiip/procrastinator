@@ -11,8 +11,7 @@ final class TodayLessonInitial extends TodayLessonState {}
 
 final class TodayLectionLoading extends TodayLessonState {
   @override
-  // TODO: implement props
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [];
 }
 
 final class TodayLectionLoaded extends TodayLessonState {
@@ -21,7 +20,6 @@ final class TodayLectionLoaded extends TodayLessonState {
   TodayLectionLoaded({required this.todayLection});
 
   @override
-  // TODO: implement props
   List<Object?> get props => [todayLection];
 }
 
@@ -30,6 +28,5 @@ final class TodayLectionFailure extends TodayLessonState {
 
   TodayLectionFailure({required this.exception});
   @override
-  // TODO: implement props
   List<Object?> get props => [exception];
 }

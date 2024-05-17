@@ -7,4 +7,8 @@ sealed class LoosedEntrysEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ComairingLectionsAndVisits extends LoosedEntrysEvent {}
+class ComairingLectionsAndVisits extends LoosedEntrysEvent {
+  Completer? completer;
+
+  ComairingLectionsAndVisits( {this.completer});
+}

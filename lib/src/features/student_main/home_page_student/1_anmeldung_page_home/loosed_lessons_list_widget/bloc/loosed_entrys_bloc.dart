@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/domain/entry_repository.dart';
@@ -16,12 +18,26 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
       this._comaringRepository)
       : super(LoosedEntrysInitial()) {
     on<ComairingLectionsAndVisits>((event, emit) async {
-      emit(CompareEntrysState());
-      final entrys =  await _entrysRepository.getVisits().first;
-      final lections =  await _lectionsRepository.getLections().first;
-      final loosedLections = await _comaringRepository.comareLectionsAndEntrys(
-          kursplanQuery: lections, visitsQuery: entrys);
-      emit(ComaredEntrysState(loosedLectionsList: loosedLections));
+      try {
+        if (state is! ComaredEntrysState) {
+          emit(CompairingEntrysState());
+        }
+
+        final entrys = await _entrysRepository.getVisits().first;
+        final lections = await _lectionsRepository.getLections().first;
+        final filteredLections =
+            lections.where((x) => x.date!.isBefore(DateTime.now())).toList();
+        final loosedLections =
+            await _comaringRepository.comareLectionsAndEntrys(
+                kursplanQuery: filteredLections, visitsQuery: entrys);
+
+        emit(ComaredEntrysState(loosedLectionsList: loosedLections));
+        print('compared');
+      } catch (e) {
+        CompairingEntrysFailure(exception: e);
+      } finally {
+        event.completer?.complete();
+      }
     });
   }
 }

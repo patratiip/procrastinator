@@ -16,7 +16,7 @@ class LoosedLessonCardComponent extends StatefulWidget {
 }
 
 class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
-  var dateFormat = DateFormat('dd.MM.yy');
+  final dateFormat = DateFormat('dd.MM.yy');
 
   get lessonData {
     return widget.lessonData;

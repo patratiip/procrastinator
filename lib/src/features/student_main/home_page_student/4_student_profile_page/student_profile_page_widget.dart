@@ -78,7 +78,7 @@ class StudentProfilePageWidget extends StatelessWidget {
               const SizedBox(height: 32),
               _LogOutButton(),
               const SizedBox(height: 16),
-              _DeleteProfileButton(),
+              // _DeleteProfileButton(),
               const SizedBox(height: 44),
             ],
           ),
@@ -120,41 +120,41 @@ class _LogOutButton extends StatelessWidget {
   }
 }
 
-class _DeleteProfileButton extends StatelessWidget {
-  const _DeleteProfileButton({
-    super.key,
-  });
+// class _DeleteProfileButton extends StatelessWidget {
+//   const _DeleteProfileButton({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      constraints: const BoxConstraints(maxWidth: 600),
-      height: 60,
-      child: ElevatedButton(
-          onPressed: () {
-            AuthFirebaseService().deleteProfile();
-            AuthFirebaseService().logOut();
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       constraints: const BoxConstraints(maxWidth: 600),
+//       height: 60,
+//       child: ElevatedButton(
+//           onPressed: () {
+//             AuthFirebaseService().deleteProfile();
+//             AuthFirebaseService().logOut();
 
-            Navigator.of(context)
-                .pushReplacementNamed(MainNavigationRoutes.auth);
-          },
-          style: const ButtonStyle(
-              backgroundColor:
-                  MaterialStatePropertyAll(Color.fromARGB(255, 255, 137, 143))),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.delete_outline_rounded),
-              const SizedBox(width: 8),
-              Text(
-                'Profile löshen',
-                style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                      color: Colors.white,
-                      //fontWeight: FontWeight.w500
-                    ),
-              ),
-            ],
-          )),
-    );
-  }
-}
+//             Navigator.of(context)
+//                 .pushReplacementNamed(MainNavigationRoutes.auth);
+//           },
+//           style: const ButtonStyle(
+//               backgroundColor:
+//                   MaterialStatePropertyAll(Color.fromARGB(255, 255, 137, 143))),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             children: [
+//               const Icon(Icons.delete_outline_rounded),
+//               const SizedBox(width: 8),
+//               Text(
+//                 'Profile löshen',
+//                 style: Theme.of(context).textTheme.titleLarge!.copyWith(
+//                       color: Colors.white,
+//                       //fontWeight: FontWeight.w500
+//                     ),
+//               ),
+//             ],
+//           )),
+//     );
+//   }
+// }

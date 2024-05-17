@@ -1,4 +1,6 @@
-class Entry {
+import 'package:equatable/equatable.dart';
+
+class Entry extends Equatable {
   final String? visitID;
   final DateTime? date;
   final String? user;
@@ -15,6 +17,10 @@ class Entry {
       this.homeOffice,
       this.krank,
       this.fehl});
+
+  @override
+  List<Object?> get props =>
+      [visitID, date, user, schoolVisit, homeOffice, krank, fehl];
 
   // factory UserVisit.fromFirestore(
   //   DocumentSnapshot<Map<String, dynamic>> snapshot,

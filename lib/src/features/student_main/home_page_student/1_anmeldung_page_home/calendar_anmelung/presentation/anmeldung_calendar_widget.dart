@@ -91,6 +91,8 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
               children: [
                 ////////////////////CALENDAR/////////////////////////////
                 TableCalendar(
+                  availableGestures: AvailableGestures.horizontalSwipe,
+
                   rowHeight: 66,
 
                   ///HEADER Style

@@ -13,8 +13,9 @@ class TodayLessonBloc extends Bloc<TodayLessonEvent, TodayLessonState> {
       emit(TodayLectionLoading());
       Future.delayed(const Duration(seconds: 15));
       try {
-        final _todayLection = await _lectionsRepository.getTodayLection();
-        emit(TodayLectionLoaded(todayLection: _todayLection!));
+        final todayLection = await _lectionsRepository.getTodayLection();
+        emit(TodayLectionLoaded(todayLection: todayLection!));
+        print('heute loaded');
       } catch (e) {
         emit(TodayLectionFailure(exception: 'Failure'));
       }

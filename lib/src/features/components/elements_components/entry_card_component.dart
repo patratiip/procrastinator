@@ -9,11 +9,11 @@ import 'package:procrastinator/src/features/student_main/home_page_student/1_anm
 
 import '../../../core/styles/color_scheme_my.dart';
 
-class EntrysCardComponent extends StatelessWidget {
+class EntryCardComponent extends StatelessWidget {
   final Entry visitData;
-  EntrysCardComponent({super.key, required this.visitData});
+  EntryCardComponent({super.key, required this.visitData});
 
-  var dateFormat = DateFormat('dd.MM.yy');
+  final dateFormat = DateFormat('dd.MM.yy');
   final _block = LastEntrysListBloc(GetIt.I<EntryFirestoreRepository>());
 
   @override
@@ -38,7 +38,7 @@ class EntrysCardComponent extends StatelessWidget {
                   height: 44,
                   constraints: const BoxConstraints(maxWidth: 600),
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 150, 146, 249),
+                      color: const Color.fromARGB(255, 150, 146, 249),
                       border:
                           Border.all(width: 1, color: MyAppColorScheme.primary),
                       borderRadius: BorderRadius.circular(8)),
@@ -69,17 +69,15 @@ class EntrysCardComponent extends StatelessWidget {
                         size: 28,
                       ),
                   ])),
-              if (visitData.schoolVisit == true) Text('Schule'),
-              if (visitData.homeOffice == true) Text('Heim'),
-              if (visitData.krank == true) Text('Krank'),
-              if (visitData.fehl == true) Text('Fehl'),
+              if (visitData.schoolVisit == true) const Text('Schule'),
+              if (visitData.homeOffice == true) const Text('Heim'),
+              if (visitData.krank == true) const Text('Krank'),
+              if (visitData.fehl == true) const Text('Fehl'),
               Text(dateFormat.format(visitData.date!)),
               //Delete BUTTON
               IconButton(
                   onPressed: () {
                     _block.add(DeleteEntry(entryRef: visitData.visitID!));
-                    // GetIt.I<EntryFirestoreRepository>().deleteVisit(visitData.visitID!);
-                    // EntryFirestoreRepository().deleteVisit(visitData.visitID!);
                   },
                   icon: const Icon(Icons.delete_outline_outlined,
                       color: Colors.red)),

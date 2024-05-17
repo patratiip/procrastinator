@@ -21,12 +21,34 @@ class LectionFirestoreRepository {
     final Timestamp _now =
         Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
     return _lectionsCollectionRef
-        .where('date', isGreaterThan: _now)
+        // .where('date', isGreaterThan: _now)
         .orderBy('date', descending: false)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs.map((doc) {
-       
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        // print('$data loaded');
+        return Lection(
+          theme: data['teme'],
+          date: (data['date'] as Timestamp).toDate(),
+          // user: (data?['user'] as DocumentReference).toString(),
+          trainer: data['trainer'],
+          dayOfWeek: data['day'],
+        );
+      }).toList();
+    });
+  }
+
+
+   Stream<List<Lection>> getLectionsFor() {
+    final Timestamp _now =
+        Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
+    return _lectionsCollectionRef
+        // .where('date', isGreaterThan: _now)
+        .orderBy('date', descending: false)
+        .snapshots()
+        .map((snapshot) {
+      return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         // print('$data loaded');
         return Lection(

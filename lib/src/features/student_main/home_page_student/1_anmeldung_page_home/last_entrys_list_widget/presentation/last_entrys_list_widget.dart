@@ -7,7 +7,7 @@ import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/domain/entry_repository.dart';
 
-import '../../../../../components/elements_components/entrys_card_component.dart';
+import '../../../../../components/elements_components/entry_card_component.dart';
 
 class LastEntrysListWidget extends StatefulWidget {
   LastEntrysListWidget({super.key});
@@ -48,9 +48,9 @@ class _LastEntrysListWidgetState extends State<LastEntrysListWidget> {
                       ListView.builder(
                           primary: false,
                           shrinkWrap: true,
-                          itemCount: 5,
+                          itemCount: 15,
                           itemBuilder: (BuildContext context, int index) {
-                            return EntrysCardComponent(
+                            return EntryCardComponent(
                               visitData: state.userVisits[index],
                             );
                           })
@@ -67,17 +67,7 @@ class _LastEntrysListWidgetState extends State<LastEntrysListWidget> {
                   ),
                 ));
               } else {
-                // return const Center(
-                //     child: SizedBox(
-                //   height: 100,
-                //   width: 100,
-                //   child: CircularProgressIndicator(),
-                return Center(
-                    child: Container(
-                  height: 1000,
-                  width: 100,
-                  color: Colors.red,
-                ));
+                return const SizedBox();
               }
             },
           ),

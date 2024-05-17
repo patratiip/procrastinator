@@ -42,11 +42,8 @@ class _KursplanPageWidgetState extends State<KursplanPageWidget> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _lectionsListBloc.add(LoadLections());
     super.initState();
-    // _filteredLessons = _lessons;
-    // _searchController.addListener((_searchLessons));
   }
 
   @override
@@ -63,6 +60,7 @@ class _KursplanPageWidgetState extends State<KursplanPageWidget> {
                 padding: const EdgeInsets.only(right: 16, left: 16, bottom: 44),
                 primary: true,
                 children: [
+                  //
                   HeutigeUnterrichtWidget(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,17 +94,7 @@ class _KursplanPageWidgetState extends State<KursplanPageWidget> {
                                 ),
                               ));
                             } else {
-                              // return const Center(
-                              //     child: SizedBox(
-                              //   height: 100,
-                              //   width: 100,
-                              //   child: CircularProgressIndicator(),
-                              return Center(
-                                  child: Container(
-                                height: 1000,
-                                width: 100,
-                                color: Colors.red,
-                              ));
+                              return const SizedBox();
                             }
                           }),
                     ],
