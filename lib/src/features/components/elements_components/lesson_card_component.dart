@@ -22,6 +22,7 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
   Widget build(BuildContext context) {
     final entryData = widget.entryData;
     return Container(
+      height: 74,
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.symmetric(vertical: 8),
       constraints: const BoxConstraints(maxWidth: 600),

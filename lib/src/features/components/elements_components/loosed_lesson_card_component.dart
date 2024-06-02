@@ -31,6 +31,7 @@ class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
     var lessonData = widget.lessonData;
     return Container(
       ///////ON TAP???///////
+      height: 74,
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.symmetric(vertical: 8),
       //height: 300,

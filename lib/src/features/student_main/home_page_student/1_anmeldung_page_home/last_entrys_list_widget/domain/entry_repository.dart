@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../data/last_entry_model.dart';
 
@@ -10,6 +11,10 @@ class EntryFirestoreRepository {
       .collection('users_flutter')
       .doc(currentUser)
       .collection('userVisits');
+
+  final Box<Entry> entriesBox;
+
+  EntryFirestoreRepository(this.entriesBox);
 
   Stream<List<Entry>> getVisits() {
     return _userVisits
@@ -30,6 +35,15 @@ class EntryFirestoreRepository {
             fehl: data['Fehl']);
       }).toList();
     });
+  }
+
+  addEntrysToHive(List<Entry> entriesList) async {
+    await entriesBox.clear();
+    final entriesMap = {for (var e in entriesList) e.visitID: e};
+    await entriesBox.putAll(entriesMap);
+    final printEntries = entriesBox.values;
+    final printEntriesQty = entriesBox.values.length;
+    print('Repo: Hive Qty $printEntriesQty entries $printEntries');
   }
 
   // Future<void> addVisit(UserVisit visit) {

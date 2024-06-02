@@ -7,4 +7,8 @@ sealed class KursplanEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadLections extends KursplanEvent {}
+class LectionsListChangedEvent extends KursplanEvent {
+  final List<Lection>? lectionsList;
+
+  const LectionsListChangedEvent(this.lectionsList);
+}

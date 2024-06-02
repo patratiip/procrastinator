@@ -1,30 +1,33 @@
 part of 'last_entrys_list_bloc.dart';
 
-abstract class LastEntrysListState extends Equatable {}
-
-final class LastEntrysListInitial extends LastEntrysListState {
+abstract class EntrysListState extends Equatable {
   @override
   List<Object?> get props => [];
 }
 
-final class LastEntrysListLoading extends LastEntrysListState {
+final class EntrysListInitial extends EntrysListState {
   @override
   List<Object?> get props => [];
 }
 
-final class LastEntrysListLoaded extends LastEntrysListState {
-  final List<Entry> userVisits;
+final class EntrysListLoading extends EntrysListState {
+  @override
+  List<Object?> get props => [];
+}
 
-  LastEntrysListLoaded({required this.userVisits});
+final class EntrysListLoaded extends EntrysListState {
+  final List<Entry>? userVisits;
+
+  EntrysListLoaded({required this.userVisits});
 
   @override
   List<Object?> get props => [userVisits];
 }
 
-final class LastEntrysListFailure extends LastEntrysListState {
+final class EntrysListFailure extends EntrysListState {
   final String exception;
 
-  LastEntrysListFailure({required this.exception});
+  EntrysListFailure({required this.exception});
   @override
   List<Object?> get props => [exception];
 }

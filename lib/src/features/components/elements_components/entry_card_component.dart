@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/data/last_entry_model.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/domain/entry_repository.dart';
 
 import '../../../core/styles/color_scheme_my.dart';
 
@@ -14,13 +13,13 @@ class EntryCardComponent extends StatelessWidget {
   EntryCardComponent({super.key, required this.visitData});
 
   final dateFormat = DateFormat('dd.MM.yy');
-  final _block = LastEntrysListBloc(GetIt.I<EntryFirestoreRepository>());
 
   @override
   Widget build(BuildContext context) {
+    final _block = BlocProvider.of<LastEntrysListBloc>(context);
     return Center(
       child: Container(
-        // height: 100,
+        height: 74,
         // width: 600,
         padding: const EdgeInsets.all(12),
         margin: const EdgeInsets.symmetric(vertical: 8),

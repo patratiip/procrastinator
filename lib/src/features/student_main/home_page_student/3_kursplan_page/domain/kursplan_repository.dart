@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
 import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/data/lection_model.dart';
 
 final currentUser = FirebaseAuth.instance.currentUser!.uid;
@@ -15,7 +18,13 @@ class LectionFirestoreRepository {
       // .doc(currentUser)
       // .collection('userVisits')
       ;
+
   final _today = DateTime.now();
+
+  final Box<Lection> lectionsBox;
+  LectionFirestoreRepository(
+    this.lectionsBox,
+  );
 
   Stream<List<Lection>> getLections() {
     final Timestamp _now =
@@ -39,27 +48,18 @@ class LectionFirestoreRepository {
     });
   }
 
+  addLectionsToHive(List<Lection> lectionsList) async {
+    if (lectionsBox.isNotEmpty) {
+      await lectionsBox.clear();
+    }
 
-   Stream<List<Lection>> getLectionsFor() {
-    final Timestamp _now =
-        Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
-    return _lectionsCollectionRef
-        // .where('date', isGreaterThan: _now)
-        .orderBy('date', descending: false)
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs.map((doc) {
-        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-        // print('$data loaded');
-        return Lection(
-          theme: data['teme'],
-          date: (data['date'] as Timestamp).toDate(),
-          // user: (data?['user'] as DocumentReference).toString(),
-          trainer: data['trainer'],
-          dayOfWeek: data['day'],
-        );
-      }).toList();
-    });
+    final lectionsMap = {
+      for (var e in lectionsList) e.date!.toIso8601String(): e
+    };
+    await lectionsBox.putAll(lectionsMap);
+    final printLections = lectionsBox.values;
+    final printLectionsQty = lectionsBox.values.length;
+    print('Repo: Hive Qty $printLectionsQty lections $printLections');
   }
 
   // Future<void> addVisit(UserVisit visit) {

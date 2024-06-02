@@ -12,9 +12,8 @@ class CalendarAnmeldungBloc
   CalendarAnmeldungBloc(this._firestoreService)
       : super(CalendarAnmeldungInitial()) {
     on<AddEntry>((event, emit) async {
-      // TODO: implement event handler
       emit(AddingCalendarEntry());
-       await _firestoreService.addVisit(event.newEntry);
+      await _firestoreService.addVisit(event.newEntry);
 
       emit(AddedCalendarEntry());
     });

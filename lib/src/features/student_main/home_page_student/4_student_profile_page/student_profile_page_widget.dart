@@ -10,7 +10,7 @@ import '../../../../core/styles/color_scheme_my.dart';
 import '../../../components/elements_components/user_profile_options_component.dart';
 
 class StudentProfilePageWidget extends StatelessWidget {
-  StudentProfilePageWidget({super.key});
+  const StudentProfilePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,70 +19,72 @@ class StudentProfilePageWidget extends StatelessWidget {
     String? userEmail = user?.email;
 
     return Center(
-      child: ListView(
+      child: SingleChildScrollView(
         padding:
             const EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
         primary: true,
-        children: [
-          Center(
-            child: Container(
-              height: 160,
-              width: 160,
-              clipBehavior: Clip.hardEdge,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(Images.userPhoto),
-                  fit: BoxFit.cover,
+        child: Column(
+          children: [
+            Center(
+              child: Container(
+                height: 160,
+                width: 160,
+                clipBehavior: Clip.hardEdge,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(Images.userPhoto),
+                    fit: BoxFit.cover,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(32)),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(32)),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 24,
-              bottom: 24,
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 24,
+                bottom: 24,
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    userDisplayname ?? 'Name',
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  Text(userEmail ?? 'Name',
+                      style: Theme.of(context).textTheme.bodyLarge),
+                  Text('group', style: Theme.of(context).textTheme.bodyLarge),
+                ],
+              ),
             ),
-            child: Column(
+            Column(
               children: [
-                Text(
-                  userDisplayname ?? 'Name',
-                  style: Theme.of(context).textTheme.headlineMedium,
+                UserProfilePageOptionsCardComponent(
+                  title: 'Profile bearbeiten',
                 ),
-                Text(userEmail ?? 'Name',
-                    style: Theme.of(context).textTheme.bodyLarge),
-                Text('group', style: Theme.of(context).textTheme.bodyLarge),
+                UserProfilePageOptionsCardComponent(
+                  title: 'Krankmeldung',
+                ),
+                UserProfilePageOptionsCardComponent(
+                  title: 'Fehlmeldung',
+                ),
+                UserProfilePageOptionsCardComponent(
+                  title: 'Bug Report',
+                ),
+                UserProfilePageOptionsCardComponent(
+                  title: 'Unterlagen',
+                ),
+                UserProfilePageOptionsCardComponent(
+                  title: 'Kontakten',
+                ),
+                const SizedBox(height: 32),
+                _LogOutButton(),
+                const SizedBox(height: 16),
+                // _DeleteProfileButton(),
+                const SizedBox(height: 44),
               ],
             ),
-          ),
-          Column(
-            children: [
-              UserProfilePageOptionsCardComponent(
-                title: 'Profile bearbeiten',
-              ),
-              UserProfilePageOptionsCardComponent(
-                title: 'Krankmeldung',
-              ),
-              UserProfilePageOptionsCardComponent(
-                title: 'Fehlmeldung',
-              ),
-              UserProfilePageOptionsCardComponent(
-                title: 'Bug Report',
-              ),
-              UserProfilePageOptionsCardComponent(
-                title: 'Unterlagen',
-              ),
-              UserProfilePageOptionsCardComponent(
-                title: 'Kontakten',
-              ),
-              const SizedBox(height: 32),
-              _LogOutButton(),
-              const SizedBox(height: 16),
-              // _DeleteProfileButton(),
-              const SizedBox(height: 44),
-            ],
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

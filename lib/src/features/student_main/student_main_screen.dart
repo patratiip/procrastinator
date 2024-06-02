@@ -50,7 +50,7 @@ class _StudentMainScreenWidgetState extends State<StudentMainScreenWidget> {
       ),
       body: IndexedStack(
         index: _selectedTab,
-        children: [
+        children: const [
           AnmeldungPageWidget(),
           StatisticPageWidget(),
           KursplanPageWidget(),

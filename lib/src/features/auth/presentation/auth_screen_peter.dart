@@ -318,9 +318,8 @@ class _ResetPasswordButton extends StatelessWidget {
     final onPressed =
         model?.canUserAuth == true ? () => model?.resetPassword(context) : null;
     final buttonChild = model?.isAuthInProgress == true
-        ? const CircularProgressIndicator(
-            color: Colors.white,
-          )
+        ? const SizedBox()
+        // const CircularProgressIndicator(color: Colors.white)
         : Text(
             'Kennwort vergessen?',
             style: Theme.of(context).textTheme.titleSmall!.copyWith(

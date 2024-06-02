@@ -7,14 +7,15 @@ part 'statistic_diagramm_state.dart';
 
 class StatisticDiagrammBloc
     extends Bloc<StatisticDiagrammEvent, StatisticDiagrammState> {
-  final StatisticRepository _repository;
-  StatisticDiagrammBloc(this._repository) : super(StatisticDiagrammInitial()) {
+  final StatisticRepository _repositoryStatistic;
+  StatisticDiagrammBloc(this._repositoryStatistic)
+      : super(StatisticDiagrammInitial()) {
     on<LoadSchoolVisitsCount>((event, emit) async {
       emit(LoadingEntrysCountState());
-      final schoolVisits = await _repository.getSchoolVisitsQty();
-      final homeOffice = await _repository.getHomeOfficeQty();
-      final krank = await _repository.getKrankQty();
-      final fehl = await _repository.getFehlQty();
+      final schoolVisits = await _repositoryStatistic.getSchoolVisitsQty();
+      final homeOffice = await _repositoryStatistic.getHomeOfficeQty();
+      final krank = await _repositoryStatistic.getKrankQty();
+      final fehl = await _repositoryStatistic.getFehlQty();
 
       emit(LoadedEntrysCountState(
           schoolVisitsCount: schoolVisits,

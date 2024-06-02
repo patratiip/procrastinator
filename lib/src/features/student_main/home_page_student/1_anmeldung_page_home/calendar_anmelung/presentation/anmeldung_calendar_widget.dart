@@ -9,8 +9,6 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/calendar_anmelung/bloc/calendar_anmeldung_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/calendar_anmelung/data/add_entry_model.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/calendar_anmelung/domain/add_entry_repository.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/domain/entry_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../../../core/styles/color_scheme_my.dart';
@@ -26,7 +24,7 @@ class CalendarAnmeldungWidget extends StatefulWidget {
 class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
   final _block =
       CalendarAnmeldungBloc(GetIt.I<CalenarEntryFirestoreRepository>());
-  final _entrysBlock = LastEntrysListBloc(GetIt.I<EntryFirestoreRepository>());
+  // final _entrysBlock = LastEntrysListBloc();
 
   DateTime today = DateTime.now();
   DateTime usersDay = DateTime.now();
@@ -64,11 +62,12 @@ class _CalendarAnmeldungWidgetState extends State<CalendarAnmeldungWidget> {
     }
     //Blocks
     _block.add(AddEntry(newEntry: _visitModel));
-    _entrysBlock.add(LoadLastEntrys());
+    // _entrysBlock.add(LoadLastEntrys());
   }
 
   @override
   Widget build(BuildContext context) {
+    print('calendar');
     initializeDateFormatting('de_DE', null);
     initializeDateFormatting('ru', null);
 

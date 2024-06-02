@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/heutige_unterricht_widget/presentation/heutige_unterricht_widget.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/today_lesson_widget/presentation/today_lesson_widget.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/domain/kursplan_repository.dart';
 
@@ -12,7 +12,7 @@ import '../../../../../core/styles/color_scheme_my.dart';
 import '../../../../components/elements_components/lesson_card_component.dart';
 
 class KursplanPageWidget extends StatefulWidget {
-  KursplanPageWidget({super.key});
+  const KursplanPageWidget({super.key});
 
   @override
   State<KursplanPageWidget> createState() => _KursplanPageWidgetState();
@@ -20,7 +20,8 @@ class KursplanPageWidget extends StatefulWidget {
 
 class _KursplanPageWidgetState extends State<KursplanPageWidget> {
   var dateFormat = DateFormat('dd.MM.yy');
-  final _lectionsListBloc = KursplanBloc(GetIt.I<LectionFirestoreRepository>());
+  final _lectionsListBloc =
+      KursplanBloc(lectionsRepository: GetIt.I<LectionFirestoreRepository>());
 
   // final _lessons = fakeDataLessons;
 
@@ -42,7 +43,7 @@ class _KursplanPageWidgetState extends State<KursplanPageWidget> {
 
   @override
   void initState() {
-    _lectionsListBloc.add(LoadLections());
+    // _lectionsListBloc.add(LoadLections());
     super.initState();
   }
 
@@ -54,52 +55,54 @@ class _KursplanPageWidgetState extends State<KursplanPageWidget> {
         child: Stack(
           children: [
             Center(
-              child: ListView(
+              child: SingleChildScrollView(
                 keyboardDismissBehavior:
                     ScrollViewKeyboardDismissBehavior.onDrag,
                 padding: const EdgeInsets.only(right: 16, left: 16, bottom: 44),
                 primary: true,
-                children: [
-                  //
-                  HeutigeUnterrichtWidget(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Nächste',
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      BlocBuilder<KursplanBloc, KursplanState>(
-                          bloc: _lectionsListBloc,
-                          builder: (context, state) {
-                            if (state is LectionsListLoaded) {
-                              return ListView.builder(
-                                  primary: false,
-                                  shrinkWrap: true,
-                                  itemCount: state.lectionsList.length,
-                                  //itemExtent: 68,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    // final lesson = _filteredLessons[index];
-                                    return LessonCardComponent(
-                                        entryData: state.lectionsList[index]);
-                                  });
-                            } else if (state is LectionsListLoading) {
-                              return const Center(
-                                  child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child: CircularProgressIndicator(
-                                  color: MyAppColorScheme.primary,
-                                ),
-                              ));
-                            } else {
-                              return const SizedBox();
-                            }
-                          }),
-                    ],
-                  ),
-                ],
+                child: Column(
+                  children: [
+                    //
+                    const HeutigeUnterrichtWidget(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Nächste',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        BlocBuilder<KursplanBloc, KursplanState>(
+                            bloc: _lectionsListBloc,
+                            builder: (context, state) {
+                              if (state is LectionsListLoadedState) {
+                                return ListView.builder(
+                                    primary: false,
+                                    shrinkWrap: true,
+                                    itemCount: state.lectionsList.length,
+                                    //itemExtent: 68,
+                                    itemBuilder:
+                                        (BuildContext context, int index) {
+                                      // final lesson = _filteredLessons[index];
+                                      return LessonCardComponent(
+                                          entryData: state.lectionsList[index]);
+                                    });
+                              } else if (state is LectionsListLoadingState) {
+                                return const Center(
+                                    child: SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child: CircularProgressIndicator(
+                                    color: MyAppColorScheme.primary,
+                                  ),
+                                ));
+                              } else {
+                                return const SizedBox();
+                              }
+                            }),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             // Padding(

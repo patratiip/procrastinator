@@ -1,13 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/auth/domain/auth_firebase_service.dart';
 
 import '../../features/auth/data/auth_model_peter.dart';
 import '../../features/auth/presentation/auth_screen_peter.dart';
 import '../../features/auth/presentation/register_screeen_peter.dart';
 import '../../features/student_main/home_page_student/4_student_profile_page/profile_second_pages/profile_secondary_page.dart';
-import '../../features/student_main/home_page_student/4_student_profile_page/student_profile_page_widget.dart';
 import '../../features/student_main/student_main_screen.dart';
 
 abstract class MainNavigationRoutes {
@@ -27,11 +24,11 @@ class MainNavigation {
   final routes = <String, Widget Function(BuildContext)>{
     MainNavigationRoutes.auth: (context) => PeterAuthProvider(
           model: PeterAuthModel(),
-          child: SignInScreen(),
+          child: const SignInScreen(),
         ),
     MainNavigationRoutes.registration: (context) => PeterAuthProvider(
           model: PeterAuthModel(),
-          child: RegisterScreen(),
+          child: const RegisterScreen(),
         ),
     MainNavigationRoutes.mainScreen: (context) => StudentMainScreenWidget()
   };

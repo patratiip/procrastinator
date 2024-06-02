@@ -10,6 +10,7 @@ class NoLessonCardComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 74,
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.symmetric(vertical: 8),
       constraints: const BoxConstraints(maxWidth: 600),

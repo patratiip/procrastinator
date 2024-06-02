@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:procrastinator/main.dart';
-import 'package:procrastinator/src/features/app/data/procrastinator.dart';
+import 'package:procrastinator/src/features/app/presentation/procrastinator.dart';
 import 'package:procrastinator/src/features/app/data/procrastinator_model.dart';
 
 void main() {
