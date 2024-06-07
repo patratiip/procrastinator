@@ -15,14 +15,16 @@ class HeutigeUnterrichtWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     print('heut');
     return BlocProvider(
-      create: (context) => TodayLessonBloc(lectionsRepository: GetIt.I<TodayLectionFirestoreRepository>())..add(LoadTodayLection()),
+      create: (context) => TodayLessonBloc(
+          lectionsRepository: GetIt.I<TodayLectionFirestoreRepository>())
+        ..add(LoadTodayLection()),
       child: BlocBuilder<TodayLessonBloc, TodayLessonState>(
         builder: (context, state) {
           if (state is TodayLectionLoaded) {
             return SingleChildScrollView(
               child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 24, bottom: 24),
+                  padding: const EdgeInsets.only(top: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

@@ -8,7 +8,7 @@ sealed class CalendarAnmeldungEvent extends Equatable {
 }
 
 final class AddEntry extends CalendarAnmeldungEvent{
-  final AddVisitModel newEntry;
+  final Entry newEntry;
 
   const AddEntry({required this.newEntry});
 }

@@ -1,27 +1,26 @@
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-part 'last_entry_model.g.dart';
+// part 'last_entry_model.g.dart';
 
+// @HiveType(typeId: 2)
+class LastEntry extends Equatable {
+  // @HiveField(0)
+  String? visitID;
+  // @HiveField(1)
+  DateTime? date;
+  // @HiveField(2)
+  String? user;
+  // @HiveField(3)
+  bool? schoolVisit;
+  // @HiveField(4)
+  bool? homeOffice;
+  // @HiveField(5)
+  bool? krank;
+  // @HiveField(6)
+  bool? fehl;
 
-@HiveType(typeId: 2)
-class Entry extends Equatable {
-  @HiveField(0)
-  final String? visitID;
-  @HiveField(1)
-  final DateTime? date;
-  @HiveField(2)
-  final String? user;
-  @HiveField(3)
-  final bool? schoolVisit;
-  @HiveField(4)
-  final bool? homeOffice;
-  @HiveField(5)
-  final bool? krank;
-  @HiveField(6)
-  final bool? fehl;
-
-  const Entry(
+  LastEntry(
       {this.visitID,
       this.date,
       this.user,

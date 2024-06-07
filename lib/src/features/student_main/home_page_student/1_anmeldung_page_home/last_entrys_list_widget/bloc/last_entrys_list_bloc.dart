@@ -1,35 +1,50 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
+import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
-import '../data/last_entry_model.dart';
-import '../domain/entry_repository.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 
 part 'last_entrys_list_event.dart';
 part 'last_entrys_list_state.dart';
 
 class LastEntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
-  final EntryFirestoreRepository _entrysRepository;
+  final EntryRepositoty _entriesRepository;
   late final StreamSubscription<List<Entry>?> _entrysListListener;
 
   LastEntrysListBloc({required entrysRepository})
-      : _entrysRepository = entrysRepository,
+      : _entriesRepository = entrysRepository,
         super(EntrysListInitial()) {
     //Subscription
-    _entrysListListener = _entrysRepository.getVisits().listen(
+    _entrysListListener = _entriesRepository.getVisits().listen(
       (entrysList) {
         add(EntrysListChangedEvent(entrysList));
+        // print('Entrys Stream Listener Bloc: $entrysList');
       },
       cancelOnError: false,
     );
 
+    // on<AddEntryToListEvent>(
+    //   (event, emit) async {
+    //     _entrysListListener.pause();
+
+    //     _entriesRepository.addEntryToHive(event.entry!);
+    //     final entriesList = await _entriesRepository.getEntriesFromHive();
+
+    //     emit(EntrysListLoaded(userVisits: entriesList));
+
+    //     print('Bloc: Entrys data was updated from HIVE ${entriesList}');
+    //     _entrysListListener.resume();
+    //   },
+    //   transformer: sequential(),
+    // );
+
     on<EntrysListChangedEvent>(
       (event, emit) {
         if (event.entriesList != null) {
-          final entriesList = event.entriesList!;
-          _entrysRepository.addEntrysToHive(entriesList);
+          final entriesList = event.entriesList;
+
+          // _entriesRepository.addEntriesToHive(entriesList);
 
           emit(EntrysListLoaded(userVisits: entriesList));
 
@@ -57,7 +72,7 @@ class LastEntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
       (event, emit) async {
         emit(EntrysListLoading());
 
-        entrysRepository.deleteVisit(event.entryRef);
+        _entriesRepository.deleteEntry(event.entryRef);
 
         // try {
         //   final visits = await firestoreService.getVisits();

@@ -17,7 +17,7 @@ final class LectionsListLoadingState extends KursplanState {
 final class LectionsListLoadedState extends KursplanState {
   final List<Lection> lectionsList;
 
-  LectionsListLoadedState({required this.lectionsList});
+  const LectionsListLoadedState({required this.lectionsList});
 
   @override
   List<Object?> get props => [lectionsList];

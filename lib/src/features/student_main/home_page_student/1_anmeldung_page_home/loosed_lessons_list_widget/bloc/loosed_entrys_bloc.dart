@@ -25,31 +25,7 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
       : _comaringRepository = comaringRepository,
         super(LoosedEntrysInitial()) {
     //
-    //
-    // final _entriesBox = Hive.box('entrys_box');
-    // final _lectionsBox = Hive.box('lections_box');
 
-    // ///
-    // //Subscription HIVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // _entriesHiveStreamSubscription =
-    //     _comaringRepository.enriesBoxStream().listen(
-    //   (boxEvent) {
-    //     add(ComairingLectionsAndVisitsEvent());
-    //     print('entries Stream');
-    //   },
-    //   cancelOnError: false,
-    // );
-
-    // ///
-    // //Subscription HIVE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // _kursplanHiveStreamSubscription =
-    //     _comaringRepository.lectionsBoxStream().listen(
-    //   (boxEvent) {
-    //     add(ComairingLectionsAndVisitsEvent());
-    //     print('lections Stream');
-    //   },
-    //   cancelOnError: false,
-    // );
 
     //Subscription
     _entriesBloctreamSubscription = _entrysListBloc.stream.listen(
@@ -78,28 +54,32 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
     on<ComairingLectionsAndVisitsEvent>(
       (event, emit) async {
         emit(CompairingEntrysState());
-        try {
-          // final entries = event.entriesList;
-          // final lections = event.lectionsList;
-          // final filteredLections = lections!
-          //     .where((lection) => lection.date!.isBefore(DateTime.now()))
-          //     .toList();
 
-          final loosedLections =
-              await Future.delayed(const Duration(seconds: 1), () {
-            return _comaringRepository.comareLectionsAndEntrys();
-          });
-          // await _comaringRepository.comareLectionsAndEntrys();
+        // final entries = event.entriesList;
+        // final lections = event.lectionsList;
+        // final filteredLections = lections!
+        //     .where((lection) => lection.date!.isBefore(DateTime.now()))
+        //     .toList();
 
-          // Future.delayed(Duration(seconds: 5), () {
-          //   emit(ComaredEntrysState(loosedLectionsList: loosedLections));
-          //   print('Bloc: compared $loosedLections');
-          // });
+        final loosedLections =
+            await  _comaringRepository.comareLectionsAndEntrys();
+        
+        // await _comaringRepository.comareLectionsAndEntrys();
+
+        // Future.delayed(Duration(seconds: 5), () {
+        //   emit(ComaredEntrysState(loosedLectionsList: loosedLections));
+        //   print('Bloc: compared $loosedLections');
+        // });
+        if (loosedLections.isNotEmpty) {
           emit(ComaredEntrysState(loosedLectionsList: loosedLections));
           print('Bloc: compared $loosedLections');
-        } catch (e) {
-          CompairingEntrysFailure(exception: e);
+          // } catch (e) {
+          //   CompairingEntrysFailure(exception: e);
+          // }
+        } else {
+          emit(LoosedEntrysInitial());
         }
+
         // finally {
         //   event.completer?.complete();
         // }

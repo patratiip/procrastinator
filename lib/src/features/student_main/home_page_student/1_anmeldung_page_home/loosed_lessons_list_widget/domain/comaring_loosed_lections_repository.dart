@@ -1,33 +1,29 @@
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/data/last_entry_model.dart';
+import 'package:entry_repository/entry_repository.dart';
+import 'package:get_it/get_it.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/data/lection_model.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/domain/kursplan_repository.dart';
 
 class ComparingLectionsAndEntrysRepository {
-  final Box<Entry> entriesBox;
-  final Box<Lection> lectionsBox;
-
-  ComparingLectionsAndEntrysRepository(this.entriesBox, this.lectionsBox);
-
-  // Stream<BoxEvent> enriesBoxStream() {
-  //   return entriesBox.watch().timeout(const Duration(seconds: 5));
-  // }
-
-  // Stream<BoxEvent> lectionsBoxStream() {
-  //   return entriesBox.watch().timeout(const Duration(seconds: 5));
-  // }
+  final FirebaseEntryRepository _entryFirestoreRepository =
+      GetIt.I<FirebaseEntryRepository>();
+  final LectionFirestoreRepository _lectionFirestoreRepository =
+      GetIt.I<LectionFirestoreRepository>();
 
   //COMPAIRING
   Future<List<Lection>> comareLectionsAndEntrys() async {
-    List<Lection> kursplanQueryList = lectionsBox.values
-        .toList()
+    List<Lection>? _kursplanQueryList =
+        await _lectionFirestoreRepository.getLections().first;
+
+    final _filteredLectionsList = _kursplanQueryList
         .where((lection) => lection.date!.isBefore(DateTime.now()))
         .toList();
-    List<Entry> visitsQueryList = entriesBox.values.toList();
+    List<Entry>? visitsQueryList =
+        await _entryFirestoreRepository.getVisits().first;
 
     final List<Lection> fehlUnterrichtenList = [];
 
-    if (kursplanQueryList.isNotEmpty && visitsQueryList.isNotEmpty) {
-      for (final kurs in kursplanQueryList) {
+    if (_filteredLectionsList.isNotEmpty && visitsQueryList!.isNotEmpty) {
+      for (final kurs in _filteredLectionsList) {
         bool found = false;
         for (final visit in visitsQueryList) {
           final DateTime visitDate =

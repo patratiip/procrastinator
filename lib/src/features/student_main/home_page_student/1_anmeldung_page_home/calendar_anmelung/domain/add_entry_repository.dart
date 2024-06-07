@@ -5,7 +5,7 @@ import '../data/add_entry_model.dart';
 
 final currentUser = FirebaseAuth.instance.currentUser!.uid;
 
-class CalenarEntryFirestoreRepository {
+class CalendarEntryFirestoreRepository {
   final CollectionReference _userVisits = FirebaseFirestore.instance
       .collection('users_flutter')
       .doc(currentUser)

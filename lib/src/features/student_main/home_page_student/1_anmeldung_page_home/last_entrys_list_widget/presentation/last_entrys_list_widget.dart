@@ -1,10 +1,10 @@
+import 'package:entry_repository/entry_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/components/elements_components/entry_card_component.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/domain/entry_repository.dart';
 
 class LastEntrysListWidget extends StatelessWidget {
   const LastEntrysListWidget({super.key});
@@ -19,7 +19,7 @@ class LastEntrysListWidget extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 600),
           child: BlocProvider(
             create: (context) => LastEntrysListBloc(
-                entrysRepository: GetIt.I<EntryFirestoreRepository>())
+                entrysRepository: GetIt.I<FirebaseEntryRepository>())
             // ..add( LoadLastEntrysListChanged())
             ,
             child: BlocBuilder<LastEntrysListBloc, EntrysListState>(
@@ -47,7 +47,9 @@ class LastEntrysListWidget extends StatelessWidget {
                         ListView.builder(
                             primary: false,
                             shrinkWrap: true,
-                            itemCount: state.userVisits!.length,
+                            itemCount: state.userVisits!.length < 5
+                                ? state.userVisits!.length
+                                : 5,
                             itemBuilder: (BuildContext context, int index) {
                               return EntryCardComponent(
                                 visitData: state.userVisits![index],

@@ -32,7 +32,7 @@ class KursplanBloc extends Bloc<KursplanEvent, KursplanState> {
               .where((x) => x.date!.isAfter(DateTime.now()))
               .toList();
 
-          _lectionsRepository.addLectionsToHive(lectionsList);
+          // _lectionsRepository.addLectionsToHive(lectionsList);
 
           emit(LectionsListLoadedState(lectionsList: filteredLections));
 
