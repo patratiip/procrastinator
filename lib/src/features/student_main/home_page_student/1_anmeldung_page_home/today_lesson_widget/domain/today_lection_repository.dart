@@ -19,7 +19,7 @@ class TodayLectionFirestoreRepository {
   //Testing No Lections
   // final _now = DateTime(2024, 02, 22);
 
-  Future getTodayLection() async {
+  Future<TodayLection?> getTodayLection() async {
     final Timestamp today =
         Timestamp.fromDate(DateTime(_now.year, _now.month, _now.day));
 
@@ -38,7 +38,7 @@ class TodayLectionFirestoreRepository {
       );
     } catch (e) {
       print(e.toString());
-      return e;
+      return null;
     }
   }
 

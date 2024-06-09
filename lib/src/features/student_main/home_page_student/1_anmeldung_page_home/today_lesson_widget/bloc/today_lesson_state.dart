@@ -17,11 +17,13 @@ final class TodayLectionLoading extends TodayLessonState {
 final class TodayLectionLoaded extends TodayLessonState {
   final TodayLection? todayLection;
 
-  TodayLectionLoaded({required this.todayLection});
+  const TodayLectionLoaded({required this.todayLection});
 
   @override
   List<Object?> get props => [todayLection];
 }
+
+final class TodayLessonEmpty extends TodayLessonState {}
 
 final class TodayLectionFailure extends TodayLessonState {
   final String exception;
