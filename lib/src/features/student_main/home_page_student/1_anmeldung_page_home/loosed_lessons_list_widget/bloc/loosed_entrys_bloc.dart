@@ -13,10 +13,10 @@ part 'loosed_entrys_state.dart';
 
 class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
   final ComparingLectionsAndEntrysRepository _comaringRepository;
-  //
+  //Entries Bloc
   final LastEntrysListBloc _entrysListBloc;
   late final StreamSubscription _entriesBloctreamSubscription;
-  //
+  //Lessons Bloc
   final KursplanBloc _kursplanBloc;
   late final StreamSubscription _kursplanBlocStreamSubscription;
 
@@ -26,8 +26,7 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
         super(LoosedEntrysInitial()) {
     //
 
-
-    //Subscription
+    //Subscription - Entries Bloc
     _entriesBloctreamSubscription = _entrysListBloc.stream.listen(
       (state) {
         final kursplanBlocState = _kursplanBloc.state;
@@ -39,7 +38,7 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
       cancelOnError: false,
     );
 
-    //Subscription
+    //Subscription - Lessons Bloc
     _kursplanBlocStreamSubscription = _kursplanBloc.stream.listen(
       (state) {
         final entriesBlocState = _entrysListBloc.state;
@@ -62,8 +61,8 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
         //     .toList();
 
         final loosedLections =
-            await  _comaringRepository.comareLectionsAndEntrys();
-        
+            await _comaringRepository.comareLectionsAndEntrys();
+
         // await _comaringRepository.comareLectionsAndEntrys();
 
         // Future.delayed(Duration(seconds: 5), () {

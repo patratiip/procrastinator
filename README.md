@@ -1,5 +1,7 @@
 # procrastinator
 
+Link: https://procrastinator-2000.web.app/
+
 Procrastinator- educational Flutter application for managing the class schedule is a convenient tool for students. It allows them to track and manage their classes, both in-person and online. Users can record their attendance, manage activities and health status, and also receive attendance statistics.
 
 Additionally, the app provides access to class schedules and educational materials. The student’s personal account enables them to report application errors and submit sick notes for approval by the school administration.
