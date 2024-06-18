@@ -13,7 +13,7 @@ final class CompairingEntrysState extends LoosedEntrysState {
 }
 
 final class ComaredEntrysState extends LoosedEntrysState {
-  final List<Lection> loosedLectionsList;
+  final List<Lection>? loosedLectionsList;
 
   ComaredEntrysState({required this.loosedLectionsList});
 

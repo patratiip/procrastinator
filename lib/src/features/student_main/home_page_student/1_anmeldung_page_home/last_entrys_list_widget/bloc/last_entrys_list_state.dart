@@ -10,15 +10,15 @@ final class EntrysListInitial extends EntrysListState {
   List<Object?> get props => [];
 }
 
-final class EntrysListLoading extends EntrysListState {
+final class EntrysListLoadingState extends EntrysListState {
   @override
   List<Object?> get props => [];
 }
 
-final class EntrysListLoaded extends EntrysListState {
+final class EntrysListLoadedState extends EntrysListState {
   final List<Entry>? userVisits;
 
-  EntrysListLoaded({required this.userVisits});
+  EntrysListLoadedState({required this.userVisits});
 
   @override
   List<Object?> get props => [userVisits];

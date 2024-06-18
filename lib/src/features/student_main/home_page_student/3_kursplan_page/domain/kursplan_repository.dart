@@ -24,7 +24,7 @@ class LectionFirestoreRepository {
   //   this.lectionsBox,
   // );
 
-  Stream<List<Lection>> getLections() {
+  Stream<List<OldLection>> getLections() {
     final Timestamp _now =
         Timestamp.fromDate(DateTime(_today.year, _today.month, _today.day));
     return _lectionsCollectionRef
@@ -35,7 +35,7 @@ class LectionFirestoreRepository {
       return snapshot.docs.map((doc) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
         // print('$data loaded');
-        return Lection(
+        return OldLection(
             theme: data['teme'],
             date: (data['date'] as Timestamp).toDate(),
             // user: (data?['user'] as DocumentReference).toString(),

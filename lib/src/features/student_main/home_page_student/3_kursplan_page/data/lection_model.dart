@@ -4,7 +4,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 // part 'lection_model.g.dart';
 
 // @HiveType(typeId: 3)
-class Lection extends Equatable {
+class OldLection extends Equatable {
   // @HiveField(0)
   final String? theme;
   // final String? trainerImg;
@@ -17,7 +17,7 @@ class Lection extends Equatable {
   // @HiveField(4)
   final String? lectionID;
 
-  const Lection(
+  const OldLection(
       {
       // this.trainerImg,
       this.theme,

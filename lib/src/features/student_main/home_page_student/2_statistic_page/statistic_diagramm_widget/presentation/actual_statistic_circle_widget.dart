@@ -63,8 +63,9 @@ class _StatisticCircleState extends State<StatisticCircle> {
                 create: (context) => StatisticDiagrammBloc(
                     LastEntrysListBloc(
                         entrysRepository: GetIt.I<FirebaseEntryRepository>()),
-                    GetIt.I<StatisticRepository>())
-                  ..add(LoadSchoolVisitsCount()),
+                    GetIt.I<StatisticRepositoryLocal>())
+                // ..add(LoadSchoolVisitsCount())
+                ,
                 child:
                     BlocBuilder<StatisticDiagrammBloc, StatisticDiagrammState>(
                   builder: (context, state) {

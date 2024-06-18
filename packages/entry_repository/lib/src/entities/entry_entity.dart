@@ -23,7 +23,7 @@ class EntryEntity {
       if (schoolVisit != null) 'schoolVisit': schoolVisit,
       if (homeOffice != null) 'homeOffice': homeOffice,
       if (krank != null) 'Krank': krank,
-      if (fehl != null) 'Fehl': fehl,
+      if (fehl != null) 'Fehl': fehl
     };
   }
 

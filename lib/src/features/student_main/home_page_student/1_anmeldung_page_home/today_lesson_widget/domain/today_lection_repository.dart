@@ -26,6 +26,9 @@ class TodayLectionFirestoreRepository {
     try {
       final todayQuery =
           await _lectionsCollection.where('date', isEqualTo: today).get();
+
+
+
       Map<String, dynamic> data =
           todayQuery.docs.first.data() as Map<String, dynamic>;
       // print('$data loaded');

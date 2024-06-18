@@ -1,4 +1,4 @@
-import 'package:entry_repository/src/entities/entry_enity.dart';
+import 'package:entry_repository/src/entities/entry_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class Entry extends Equatable {

@@ -1,18 +1,19 @@
 import 'dart:async';
 
 import 'package:bloc_concurrency/bloc_concurrency.dart';
+import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/domain/comaring_loosed_lections_repository.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/data/lection_model.dart';
 
 part 'loosed_entrys_event.dart';
 part 'loosed_entrys_state.dart';
 
 class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
-  final ComparingLectionsAndEntrysRepository _comaringRepository;
+  final ComparingLectionsAndEntrysRepositoryLocal _comaringRepository;
   //Entries Bloc
   final LastEntrysListBloc _entrysListBloc;
   late final StreamSubscription _entriesBloctreamSubscription;
@@ -30,9 +31,14 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
     _entriesBloctreamSubscription = _entrysListBloc.stream.listen(
       (state) {
         final kursplanBlocState = _kursplanBloc.state;
-        if (state is EntrysListLoaded &&
+        if (state is EntrysListLoadedState &&
             kursplanBlocState is LectionsListLoadedState) {
-          add(ComairingLectionsAndVisitsEvent());
+          final enriesListFromState = state.userVisits;
+          final lectionsListFromState = kursplanBlocState.lectionsList;
+          add(ComairingLectionsAndVisitsEvent(
+            lectionsListFromState,
+            enriesListFromState,
+          ));
         }
       },
       cancelOnError: false,
@@ -43,8 +49,13 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
       (state) {
         final entriesBlocState = _entrysListBloc.state;
         if (state is LectionsListLoadedState &&
-            entriesBlocState is EntrysListLoaded) {
-          add(ComairingLectionsAndVisitsEvent());
+            entriesBlocState is EntrysListLoadedState) {
+          final lectionsListFromState = state.lectionsList;
+          final enriesListFromState = entriesBlocState.userVisits;
+          add(ComairingLectionsAndVisitsEvent(
+            lectionsListFromState,
+            enriesListFromState,
+          ));
         }
       },
       cancelOnError: false,
@@ -52,36 +63,44 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
 
     on<ComairingLectionsAndVisitsEvent>(
       (event, emit) async {
-        emit(CompairingEntrysState());
+        if (event.entriesList!.isNotEmpty && event.lectionsList!.isNotEmpty) {
+          emit(CompairingEntrysState());
 
-        // final entries = event.entriesList;
-        // final lections = event.lectionsList;
-        // final filteredLections = lections!
-        //     .where((lection) => lection.date!.isBefore(DateTime.now()))
-        //     .toList();
+          // final entries = event.entriesList;
+          // final lections = event.lectionsList;
+          // final filteredLections = lections!
+          //     .where((lection) => lection.date!.isBefore(DateTime.now()))
+          //     .toList();
 
-        final loosedLections =
-            await _comaringRepository.comareLectionsAndEntrys();
+          final loosedLections =
+              _comaringRepository.comareLectionsAndEntrysState(
+            event.lectionsList,
+            event.entriesList,
+          );
 
-        // await _comaringRepository.comareLectionsAndEntrys();
+          // final loosedLections =
+          //     await _comaringRepository.comareLectionsAndEntrysRepos();
 
-        // Future.delayed(Duration(seconds: 5), () {
-        //   emit(ComaredEntrysState(loosedLectionsList: loosedLections));
-        //   print('Bloc: compared $loosedLections');
-        // });
-        if (loosedLections.isNotEmpty) {
-          emit(ComaredEntrysState(loosedLectionsList: loosedLections));
-          print('Bloc: compared $loosedLections');
-          // } catch (e) {
-          //   CompairingEntrysFailure(exception: e);
+          // await _comaringRepository.comareLectionsAndEntrys();
+
+          // Future.delayed(Duration(seconds: 5), () {
+          //   emit(ComaredEntrysState(loosedLectionsList: loosedLections));
+          //   print('Bloc: compared $loosedLections');
+          // });
+          if (loosedLections.isNotEmpty) {
+            emit(ComaredEntrysState(loosedLectionsList: loosedLections));
+            print('Bloc: compared $loosedLections');
+            // } catch (e) {
+            //   CompairingEntrysFailure(exception: e);
+            // }
+          } else {
+            emit(LoosedEntrysInitial());
+          }
+
+          // finally {
+          //   event.completer?.complete();
           // }
-        } else {
-          emit(LoosedEntrysInitial());
         }
-
-        // finally {
-        //   event.completer?.complete();
-        // }
       },
       transformer: sequential(),
     );

@@ -1,15 +1,12 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/today_lesson_widget/data/today_lection_model.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/today_lesson_widget/domain/today_lection_repository.dart';
+import 'package:lection_repository/lection_repository.dart';
 
 part 'today_lesson_event.dart';
 part 'today_lesson_state.dart';
 
 class TodayLessonBloc extends Bloc<TodayLessonEvent, TodayLessonState> {
-  final TodayLectionFirestoreRepository _lectionsRepository;
+  final LectionRepository _lectionsRepository;
   // late final StreamSubscription _todayLectionListener;
   TodayLessonBloc({required lectionsRepository})
       : _lectionsRepository = lectionsRepository,

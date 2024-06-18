@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/components/elements_components/no_lessons_component.dart';
 import 'package:procrastinator/src/features/components/elements_components/today_lesson_card_component.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/today_lesson_widget/bloc/today_lesson_bloc.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/today_lesson_widget/domain/today_lection_repository.dart';
 
 class HeutigeUnterrichtWidget extends StatelessWidget {
   const HeutigeUnterrichtWidget({super.key});
@@ -16,7 +16,7 @@ class HeutigeUnterrichtWidget extends StatelessWidget {
     print('heut');
     return BlocProvider(
       create: (context) => TodayLessonBloc(
-          lectionsRepository: GetIt.I<TodayLectionFirestoreRepository>())
+          lectionsRepository: GetIt.I<FirebaseLectionRepository>())
         ..add(LoadTodayLection()),
       child: BlocBuilder<TodayLessonBloc, TodayLessonState>(
         builder: (context, state) {

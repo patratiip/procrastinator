@@ -23,10 +23,10 @@ class EntrysListChangedEvent extends EntrysListEvent {
 //   const AddEntryToListEvent(this.entry);
 // }
 
-class DeleteEntry extends EntrysListEvent {
+class DeleteEntryEvent extends EntrysListEvent {
   final String entryRef;
 
-  const DeleteEntry({required this.entryRef});
+  const DeleteEntryEvent({required this.entryRef});
 
   @override
   List<Object?> get props => [entryRef];

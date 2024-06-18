@@ -1,1 +1,1 @@
-export 'entry_enity.dart';
+export 'entry_entity.dart';

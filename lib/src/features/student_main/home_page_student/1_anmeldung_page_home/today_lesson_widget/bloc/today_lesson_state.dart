@@ -15,7 +15,7 @@ final class TodayLectionLoading extends TodayLessonState {
 }
 
 final class TodayLectionLoaded extends TodayLessonState {
-  final TodayLection? todayLection;
+  final Lection? todayLection;
 
   const TodayLectionLoaded({required this.todayLection});
 

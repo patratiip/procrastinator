@@ -30,7 +30,7 @@ class LastEntrysListWidget extends StatelessWidget {
               //   return false;
               // },
               builder: (context, state) {
-                if (state is EntrysListLoaded) {
+                if (state is EntrysListLoadedState) {
                   return Center(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +59,7 @@ class LastEntrysListWidget extends StatelessWidget {
                       ],
                     ),
                   );
-                } else if (state is EntrysListLoading) {
+                } else if (state is EntrysListLoadingState) {
                   return const Center(
                       child: SizedBox(
                     height: 100,

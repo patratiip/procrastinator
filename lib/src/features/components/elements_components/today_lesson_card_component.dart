@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/today_lesson_widget/data/today_lection_model.dart';
-import '../../../shared/resources/resources.dart';
-import '../../../core/styles/color_scheme_my.dart';
+import 'package:lection_repository/lection_repository.dart';
+import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/shared/resources/resources.dart';
 
 class TodayLessonCardComponent extends StatefulWidget {
-  final TodayLection entryData;
+  final Lection entryData;
   const TodayLessonCardComponent({super.key, required this.entryData});
 
   @override

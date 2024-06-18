@@ -75,7 +75,7 @@ class EntryCardComponent extends StatelessWidget {
               //Delete BUTTON
               IconButton(
                   onPressed: () {
-                    _block.add(DeleteEntry(entryRef: visitData.visitID!));
+                    _block.add(DeleteEntryEvent(entryRef: visitData.visitID!));
                   },
                   icon: const Icon(Icons.delete_outline_outlined,
                       color: Colors.red)),

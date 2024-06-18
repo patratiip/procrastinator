@@ -1,77 +1,105 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:entry_repository/entry_repository.dart';
 
-final currentUser = FirebaseAuth.instance.currentUser!.uid;
+// final currentUser = FirebaseAuth.instance.currentUser!.uid;
 
-class StatisticRepository {
-  final CollectionReference _userVisits = FirebaseFirestore.instance
-      .collection('users_flutter')
-      .doc(currentUser)
-      .collection('userVisits');
+class StatisticRepositoryLocal {
+  // final CollectionReference _userVisits = FirebaseFirestore.instance
+  //     .collection('users_flutter')
+  //     .doc(currentUser)
+  //     .collection('userVisits');
 
-  Future<int?> getSchoolVisitsQty() async {
-    int? schoolVisits;
-    await _userVisits
-        .where('schoolVisit', isEqualTo: true)
-        .count()
-        .get()
-        .then((value) {
-      schoolVisits = value.count;
-    });
-    // print('School $schoolVisits');
-    return schoolVisits;
+  ////////////
+  ///
+  int computeSchoolVisitsQty(List<Entry> entries) {
+    int count = 0;
+    for (var entry in entries) {
+      if (entry.schoolVisit == true) {
+        count += 1;
+      }
+    }
+    return count;
   }
 
-  Future<int?> getHomeOfficeQty() async {
-    int? homeOffice;
-    await _userVisits
-        .where('homeOffice', isEqualTo: true)
-        .count()
-        .get()
-        .then((value) {
-      homeOffice = value.count;
-    });
-    // print('Home $homeOffice');
-    return homeOffice;
+  int computeHomeOfficeQty(List<Entry> entries) {
+    int count = 0;
+    for (var entry in entries) {
+      if (entry.homeOffice == true) {
+        count += 1;
+      }
+    }
+    return count;
   }
 
-  Future<int?> getKrankQty() async {
-    int? krank;
-    await _userVisits
-        .where('Krank', isEqualTo: true)
-        .count()
-        .get()
-        .then((value) {
-      krank = value.count;
-    });
-    // print('Krank $krank');
-    return krank;
+  int computeKrankQty(List<Entry> entries) {
+    int count = 0;
+    for (var entry in entries) {
+      if (entry.krank == true) {
+        count += 1;
+      }
+    }
+    return count;
   }
 
-  Future<int?> getFehlQty() async {
-    int? fehl;
-    await _userVisits
-        .where('Fehl', isEqualTo: true)
-        .count()
-        .get()
-        .then((value) {
-      fehl = value.count;
-    });
-    // print('Fehl $fehl');
-    return fehl;
+  int computeFehlQty(List<Entry> entries) {
+    int count = 0;
+    for (var entry in entries) {
+      if (entry.fehl == true) {
+        count += 1;
+      }
+    }
+    return count;
   }
 
-  // Future<void> addVisit(UserVisit visit) {
-  //   return _userVisits.add({
-  //     'title': visit.title,
-  //     'completed': visit.completed,
-  //   });
-  // }
+// /////OLD////
+//   Future<int?> getSchoolVisitsQty() async {
+//     int? schoolVisits;
+//     await _userVisits
+//         .where('schoolVisit', isEqualTo: true)
+//         .count()
+//         .get()
+//         .then((value) {
+//       schoolVisits = value.count;
+//     });
+//     // print('School $schoolVisits');
+//     return schoolVisits;
+//   }
 
-  // Future<void> updateVisit(UserVisit visit) {
-  //   return _userVisits.doc(visit.id).update({
-  //     'title': visit.title,
-  //     'completed': visit.completed,
-  //   });
-  // }
+//   Future<int?> getHomeOfficeQty() async {
+//     int? homeOffice;
+//     await _userVisits
+//         .where('homeOffice', isEqualTo: true)
+//         .count()
+//         .get()
+//         .then((value) {
+//       homeOffice = value.count;
+//     });
+//     // print('Home $homeOffice');
+//     return homeOffice;
+//   }
+
+//   Future<int?> getKrankQty() async {
+//     int? krank;
+//     await _userVisits
+//         .where('Krank', isEqualTo: true)
+//         .count()
+//         .get()
+//         .then((value) {
+//       krank = value.count;
+//     });
+//     // print('Krank $krank');
+//     return krank;
+//   }
+
+//   Future<int?> getFehlQty() async {
+//     int? fehl;
+//     await _userVisits
+//         .where('Fehl', isEqualTo: true)
+//         .count()
+//         .get()
+//         .then((value) {
+//       fehl = value.count;
+//     });
+//     // print('Fehl $fehl');
+//     return fehl;
+//   }
 }

@@ -2,18 +2,16 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/router/main_navigation.dart';
+import 'package:procrastinator/src/core/styles/theme/app_theme_dark.dart';
+import 'package:procrastinator/src/core/styles/theme/app_theme_light.dart';
 import 'package:procrastinator/src/features/app/data/procrastinator_model.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/bloc/loosed_entrys_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/domain/comaring_loosed_lections_repository.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/today_lesson_widget/bloc/today_lesson_bloc.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/today_lesson_widget/domain/today_lection_repository.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/domain/kursplan_repository.dart';
-
-import '../../../core/styles/theme/app_theme_dark.dart';
-import '../../../core/styles/theme/app_theme_light.dart';
 
 class Procrastinator extends StatelessWidget {
   final ProcrastinatorModel model;
@@ -30,16 +28,16 @@ class Procrastinator extends StatelessWidget {
         ),
         BlocProvider<TodayLessonBloc>(
           create: (context) => TodayLessonBloc(
-              lectionsRepository: GetIt.I<TodayLectionFirestoreRepository>()),
+              lectionsRepository: GetIt.I<FirebaseLectionRepository>()),
         ),
         BlocProvider<LoosedEntrysBloc>(
           create: (context) => LoosedEntrysBloc(
               LastEntrysListBloc(
                   entrysRepository: GetIt.I<FirebaseEntryRepository>()),
               KursplanBloc(
-                  lectionsRepository: GetIt.I<LectionFirestoreRepository>()),
+                  lectionsRepository: GetIt.I<FirebaseLectionRepository>()),
               comaringRepository:
-                  GetIt.I<ComparingLectionsAndEntrysRepository>()),
+                  GetIt.I<ComparingLectionsAndEntrysRepositoryLocal>()),
         ),
       ],
       child: MaterialApp(

@@ -46,11 +46,11 @@ class LastEntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
 
           // _entriesRepository.addEntriesToHive(entriesList);
 
-          emit(EntrysListLoaded(userVisits: entriesList));
+          emit(EntrysListLoadedState(userVisits: entriesList));
 
           print('Bloc: Entrys data was updated ${event.entriesList}');
         } else {
-          emit(EntrysListLoading());
+          emit(EntrysListLoadingState());
         }
       },
       transformer: sequential(),
@@ -68,9 +68,9 @@ class LastEntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
     //   }
     // });
 
-    on<DeleteEntry>(
+    on<DeleteEntryEvent>(
       (event, emit) async {
-        emit(EntrysListLoading());
+        emit(EntrysListLoadingState());
 
         _entriesRepository.deleteEntry(event.entryRef);
 

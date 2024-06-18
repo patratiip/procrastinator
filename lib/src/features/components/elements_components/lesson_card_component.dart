@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/3_kursplan_page/data/lection_model.dart';
-import '../../../shared/resources/resources.dart';
-import '../../../core/styles/color_scheme_my.dart';
+import 'package:lection_repository/lection_repository.dart';
+import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/shared/resources/resources.dart';
 
 class LessonCardComponent extends StatefulWidget {
   final Lection entryData;
@@ -50,6 +50,7 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
                       child: Text(
                         entryData.theme!,
                         style: const TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
                         maxLines: 1,
                       ),
                     )

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'home_page_student/1_anmeldung_page_home/anmeldung_page_widget.dart';
-import 'home_page_student/2_statistic_page/statistic_page_widget.dart';
+import 'home_page_student/2_statistic_page/statistic_sreen.dart';
 import 'home_page_student/3_kursplan_page/presentation/kursplan_page_widget.dart';
 import 'home_page_student/4_student_profile_page/student_profile_page_widget.dart';
 

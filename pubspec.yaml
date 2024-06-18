@@ -34,6 +34,9 @@ dependencies:
   entry_repository:
     path: packages/entry_repository
 
+  lection_repository:
+    path: packages/lection_repository
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons clsass for iOS style icons.
   cupertino_icons: ^1.0.6
@@ -70,7 +73,7 @@ dependencies:
   get_it: ^7.7.0
 
   # state
-  flutter_bloc: ^8.1.5
+  flutter_bloc: ^8.1.6
   bloc_concurrency: ^0.2.5
   # provider: ^6.1.2
 
