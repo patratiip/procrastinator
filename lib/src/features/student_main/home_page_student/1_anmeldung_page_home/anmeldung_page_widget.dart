@@ -1,4 +1,8 @@
+import 'package:entry_repository/entry_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/calendar_anmelung/bloc/new_calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/presentation/last_entrys_list_widget.dart';
 
 import 'calendar_anmelung/presentation/anmeldung_calendar_widget.dart';
@@ -10,16 +14,20 @@ class AnmeldungPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: SingleChildScrollView(
         padding: EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
         primary: true,
         child: Column(
           children: [
-            CalendarAnmeldungWidget(),
-            LoosedEntrysListWidget(),
-            HeutigeUnterrichtWidget(),
-            LastEntrysListWidget(),
+            BlocProvider(
+              create: (context) => NewCalendarBloc(
+                  entrysRepository: GetIt.I<FirebaseEntryRepository>()),
+              child: EntryAddingWidget(),
+            ),
+            const LoosedEntrysListWidget(),
+            const HeutigeUnterrichtWidget(),
+            const LastEntrysListWidget(),
           ],
         ),
       ),

@@ -20,39 +20,18 @@ class Procrastinator extends StatelessWidget {
   const Procrastinator({super.key, required this.model});
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<LastEntrysListBloc>(
-          create: (context) => LastEntrysListBloc(
-              entrysRepository: GetIt.I<FirebaseEntryRepository>()),
-        ),
-        BlocProvider<TodayLessonBloc>(
-          create: (context) => TodayLessonBloc(
-              lectionsRepository: GetIt.I<FirebaseLectionRepository>()),
-        ),
-        BlocProvider<LoosedEntrysBloc>(
-          create: (context) => LoosedEntrysBloc(
-              LastEntrysListBloc(
-                  entrysRepository: GetIt.I<FirebaseEntryRepository>()),
-              KursplanBloc(
-                  lectionsRepository: GetIt.I<FirebaseLectionRepository>()),
-              comaringRepository:
-                  GetIt.I<ComparingLectionsAndEntrysRepositoryLocal>()),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Procrastinator',
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Procrastinator',
 
-        //THEME
-        theme: MyAppThemeLight.themeLight,
-        darkTheme: MyAppThemeDark.darkTheme,
+      //THEME
+      theme: MyAppThemeLight.themeLight,
+      darkTheme: MyAppThemeDark.darkTheme,
 
-        //ROUTING
-        initialRoute: mainNavigation.initialRoute(model.isAuth),
-        routes: mainNavigation.routes,
-        onGenerateRoute: mainNavigation.onGenerateRoute,
-      ),
+      //ROUTING
+      initialRoute: mainNavigation.initialRoute(model.isAuth),
+      routes: mainNavigation.routes,
+      onGenerateRoute: mainNavigation.onGenerateRoute,
     );
   }
 }

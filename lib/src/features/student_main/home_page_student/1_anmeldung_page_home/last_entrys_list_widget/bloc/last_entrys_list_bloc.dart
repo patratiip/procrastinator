@@ -8,11 +8,11 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 part 'last_entrys_list_event.dart';
 part 'last_entrys_list_state.dart';
 
-class LastEntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
+class EntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
   final EntryRepositoty _entriesRepository;
   late final StreamSubscription<List<Entry>?> _entrysListListener;
 
-  LastEntrysListBloc({required entrysRepository})
+  EntrysListBloc({required entrysRepository})
       : _entriesRepository = entrysRepository,
         super(EntrysListInitial()) {
     //Subscription

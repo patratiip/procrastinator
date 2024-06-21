@@ -21,7 +21,7 @@ class _UserProfilePageOptionsCardComponentState
   var dateFormat = DateFormat('dd.MM.yy');
 
   void _goGo() {
-    Navigator.of(context).pushNamed(MainNavigationRoutes.profileSecondary);
+    // Navigator.of(context).pushNamed(MainNavigationRoutes.profileSecondary);
   }
 
   // var percent = NumberFormat("##");

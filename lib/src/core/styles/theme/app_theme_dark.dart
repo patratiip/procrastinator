@@ -37,7 +37,7 @@ abstract class MyAppThemeDark {
     ////Elevated Button
     elevatedButtonTheme: const ElevatedButtonThemeData(
         style: ButtonStyle(
-      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(16)))),
       // shape: MaterialStatePropertyAll(RoundedRectangleBorder(
       //     borderRadius: BorderRadius.only(
@@ -48,8 +48,8 @@ abstract class MyAppThemeDark {
       // ))),
 
       //maximumSize: MaterialStatePropertyAll(Size(600, 100)),
-      backgroundColor: MaterialStatePropertyAll(MyAppColorScheme.primary),
-      foregroundColor: MaterialStatePropertyAll(Colors.white),
+      backgroundColor: WidgetStatePropertyAll(MyAppColorScheme.primary),
+      foregroundColor: WidgetStatePropertyAll(Colors.white),
       // overlayColor: MaterialStatePropertyAll(MyAppColorScheme.primary),
       //surfaceTintColor: MaterialStatePropertyAll(MyAppColorScheme.),
     )),

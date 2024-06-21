@@ -83,6 +83,7 @@ dependencies:
   auto_size_text: ^3.0.0
   flutter_launcher_icons: ^0.13.1
   uuid: ^4.4.0
+  formz: ^0.7.0
 
   # api
   json_annotation: ^4.8.1

@@ -14,7 +14,7 @@ class StatisticDiagrammBloc
     extends Bloc<StatisticDiagrammEvent, StatisticDiagrammState> {
   final StatisticRepositoryLocal _repositoryStatistic;
   //Entries Bloc
-  final LastEntrysListBloc _entrysListBloc;
+  final EntrysListBloc _entrysListBloc;
   late final StreamSubscription _entriesBloctreamSubscription;
 
   StatisticDiagrammBloc(this._entrysListBloc, this._repositoryStatistic)

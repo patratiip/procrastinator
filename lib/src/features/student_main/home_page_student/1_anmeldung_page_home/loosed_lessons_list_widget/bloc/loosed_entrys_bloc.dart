@@ -15,7 +15,7 @@ part 'loosed_entrys_state.dart';
 class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
   final ComparingLectionsAndEntrysRepositoryLocal _comaringRepository;
   //Entries Bloc
-  final LastEntrysListBloc _entrysListBloc;
+  final EntrysListBloc _entrysListBloc;
   late final StreamSubscription _entriesBloctreamSubscription;
   //Lessons Bloc
   final KursplanBloc _kursplanBloc;

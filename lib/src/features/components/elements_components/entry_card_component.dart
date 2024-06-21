@@ -15,7 +15,7 @@ class EntryCardComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _block = BlocProvider.of<LastEntrysListBloc>(context);
+    final _block = BlocProvider.of<EntrysListBloc>(context);
     return Center(
       child: Container(
         height: 74,

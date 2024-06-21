@@ -18,11 +18,11 @@ class LastEntrysListWidget extends StatelessWidget {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 600),
           child: BlocProvider(
-            create: (context) => LastEntrysListBloc(
+            create: (context) => EntrysListBloc(
                 entrysRepository: GetIt.I<FirebaseEntryRepository>())
             // ..add( LoadLastEntrysListChanged())
             ,
-            child: BlocBuilder<LastEntrysListBloc, EntrysListState>(
+            child: BlocBuilder<EntrysListBloc, EntrysListState>(
               // buildWhen: (previous, current) {
               //   if (previous != current) {
               //     return true;

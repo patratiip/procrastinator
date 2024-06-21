@@ -21,7 +21,7 @@ class LoosedEntrysListWidget extends StatelessWidget {
         constraints: const BoxConstraints(maxWidth: 600),
         child: BlocProvider(
           create: (context) => LoosedEntrysBloc(
-            LastEntrysListBloc(
+            EntrysListBloc(
                 entrysRepository: GetIt.I<FirebaseEntryRepository>()),
             KursplanBloc(
                 lectionsRepository: GetIt.I<FirebaseLectionRepository>()),
