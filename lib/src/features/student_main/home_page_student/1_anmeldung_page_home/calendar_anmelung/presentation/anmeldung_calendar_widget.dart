@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,8 @@ class EntryAddingWidget extends StatelessWidget {
               children: [
                 CalendarForEntyAdding(),
                 DropDownEntry(),
+                ErrorMessageCalendarWidget(),
+                SuccesMessageCalendarWidget(),
                 EntryAddingButton(),
               ],
             ),
@@ -147,9 +150,73 @@ class _CalendarForEntyAddingState extends State<CalendarForEntyAdding> {
           today = day;
         });
         final bloc = BlocProvider.of<NewCalendarBloc>(context);
-        bloc.add(CalendarDateChanged(date: day));
+        // final timestamp = Timestamp.fromDate(day);
+        final pureDate = DateTime(day.year, day.month, day.day);
+        print(pureDate);
+
+        bloc.add(CalendarDateChanged(date: pureDate));
       },
     );
+  }
+}
+
+/////ERROR Message
+class ErrorMessageCalendarWidget extends StatelessWidget {
+  const ErrorMessageCalendarWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NewCalendarBloc, NewCalendarState>(
+        builder: (context, state) {
+      if (state.status == NewCalendarStateStatus.error) {
+        return Container(
+            width: double.infinity,
+            height: 24,
+            color: MyAppColorScheme.errorColor,
+            child: Text(
+              textAlign: TextAlign.center,
+              state.errorMessage!,
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Colors.white,
+                    //fontWeight: FontWeight.w500
+                  ),
+            ));
+      } else {
+        return const SizedBox(
+            // height: 24
+            );
+      }
+    });
+  }
+}
+
+/////Succes Message
+class SuccesMessageCalendarWidget extends StatelessWidget {
+  const SuccesMessageCalendarWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NewCalendarBloc, NewCalendarState>(
+        builder: (context, state) {
+      if (state.status == NewCalendarStateStatus.allDone) {
+        return Container(
+            width: double.infinity,
+            height: 24,
+            color: MyAppColorScheme.sucsessColor,
+            child: Text(
+              'Hast du alles geschaft!',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Colors.white,
+                    //fontWeight: FontWeight.w500
+                  ),
+            ));
+      } else {
+        return const SizedBox(
+            // height: 24
+            );
+      }
+    });
   }
 }
 
@@ -163,10 +230,10 @@ class DropDownEntry extends StatefulWidget {
 
 class _DropDownEntryState extends State<DropDownEntry> {
   final List<DropdownMenuEntry> _dropDownCalendarOptions = [
-    const DropdownMenuEntry(label: 'Schule', value: 'Schule'),
-    const DropdownMenuEntry(label: 'Heim', value: 'Heim'),
-    const DropdownMenuEntry(label: 'Krank', value: 'Krank'),
-    const DropdownMenuEntry(label: 'Fehl', value: 'Fehl'),
+    const DropdownMenuEntry(label: 'Schule', value: 0),
+    const DropdownMenuEntry(label: 'Heim', value: 1),
+    const DropdownMenuEntry(label: 'Krank', value: 2),
+    const DropdownMenuEntry(label: 'Fehl', value: 3),
   ];
   @override
   Widget build(BuildContext context) {
@@ -222,7 +289,7 @@ class EntryAddingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<NewCalendarBloc, NewCalendarState>(
       builder: (context, state) {
-        if (state.status == 'readyToAdding') {
+        if (state.status == NewCalendarStateStatus.readyToAdding) {
           return Container(
             width: double.infinity,
             height: 60,
@@ -247,7 +314,7 @@ class EntryAddingButton extends StatelessWidget {
                       ),
                 )),
           );
-        } else if (state.status == 'Adding') {
+        } else if (state.status == NewCalendarStateStatus.inProgress) {
           return Container(
             width: double.infinity,
             height: 60,
@@ -271,6 +338,56 @@ class EntryAddingButton extends StatelessWidget {
               ),
             ),
           );
+
+          //   ///error
+          // } else if (state.isValid == false) {
+          //   return Container(
+          //     width: double.infinity,
+          //     height: 60,
+          //     child: ElevatedButton(
+          //         style: const ButtonStyle(
+          //             backgroundColor:
+          //                 MaterialStatePropertyAll(MyAppColorScheme.errorColor),
+          //             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.only(
+          //                     bottomLeft: Radius.circular(20),
+          //                     bottomRight: Radius.circular(20))))),
+          //         onPressed: () {},
+          //         child: Text(
+          //           textAlign: TextAlign.center,
+          //           state.status!,
+          //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
+          //                 color: Colors.white,
+          //                 //fontWeight: FontWeight.w500
+          //               ),
+          //         )),
+          //   );
+
+          //   ///You are hero
+          // } else if (state.status == 'Hast du alles geschaft!') {
+          //   return Container(
+          //     width: double.infinity,
+          //     height: 60,
+          //     child: ElevatedButton(
+          //         style: const ButtonStyle(
+          //             backgroundColor:
+          //                 MaterialStatePropertyAll(MyAppColorScheme.sucsessColor),
+          //             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+          //                 borderRadius: BorderRadius.only(
+          //                     bottomLeft: Radius.circular(20),
+          //                     bottomRight: Radius.circular(20))))),
+          //         onPressed: () {},
+          //         child: Text(
+          //           textAlign: TextAlign.center,
+          //           state.status!,
+          //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
+          //                 color: Colors.white,
+          //                 //fontWeight: FontWeight.w500
+          //               ),
+          //         )),
+          //   );
+
+          ////unactive
         } else {
           return Container(
             width: double.infinity,

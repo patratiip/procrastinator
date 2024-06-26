@@ -7,6 +7,12 @@ sealed class NewCalendarEvent extends Equatable {
   List<Object> get props => [];
 }
 
+final class CalendarInitializationEvent extends NewCalendarEvent {}
+
+final class CalendarNothingToAddEvent extends NewCalendarEvent {}
+
+final class CalendarSomethingToAddEvent extends NewCalendarEvent {}
+
 final class CalendarDateChanged extends NewCalendarEvent {
   const CalendarDateChanged({required this.date});
   final DateTime date;
