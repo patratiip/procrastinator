@@ -25,8 +25,7 @@ class LoosedEntrysListWidget extends StatelessWidget {
                 entrysRepository: GetIt.I<FirebaseEntryRepository>()),
             KursplanBloc(
                 lectionsRepository: GetIt.I<FirebaseLectionRepository>()),
-            comaringRepository:
-                GetIt.I<ComparingLectionsAndEntrysRepositoryLocal>(),
+            comaringRepository: GetIt.I<ComparingLectionsAndEntriesService>(),
           ),
           child: BlocBuilder<LoosedEntrysBloc, LoosedEntrysState>(
             builder: (context, state) {

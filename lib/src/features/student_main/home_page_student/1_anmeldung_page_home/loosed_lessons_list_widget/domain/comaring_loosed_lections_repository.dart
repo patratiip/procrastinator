@@ -1,7 +1,7 @@
 import 'package:entry_repository/entry_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
 
-class ComparingLectionsAndEntrysRepositoryLocal {
+class ComparingLectionsAndEntriesService {
 //COMPAIRING NEW-- from Bloc State
   List<Lection> comareLectionsAndEntrysState(
     List<Lection>? lectionList,

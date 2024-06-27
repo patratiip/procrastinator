@@ -26,7 +26,7 @@ class AnmeldungPageWidget extends StatelessWidget {
         child: Column(
           children: [
             BlocProvider(
-              create: (context) => NewCalendarBloc(
+              create: (context) => CalendarBloc(
                   EntrysListBloc(
                       entrysRepository: GetIt.I<FirebaseEntryRepository>()),
                   KursplanBloc(
@@ -38,7 +38,7 @@ class AnmeldungPageWidget extends StatelessWidget {
                         lectionsRepository:
                             GetIt.I<FirebaseLectionRepository>()),
                     comaringRepository:
-                        GetIt.I<ComparingLectionsAndEntrysRepositoryLocal>(),
+                        GetIt.I<ComparingLectionsAndEntriesService>(),
                   ),
                   entrysRepository: GetIt.I<FirebaseEntryRepository>())
                 ..add(CalendarInitializationEvent()),

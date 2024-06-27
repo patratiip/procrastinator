@@ -12,7 +12,7 @@ import 'package:uuid/uuid.dart';
 part 'new_calendar_event.dart';
 part 'new_calendar_state.dart';
 
-class NewCalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
+class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
   final EntryRepositoty _entriesRepository;
   //Entries Bloc
   final EntrysListBloc _entrysListBloc;
@@ -22,7 +22,7 @@ class NewCalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
   final LoosedEntrysBloc _loosedEntriesBloc;
   late final StreamSubscription _loosedEntriesBlocStreamSubscription;
 
-  NewCalendarBloc(
+  CalendarBloc(
       this._entrysListBloc, this._kursplanBloc, this._loosedEntriesBloc,
       {required entrysRepository})
       : _entriesRepository = entrysRepository,

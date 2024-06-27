@@ -13,7 +13,7 @@ part 'loosed_entrys_event.dart';
 part 'loosed_entrys_state.dart';
 
 class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
-  final ComparingLectionsAndEntrysRepositoryLocal _comaringRepository;
+  final ComparingLectionsAndEntriesService _comaringService;
   //Entries Bloc
   final EntrysListBloc _entrysListBloc;
   late final StreamSubscription _entriesBloctreamSubscription;
@@ -23,7 +23,7 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
 
   LoosedEntrysBloc(this._entrysListBloc, this._kursplanBloc,
       {required comaringRepository})
-      : _comaringRepository = comaringRepository,
+      : _comaringService = comaringRepository,
         super(LoosedEntrysInitial()) {
     //
 
@@ -66,27 +66,12 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
         if (event.entriesList!.isNotEmpty && event.lectionsList!.isNotEmpty) {
           emit(CompairingEntrysState());
 
-          // final entries = event.entriesList;
-          // final lections = event.lectionsList;
-          // final filteredLections = lections!
-          //     .where((lection) => lection.date!.isBefore(DateTime.now()))
-          //     .toList();
-
           final loosedLections =
-              _comaringRepository.comareLectionsAndEntrysState(
+              _comaringService.comareLectionsAndEntrysState(
             event.lectionsList,
             event.entriesList,
           );
 
-          // final loosedLections =
-          //     await _comaringRepository.comareLectionsAndEntrysRepos();
-
-          // await _comaringRepository.comareLectionsAndEntrys();
-
-          // Future.delayed(Duration(seconds: 5), () {
-          //   emit(ComaredEntrysState(loosedLectionsList: loosedLections));
-          //   print('Bloc: compared $loosedLections');
-          // });
           if (loosedLections.isNotEmpty) {
             emit(ComaredEntrysState(loosedLectionsList: loosedLections));
             print('Bloc: compared $loosedLections');
@@ -97,9 +82,6 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
             emit(LoosedEntrysInitial());
           }
 
-          // finally {
-          //   event.completer?.complete();
-          // }
         }
       },
       transformer: sequential(),

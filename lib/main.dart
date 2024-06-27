@@ -7,7 +7,7 @@ import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/features/app/presentation/procrastinator.dart';
 import 'package:procrastinator/src/features/app/data/procrastinator_model.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/domain/comaring_loosed_lections_repository.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/2_statistic_page/statistic_diagramm_widget/domain/statistic_repository.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/2_statistic_page/statistic_diagramm_widget/domain/statistic_computing_service.dart';
 
 import 'firebase_options.dart';
 
@@ -28,11 +28,10 @@ Future<void> main() async {
   GetIt.I.registerLazySingleton(() => FirebaseEntryRepository());
   GetIt.I.registerLazySingleton(() => FirebaseLectionRepository());
   // GetIt.I.registerLazySingleton(() => TodayLectionFirestoreRepository());
-  GetIt.I
-      .registerLazySingleton(() => ComparingLectionsAndEntrysRepositoryLocal());
+  GetIt.I.registerLazySingleton(() => ComparingLectionsAndEntriesService());
 
   // GetIt.I.registerLazySingleton(() => CalendarEntryFirestoreRepository());
-  GetIt.I.registerLazySingleton(() => StatisticRepositoryLocal());
+  GetIt.I.registerLazySingleton(() => StatisticComputingServise());
 
   final model = ProcrastinatorModel();
   await model.checkAuth();

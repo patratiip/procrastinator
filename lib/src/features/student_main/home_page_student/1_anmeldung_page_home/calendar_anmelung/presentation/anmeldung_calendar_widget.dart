@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -149,7 +147,7 @@ class _CalendarForEntyAddingState extends State<CalendarForEntyAdding> {
         setState(() {
           today = day;
         });
-        final bloc = BlocProvider.of<NewCalendarBloc>(context);
+        final bloc = BlocProvider.of<CalendarBloc>(context);
         // final timestamp = Timestamp.fromDate(day);
         final pureDate = DateTime(day.year, day.month, day.day);
         print(pureDate);
@@ -166,7 +164,7 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewCalendarBloc, NewCalendarState>(
+    return BlocBuilder<CalendarBloc, NewCalendarState>(
         builder: (context, state) {
       if (state.status == NewCalendarStateStatus.error) {
         return Container(
@@ -196,7 +194,7 @@ class SuccesMessageCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewCalendarBloc, NewCalendarState>(
+    return BlocBuilder<CalendarBloc, NewCalendarState>(
         builder: (context, state) {
       if (state.status == NewCalendarStateStatus.allDone) {
         return Container(
@@ -272,7 +270,7 @@ class _DropDownEntryState extends State<DropDownEntry> {
                 const RoundedRectangleBorder(),
                 0.1))),
         onSelected: (value) {
-          final bloc = BlocProvider.of<NewCalendarBloc>(context);
+          final bloc = BlocProvider.of<CalendarBloc>(context);
           final type = _dropDownCalendarOptions[value].label;
           bloc.add(CalendarTypeChanged(type: type));
         },
@@ -287,7 +285,7 @@ class EntryAddingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NewCalendarBloc, NewCalendarState>(
+    return BlocBuilder<CalendarBloc, NewCalendarState>(
       builder: (context, state) {
         if (state.status == NewCalendarStateStatus.readyToAdding) {
           return Container(
@@ -302,7 +300,7 @@ class EntryAddingButton extends StatelessWidget {
                             bottomLeft: Radius.circular(20),
                             bottomRight: Radius.circular(20))))),
                 onPressed: () {
-                  final bloc = BlocProvider.of<NewCalendarBloc>(context);
+                  final bloc = BlocProvider.of<CalendarBloc>(context);
 
                   bloc.add(CalendarAddEntry());
                 },

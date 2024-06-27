@@ -28,7 +28,7 @@ final class TodayLessonEmpty extends TodayLessonState {}
 final class TodayLectionFailure extends TodayLessonState {
   final String exception;
 
-  TodayLectionFailure({required this.exception});
+  const TodayLectionFailure({required this.exception});
   @override
   List<Object?> get props => [exception];
 }

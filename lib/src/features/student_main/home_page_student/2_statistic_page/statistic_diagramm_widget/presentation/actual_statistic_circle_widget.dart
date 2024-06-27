@@ -9,23 +9,16 @@ import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/components/elements_components/statistic_progress_diagramm_component.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 import 'package:procrastinator/src/features/student_main/home_page_student/2_statistic_page/statistic_diagramm_widget/bloc/statistic_diagramm_bloc.dart';
-import 'package:procrastinator/src/features/student_main/home_page_student/2_statistic_page/statistic_diagramm_widget/domain/statistic_repository.dart';
+import 'package:procrastinator/src/features/student_main/home_page_student/2_statistic_page/statistic_diagramm_widget/domain/statistic_computing_service.dart';
 
-class StatisticCircle extends StatefulWidget {
+class StatisticCircle extends StatelessWidget {
   const StatisticCircle({super.key});
 
   @override
-  State<StatisticCircle> createState() => _StatisticCircleState();
-}
-
-class _StatisticCircleState extends State<StatisticCircle> {
-  var percent = NumberFormat("##%");
-
-////TO-DO Get Total visits qty from firebase, user - group
-  var totalVisits = 256;
-
-  @override
   Widget build(BuildContext context) {
+    var percent = NumberFormat("##%");
+    ////TODO Get Total visits qty from firebase, user - group
+    var totalVisits = 256;
     final user = FirebaseAuth.instance.currentUser;
     String? userDisplayname = user?.displayName;
 
@@ -63,7 +56,7 @@ class _StatisticCircleState extends State<StatisticCircle> {
                 create: (context) => StatisticDiagrammBloc(
                     EntrysListBloc(
                         entrysRepository: GetIt.I<FirebaseEntryRepository>()),
-                    GetIt.I<StatisticRepositoryLocal>())
+                    GetIt.I<StatisticComputingServise>())
                 // ..add(LoadSchoolVisitsCount())
                 ,
                 child:
