@@ -14,5 +14,5 @@ Project Development Plan:
 
     1.	Firestore integration: Connect to Firestore. ✅
     2.	Bloc management: Implement blocs. ✅
-    3.	Error processing.
-    4.	Architecture improvement: Optimize architecture.
+    3.	Architecture improvement: Optimize architecture.
+    4.	Error processing.

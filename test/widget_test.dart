@@ -5,17 +5,18 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:get_it/get_it.dart';
 
-import 'package:procrastinator/main.dart';
-import 'package:procrastinator/src/features/app/presentation/procrastinator.dart';
-import 'package:procrastinator/src/features/app/data/procrastinator_model.dart';
+import 'package:procrastinator/src/core/app/view/procrastinator.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(Procrastinator(model: ProcrastinatorModel()));
+    await tester.pumpWidget(Procrastinator(
+        authenticationRepository: GetIt.I<AuthenticationRepository>()));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
