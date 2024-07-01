@@ -4,10 +4,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:entry_repository/entry_repository.dart';
 
-final currentUser = FirebaseAuth.instance.currentUser!.uid;
-
 class FirebaseEntryRepository implements EntryRepositoty {
-  final _userVisitsCollection = FirebaseFirestore.instance
+  final currentUser = FirebaseAuth.instance.currentUser!.uid;
+  late final _userVisitsCollection = FirebaseFirestore.instance
       .collection('users_flutter')
       .doc(currentUser)
       .collection('userVisits');

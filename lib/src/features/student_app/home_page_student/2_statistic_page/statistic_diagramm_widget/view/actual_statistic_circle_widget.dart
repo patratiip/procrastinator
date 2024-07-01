@@ -16,7 +16,6 @@ class StatisticCircle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var percent = NumberFormat("##%");
     ////TODO Get Total visits qty from firebase, user - group
     var totalVisits = 256;
     final user = FirebaseAuth.instance.currentUser;
@@ -24,8 +23,8 @@ class StatisticCircle extends StatelessWidget {
 
     return Center(
       child: Container(
-        height: 500,
-        constraints: const BoxConstraints(maxWidth: 600, maxHeight: 600),
+        // height: 500,
+        constraints: const BoxConstraints(maxWidth: 600),
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(20),
@@ -42,7 +41,7 @@ class StatisticCircle extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        '${userDisplayname} Anmeldungen',
+                        '$userDisplayname Anmeldungen',
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
@@ -78,71 +77,15 @@ class StatisticCircle extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // if (user.userVisits!.length  >= 0){
-                                    //   return
-                                    // }
-                                    Text('${state.schoolVisitsCount} Tage oder',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyLarge),
-                                    Text(
-                                      '${(percent.format(state.schoolVisitsCount! / totalVisits)).toString()} ',
-                                      style: const TextStyle(
-                                          color: MyAppColorScheme.primary,
-                                          fontSize: 32,
-                                          fontWeight: FontWeight.w700),
-
-                                      //
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      'im Schule',
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                      //
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      '${state.homeOfficeCount} Tage oder',
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                    ),
-                                    Text(
-                                      (percent.format(state.homeOfficeCount! /
-                                              totalVisits))
-                                          .toString(),
-                                      style: const TextStyle(
-                                          color: MyAppColorScheme.secondary,
-                                          fontSize: 32,
-                                          fontWeight: FontWeight.w700),
-                                      //
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    Text(
-                                      'Zuhause',
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
-                                      //
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
+                          NumbersWidget(
+                            schoolQty: state.schoolVisitsCount,
+                            homeQty: state.homeOfficeCount,
+                            totalVisits: totalVisits,
+                          ),
+                          TotalDaysIndicator(
+                            schoolQty: state.schoolVisitsCount,
+                            homeQty: state.homeOfficeCount,
+                            totalVisits: totalVisits,
                           ),
                         ],
                       );
@@ -162,6 +105,114 @@ class StatisticCircle extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class NumbersWidget extends StatelessWidget {
+  final int? schoolQty;
+  final int? homeQty;
+  final int totalVisits;
+  const NumbersWidget(
+      {super.key, this.schoolQty, this.homeQty, required this.totalVisits});
+
+  @override
+  Widget build(BuildContext context) {
+    var percent = NumberFormat("##%");
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // if (user.userVisits!.length  >= 0){
+              //   return
+              // }
+              Text('$schoolQty Tage oder',
+                  style: Theme.of(context).textTheme.bodyLarge),
+              Text(
+                '${(percent.format(schoolQty! / totalVisits)).toString()} ',
+                style: const TextStyle(
+                    color: MyAppColorScheme.primary,
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700),
+
+                //
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                'im Schule',
+                style: Theme.of(context).textTheme.bodyLarge,
+                //
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                '$homeQty Tage oder',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+              Text(
+                (percent.format(homeQty! / totalVisits)).toString(),
+                style: const TextStyle(
+                    color: MyAppColorScheme.secondary,
+                    fontSize: 32,
+                    fontWeight: FontWeight.w700),
+                //
+                overflow: TextOverflow.ellipsis,
+              ),
+              Text(
+                'Zuhause',
+                style: Theme.of(context).textTheme.bodyLarge,
+                //
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class TotalDaysIndicator extends StatelessWidget {
+  final int? schoolQty;
+  final int? homeQty;
+  final int totalVisits;
+  const TotalDaysIndicator(
+      {super.key, this.schoolQty, this.homeQty, required this.totalVisits});
+
+  @override
+  Widget build(BuildContext context) {
+    final entiesQty = schoolQty! + homeQty!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 12,
+          bottom: 24,
+          right: 16,
+          left: 16,
+        ),
+        child: Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            LinearProgressIndicator(
+              value: entiesQty / totalVisits,
+              color: MyAppColorScheme.primary,
+              minHeight: 40,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            Text('Insgesamt $entiesQty von $totalVisits Tage',
+                textAlign: TextAlign.center),
+          ],
         ),
       ),
     );

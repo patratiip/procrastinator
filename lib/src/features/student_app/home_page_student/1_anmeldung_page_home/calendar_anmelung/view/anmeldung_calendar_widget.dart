@@ -143,16 +143,15 @@ class _CalendarForEntyAddingState extends State<CalendarForEntyAdding> {
       },
       calendarFormat: formatOfCalendar,
       startingDayOfWeek: StartingDayOfWeek.monday,
+
+      //Set Bloc State.date
       onDaySelected: (DateTime day, DateTime focusedDay) {
         setState(() {
           today = day;
         });
         final bloc = BlocProvider.of<CalendarBloc>(context);
-        // final timestamp = Timestamp.fromDate(day);
-        final pureDate = DateTime(day.year, day.month, day.day);
-        print(pureDate);
 
-        bloc.add(CalendarDateChanged(date: pureDate));
+        bloc.add(CalendarDateChanged(date: day));
       },
     );
   }

@@ -98,21 +98,21 @@ class _HeaderWidget extends StatelessWidget {
   }
 }
 
-///Navigate to Sign In Screen
-class _ChangeSignInModeButton extends StatelessWidget {
-  const _ChangeSignInModeButton({super.key});
+// ///Navigate to Sign In Screen
+// class _ChangeSignInModeButton extends StatelessWidget {
+//   const _ChangeSignInModeButton({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => Navigator.of(context).push<void>(SignUpScreen.route()),
-      child: const Text(
-        'Registrireren',
-        style: TextStyle(fontSize: 20),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextButton(
+//       onPressed: () => Navigator.of(context).push<void>(SignUpScreen.route()),
+//       child: const Text(
+//         'Registrireren',
+//         style: TextStyle(fontSize: 20),
+//       ),
+//     );
+//   }
+// }
 
 //////////////// AUTH Form
 ///
@@ -124,14 +124,14 @@ class _AuthFormWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       constraints: const BoxConstraints(maxWidth: 600),
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
           _EmailTextField(),
           SizedBox(height: 16),
           _PasswordTextField(),
-          _ErrorMessageWidget(),
+          // _ErrorMessageWidget(),
           SizedBox(height: 32),
           Column(
             children: [
@@ -158,7 +158,7 @@ class _AuthFormWidget extends StatelessWidget {
               //     // after they have been validated with Apple (see `Integration` section for more information on how to do this)
               //   },
               // ),
-              _ResetPasswordButton(),
+              // _ResetPasswordButton(),
             ],
           ),
         ],
@@ -169,7 +169,9 @@ class _AuthFormWidget extends StatelessWidget {
 
 ///EMAIL
 class _EmailTextField extends StatelessWidget {
-  const _EmailTextField({super.key});
+  _EmailTextField({super.key});
+
+  final controllerEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -180,9 +182,10 @@ class _EmailTextField extends StatelessWidget {
         return TextFormField(
           key: const Key('loginForm_emailInput_textField'),
           onChanged: (email) => context.read<LoginCubit>().emailChanged(email),
+          controller: controllerEmail,
           // focusNode: nodeEmail,
           autofocus: false,
-          autofillHints: [AutofillHints.username],
+          autofillHints: const [AutofillHints.username],
 
           //FORMATORS
           inputFormatters: const [
@@ -210,6 +213,7 @@ class _EmailTextField extends StatelessWidget {
                 ? InkWell(
                     onTap: () {
                       context.read<LoginCubit>().emailClear();
+                      controllerEmail.clear();
                     },
                     child: const Icon(
                       Icons.clear,
@@ -236,15 +240,11 @@ class _EmailTextField extends StatelessWidget {
 }
 
 ////PASS
-class _PasswordTextField extends StatefulWidget {
-  const _PasswordTextField({super.key});
+class _PasswordTextField extends StatelessWidget {
+  _PasswordTextField({super.key});
 
-  @override
-  State<_PasswordTextField> createState() => _PasswordTextFieldState();
-}
-
-class _PasswordTextFieldState extends State<_PasswordTextField> {
   bool _onTapPassVisibl = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
@@ -253,7 +253,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
         return TextFormField(
             onChanged: (password) =>
                 context.read<LoginCubit>().passwordChanged(password),
-            autofillHints: [AutofillHints.password],
+            autofillHints: const [AutofillHints.password],
             textInputAction: TextInputAction.done,
             // focusNode: nodePass,
             maxLength: 10,
@@ -261,9 +261,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
             obscureText: _onTapPassVisibl,
             decoration: InputDecoration(
                 suffixIcon: InkWell(
-                  onTap: () => setState(
-                    () => _onTapPassVisibl = !_onTapPassVisibl,
-                  ),
+                  onTap: () => _onTapPassVisibl = !_onTapPassVisibl,
                   child: Icon(
                     _onTapPassVisibl
                         ? Icons.visibility_off_outlined
@@ -325,47 +323,47 @@ class _AuthButtonWidget extends StatelessWidget {
   }
 }
 
-///RESET Pass Button
-class _ResetPasswordButton extends StatelessWidget {
-  const _ResetPasswordButton({
-    super.key,
-  });
+// ///RESET Pass Button
+// class _ResetPasswordButton extends StatelessWidget {
+//   const _ResetPasswordButton({
+//     super.key,
+//   });
 
-  @override
-  Widget build(BuildContext context) {
-    final model = PeterAuthProvider.watch(context)?.model;
-    final onPressed =
-        model?.canUserAuth == true ? () => model?.resetPassword(context) : null;
-    final buttonChild = model?.isAuthInProgress == true
-        ? const SizedBox()
-        // const CircularProgressIndicator(color: Colors.white)
-        : Text(
-            'Kennwort vergessen?',
-            style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: MyAppColorScheme.primary,
-                  //fontWeight: FontWeight.w500
-                ),
-          );
-    return TextButton(onPressed: onPressed, child: buttonChild);
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final model = PeterAuthProvider.watch(context)?.model;
+//     final onPressed =
+//         model?.canUserAuth == true ? () => model?.resetPassword(context) : null;
+//     final buttonChild = model?.isAuthInProgress == true
+//         ? const SizedBox()
+//         // const CircularProgressIndicator(color: Colors.white)
+//         : Text(
+//             'Kennwort vergessen?',
+//             style: Theme.of(context).textTheme.titleSmall!.copyWith(
+//                   color: MyAppColorScheme.primary,
+//                   //fontWeight: FontWeight.w500
+//                 ),
+//           );
+//     return TextButton(onPressed: onPressed, child: buttonChild);
+//   }
+// }
 
-///ERROR Message
-class _ErrorMessageWidget extends StatelessWidget {
-  const _ErrorMessageWidget();
+// ///ERROR Message
+// class _ErrorMessageWidget extends StatelessWidget {
+//   const _ErrorMessageWidget();
 
-  @override
-  Widget build(BuildContext context) {
-    final errorMessage = PeterAuthProvider.watch(context)?.model.errorMessage;
-    if (errorMessage == null) {
-      return const SizedBox.shrink();
-    }
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: SelectableText(
-        errorMessage,
-        style: const TextStyle(color: MyAppColorScheme.errorColor),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     final errorMessage = PeterAuthProvider.watch(context)?.model.errorMessage;
+//     if (errorMessage == null) {
+//       return const SizedBox.shrink();
+//     }
+//     return Padding(
+//       padding: const EdgeInsets.only(bottom: 20),
+//       child: SelectableText(
+//         errorMessage,
+//         style: const TextStyle(color: MyAppColorScheme.errorColor),
+//       ),
+//     );
+//   }
+// }

@@ -30,6 +30,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           ? AuthState.authenticated(event.user)
           : const AuthState.unauthenticated(),
     );
+    print(event.user);
   }
 
   void _onLogoutRequested(AuthLogoutRequested event, Emitter<AuthState> emit) {

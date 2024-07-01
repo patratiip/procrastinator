@@ -77,8 +77,8 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       ));
       final entriesBlocState = _entrysListBloc.state;
       final lectionsBlocState = _kursplanBloc.state;
-      print('$state');
-      final newDate = event.date;
+      final newDate =
+          DateTime(event.date.year, event.date.month, event.date.day);
 
       //Future check
       if (newDate.isAfter(DateTime.now())) {
@@ -88,6 +88,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
           status: NewCalendarStateStatus.error,
         ));
       }
+
       //Entry exist check
       if (state.isValid && entriesBlocState is EntrysListLoadedState) {
         final entriesDateList = entriesBlocState.userVisits!.map((entry) {
@@ -136,21 +137,75 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       if (state.isValid) {
         emit(state.copyWith(
             date: newDate,
-            isValid: true,
             status: state.type != null
                 ? NewCalendarStateStatus.readyToAdding
                 : NewCalendarStateStatus.hasDate));
       }
-
-      print('$state');
     });
 
     ///User changed type of entry
     on<CalendarTypeChanged>((event, emit) {
-      print('$state');
-
       final newType = event.type;
+      //TODO Add entry date check
       emit(state.copyWith(type: newType));
+
+      final entriesBlocState = _entrysListBloc.state;
+      final lectionsBlocState = _kursplanBloc.state;
+      final stateDate =
+          DateTime(state.date!.year, state.date!.month, state.date!.day);
+
+      //Future check
+      if (stateDate.isAfter(DateTime.now())) {
+        emit(state.copyWith(
+          isValid: false,
+          errorMessage: 'Achtung! Zukunft',
+          status: NewCalendarStateStatus.error,
+        ));
+      }
+
+      //Entry exist check
+      if (state.isValid && entriesBlocState is EntrysListLoadedState) {
+        final entriesDateList = entriesBlocState.userVisits!.map((entry) {
+          return DateTime(
+            entry.date!.year,
+            entry.date!.month,
+            entry.date!.day,
+          );
+        }).toList();
+
+        if (entriesDateList.contains(stateDate)) {
+          emit(state.copyWith(
+            isValid: false,
+            errorMessage: 'Anmeldung mit diese Datum schon exestiert',
+            status: NewCalendarStateStatus.error,
+          ));
+        } else {
+          emit(state.copyWith(
+            isValid: true,
+          ));
+        }
+      }
+
+      //Lection at that date exists check
+      if (state.isValid && lectionsBlocState is LectionsListLoadedState) {
+        final lectionsDateList = lectionsBlocState.lectionsList.map((lection) {
+          return DateTime(
+            lection.date!.year,
+            lection.date!.month,
+            lection.date!.day,
+          );
+        }).toList();
+
+        if (lectionsDateList.contains(stateDate) == false) {
+          emit(state.copyWith(
+            isValid: false,
+            errorMessage: 'Keine Unterrichten!',
+            status: NewCalendarStateStatus.error,
+          ));
+        } else {
+          emit(state.copyWith(isValid: true));
+        }
+      }
 
       //TODO Add Geoposition check
 
@@ -162,8 +217,6 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
                 ? NewCalendarStateStatus.readyToAdding
                 : NewCalendarStateStatus.hasType));
       }
-
-      print('$state');
     });
 
     ///User submitted choise
@@ -186,7 +239,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
           entry.fehl = true;
         }
         _entriesRepository.addEntry(entry);
-        print('NEW BLOC $entry');
+
         await Future<void>.delayed(const Duration(seconds: 1));
         add(CalendarInitializationEvent());
         // emit(state.copyWith(isValid: false, status: 'Added'));

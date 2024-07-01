@@ -25,10 +25,8 @@ Future<void> main() async {
   );
 
   GetIt.I.registerSingleton(AuthenticationRepository());
-
-  // GetIt.I.registerLazySingleton(() => AuthenticationRepository());
-  GetIt.I.registerLazySingleton(() => FirebaseEntryRepository());
-  GetIt.I.registerLazySingleton(() => FirebaseLectionRepository());
+  GetIt.I.registerFactory(() => FirebaseEntryRepository());
+  GetIt.I.registerFactory(() => FirebaseLectionRepository());
   GetIt.I.registerLazySingleton(() => ComparingLectionsAndEntriesService());
   GetIt.I.registerLazySingleton(() => StatisticComputingServise());
 

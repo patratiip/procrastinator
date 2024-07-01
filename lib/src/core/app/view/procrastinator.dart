@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/app/app.dart';
 import 'package:procrastinator/src/core/styles/theme/theme.dart';
-// import 'package:flutter_firebase_login/app/app.dart';
-// import 'package:flutter_firebase_login/theme.dart';
 
 class Procrastinator extends StatelessWidget {
   const Procrastinator({

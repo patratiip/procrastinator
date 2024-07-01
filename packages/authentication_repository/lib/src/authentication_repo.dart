@@ -71,12 +71,14 @@ class AuthenticationRepository {
 
 
   onVerifyEmail() async {
+      //TODO Exceptions!!!
     await _firebaseAuth.currentUser!.sendEmailVerification();
   }
 
   onPasswordReseting({
     required String email,
   }) async {
+      //TODO Exceptions!!!
     await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
