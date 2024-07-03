@@ -1,11 +1,11 @@
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:user_repository/user_repository.dart';
 
 part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  final AuthenticationRepository _authenticationRepository;
+  final UserRepository _authenticationRepository;
   LoginCubit(this._authenticationRepository) : super(const LoginState());
 
   ///emailChanged
@@ -38,12 +38,11 @@ class LoginCubit extends Cubit<LoginState> {
 
   ///Login -
   Future<void> logInWithCredentials() async {
-    // if (!state.isValid) return;
     emit(state.copyWith(status: LoginStatus.inProgress));
     try {
-      await _authenticationRepository.logInWithEmailAndPassword(
-        email: state.email,
-        password: state.password,
+      await _authenticationRepository.signIn(
+        state.email,
+        state.password,
       );
       emit(state.copyWith(status: LoginStatus.success));
     } on LogInWithEmailAndPasswordFailure catch (e) {

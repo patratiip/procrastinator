@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/view/last_entrys_list_widget.dart';
 
-import 'statistic_diagramm_widget/view/actual_statistic_circle_widget.dart';
+import 'actual_statistic_circle_widget.dart';
 
 class StatisticPageWidget extends StatelessWidget {
   const StatisticPageWidget({super.key});

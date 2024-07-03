@@ -1,28 +1,22 @@
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:procrastinator/src/core/app/app.dart';
-
 import 'home_page_student/1_anmeldung_page_home/anmeldung_page_widget.dart';
-import 'home_page_student/2_statistic_page/statistic_sreen.dart';
+import 'home_page_student/2_statistic_page/statistic_diagramm_widget/view/statistic_sreen.dart';
 import 'home_page_student/3_kursplan_page/view/kursplan_page_widget.dart';
 import 'home_page_student/4_student_profile_page/student_profile_page_widget.dart';
 
-class StudentMainScreenWidget extends StatefulWidget {
-  const StudentMainScreenWidget({
+class StudentMainScreen extends StatefulWidget {
+  const StudentMainScreen({
     super.key,
   });
 
   static Page<void> page() =>
-      const MaterialPage<void>(child: StudentMainScreenWidget());
+      const MaterialPage<void>(child: StudentMainScreen());
 
   @override
-  State<StudentMainScreenWidget> createState() =>
-      _StudentMainScreenWidgetState();
+  State<StudentMainScreen> createState() => _StudentMainScreenState();
 }
 
-class _StudentMainScreenWidgetState extends State<StudentMainScreenWidget> {
+class _StudentMainScreenState extends State<StudentMainScreen> {
   int _selectedTab = 0;
   String _appBarText = 'Anmeldung';
 

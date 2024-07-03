@@ -4,7 +4,7 @@ version: 1.0.0
 publish_to: none
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
+  sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
   # cache:
@@ -14,12 +14,12 @@ dependencies:
   firebase_core: ^2.23.0
   flutter:
     sdk: flutter
-  google_sign_in: ^6.1.0
+  # google_sign_in: ^6.1.0
   meta: ^1.8.0
 
 dev_dependencies:
-  firebase_auth_platform_interface: ^7.0.5
-  firebase_core_platform_interface: ^5.0.0
+  # firebase_auth_platform_interface: ^7.0.5
+  # firebase_core_platform_interface: ^5.0.0
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.0

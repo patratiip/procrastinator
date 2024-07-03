@@ -1,5 +1,4 @@
 import 'package:entry_repository/entry_repository.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,7 +14,7 @@ class EntryCardComponent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _block = BlocProvider.of<EntrysListBloc>(context);
+    final block = BlocProvider.of<EntrysListBloc>(context);
     return Center(
       child: Container(
         height: 74,
@@ -71,11 +70,11 @@ class EntryCardComponent extends StatelessWidget {
               if (visitData.homeOffice == true) const Text('Heim'),
               if (visitData.krank == true) const Text('Krank'),
               if (visitData.fehl == true) const Text('Fehl'),
-              Text(dateFormat.format(visitData.date!)),
+              Text(dateFormat.format(visitData.date)),
               //Delete BUTTON
               IconButton(
                   onPressed: () {
-                    _block.add(DeleteEntryEvent(entryRef: visitData.visitID!));
+                    block.add(DeleteEntryEvent(entryRef: visitData.visitID));
                   },
                   icon: const Icon(Icons.delete_outline_outlined,
                       color: Colors.red)),

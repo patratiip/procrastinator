@@ -93,9 +93,9 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       if (state.isValid && entriesBlocState is EntrysListLoadedState) {
         final entriesDateList = entriesBlocState.userVisits!.map((entry) {
           return DateTime(
-            entry.date!.year,
-            entry.date!.month,
-            entry.date!.day,
+            entry.date.year,
+            entry.date.month,
+            entry.date.day,
           );
         }).toList();
 
@@ -167,9 +167,9 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       if (state.isValid && entriesBlocState is EntrysListLoadedState) {
         final entriesDateList = entriesBlocState.userVisits!.map((entry) {
           return DateTime(
-            entry.date!.year,
-            entry.date!.month,
-            entry.date!.day,
+            entry.date.year,
+            entry.date.month,
+            entry.date.day,
           );
         }).toList();
 
@@ -227,7 +227,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
           status: NewCalendarStateStatus.inProgress,
         ));
 
-        final entry = Entry(visitID: const Uuid().v4(), date: state.date);
+        final entry = Entry(visitID: const Uuid().v4(), date: state.date!);
 
         if (state.type == 'Schule') {
           entry.schoolVisit = true;

@@ -1,90 +1,88 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/core/app/app.dart';
-import 'package:procrastinator/src/core/router/main_navigation.dart';
-import '../../../auth/domain/auth_firebase_service.dart';
-import '../../../../shared/resources/resources.dart';
-import '../../../../core/styles/color_scheme_my.dart';
-import '../../../../shared/view/components/elements_components/user_profile_options_component.dart';
+import 'package:procrastinator/src/core/app/bloc/authentication_bloc.dart';
+import 'package:procrastinator/src/core/styles/styles.dart';
+import 'package:procrastinator/src/shared/resources/resources.dart';
+import 'package:procrastinator/src/shared/view/components/elements_components/user_profile_options_component.dart';
 
 class StudentProfilePageWidget extends StatelessWidget {
   const StudentProfilePageWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-    String? userDisplayname = user?.displayName;
-    String? userEmail = user?.email;
-
-    return Center(
-      child: SingleChildScrollView(
-        padding:
-            const EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
-        primary: true,
-        child: Column(
-          children: [
-            Center(
-              child: Container(
-                height: 160,
-                width: 160,
-                clipBehavior: Clip.hardEdge,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(Images.userPhoto),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(32)),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 24,
-                bottom: 24,
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    userDisplayname ?? 'Name',
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Text(userEmail ?? 'Name',
-                      style: Theme.of(context).textTheme.bodyLarge),
-                  Text('group', style: Theme.of(context).textTheme.bodyLarge),
-                ],
-              ),
-            ),
-            Column(
+    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+      builder: (context, state) {
+        return Center(
+          child: SingleChildScrollView(
+            padding:
+                const EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
+            primary: true,
+            child: Column(
               children: [
-                UserProfilePageOptionsCardComponent(
-                  title: 'Profile bearbeiten',
+                Center(
+                  child: Container(
+                    height: 160,
+                    width: 160,
+                    clipBehavior: Clip.hardEdge,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(Images.userPhoto),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                  ),
                 ),
-                UserProfilePageOptionsCardComponent(
-                  title: 'Krankmeldung',
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 24,
+                    bottom: 24,
+                  ),
+                  child: Column(
+                    children: [
+                      Text(
+                        state.user!.name ?? 'Name',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                      Text(state.user!.email,
+                          style: Theme.of(context).textTheme.bodyLarge),
+                      Text('group',
+                          style: Theme.of(context).textTheme.bodyLarge),
+                    ],
+                  ),
                 ),
-                UserProfilePageOptionsCardComponent(
-                  title: 'Fehlmeldung',
+                Column(
+                  children: [
+                    UserProfilePageOptionsCardComponent(
+                      title: 'Profile bearbeiten',
+                    ),
+                    UserProfilePageOptionsCardComponent(
+                      title: 'Krankmeldung',
+                    ),
+                    UserProfilePageOptionsCardComponent(
+                      title: 'Fehlmeldung',
+                    ),
+                    UserProfilePageOptionsCardComponent(
+                      title: 'Bug Report',
+                    ),
+                    UserProfilePageOptionsCardComponent(
+                      title: 'Unterlagen',
+                    ),
+                    UserProfilePageOptionsCardComponent(
+                      title: 'Kontakten',
+                    ),
+                    const SizedBox(height: 32),
+                    const _LogOutButton(),
+                    const SizedBox(height: 16),
+                    // _DeleteProfileButton(),
+                    const SizedBox(height: 44),
+                  ],
                 ),
-                UserProfilePageOptionsCardComponent(
-                  title: 'Bug Report',
-                ),
-                UserProfilePageOptionsCardComponent(
-                  title: 'Unterlagen',
-                ),
-                UserProfilePageOptionsCardComponent(
-                  title: 'Kontakten',
-                ),
-                const SizedBox(height: 32),
-                const _LogOutButton(),
-                const SizedBox(height: 16),
-                // _DeleteProfileButton(),
-                const SizedBox(height: 44),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -102,7 +100,9 @@ class _LogOutButton extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
           onPressed: () {
-            context.read<AuthBloc>().add(const AuthLogoutRequested());
+            context
+                .read<AuthenticationBloc>()
+                .add(const AuthenticationLogOut());
           },
           style: const ButtonStyle(
               backgroundColor:

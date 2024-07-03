@@ -21,7 +21,8 @@ class AnmeldungPageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        padding: EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
+        padding:
+            const EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
         primary: true,
         child: Column(
           children: [
@@ -44,9 +45,9 @@ class AnmeldungPageWidget extends StatelessWidget {
                 ..add(CalendarInitializationEvent()),
               child: const EntryAddingWidget(),
             ),
-            const LoosedEntrysListWidget(),
-            const HeutigeUnterrichtWidget(),
-            const LastEntrysListWidget(),
+            LoosedEntrysListWidget(),
+            HeutigeUnterrichtWidget(),
+            LastEntrysListWidget(),
           ],
         ),
       ),

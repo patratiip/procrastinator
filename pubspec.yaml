@@ -16,6 +16,9 @@ dependencies:
   authentication_repository:
     path: packages/authentication_repository
 
+  user_repository:
+    path: packages/user_repository
+
   entry_repository:
     path: packages/entry_repository
 
@@ -44,16 +47,16 @@ dependencies:
   # path_provider: ^2.1.0
 
   # firebase
-  firebase_core: ^2.30.0
-  firebase_auth: ^4.19.5
-  cloud_firestore: ^4.17.0
+  # firebase_core: ^2.30.0
+  # firebase_auth: ^4.19.5
+  # cloud_firestore: ^4.17.0
   # firebase web
-  firebase_core_web: ^2.16.0
-  firebase_auth_web: ^5.11.4
+  # firebase_core_web: ^2.16.0
+  # firebase_auth_web: ^5.11.4
 
   # auth
-  email_validator: ^2.1.17
-  sign_in_with_apple: ^6.1.0
+  # email_validator: ^2.1.17
+  # sign_in_with_apple: ^6.1.0
 
   # di
   get_it: ^7.7.0
@@ -69,7 +72,7 @@ dependencies:
   auto_size_text: ^3.0.0
   flutter_launcher_icons: ^0.13.1
   uuid: ^4.4.0
-  formz: ^0.7.0
+  # formz: ^0.7.0
   flow_builder: ^0.1.0
 
   # api
@@ -77,7 +80,7 @@ dependencies:
 
   # widgets
   table_calendar: ^3.0.9
-  percent_indicator: ^4.2.3
+  # percent_indicator: ^4.2.3
 
   # calendar_date_picker2: ^0.5.5
 

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class EntryEntity {
-  String? visitID;
-  DateTime? date;
+  String visitID;
+  DateTime date;
   bool? schoolVisit;
   bool? homeOffice;
   bool? krank;
@@ -18,8 +18,8 @@ class EntryEntity {
 
   Map<String, Object?> toFirestore() {
     return {
-      if (visitID != null) 'visitID': visitID,
-      if (date != null) 'date': Timestamp.fromDate(date!),
+       'visitID': visitID,
+       'date': Timestamp.fromDate(date),
       if (schoolVisit != null) 'schoolVisit': schoolVisit,
       if (homeOffice != null) 'homeOffice': homeOffice,
       if (krank != null) 'Krank': krank,

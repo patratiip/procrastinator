@@ -1,52 +1,40 @@
+import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:authentication_repository/authentication_repository.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:user_repository/user_repository.dart';
 
-class AuthenticationRepository {
+class FirebaseUserRepository implements UserRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
+  final usersCollection =
+      FirebaseFirestore.instance.collection('users_flutter');
 
-  AuthenticationRepository({
+  FirebaseUserRepository({
     firebase_auth.FirebaseAuth? firebaseAuth,
   }) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
 
-  Stream<User> get user {
-    return _firebaseAuth.authStateChanges().map((firebaseUser) {
-      final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
-      return user;
+  @override
+  Stream<MyUser> get user {
+    return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
+      if (firebaseUser == null) {
+        yield MyUser.empty;
+      } else {
+        yield await usersCollection.doc(firebaseUser.uid).get().then((value) =>
+            MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
+      }
     });
   }
 
-  User get currentUser {
-    return _firebaseAuth.currentUser?.toUser ?? User.empty;
+  @override
+  MyUser get currentUser {
+    return _firebaseAuth.currentUser?.toUser ?? MyUser.empty;
   }
 
-  /// Creates a new user with the provided [email] and [password].
-  ///
-  /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> signUp({required String email, required String password}) async {
-    try {
-      await _firebaseAuth.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on firebase_auth.FirebaseAuthException catch (e) {
-      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
-    } catch (_) {
-      throw const SignUpWithEmailAndPasswordFailure();
-    }
-  }
-
-  /// Signs in with the provided [email] and [password].
-  ///
-  /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> logInWithEmailAndPassword({
-    required String email,
-    required String password,
-  }) async {
+  @override
+  Future<void> signIn(String email, String password) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+          email: email, password: password);
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
@@ -54,18 +42,36 @@ class AuthenticationRepository {
     }
   }
 
-  /// Signs out the current user which will emit
-  /// [User.empty] from the [user] Stream.
-  ///
-  /// Throws a [LogOutFailure] if an exception occurs.
-  Future<void> logOut() async {
+  @override
+  Future<MyUser> signUp(MyUser myUser, String password) async {
     try {
-      await Future.wait([
-        _firebaseAuth.signOut(),
-        // _googleSignIn.signOut(),
-      ]);
+      firebase_auth.UserCredential user =
+          await _firebaseAuth.createUserWithEmailAndPassword(
+              email: myUser.email, password: password);
+
+      myUser.userId = user.user!.uid;
+      return myUser;
+    } on firebase_auth.FirebaseAuthException catch (e) {
+      throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
-      throw LogOutFailure();
+      throw const SignUpWithEmailAndPasswordFailure();
+    }
+  }
+
+  @override
+  Future<void> logOut() async {
+    await _firebaseAuth.signOut();
+  }
+
+  @override
+  Future<void> setUserData(MyUser myUser) async {
+    try {
+      await usersCollection
+          .doc(myUser.userId)
+          .set(myUser.toEntity().toDocument());
+    } catch (e) {
+      log(e.toString());
+      rethrow;
     }
   }
 
@@ -92,18 +98,38 @@ class AuthenticationRepository {
 }
 
 extension on firebase_auth.User {
-  /// Maps a [firebase_auth.User] into a [User].
-  User get toUser {
-    return User(
-      id: uid,
-      email: email,
+  /// Maps a [firebase_auth.User] into a [MyUser].
+  MyUser get toUser {
+    return MyUser(
+      userId: uid,
+      email: email!,
       name: displayName,
-      photo: photoURL,
+      photoURL: photoURL,
     );
   }
 }
 
-/////////////////////////EXCEPTIONS/////////////////////////
+// /////////////////////////EXCEPTIONS/////////////////////////
+
+//EXAMPLE
+// ///// Signs in with the provided [email] and [password].
+//   ///
+//   /// Throws a [LogInWithEmailAndPasswordFailure] if an exception occurs.
+//   Future<void> logInWithEmailAndPassword({
+//     required String email,
+//     required String password,
+//   }) async {
+//     try {
+//       await _firebaseAuth.signInWithEmailAndPassword(
+//         email: email,
+//         password: password,
+//       );
+//     } on firebase_auth.FirebaseAuthException catch (e) {
+//       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
+//     } catch (_) {
+//       throw const LogInWithEmailAndPasswordFailure();
+//     }
+//   }
 
 class SignUpWithEmailAndPasswordFailure implements Exception {
   const SignUpWithEmailAndPasswordFailure([

@@ -1,15 +1,11 @@
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/features/auth/login/login.dart';
-import 'package:procrastinator/src/features/auth/sign_up/view/sign_up_screen.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
-
-import '../../../../core/styles/color_scheme_my.dart';
-import '../../../../core/styles/text_field_theme.dart';
-import '../../data/auth_model_peter.dart';
+import 'package:user_repository/user_repository.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -30,7 +26,7 @@ class LoginScreen extends StatelessWidget {
         body: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: BlocProvider(
-            create: (_) => LoginCubit(GetIt.I<AuthenticationRepository>()),
+            create: (_) => LoginCubit(GetIt.I<FirebaseUserRepository>()),
             child: const Column(
               children: [
                 _HeaderWidget(),
@@ -129,10 +125,10 @@ class _AuthFormWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           _EmailTextField(),
-          SizedBox(height: 16),
-          _PasswordTextField(),
+          const SizedBox(height: 16),
+          const _PasswordTextField(),
           // _ErrorMessageWidget(),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           Column(
             children: [
               SizedBox(
@@ -143,21 +139,7 @@ class _AuthFormWidget extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
-              // SignInWithAppleButton(
-              //   onPressed: () async {
-              //     final credential = await SignInWithApple.getAppleIDCredential(
-              //       scopes: [
-              //         AppleIDAuthorizationScopes.email,
-              //         AppleIDAuthorizationScopes.fullName,
-              //       ],
-              //     );
 
-              //     print(credential);
-
-              //     // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
-              //     // after they have been validated with Apple (see `Integration` section for more information on how to do this)
-              //   },
-              // ),
               // _ResetPasswordButton(),
             ],
           ),
@@ -240,10 +222,15 @@ class _EmailTextField extends StatelessWidget {
 }
 
 ////PASS
-class _PasswordTextField extends StatelessWidget {
-  _PasswordTextField({super.key});
+class _PasswordTextField extends StatefulWidget {
+  const _PasswordTextField({super.key});
 
-  bool _onTapPassVisibl = true;
+  @override
+  State<_PasswordTextField> createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<_PasswordTextField> {
+  bool _onTapPassVisible = true;
 
   @override
   Widget build(BuildContext context) {
@@ -258,12 +245,14 @@ class _PasswordTextField extends StatelessWidget {
             // focusNode: nodePass,
             maxLength: 10,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
-            obscureText: _onTapPassVisibl,
+            obscureText: _onTapPassVisible,
             decoration: InputDecoration(
                 suffixIcon: InkWell(
-                  onTap: () => _onTapPassVisibl = !_onTapPassVisibl,
+                  onTap: () => setState(
+                    () => _onTapPassVisible = !_onTapPassVisible,
+                  ),
                   child: Icon(
-                    _onTapPassVisibl
+                    _onTapPassVisible
                         ? Icons.visibility_off_outlined
                         : Icons.visibility_outlined,
                     color: MyAppColorScheme.secondaryText,
