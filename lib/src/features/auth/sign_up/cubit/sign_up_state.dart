@@ -1,54 +1,87 @@
-// part of 'sign_up_cubit.dart';
+part of 'sign_up_cubit.dart';
 
-// enum SignUpStatus {
-//   initial,
-//   inProgress,
-//   success,
-//   failure,
-// }
+enum SignUpStatus {
+  initial,
+  inProgress,
+  success,
+  failure,
+}
 
-// final class SignUpState extends Equatable {
-//   const SignUpState({
-//     this.email = '',
-//     this.password = '',
-//     // this.confirmedPassword = const ConfirmedPassword.pure(),
-//     this.status = SignUpStatus.initial,
-//     this.isValid = false,
-//     this.errorMessage,
-//   });
+final class SignUpState extends Equatable {
+  final String email;
+  final String password;
+  final String userName;
 
-//   final String email;
-//   final String password;
-//   // final ConfirmedPassword confirmedPassword;
-//   final SignUpStatus status;
-//   final bool isValid;
-//   final String? errorMessage;
+  final bool? emailIsValid;
+  final bool? passwordIsValid;
 
-//   @override
-//   List<Object?> get props => [
-//         email,
-//         password,
-//         // confirmedPassword,
-//         status,
-//         isValid,
-//         errorMessage,
-//       ];
+  final bool containsUpperCase;
+  final bool containsLowerCase;
+  final bool containsNumber;
+  final bool containsSpecialChar;
+  final bool contains8Length;
 
-//   SignUpState copyWith({
-//     String? email,
-//     String? password,
-//     // ConfirmedPassword? confirmedPassword,
-//     SignUpStatus? status,
-//     bool? isValid,
-//     String? errorMessage,
-//   }) {
-//     return SignUpState(
-//       email: email ?? this.email,
-//       password: password ?? this.password,
-//       // confirmedPassword: confirmedPassword ?? this.confirmedPassword,
-//       status: status ?? this.status,
-//       isValid: isValid ?? this.isValid,
-//       errorMessage: errorMessage ?? this.errorMessage,
-//     );
-//   }
-// }
+  final String? errorMessage;
+  final SignUpStatus status;
+
+  const SignUpState({
+    this.email = '',
+    this.password = '',
+    this.userName = '',
+    this.emailIsValid,
+    this.passwordIsValid,
+    this.errorMessage,
+    this.containsUpperCase = false,
+    this.containsLowerCase = false,
+    this.containsNumber = false,
+    this.containsSpecialChar = false,
+    this.contains8Length = false,
+    this.status = SignUpStatus.initial,
+  });
+
+  @override
+  List<Object?> get props => [
+        email,
+        password,
+        userName,
+        emailIsValid,
+        passwordIsValid,
+        containsUpperCase,
+        containsLowerCase,
+        containsNumber,
+        containsSpecialChar,
+        contains8Length,
+        errorMessage,
+        status,
+      ];
+
+  SignUpState copyWith({
+    String? email,
+    String? password,
+    String? userName,
+    bool? emailIsValid,
+    bool? passwordIsValid,
+    bool? containsUpperCase,
+    bool? containsLowerCase,
+    bool? containsNumber,
+    bool? containsSpecialChar,
+    bool? contains8Length,
+    String? errorMessage,
+    SignUpStatus? status,
+  }) {
+    return SignUpState(
+      email: email ?? this.email,
+      password: password ?? this.password,
+      userName: userName ?? this.userName,
+      emailIsValid: emailIsValid ?? this.emailIsValid,
+      passwordIsValid: passwordIsValid ?? this.passwordIsValid,
+      containsUpperCase: containsUpperCase ?? this.containsUpperCase,
+      containsLowerCase: containsLowerCase ?? this.containsLowerCase,
+      containsNumber: containsNumber ?? this.containsNumber,
+      containsSpecialChar: containsSpecialChar ?? this.containsSpecialChar,
+      contains8Length: contains8Length ?? this.contains8Length,
+      errorMessage: errorMessage ?? this.errorMessage,
+      status: status ?? this.status,
+    );
+  }
+}

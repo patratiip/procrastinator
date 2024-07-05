@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/features/auth/login/login.dart';
+import 'package:procrastinator/src/features/auth/sign_up/view/view.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -12,9 +13,9 @@ class LoginScreen extends StatelessWidget {
 
   // static Page<void> page() => const MaterialPage<void>(child: LoginScreen());
 
-  // static Route<void> route() {
-  //   return MaterialPageRoute<void>(builder: (_) => const LoginScreen());
-  // }
+  static Route<void> route() {
+    return MaterialPageRoute<void>(builder: (_) => const LoginScreen());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,7 @@ class LoginScreen extends StatelessWidget {
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: BlocProvider(
             create: (_) => LoginCubit(GetIt.I<FirebaseUserRepository>()),
-            child: const Column(
-              children: [
-                _HeaderWidget(),
-              ],
-            ),
+            child: const _HeaderWidget(),
           ),
         ));
   }
@@ -40,7 +37,7 @@ class LoginScreen extends StatelessWidget {
 ///////////////
 
 class _HeaderWidget extends StatelessWidget {
-  const _HeaderWidget({super.key});
+  const _HeaderWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -75,15 +72,15 @@ class _HeaderWidget extends StatelessWidget {
               //
               const SizedBox(height: 44),
 
-              // const Row(
-              //   children: [
-              //     Text(
-              //       'Hast du noch kein Profil?',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //     _ChangeSignInModeButton(),
-              //   ],
-              // ),
+              const Row(
+                children: [
+                  Text(
+                    'Hast du noch kein Profil?',
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  _ChangeSignInModeButton(),
+                ],
+              ),
               const SizedBox(height: 25),
               const _AuthFormWidget(),
             ],
@@ -94,21 +91,21 @@ class _HeaderWidget extends StatelessWidget {
   }
 }
 
-// ///Navigate to Sign In Screen
-// class _ChangeSignInModeButton extends StatelessWidget {
-//   const _ChangeSignInModeButton({super.key});
+///Navigate to Sign In Screen
+class _ChangeSignInModeButton extends StatelessWidget {
+  const _ChangeSignInModeButton({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextButton(
-//       onPressed: () => Navigator.of(context).push<void>(SignUpScreen.route()),
-//       child: const Text(
-//         'Registrireren',
-//         style: TextStyle(fontSize: 20),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () => Navigator.of(context).push<void>(SignUpScreen.route()),
+      child: const Text(
+        'Registrireren',
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+}
 
 //////////////// AUTH Form
 ///

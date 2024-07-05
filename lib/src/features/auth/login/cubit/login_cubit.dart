@@ -75,7 +75,6 @@ class LoginCubit extends Cubit<LoginState> {
           ),
         );
       } catch (_) {
-        await Future<void>.delayed(const Duration(seconds: 2));
         emit(state.copyWith(status: LoginStatus.failure));
       }
     }
