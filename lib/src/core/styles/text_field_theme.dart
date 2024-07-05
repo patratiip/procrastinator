@@ -17,9 +17,6 @@ abstract class MyThemeTextField {
 //                 ),
 //                 helperMaxLines: 1));
 
-
-
-
   static const textFieldInputBorder = OutlineInputBorder(
       borderSide: BorderSide(width: 1),
       borderRadius: BorderRadius.all(Radius.circular(12)));
@@ -33,17 +30,17 @@ abstract class MyThemeTextField {
   static const focusedBorder = OutlineInputBorder(
       borderSide: BorderSide(color: MyAppColorScheme.primary, width: 1),
       borderRadius: BorderRadius.all(Radius.circular(12)));
-  
+
   //focusedError
   static const focusedErrorBorder = OutlineInputBorder(
       borderSide: BorderSide(color: MyAppColorScheme.primary, width: 1),
       borderRadius: BorderRadius.all(Radius.circular(12)));
-  
+
   //disabled
   static const disabledBorder = OutlineInputBorder(
       borderSide: BorderSide(color: MyAppColorScheme.primary, width: 1),
       borderRadius: BorderRadius.all(Radius.circular(12)));
-  
+
   //enabled
   static const enabledBorder = OutlineInputBorder(
       borderSide: BorderSide(color: MyAppColorScheme.primary, width: 1),

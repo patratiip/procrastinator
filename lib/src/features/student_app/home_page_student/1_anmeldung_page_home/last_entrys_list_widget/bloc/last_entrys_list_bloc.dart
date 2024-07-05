@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'package:bloc/bloc.dart';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 
 part 'last_entrys_list_event.dart';

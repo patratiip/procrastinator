@@ -79,7 +79,7 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
             //   CompairingEntrysFailure(exception: e);
             // }
           } else {
-            emit(LoosedEntrysInitial());
+            emit(CopmaredAllClear());
           }
 
         }

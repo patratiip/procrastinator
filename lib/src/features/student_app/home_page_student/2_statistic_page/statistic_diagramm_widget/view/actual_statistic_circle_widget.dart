@@ -50,58 +50,49 @@ class StatisticCircle extends StatelessWidget {
                   ],
                 ),
               ),
-              BlocProvider(
-                create: (context) => StatisticDiagrammBloc(
-                    EntrysListBloc(
-                        entrysRepository: GetIt.I<FirebaseEntryRepository>()),
-                    GetIt.I<StatisticComputingServise>())
-                // ..add(LoadSchoolVisitsCount())
-                ,
-                child:
-                    BlocBuilder<StatisticDiagrammBloc, StatisticDiagrammState>(
-                  builder: (context, state) {
-                    if (state is LoadedEntrysCountState) {
-                      /////////DIAGRAMM Widget
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 44, bottom: 32),
-                            child: SizedBox(
-                              height: 220,
-                              width: 220,
-                              child: StatisticProgressDiagrammComponent(
-                                totalVisits: totalVisits,
-                                schoolVisits: state.schoolVisitsCount,
-                                homeOffice: state.homeOfficeCount,
-                              ),
-                            ),
-                          ),
-                          NumbersWidget(
-                            schoolQty: state.schoolVisitsCount,
-                            homeQty: state.homeOfficeCount,
-                            totalVisits: totalVisits,
-                          ),
-                          TotalDaysIndicator(
-                            schoolQty: state.schoolVisitsCount,
-                            homeQty: state.homeOfficeCount,
-                            totalVisits: totalVisits,
-                          ),
-                        ],
-                      );
-                    } else {
-                      return const Center(
-                        child: SizedBox(
-                          height: 40,
-                          width: 40,
-                          child: CircularProgressIndicator(
-                            color: MyAppColorScheme.primary,
-                          ),
+              BlocBuilder<StatisticDiagrammBloc, StatisticDiagrammState>(
+                                builder: (context, state) {
+              if (state is LoadedEntrysCountState) {
+                /////////DIAGRAMM Widget
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 44, bottom: 32),
+                      child: SizedBox(
+                        height: 220,
+                        width: 220,
+                        child: StatisticProgressDiagrammComponent(
+                          totalVisits: totalVisits,
+                          schoolVisits: state.schoolVisitsCount,
+                          homeOffice: state.homeOfficeCount,
                         ),
-                      );
-                    }
-                  },
-                ),
-              ),
+                      ),
+                    ),
+                    NumbersWidget(
+                      schoolQty: state.schoolVisitsCount,
+                      homeQty: state.homeOfficeCount,
+                      totalVisits: totalVisits,
+                    ),
+                    TotalDaysIndicator(
+                      schoolQty: state.schoolVisitsCount,
+                      homeQty: state.homeOfficeCount,
+                      totalVisits: totalVisits,
+                    ),
+                  ],
+                );
+              } else {
+                return const Center(
+                  child: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: CircularProgressIndicator(
+                      color: MyAppColorScheme.primary,
+                    ),
+                  ),
+                );
+              }
+                                },
+                              ),
             ],
           ),
         ),

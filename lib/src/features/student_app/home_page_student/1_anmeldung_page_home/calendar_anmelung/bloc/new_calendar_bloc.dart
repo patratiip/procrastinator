@@ -32,7 +32,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
     //Subscription - Loosed Bloc
     _loosedEntriesBlocStreamSubscription = _loosedEntriesBloc.stream.listen(
       (state) {
-        if (state is LoosedEntrysInitial) {
+        if (state is CopmaredAllClear) {
           // if (state.loosedLectionsList!.isEmpty) {
           add(CalendarNothingToAddEvent());
           // }

@@ -113,7 +113,7 @@ class _HeaderWidget extends StatelessWidget {
 //////////////// AUTH Form
 ///
 class _AuthFormWidget extends StatelessWidget {
-  const _AuthFormWidget({super.key});
+  const _AuthFormWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -127,9 +127,9 @@ class _AuthFormWidget extends StatelessWidget {
           _EmailTextField(),
           const SizedBox(height: 16),
           const _PasswordTextField(),
-          // _ErrorMessageWidget(),
+          const _ErrorMessageWidget(),
           const SizedBox(height: 32),
-          Column(
+          const Column(
             children: [
               SizedBox(
                   width: double.infinity,
@@ -151,7 +151,7 @@ class _AuthFormWidget extends StatelessWidget {
 
 ///EMAIL
 class _EmailTextField extends StatelessWidget {
-  _EmailTextField({super.key});
+  _EmailTextField();
 
   final controllerEmail = TextEditingController();
 
@@ -187,7 +187,6 @@ class _EmailTextField extends StatelessWidget {
           autocorrect: false,
           enableSuggestions: false,
           textCapitalization: TextCapitalization.none,
-          // controller: model?.emailTextController,
           decoration: InputDecoration(
             // helperText: 'paste',
             // helperMaxLines: 1,
@@ -205,6 +204,8 @@ class _EmailTextField extends StatelessWidget {
                   )
                 : null,
             focusedBorder: MyThemeTextField.focusedBorder,
+            focusedErrorBorder: MyThemeTextField.errorBorder,
+            errorBorder: MyThemeTextField.errorBorder,
             contentPadding: const EdgeInsets.all(14),
             border: MyThemeTextField.textFieldInputBorder,
             label: const Text(
@@ -212,8 +213,7 @@ class _EmailTextField extends StatelessWidget {
               style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
             // helperText: '',
-            // errorText:
-            //     state.email.displayError != null ? 'invalid email' : null,
+            // errorText: state.emailIsValid == false ? '' : null,
           ),
         );
       },
@@ -223,7 +223,7 @@ class _EmailTextField extends StatelessWidget {
 
 ////PASS
 class _PasswordTextField extends StatefulWidget {
-  const _PasswordTextField({super.key});
+  const _PasswordTextField();
 
   @override
   State<_PasswordTextField> createState() => _PasswordTextFieldState();
@@ -243,7 +243,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
             autofillHints: const [AutofillHints.password],
             textInputAction: TextInputAction.done,
             // focusNode: nodePass,
-            maxLength: 10,
+            maxLength: 16,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             obscureText: _onTapPassVisible,
             decoration: InputDecoration(
@@ -274,15 +274,15 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
 
 ///AuthBUTTON
 class _AuthButtonWidget extends StatelessWidget {
-  const _AuthButtonWidget({
-    super.key,
-  });
+  const _AuthButtonWidget();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(
       builder: (context, state) {
-        if (state.status == LoginStatus.initial) {
+        if (state.email.isNotEmpty &&
+            state.password.isNotEmpty &&
+            state.status != LoginStatus.failure) {
           return ElevatedButton(
             onPressed: () {
               context.read<LoginCubit>().logInWithCredentials();
@@ -299,11 +299,24 @@ class _AuthButtonWidget extends StatelessWidget {
                   ),
             ),
           );
-        } else {
+        } else if (state.status == LoginStatus.inProgress) {
           return ElevatedButton(
             onPressed: () {},
             child: const CircularProgressIndicator(
               color: Colors.white,
+            ),
+          );
+        } else {
+          return ElevatedButton(
+            onPressed: () {},
+            style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.grey)),
+            child: Text(
+              'Anmelden',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Colors.white,
+                    //fontWeight: FontWeight.w500
+                  ),
             ),
           );
         }
@@ -337,22 +350,26 @@ class _AuthButtonWidget extends StatelessWidget {
 //   }
 // }
 
-// ///ERROR Message
-// class _ErrorMessageWidget extends StatelessWidget {
-//   const _ErrorMessageWidget();
+///ERROR Message
+class _ErrorMessageWidget extends StatelessWidget {
+  const _ErrorMessageWidget();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final errorMessage = PeterAuthProvider.watch(context)?.model.errorMessage;
-//     if (errorMessage == null) {
-//       return const SizedBox.shrink();
-//     }
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 20),
-//       child: SelectableText(
-//         errorMessage,
-//         style: const TextStyle(color: MyAppColorScheme.errorColor),
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
+      if (state.status == LoginStatus.failure &&
+          state.errorMessage!.isNotEmpty) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 20),
+          child: SelectableText(
+            state.errorMessage!,
+            style: const TextStyle(color: MyAppColorScheme.errorColor),
+          ),
+        );
+      } else {
+        return const SizedBox.shrink();
+      }
+    });
+  }
+}
+

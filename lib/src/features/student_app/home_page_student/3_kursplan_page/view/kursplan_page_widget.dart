@@ -34,42 +34,37 @@ class KursplanPageWidget extends StatelessWidget {
                           'Nächste',
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
-                        BlocProvider(
-                          create: (context) => KursplanBloc(
-                              lectionsRepository:
-                                  GetIt.I<FirebaseLectionRepository>()),
-                          child: BlocBuilder<KursplanBloc, KursplanState>(
-                              builder: (context, state) {
-                            if (state is LectionsListLoadedState) {
-                              final filteredLections = state.lectionsList
-                                  .where((lection) =>
-                                      lection.date!.isAfter(DateTime.now()))
-                                  .toList();
-                              return ListView.builder(
-                                  primary: false,
-                                  shrinkWrap: true,
-                                  itemCount: filteredLections.length,
-                                  //itemExtent: 68,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    // final lesson = _filteredLessons[index];
-                                    return LessonCardComponent(
-                                        entryData: filteredLections[index]);
-                                  });
-                            } else if (state is LectionsListLoadingState) {
-                              return const Center(
-                                  child: SizedBox(
-                                height: 40,
-                                width: 40,
-                                child: CircularProgressIndicator(
-                                  color: MyAppColorScheme.primary,
-                                ),
-                              ));
-                            } else {
-                              return const SizedBox();
-                            }
-                          }),
-                        ),
+                        BlocBuilder<KursplanBloc, KursplanState>(
+                            builder: (context, state) {
+                          if (state is LectionsListLoadedState) {
+                            final filteredLections = state.lectionsList
+                                .where((lection) =>
+                                    lection.date!.isAfter(DateTime.now()))
+                                .toList();
+                            return ListView.builder(
+                                primary: false,
+                                shrinkWrap: true,
+                                itemCount: filteredLections.length,
+                                //itemExtent: 68,
+                                itemBuilder:
+                                    (BuildContext context, int index) {
+                                  // final lesson = _filteredLessons[index];
+                                  return LessonCardComponent(
+                                      entryData: filteredLections[index]);
+                                });
+                          } else if (state is LectionsListLoadingState) {
+                            return const Center(
+                                child: SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: CircularProgressIndicator(
+                                color: MyAppColorScheme.primary,
+                              ),
+                            ));
+                          } else {
+                            return const SizedBox();
+                          }
+                        }),
                       ],
                     ),
                   ],

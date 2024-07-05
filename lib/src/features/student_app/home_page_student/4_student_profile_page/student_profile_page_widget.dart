@@ -88,9 +88,7 @@ class StudentProfilePageWidget extends StatelessWidget {
 }
 
 class _LogOutButton extends StatelessWidget {
-  const _LogOutButton({
-    super.key,
-  });
+  const _LogOutButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +104,7 @@ class _LogOutButton extends StatelessWidget {
           },
           style: const ButtonStyle(
               backgroundColor:
-                  MaterialStatePropertyAll(MyAppColorScheme.errorColor)),
+                  WidgetStatePropertyAll(MyAppColorScheme.errorColor)),
           child: Text(
             'Abmelden',
             style: Theme.of(context).textTheme.titleLarge!.copyWith(

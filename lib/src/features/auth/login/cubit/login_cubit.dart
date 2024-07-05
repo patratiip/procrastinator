@@ -10,50 +10,68 @@ class LoginCubit extends Cubit<LoginState> {
 
   ///emailChanged
   void emailChanged(String value) {
-    emit(
-      state.copyWith(
-        email: value,
-      ),
-    );
+    emit(state.copyWith(
+        errorMessage: null, emailIsValid: null, status: LoginStatus.initial));
+
+    emit(state.copyWith(email: value));
   }
+
+  //TODO add Validation event on changed field focus
 
   ///clearEmailField
   void emailClear() {
-    emit(
-      state.copyWith(
+    emit(state.copyWith(
         email: '',
-        // isValid: Formz.validate([email, state.password]),
-      ),
-    );
+        errorMessage: null,
+        emailIsValid: null,
+        status: LoginStatus.initial));
   }
 
   ///passChanged
   void passwordChanged(String value) {
-    emit(
-      state.copyWith(
-        password: value,
-      ),
-    );
+    emit(state.copyWith(errorMessage: null, status: LoginStatus.initial));
+    emit(state.copyWith(password: value));
   }
 
   ///Login -
   Future<void> logInWithCredentials() async {
     emit(state.copyWith(status: LoginStatus.inProgress));
-    try {
-      await _authenticationRepository.signIn(
-        state.email,
-        state.password,
-      );
-      emit(state.copyWith(status: LoginStatus.success));
-    } on LogInWithEmailAndPasswordFailure catch (e) {
-      emit(
-        state.copyWith(
-          errorMessage: e.message,
-          status: LoginStatus.failure,
-        ),
-      );
-    } catch (_) {
-      emit(state.copyWith(status: LoginStatus.failure));
+
+    //Validation
+    final emailIsValid = validateEmail(state.email);
+    if (!emailIsValid) {
+      emit(state.copyWith(
+          errorMessage: 'Please enter a valid email',
+          emailIsValid: false,
+          status: LoginStatus.failure));
+    } else {
+      try {
+        await _authenticationRepository.signIn(
+          state.email,
+          state.password,
+        );
+        // await Future<void>.delayed(const Duration(seconds: 2));
+        emit(state.copyWith(status: LoginStatus.success));
+      } on LogInWithEmailAndPasswordFailure catch (e) {
+        emit(
+          state.copyWith(
+            errorMessage: e.message,
+            status: LoginStatus.failure,
+          ),
+        );
+      } catch (_) {
+        await Future<void>.delayed(const Duration(seconds: 2));
+        emit(state.copyWith(status: LoginStatus.failure));
+      }
+    }
+  }
+
+  //Email validator
+  bool validateEmail(String value) {
+    if (!RegExp(r'^[\w-\.]+@([\w-]+.)+[\w-]{2,4}$').hasMatch(value)) {
+      return false;
+    } else {
+      return true;
     }
   }
 }

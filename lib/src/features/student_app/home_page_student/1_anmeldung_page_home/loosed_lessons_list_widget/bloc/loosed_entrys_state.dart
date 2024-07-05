@@ -21,6 +21,11 @@ final class ComaredEntrysState extends LoosedEntrysState {
   List<Object?> get props => [loosedLectionsList];
 }
 
+final class CopmaredAllClear extends LoosedEntrysState {
+  @override
+  List<Object?> get props => [];
+}
+
 final class CompairingEntrysFailure extends LoosedEntrysState {
   final Object? exception;
 
