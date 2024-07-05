@@ -33,6 +33,21 @@ class LoginCubit extends Cubit<LoginState> {
     emit(state.copyWith(password: value));
   }
 
+  ///clearEmailField
+  void resetPassword() async {
+    //Validation
+    final emailIsValid = validateEmail(state.email);
+    if (!emailIsValid) {
+      emit(state.copyWith(
+          errorMessage: 'Please enter a valid email',
+          emailIsValid: false,
+          status: LoginStatus.failure));
+    } else {
+      await _authenticationRepository.onPasswordReseting(email: state.email);
+      emit(state.copyWith(password: '', status: LoginStatus.initial));
+    }
+  }
+
   ///Login -
   Future<void> logInWithCredentials() async {
     emit(state.copyWith(status: LoginStatus.inProgress));

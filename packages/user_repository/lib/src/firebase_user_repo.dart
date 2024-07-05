@@ -81,16 +81,22 @@ class FirebaseUserRepository implements UserRepository {
     }
   }
 
-  onVerifyEmail() async {
-    //TODO Exceptions!!!
-    await _firebaseAuth.currentUser!.sendEmailVerification();
-  }
-
-  onPasswordReseting({
+  @override
+  Future<void> onPasswordReseting({
     required String email,
   }) async {
     //TODO Exceptions!!!
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  onVerifyEmail() async {
+    //TODO Exceptions!!!
+    await _firebaseAuth.currentUser!.sendEmailVerification();
   }
 
   deleteProfile() async {

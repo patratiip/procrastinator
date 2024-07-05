@@ -10,11 +10,11 @@ import 'package:user_repository/user_repository.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  static Page<void> page() => const MaterialPage<void>(child: LoginScreen());
+  // static Page<void> page() => const MaterialPage<void>(child: LoginScreen());
 
-  static Route<void> route() {
-    return MaterialPageRoute<void>(builder: (_) => const LoginScreen());
-  }
+  // static Route<void> route() {
+  //   return MaterialPageRoute<void>(builder: (_) => const LoginScreen());
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -139,8 +139,7 @@ class _AuthFormWidget extends StatelessWidget {
               SizedBox(
                 height: 16,
               ),
-
-              // _ResetPasswordButton(),
+              _ResetPasswordButton(),
             ],
           ),
         ],
@@ -325,30 +324,32 @@ class _AuthButtonWidget extends StatelessWidget {
   }
 }
 
-// ///RESET Pass Button
-// class _ResetPasswordButton extends StatelessWidget {
-//   const _ResetPasswordButton({
-//     super.key,
-//   });
+///RESET Pass Button
+class _ResetPasswordButton extends StatelessWidget {
+  const _ResetPasswordButton();
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final model = PeterAuthProvider.watch(context)?.model;
-//     final onPressed =
-//         model?.canUserAuth == true ? () => model?.resetPassword(context) : null;
-//     final buttonChild = model?.isAuthInProgress == true
-//         ? const SizedBox()
-//         // const CircularProgressIndicator(color: Colors.white)
-//         : Text(
-//             'Kennwort vergessen?',
-//             style: Theme.of(context).textTheme.titleSmall!.copyWith(
-//                   color: MyAppColorScheme.primary,
-//                   //fontWeight: FontWeight.w500
-//                 ),
-//           );
-//     return TextButton(onPressed: onPressed, child: buttonChild);
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LoginCubit, LoginState>(
+      builder: (context, state) {
+        if (state.email.isNotEmpty) {
+          return TextButton(
+            onPressed: context.read<LoginCubit>().resetPassword,
+            child: Text(
+              'Kennwort vergessen?',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    color: MyAppColorScheme.primary,
+                    //fontWeight: FontWeight.w500
+                  ),
+            ),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+}
 
 ///ERROR Message
 class _ErrorMessageWidget extends StatelessWidget {
@@ -372,4 +373,3 @@ class _ErrorMessageWidget extends StatelessWidget {
     });
   }
 }
-
