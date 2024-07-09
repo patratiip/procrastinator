@@ -1,4 +1,3 @@
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +31,6 @@ Future<void> main() async {
 
 void initGetIt() {
   GetIt.I.registerSingleton(FirebaseUserRepository());
-  GetIt.I.registerSingleton(AuthenticationRepository());
   GetIt.I.registerFactory(() => FirebaseEntryRepository());
   GetIt.I.registerFactory(() => FirebaseLectionRepository());
   GetIt.I.registerFactory(() => DeviceGeolocationRepository());

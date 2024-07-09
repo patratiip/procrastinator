@@ -56,4 +56,9 @@ class Entry extends Equatable {
   @override
   List<Object?> get props =>
       [visitID, date, schoolVisit, homeOffice, krank, fehl];
+
+  @override
+  String toString() {
+    return 'Entry: $visitID, $date, $schoolVisit, $homeOffice, $krank, $fehl';
+  }
 }

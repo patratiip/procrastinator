@@ -287,17 +287,22 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
 
         if (entryType == 'Heim') {
           entry.homeOffice = true;
+          typeDependIsOK = true;
         } else if (entryType == 'Krank') {
           entry.krank = true;
+          typeDependIsOK = true;
         } else if (entryType == 'Fehl') {
           entry.fehl = true;
+          typeDependIsOK = true;
         }
 
         // FINALLY ENTRY ADDING... or not :(
 
         if (typeDependIsOK) {
           _entriesRepository.addEntry(entry);
-        } else {}
+        } else {
+          
+        }
 
         await Future<void>.delayed(const Duration(seconds: 1));
         add(CalendarInitializationEvent());
