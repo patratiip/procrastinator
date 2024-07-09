@@ -1,11 +1,12 @@
 import 'package:entry_repository/entry_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/core/styles/theme/theme.dart';
-import 'package:procrastinator/src/features/auth/login/login.dart';
+import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/calendar_anmelung/bloc/new_calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/bloc/loosed_entrys_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:procrastinator/src/features/student_app/home_page_student/2_stat
 import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/statistic_diagramm_widget/domain/statistic_computing_service.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
 import 'package:procrastinator/src/features/student_app/student_main_screen.dart';
+import 'package:user_repository/user_repository.dart';
 
 class ProcrastinatorAppView extends StatelessWidget {
   const ProcrastinatorAppView({super.key});
@@ -65,23 +67,28 @@ class ProcrastinatorAppView extends StatelessWidget {
                   //Calendar
                   BlocProvider(
                       create: (context) => CalendarBloc(
-                          EntrysListBloc(
-                              entrysRepository:
-                                  GetIt.I<FirebaseEntryRepository>()),
-                          KursplanBloc(
-                              lectionsRepository:
-                                  GetIt.I<FirebaseLectionRepository>()),
-                          LoosedEntrysBloc(
                             EntrysListBloc(
                                 entrysRepository:
                                     GetIt.I<FirebaseEntryRepository>()),
                             KursplanBloc(
                                 lectionsRepository:
                                     GetIt.I<FirebaseLectionRepository>()),
-                            comaringRepository:
-                                GetIt.I<ComparingLectionsAndEntriesService>(),
-                          ),
-                          entrysRepository: GetIt.I<FirebaseEntryRepository>())
+                            LoosedEntrysBloc(
+                              EntrysListBloc(
+                                  entrysRepository:
+                                      GetIt.I<FirebaseEntryRepository>()),
+                              KursplanBloc(
+                                  lectionsRepository:
+                                      GetIt.I<FirebaseLectionRepository>()),
+                              comaringRepository:
+                                  GetIt.I<ComparingLectionsAndEntriesService>(),
+                            ),
+                            userRepository: GetIt.I<FirebaseUserRepository>(),
+                            entrysRepository:
+                                GetIt.I<FirebaseEntryRepository>(),
+                            geolocationRepository:
+                                GetIt.I<DeviceGeolocationRepository>(),
+                          )
                       // ..add(CalendarInitializationEvent())
                       ),
                 ],

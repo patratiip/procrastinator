@@ -1,0 +1,21 @@
+name: geolocation_repository
+description: The repository that handles geoposition
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # geopositon
+  geolocator: ^12.0.0
+
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter

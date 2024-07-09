@@ -25,6 +25,9 @@ dependencies:
   lection_repository:
     path: packages/lection_repository
 
+  geolocation_repository:
+    path: packages/geolocation_repository
+
   form_validation:
     path: packages/form_validation
 

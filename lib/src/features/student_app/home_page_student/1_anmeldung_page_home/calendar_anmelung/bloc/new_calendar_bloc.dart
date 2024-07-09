@@ -1,19 +1,22 @@
 import 'dart:async';
-
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:entry_repository/entry_repository.dart';
+import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/bloc/loosed_entrys_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:uuid/uuid.dart';
 
 part 'new_calendar_event.dart';
 part 'new_calendar_state.dart';
 
 class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
+  final UserRepository _userRepository;
   final EntryRepositoty _entriesRepository;
+  final GeolocationRepository _geolocationRepository;
   //Entries Bloc
   final EntrysListBloc _entrysListBloc;
   //Lessons Bloc
@@ -24,8 +27,12 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
 
   CalendarBloc(
       this._entrysListBloc, this._kursplanBloc, this._loosedEntriesBloc,
-      {required entrysRepository})
-      : _entriesRepository = entrysRepository,
+      {required userRepository,
+      required entrysRepository,
+      required geolocationRepository})
+      : _userRepository = userRepository,
+        _entriesRepository = entrysRepository,
+        _geolocationRepository = geolocationRepository,
         super(NewCalendarState(date: DateTime.now())) {
     //
 
@@ -227,18 +234,70 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
           status: NewCalendarStateStatus.inProgress,
         ));
 
+        final entryType = state.type;
+
         final entry = Entry(visitID: const Uuid().v4(), date: state.date!);
 
-        if (state.type == 'Schule') {
+        bool typeDependIsOK = false;
+
+        //School Geoposition Check
+        if (entryType == 'Schule') {
           entry.schoolVisit = true;
-        } else if (state.type == 'Heim') {
+
+          //TODO User null check, position data null check
+          final user = await _userRepository.user.first;
+          final schoolPosition = user!.schoolGeoPosition;
+          print(schoolPosition);
+
+          // final geoIsEnabled =
+          //     await _geolocationRepository.isGeolocationServiceEnabled();
+          // if (!geoIsEnabled) {
+          //   emit(state.copyWith(
+          //     isValid: false,
+          //     errorMessage: 'Location services are disabled.',
+          //     status: NewCalendarStateStatus.error,
+          //   ));
+          // }
+
+          // try {} catch (e) {}
+
+          final userGeoPosition =
+              await _geolocationRepository.determinePosition();
+          print(userGeoPosition);
+
+          final distanceToSchool = _geolocationRepository.distanceToSchool(
+              userGeoposition: userGeoPosition,
+              schoolLatitude: schoolPosition!.latitude,
+              schoolLongtitude: schoolPosition.longitude);
+
+          print(distanceToSchool);
+
+          if (distanceToSchool <= 100) {
+            typeDependIsOK = true;
+          } else {
+            emit(state.copyWith(
+              isValid: false,
+              errorMessage:
+                  'Du bist nicht in der Schule. $distanceToSchool meters',
+              status: NewCalendarStateStatus.error,
+            ));
+            typeDependIsOK = false;
+          }
+        }
+
+        if (entryType == 'Heim') {
           entry.homeOffice = true;
-        } else if (state.type == 'Krank') {
+        } else if (entryType == 'Krank') {
           entry.krank = true;
-        } else if (state.type == 'Fehl') {
+        } else if (entryType == 'Fehl') {
           entry.fehl = true;
         }
-        _entriesRepository.addEntry(entry);
+
+        // FINALLY ENTRY ADDING... or not :(
+
+        if (typeDependIsOK) {
+          _entriesRepository.addEntry(entry);
+        } else {}
 
         await Future<void>.delayed(const Duration(seconds: 1));
         add(CalendarInitializationEvent());

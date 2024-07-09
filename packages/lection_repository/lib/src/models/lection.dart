@@ -16,6 +16,7 @@ class Lection extends Equatable {
     required this.dayOfWeek,
   });
 
+//TODO null check and ID
   LectionEntity toEntity() {
     return LectionEntity(
       // lectionID: lectionID,

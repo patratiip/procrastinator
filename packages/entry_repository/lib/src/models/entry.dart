@@ -23,11 +23,14 @@ class Entry extends Equatable {
     final EntryEntity entity = EntryEntity(visitID: visitID, date: date);
     if (schoolVisit != null) {
       entity.schoolVisit = schoolVisit;
-    } else if (homeOffice != null) {
+    }
+    if (homeOffice != null) {
       entity.homeOffice = homeOffice;
-    } else if (krank != null) {
+    }
+    if (krank != null) {
       entity.krank = krank;
-    } else if (fehl != null) {
+    }
+    if (fehl != null) {
       entity.fehl = fehl;
     }
     return entity;
@@ -37,11 +40,14 @@ class Entry extends Equatable {
     final Entry entry = Entry(visitID: entity.visitID, date: entity.date);
     if (entity.schoolVisit != null) {
       entry.schoolVisit = entity.schoolVisit;
-    } else if (entity.homeOffice != null) {
+    }
+    if (entity.homeOffice != null) {
       entry.homeOffice = entity.homeOffice;
-    } else if (entity.krank != null) {
+    }
+    if (entity.krank != null) {
       entry.krank = entity.krank;
-    } else if (entity.fehl != null) {
+    }
+    if (entity.fehl != null) {
       entry.fehl = entity.fehl;
     }
     return entry;

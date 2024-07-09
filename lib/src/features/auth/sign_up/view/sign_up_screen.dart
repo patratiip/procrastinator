@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
-
 import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
 import 'package:procrastinator/src/features/auth/sign_up/cubit/sign_up_cubit.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
@@ -11,6 +10,8 @@ import 'package:user_repository/user_repository.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
+
+  static Page<void> page() => const MaterialPage<void>(child: SignUpScreen());
 
   static Route<void> route() {
     return MaterialPageRoute<void>(builder: (_) => const SignUpScreen());
@@ -67,15 +68,11 @@ class _HeaderWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 25),
-              const Row(
-                children: [
-                  Text(
-                    'Hast du shon ein Profil?',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  _ChangeSignInModeButton()
-                ],
-              ),
+              // const Row(children: [
+              //   Text('Hast du shon ein Profil?',
+              //       style: TextStyle(fontSize: 16)),
+              //   _ChangeSignInModeButton()
+              // ]),
               const SizedBox(height: 25),
               const _RegisterFormWidget(),
             ],
@@ -86,20 +83,19 @@ class _HeaderWidget extends StatelessWidget {
   }
 }
 
-class _ChangeSignInModeButton extends StatelessWidget {
-  const _ChangeSignInModeButton();
+// class _ChangeSignInModeButton extends StatelessWidget {
+//   const _ChangeSignInModeButton();
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => Navigator.of(context).push<void>(LoginScreen.route()),
-      child: const Text(
-        'Anmelden',
-        style: TextStyle(fontSize: 20),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextButton(
+//         onPressed: () => Navigator.of(context).push(LoginScreen.route()),
+//         child: const Text(
+//           'Anmelden',
+//           style: TextStyle(fontSize: 20, color: MyAppColorScheme.primary),
+//         ));
+//   }
+// }
 
 ////////////////
 ///
@@ -122,11 +118,9 @@ class _RegisterFormWidget extends StatelessWidget {
           const SizedBox(height: 16),
           _EmailTextField(),
           const SizedBox(height: 16),
+          const _PassValidationIndicatorWidget(),
           const _PasswordTextField(),
           const SizedBox(height: 16),
-          const _PassValidationIndicatorWidget(),
-
-          //
           const SizedBox(height: 32),
           const _ErrorMessageWidget(),
           const Column(
@@ -330,6 +324,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
             onChanged: (password) =>
                 context.read<SignUpCubit>().passwordChanged(password),
             autofillHints: const [AutofillHints.password],
+            keyboardType: TextInputType.visiblePassword,
             textInputAction: TextInputAction.done,
             // focusNode: nodePass,
             maxLength: 16,
@@ -444,62 +439,69 @@ class _ErrorMessageWidget extends StatelessWidget {
 }
 
 class _PassValidationIndicatorWidget extends StatelessWidget {
-  const _PassValidationIndicatorWidget({super.key});
+  const _PassValidationIndicatorWidget();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
+      if (state.password.isNotEmpty) {
+        return Padding(
+          padding: const EdgeInsets.only(top: 32, bottom: 24),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "⚈  1 uppercase",
-                style: TextStyle(
-                    color: state.containsUpperCase
-                        ? Colors.green
-                        : Theme.of(context).colorScheme.onBackground),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "⚈  1 uppercase",
+                    style: TextStyle(
+                        color: state.containsUpperCase
+                            ? Colors.green
+                            : Theme.of(context).colorScheme.onBackground),
+                  ),
+                  Text(
+                    "⚈  1 lowercase",
+                    style: TextStyle(
+                        color: state.containsLowerCase
+                            ? Colors.green
+                            : Theme.of(context).colorScheme.onBackground),
+                  ),
+                  Text(
+                    "⚈  1 number",
+                    style: TextStyle(
+                        color: state.containsNumber
+                            ? Colors.green
+                            : Theme.of(context).colorScheme.onBackground),
+                  ),
+                ],
               ),
-              Text(
-                "⚈  1 lowercase",
-                style: TextStyle(
-                    color: state.containsLowerCase
-                        ? Colors.green
-                        : Theme.of(context).colorScheme.onBackground),
-              ),
-              Text(
-                "⚈  1 number",
-                style: TextStyle(
-                    color: state.containsNumber
-                        ? Colors.green
-                        : Theme.of(context).colorScheme.onBackground),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "⚈  1 special character",
+                    style: TextStyle(
+                        color: state.containsSpecialChar
+                            ? Colors.green
+                            : Theme.of(context).colorScheme.onBackground),
+                  ),
+                  Text(
+                    "⚈  8 minimum character",
+                    style: TextStyle(
+                        color: state.contains8Length
+                            ? Colors.green
+                            : Theme.of(context).colorScheme.onBackground),
+                  ),
+                ],
               ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "⚈  1 special character",
-                style: TextStyle(
-                    color: state.containsSpecialChar
-                        ? Colors.green
-                        : Theme.of(context).colorScheme.onBackground),
-              ),
-              Text(
-                "⚈  8 minimum character",
-                style: TextStyle(
-                    color: state.contains8Length
-                        ? Colors.green
-                        : Theme.of(context).colorScheme.onBackground),
-              ),
-            ],
-          ),
-        ],
-      );
+        );
+      } else {
+        return const SizedBox.shrink();
+      }
     });
   }
 }

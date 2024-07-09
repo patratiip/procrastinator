@@ -3,6 +3,7 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/bloc_observer.dart';
@@ -34,6 +35,7 @@ void initGetIt() {
   GetIt.I.registerSingleton(AuthenticationRepository());
   GetIt.I.registerFactory(() => FirebaseEntryRepository());
   GetIt.I.registerFactory(() => FirebaseLectionRepository());
+  GetIt.I.registerFactory(() => DeviceGeolocationRepository());
   GetIt.I.registerLazySingleton(() => ComparingLectionsAndEntriesService());
   GetIt.I.registerLazySingleton(() => StatisticComputingServise());
 }

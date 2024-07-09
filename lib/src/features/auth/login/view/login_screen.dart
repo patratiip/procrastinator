@@ -11,7 +11,7 @@ import 'package:user_repository/user_repository.dart';
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
-  // static Page<void> page() => const MaterialPage<void>(child: LoginScreen());
+  static Page<void> page() => const MaterialPage<void>(child: LoginScreen());
 
   static Route<void> route() {
     return MaterialPageRoute<void>(builder: (_) => const LoginScreen());
@@ -55,7 +55,9 @@ class _HeaderWidget extends StatelessWidget {
             children: [
               const SizedBox(
                 height: 25,
-                width: double.infinity, // WARNING
+                width: double.infinity,
+
+                // WARNING
               ),
               Container(
                 width: 180,
@@ -93,15 +95,15 @@ class _HeaderWidget extends StatelessWidget {
 
 ///Navigate to Sign In Screen
 class _ChangeSignInModeButton extends StatelessWidget {
-  const _ChangeSignInModeButton({super.key});
+  const _ChangeSignInModeButton();
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => Navigator.of(context).push<void>(SignUpScreen.route()),
+      onPressed: () => Navigator.of(context).push(SignUpScreen.route()),
       child: const Text(
         'Registrireren',
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(fontSize: 20, color: MyAppColorScheme.primary),
       ),
     );
   }
