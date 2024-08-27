@@ -1,10 +1,4 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 
 import '../color_scheme_my.dart';
 
@@ -15,9 +9,10 @@ abstract class MyAppThemeLight {
     colorScheme: ColorScheme.fromSeed(
       seedColor: MyAppColorScheme.primary,
       brightness: Brightness.light,
-      background: MyAppColorScheme.primaryBackground,
+      // background: MyAppColorScheme.primaryBackground,
       secondary: MyAppColorScheme.secondary,
-      surface: MyAppColorScheme.secondaryBackground,
+      // surface: MyAppColorScheme.secondaryBackground,
+      surface: MyAppColorScheme.primaryBackground,
     ),
 
 // colorScheme: ColorScheme(brightness: Brightness.light, primary: primary, onPrimary: onPrimary, secondary: secondary, onSecondary: onSecondary, error: error, onError: onError, background: background, onBackground: onBackground, surface: surface, onSurface: onSurface)

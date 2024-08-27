@@ -1,507 +1,506 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
-import 'package:procrastinator/src/core/styles/styles.dart';
-import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
-import 'package:procrastinator/src/features/auth/sign_up/cubit/sign_up_cubit.dart';
-import 'package:procrastinator/src/shared/resources/resources.dart';
-import 'package:user_repository/user_repository.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:get_it/get_it.dart';
+// import 'package:procrastinator/src/core/styles/styles.dart';
+// import 'package:procrastinator/src/features/auth/sign_up/cubit/sign_up_cubit.dart';
+// import 'package:procrastinator/src/shared/resources/resources.dart';
+// import 'package:user_repository/user_repository.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+// class SignUpScreen extends StatelessWidget {
+//   const SignUpScreen({super.key});
 
-  static Page<void> page() => const MaterialPage<void>(child: SignUpScreen());
+//   static Page<void> page() => const MaterialPage<void>(child: SignUpScreen());
 
-  static Route<void> route() {
-    return MaterialPageRoute<void>(builder: (_) => const SignUpScreen());
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        // resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: const Text('Registration'),
-        ),
-        body: SingleChildScrollView(
-          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-          child: BlocProvider(
-            create: (_) => SignUpCubit(GetIt.I<FirebaseUserRepository>()),
-            child: const _HeaderWidget(),
-          ),
-        ));
-  }
-}
-
-///////////////
-
-class _HeaderWidget extends StatelessWidget {
-  const _HeaderWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Center(
-        child: Container(
-          alignment: Alignment.topCenter,
-          constraints: const BoxConstraints(
-            maxWidth: 600,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              const SizedBox(
-                height: 25,
-                width: double.infinity, // WARNING
-              ),
-              Container(
-                width: 180,
-                height: 180,
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(shape: BoxShape.circle),
-                child: const Image(
-                  image: AssetImage(Images.lutzLogotypePng),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const SizedBox(height: 25),
-              // const Row(children: [
-              //   Text('Hast du shon ein Profil?',
-              //       style: TextStyle(fontSize: 16)),
-              //   _ChangeSignInModeButton()
-              // ]),
-              const SizedBox(height: 25),
-              const _RegisterFormWidget(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// class _ChangeSignInModeButton extends StatelessWidget {
-//   const _ChangeSignInModeButton();
+//   static Route<void> route() {
+//     return MaterialPageRoute<void>(builder: (_) => const SignUpScreen());
+//   }
 
 //   @override
 //   Widget build(BuildContext context) {
-//     return TextButton(
-//         onPressed: () => Navigator.of(context).push(LoginScreen.route()),
-//         child: const Text(
-//           'Anmelden',
-//           style: TextStyle(fontSize: 20, color: MyAppColorScheme.primary),
+//     return Scaffold(
+//         // resizeToAvoidBottomInset: false,
+//         appBar: AppBar(
+//           title: const Text('Registration'),
+//         ),
+//         body: SingleChildScrollView(
+//           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+//           child: BlocProvider(
+//             create: (_) => SignUpCubit(GetIt.I<FirebaseUserRepository>()),
+//             child: const _HeaderWidget(),
+//           ),
 //         ));
 //   }
 // }
 
-////////////////
-///
-///
-///
-///
+// ///////////////
 
-class _RegisterFormWidget extends StatelessWidget {
-  const _RegisterFormWidget({super.key});
+// class _HeaderWidget extends StatelessWidget {
+//   const _HeaderWidget();
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 600,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          _NameTextField(),
-          const SizedBox(height: 16),
-          _EmailTextField(),
-          const SizedBox(height: 16),
-          const _PassValidationIndicatorWidget(),
-          const _PasswordTextField(),
-          const SizedBox(height: 16),
-          const SizedBox(height: 32),
-          const _ErrorMessageWidget(),
-          const Column(
-            children: [
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                ////BUTTON
-                child: _SignUpButtonWidget(),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              // SignInWithAppleButton(
-              //   onPressed: () async {
-              //     final credential = await SignInWithApple.getAppleIDCredential(
-              //       scopes: [
-              //         AppleIDAuthorizationScopes.email,
-              //         AppleIDAuthorizationScopes.fullName,
-              //       ],
-              //     );
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 16),
+//       child: Center(
+//         child: Container(
+//           alignment: Alignment.topCenter,
+//           constraints: const BoxConstraints(
+//             maxWidth: 600,
+//           ),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.center,
+//             mainAxisSize: MainAxisSize.max,
+//             children: [
+//               const SizedBox(
+//                 height: 25,
+//                 width: double.infinity, // WARNING
+//               ),
+//               Container(
+//                 width: 180,
+//                 height: 180,
+//                 clipBehavior: Clip.antiAlias,
+//                 decoration: const BoxDecoration(shape: BoxShape.circle),
+//                 child: const Image(
+//                   image: AssetImage(Images.lutzLogotypePng),
+//                   fit: BoxFit.cover,
+//                 ),
+//               ),
+//               const SizedBox(height: 25),
+//               // const Row(children: [
+//               //   Text('Hast du shon ein Profil?',
+//               //       style: TextStyle(fontSize: 16)),
+//               //   _ChangeSignInModeButton()
+//               // ]),
+//               const SizedBox(height: 25),
+//               const _RegisterFormWidget(),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
-              //     print(credential);
+// // class _ChangeSignInModeButton extends StatelessWidget {
+// //   const _ChangeSignInModeButton();
 
-              //     // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
-              //     // after they have been validated with Apple (see `Integration` section for more information on how to do this)
-              //   },
-              // ),
-              // TextButton(
-              //     onPressed: () {}, child: const Text('Kennwort vergessen?')),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return TextButton(
+// //         onPressed: () => Navigator.of(context).push(LoginScreen.route()),
+// //         child: const Text(
+// //           'Anmelden',
+// //           style: TextStyle(fontSize: 20, color: MyAppColorScheme.primary),
+// //         ));
+// //   }
+// // }
 
-///NAME
-class _NameTextField extends StatelessWidget {
-  _NameTextField();
+// ////////////////
+// ///
+// ///
+// ///
+// ///
 
-  final controllerName = TextEditingController();
+// class _RegisterFormWidget extends StatelessWidget {
+//   const _RegisterFormWidget({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.userName != current.userName,
-      builder: (context, state) {
-        // final _email = context.read<LoginCubit>().state.email.toString();
-        return TextFormField(
-          key: const Key('signUpForm_nameInput_textField'),
-          onChanged: (name) =>
-              context.read<SignUpCubit>().userNameChanged(name),
-          controller: controllerName,
-          // focusNode: nodeEmail,
-          autofocus: false,
-          autofillHints: const [AutofillHints.username],
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       width: 600,
+//       child: Column(
+//         mainAxisAlignment: MainAxisAlignment.center,
+//         mainAxisSize: MainAxisSize.max,
+//         children: [
+//           _NameTextField(),
+//           const SizedBox(height: 16),
+//           _EmailTextField(),
+//           const SizedBox(height: 16),
+//           const _PassValidationIndicatorWidget(),
+//           const _PasswordTextField(),
+//           const SizedBox(height: 16),
+//           const SizedBox(height: 32),
+//           const _ErrorMessageWidget(),
+//           const Column(
+//             children: [
+//               SizedBox(
+//                 width: double.infinity,
+//                 height: 60,
+//                 ////BUTTON
+//                 child: _SignUpButtonWidget(),
+//               ),
+//               SizedBox(
+//                 height: 16,
+//               ),
+//               // SignInWithAppleButton(
+//               //   onPressed: () async {
+//               //     final credential = await SignInWithApple.getAppleIDCredential(
+//               //       scopes: [
+//               //         AppleIDAuthorizationScopes.email,
+//               //         AppleIDAuthorizationScopes.fullName,
+//               //       ],
+//               //     );
 
-          //FORMATORS
-          inputFormatters: const [
-            //allowing ---- !!!Look info about Regular Expressions!!!
-            //FilteringTextInputFormatter.allow(RegExp(r'[/d]+'))
-          ],
+//               //     print(credential);
 
-          //KEYBOARD properties
-          keyboardType: TextInputType.name,
-          textInputAction: TextInputAction.next,
-          // keyboardAppearance: Brightness.dark,
+//               //     // Now send the credential (especially `credential.authorizationCode`) to your server to create a session
+//               //     // after they have been validated with Apple (see `Integration` section for more information on how to do this)
+//               //   },
+//               // ),
+//               // TextButton(
+//               //     onPressed: () {}, child: const Text('Kennwort vergessen?')),
+//             ],
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-          //CURSOR
-          cursorColor: MyAppColorScheme.primary,
+// ///NAME
+// class _NameTextField extends StatelessWidget {
+//   _NameTextField();
 
-          // CORRECTIONS
-          autocorrect: false,
-          enableSuggestions: false,
-          textCapitalization: TextCapitalization.none,
-          decoration: InputDecoration(
-            // helperText: 'paste',
-            // helperMaxLines: 1,
-            suffixIcon: (state.userName.toString().isNotEmpty)
-                ? InkWell(
-                    onTap: () {
-                      context.read<SignUpCubit>().userNameClear();
-                      controllerName.clear();
-                    },
-                    child: const Icon(
-                      Icons.clear,
-                      color: MyAppColorScheme.secondaryText,
-                      size: 16,
-                    ),
-                  )
-                : null,
-            focusedBorder: MyThemeTextField.focusedBorder,
-            focusedErrorBorder: MyThemeTextField.errorBorder,
-            errorBorder: MyThemeTextField.errorBorder,
-            contentPadding: const EdgeInsets.all(14),
-            border: MyThemeTextField.textFieldInputBorder,
-            label: const Text(
-              'Name',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            // helperText: '',
-            // errorText: state.emailIsValid == false ? '' : null,
-          ),
-        );
-      },
-    );
-  }
-}
+//   final controllerName = TextEditingController();
 
-///EMAIL
-class _EmailTextField extends StatelessWidget {
-  _EmailTextField();
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<SignUpCubit, SignUpState>(
+//       buildWhen: (previous, current) => previous.userName != current.userName,
+//       builder: (context, state) {
+//         // final _email = context.read<LoginCubit>().state.email.toString();
+//         return TextFormField(
+//           key: const Key('signUpForm_nameInput_textField'),
+//           onChanged: (name) =>
+//               context.read<SignUpCubit>().userNameChanged(name),
+//           controller: controllerName,
+//           // focusNode: nodeEmail,
+//           autofocus: false,
+//           autofillHints: const [AutofillHints.username],
 
-  final controllerEmail = TextEditingController();
+//           //FORMATORS
+//           inputFormatters: const [
+//             //allowing ---- !!!Look info about Regular Expressions!!!
+//             //FilteringTextInputFormatter.allow(RegExp(r'[/d]+'))
+//           ],
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.email != current.email,
-      builder: (context, state) {
-        // final _email = context.read<LoginCubit>().state.email.toString();
-        return TextFormField(
-          key: const Key('signUpForm_emailInput_textField'),
-          onChanged: (email) => context.read<SignUpCubit>().emailChanged(email),
-          controller: controllerEmail,
-          // focusNode: nodeEmail,
-          autofocus: false,
-          autofillHints: const [AutofillHints.username],
+//           //KEYBOARD properties
+//           keyboardType: TextInputType.name,
+//           textInputAction: TextInputAction.next,
+//           // keyboardAppearance: Brightness.dark,
 
-          //FORMATORS
-          inputFormatters: const [
-            //allowing ---- !!!Look info about Regular Expressions!!!
-            //FilteringTextInputFormatter.allow(RegExp(r'[/d]+'))
-          ],
+//           //CURSOR
+//           cursorColor: MyAppColorScheme.primary,
 
-          //KEYBOARD properties
-          keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.next,
-          // keyboardAppearance: Brightness.dark,
+//           // CORRECTIONS
+//           autocorrect: false,
+//           enableSuggestions: false,
+//           textCapitalization: TextCapitalization.none,
+//           decoration: InputDecoration(
+//             // helperText: 'paste',
+//             // helperMaxLines: 1,
+//             suffixIcon: (state.userName.toString().isNotEmpty)
+//                 ? InkWell(
+//                     onTap: () {
+//                       context.read<SignUpCubit>().userNameClear();
+//                       controllerName.clear();
+//                     },
+//                     child: const Icon(
+//                       Icons.clear,
+//                       color: MyAppColorScheme.secondaryText,
+//                       size: 16,
+//                     ),
+//                   )
+//                 : null,
+//             focusedBorder: MyThemeTextField.focusedBorder,
+//             focusedErrorBorder: MyThemeTextField.errorBorder,
+//             errorBorder: MyThemeTextField.errorBorder,
+//             contentPadding: const EdgeInsets.all(14),
+//             border: MyThemeTextField.textFieldInputBorder,
+//             label: const Text(
+//               'Name',
+//               style: TextStyle(fontSize: 16, color: Colors.grey),
+//             ),
+//             // helperText: '',
+//             // errorText: state.emailIsValid == false ? '' : null,
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
 
-          //CURSOR
-          cursorColor: MyAppColorScheme.primary,
+// ///EMAIL
+// class _EmailTextField extends StatelessWidget {
+//   _EmailTextField();
 
-          // CORRECTIONS
-          autocorrect: false,
-          enableSuggestions: false,
-          textCapitalization: TextCapitalization.none,
-          decoration: InputDecoration(
-            // helperText: 'paste',
-            // helperMaxLines: 1,
-            suffixIcon: (state.email.toString().isNotEmpty)
-                ? InkWell(
-                    onTap: () {
-                      context.read<SignUpCubit>().emailClear();
-                      controllerEmail.clear();
-                    },
-                    child: const Icon(
-                      Icons.clear,
-                      color: MyAppColorScheme.secondaryText,
-                      size: 16,
-                    ),
-                  )
-                : null,
-            focusedBorder: MyThemeTextField.focusedBorder,
-            focusedErrorBorder: MyThemeTextField.errorBorder,
-            errorBorder: MyThemeTextField.errorBorder,
-            contentPadding: const EdgeInsets.all(14),
-            border: MyThemeTextField.textFieldInputBorder,
-            label: const Text(
-              'E-mail',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
-            ),
-            // helperText: '',
-            // errorText: state.emailIsValid == false ? '' : null,
-          ),
-        );
-      },
-    );
-  }
-}
+//   final controllerEmail = TextEditingController();
 
-////PASS
-class _PasswordTextField extends StatefulWidget {
-  const _PasswordTextField();
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<SignUpCubit, SignUpState>(
+//       buildWhen: (previous, current) => previous.email != current.email,
+//       builder: (context, state) {
+//         // final _email = context.read<LoginCubit>().state.email.toString();
+//         return TextFormField(
+//           key: const Key('signUpForm_emailInput_textField'),
+//           onChanged: (email) => context.read<SignUpCubit>().emailChanged(email),
+//           controller: controllerEmail,
+//           // focusNode: nodeEmail,
+//           autofocus: false,
+//           autofillHints: const [AutofillHints.username],
 
-  @override
-  State<_PasswordTextField> createState() => _PasswordTextFieldState();
-}
+//           //FORMATORS
+//           inputFormatters: const [
+//             //allowing ---- !!!Look info about Regular Expressions!!!
+//             //FilteringTextInputFormatter.allow(RegExp(r'[/d]+'))
+//           ],
 
-class _PasswordTextFieldState extends State<_PasswordTextField> {
-  bool _onTapPassVisible = true;
+//           //KEYBOARD properties
+//           keyboardType: TextInputType.emailAddress,
+//           textInputAction: TextInputAction.next,
+//           // keyboardAppearance: Brightness.dark,
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      buildWhen: (previous, current) => previous.password != current.password,
-      builder: (context, state) {
-        return TextFormField(
-            onChanged: (password) =>
-                context.read<SignUpCubit>().passwordChanged(password),
-            autofillHints: const [AutofillHints.password],
-            keyboardType: TextInputType.visiblePassword,
-            textInputAction: TextInputAction.done,
-            // focusNode: nodePass,
-            maxLength: 16,
-            maxLengthEnforcement: MaxLengthEnforcement.enforced,
-            obscureText: _onTapPassVisible,
-            decoration: InputDecoration(
-                suffixIcon: InkWell(
-                  onTap: () => setState(
-                    () => _onTapPassVisible = !_onTapPassVisible,
-                  ),
-                  child: Icon(
-                    _onTapPassVisible
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined,
-                    color: MyAppColorScheme.secondaryText,
-                    size: 20,
-                  ),
-                ),
-                focusedBorder: MyThemeTextField.focusedBorder,
-                contentPadding: const EdgeInsets.all(14),
-                border: MyThemeTextField.textFieldInputBorder,
-                label: const Text(
-                  'Password',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-                helperMaxLines: 1));
-      },
-    );
-  }
-}
+//           //CURSOR
+//           cursorColor: MyAppColorScheme.primary,
 
-///AuthBUTTON
-class _SignUpButtonWidget extends StatelessWidget {
-  const _SignUpButtonWidget();
+//           // CORRECTIONS
+//           autocorrect: false,
+//           enableSuggestions: false,
+//           textCapitalization: TextCapitalization.none,
+//           decoration: InputDecoration(
+//             // helperText: 'paste',
+//             // helperMaxLines: 1,
+//             suffixIcon: (state.email.toString().isNotEmpty)
+//                 ? InkWell(
+//                     onTap: () {
+//                       context.read<SignUpCubit>().emailClear();
+//                       controllerEmail.clear();
+//                     },
+//                     child: const Icon(
+//                       Icons.clear,
+//                       color: MyAppColorScheme.secondaryText,
+//                       size: 16,
+//                     ),
+//                   )
+//                 : null,
+//             focusedBorder: MyThemeTextField.focusedBorder,
+//             focusedErrorBorder: MyThemeTextField.errorBorder,
+//             errorBorder: MyThemeTextField.errorBorder,
+//             contentPadding: const EdgeInsets.all(14),
+//             border: MyThemeTextField.textFieldInputBorder,
+//             label: const Text(
+//               'E-mail',
+//               style: TextStyle(fontSize: 16, color: Colors.grey),
+//             ),
+//             // helperText: '',
+//             // errorText: state.emailIsValid == false ? '' : null,
+//           ),
+//         );
+//       },
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
-      builder: (context, state) {
-        if (state.email.isNotEmpty &&
-            state.password.isNotEmpty &&
-            state.userName.isNotEmpty &&
-            state.containsUpperCase &&
-            state.containsLowerCase &&
-            state.containsNumber &&
-            state.containsSpecialChar &&
-            state.contains8Length &&
-            state.status != SignUpStatus.failure) {
-          return ElevatedButton(
-            onPressed: () {
-              context.read<SignUpCubit>().signUpAndCreateUserCollection();
-            },
-            // state.isValid
-            //     ? () =>
-            //     context.read<LoginCubit>().logInWithCredentials()
-            //     : null,
-            child: Text(
-              'Registrieren',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Colors.white,
-                    //fontWeight: FontWeight.w500
-                  ),
-            ),
-          );
-        } else if (state.status == SignUpStatus.inProgress) {
-          return ElevatedButton(
-            onPressed: () {},
-            child: const CircularProgressIndicator(
-              color: Colors.white,
-            ),
-          );
-        } else {
-          return ElevatedButton(
-            onPressed: () {},
-            style: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(Colors.grey)),
-            child: Text(
-              'Registrieren',
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Colors.white,
-                    //fontWeight: FontWeight.w500
-                  ),
-            ),
-          );
-        }
-      },
-    );
-  }
-}
+// ////PASS
+// class _PasswordTextField extends StatefulWidget {
+//   const _PasswordTextField();
 
-///ERROR Message
-class _ErrorMessageWidget extends StatelessWidget {
-  const _ErrorMessageWidget();
+//   @override
+//   State<_PasswordTextField> createState() => _PasswordTextFieldState();
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
-      if (state.status == SignUpStatus.failure &&
-          state.errorMessage!.isNotEmpty) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 20),
-          child: SelectableText(
-            state.errorMessage!,
-            style: const TextStyle(color: MyAppColorScheme.errorColor),
-          ),
-        );
-      } else {
-        return const SizedBox.shrink();
-      }
-    });
-  }
-}
+// class _PasswordTextFieldState extends State<_PasswordTextField> {
+//   bool _onTapPassVisible = true;
 
-class _PassValidationIndicatorWidget extends StatelessWidget {
-  const _PassValidationIndicatorWidget();
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<SignUpCubit, SignUpState>(
+//       buildWhen: (previous, current) => previous.password != current.password,
+//       builder: (context, state) {
+//         return TextFormField(
+//             onChanged: (password) =>
+//                 context.read<SignUpCubit>().passwordChanged(password),
+//             autofillHints: const [AutofillHints.password],
+//             keyboardType: TextInputType.visiblePassword,
+//             textInputAction: TextInputAction.done,
+//             // focusNode: nodePass,
+//             maxLength: 16,
+//             maxLengthEnforcement: MaxLengthEnforcement.enforced,
+//             obscureText: _onTapPassVisible,
+//             decoration: InputDecoration(
+//                 suffixIcon: InkWell(
+//                   onTap: () => setState(
+//                     () => _onTapPassVisible = !_onTapPassVisible,
+//                   ),
+//                   child: Icon(
+//                     _onTapPassVisible
+//                         ? Icons.visibility_off_outlined
+//                         : Icons.visibility_outlined,
+//                     color: MyAppColorScheme.secondaryText,
+//                     size: 20,
+//                   ),
+//                 ),
+//                 focusedBorder: MyThemeTextField.focusedBorder,
+//                 contentPadding: const EdgeInsets.all(14),
+//                 border: MyThemeTextField.textFieldInputBorder,
+//                 label: const Text(
+//                   'Password',
+//                   style: TextStyle(fontSize: 16, color: Colors.grey),
+//                 ),
+//                 helperMaxLines: 1));
+//       },
+//     );
+//   }
+// }
 
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
-      if (state.password.isNotEmpty) {
-        return Padding(
-          padding: const EdgeInsets.only(top: 32, bottom: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "⚈  1 uppercase",
-                    style: TextStyle(
-                        color: state.containsUpperCase
-                            ? Colors.green
-                            : Theme.of(context).colorScheme.onBackground),
-                  ),
-                  Text(
-                    "⚈  1 lowercase",
-                    style: TextStyle(
-                        color: state.containsLowerCase
-                            ? Colors.green
-                            : Theme.of(context).colorScheme.onBackground),
-                  ),
-                  Text(
-                    "⚈  1 number",
-                    style: TextStyle(
-                        color: state.containsNumber
-                            ? Colors.green
-                            : Theme.of(context).colorScheme.onBackground),
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "⚈  1 special character",
-                    style: TextStyle(
-                        color: state.containsSpecialChar
-                            ? Colors.green
-                            : Theme.of(context).colorScheme.onBackground),
-                  ),
-                  Text(
-                    "⚈  8 minimum character",
-                    style: TextStyle(
-                        color: state.contains8Length
-                            ? Colors.green
-                            : Theme.of(context).colorScheme.onBackground),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        );
-      } else {
-        return const SizedBox.shrink();
-      }
-    });
-  }
-}
+// ///AuthBUTTON
+// class _SignUpButtonWidget extends StatelessWidget {
+//   const _SignUpButtonWidget();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<SignUpCubit, SignUpState>(
+//       builder: (context, state) {
+//         if (state.email.isNotEmpty &&
+//             state.password.isNotEmpty &&
+//             state.userName.isNotEmpty &&
+//             state.containsUpperCase &&
+//             state.containsLowerCase &&
+//             state.containsNumber &&
+//             state.containsSpecialChar &&
+//             state.contains8Length &&
+//             state.status != SignUpStatus.failure) {
+//           return ElevatedButton(
+//             onPressed: () {
+//               context.read<SignUpCubit>().signUpAndCreateUserCollection();
+//             },
+//             // state.isValid
+//             //     ? () =>
+//             //     context.read<LoginCubit>().logInWithCredentials()
+//             //     : null,
+//             child: Text(
+//               'Registrieren',
+//               style: Theme.of(context).textTheme.titleLarge!.copyWith(
+//                     color: Colors.white,
+//                     //fontWeight: FontWeight.w500
+//                   ),
+//             ),
+//           );
+//         } else if (state.status == SignUpStatus.inProgress) {
+//           return ElevatedButton(
+//             onPressed: () {},
+//             child: const CircularProgressIndicator(
+//               color: Colors.white,
+//             ),
+//           );
+//         } else {
+//           return ElevatedButton(
+//             onPressed: () {},
+//             style: const ButtonStyle(
+//                 backgroundColor: WidgetStatePropertyAll(Colors.grey)),
+//             child: Text(
+//               'Registrieren',
+//               style: Theme.of(context).textTheme.titleLarge!.copyWith(
+//                     color: Colors.white,
+//                     //fontWeight: FontWeight.w500
+//                   ),
+//             ),
+//           );
+//         }
+//       },
+//     );
+//   }
+// }
+
+// ///ERROR Message
+// class _ErrorMessageWidget extends StatelessWidget {
+//   const _ErrorMessageWidget();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
+//       if (state.status == SignUpStatus.failure &&
+//           state.errorMessage!.isNotEmpty) {
+//         return Padding(
+//           padding: const EdgeInsets.only(bottom: 20),
+//           child: SelectableText(
+//             state.errorMessage!,
+//             style: const TextStyle(color: MyAppColorScheme.errorColor),
+//           ),
+//         );
+//       } else {
+//         return const SizedBox.shrink();
+//       }
+//     });
+//   }
+// }
+
+// class _PassValidationIndicatorWidget extends StatelessWidget {
+//   const _PassValidationIndicatorWidget();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
+//       if (state.password.isNotEmpty) {
+//         return Padding(
+//           padding: const EdgeInsets.only(top: 32, bottom: 24),
+//           child: Row(
+//             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     "⦿  1 uppercase",
+//                     style: TextStyle(
+//                         color: state.containsUpperCase
+//                             ? Colors.green
+//                             : Theme.of(context).colorScheme.onBackground),
+//                   ),
+//                   Text(
+//                     "⦿  1 lowercase",
+//                     style: TextStyle(
+//                         color: state.containsLowerCase
+//                             ? Colors.green
+//                             : Theme.of(context).colorScheme.onBackground),
+//                   ),
+//                   Text(
+//                     "⦿  1 number",
+//                     style: TextStyle(
+//                         color: state.containsNumber
+//                             ? Colors.green
+//                             : Theme.of(context).colorScheme.onBackground),
+//                   ),
+//                 ],
+//               ),
+//               Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: [
+//                   Text(
+//                     "⦿  1 special character",
+//                     style: TextStyle(
+//                         color: state.containsSpecialChar
+//                             ? Colors.green
+//                             : Theme.of(context).colorScheme.onBackground),
+//                   ),
+//                   Text(
+//                     "⦿  8 minimum character",
+//                     style: TextStyle(
+//                         color: state.contains8Length
+//                             ? Colors.green
+//                             : Theme.of(context).colorScheme.onBackground),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           ),
+//         );
+//       } else {
+//         return const SizedBox.shrink();
+//       }
+//     });
+//   }
+// }

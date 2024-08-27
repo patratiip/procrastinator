@@ -74,15 +74,17 @@ class _HeaderWidget extends StatelessWidget {
               //
               const SizedBox(height: 44),
 
-              const Row(
-                children: [
-                  Text(
-                    'Hast du noch kein Profil?',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  _ChangeSignInModeButton(),
-                ],
-              ),
+              ////////Turned Off in case of beta version
+
+              // const Row(
+              //   children: [
+              //     Text(
+              //       'Hast du noch kein Profil?',
+              //       style: TextStyle(fontSize: 16),
+              //     ),
+              //     _ChangeSignInModeButton(),
+              //   ],
+              // ),
               const SizedBox(height: 25),
               const _AuthFormWidget(),
             ],
@@ -94,20 +96,20 @@ class _HeaderWidget extends StatelessWidget {
 }
 
 ///Navigate to Sign In Screen
-class _ChangeSignInModeButton extends StatelessWidget {
-  const _ChangeSignInModeButton();
+// class _ChangeSignInModeButton extends StatelessWidget {
+//   const _ChangeSignInModeButton();
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => Navigator.of(context).push(SignUpScreen.route()),
-      child: const Text(
-        'Registrireren',
-        style: TextStyle(fontSize: 20, color: MyAppColorScheme.primary),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextButton(
+//       onPressed: () => Navigator.of(context).push(SignUpScreen.route()),
+//       child: const Text(
+//         'Registrireren',
+//         style: TextStyle(fontSize: 20, color: MyAppColorScheme.primary),
+//       ),
+//     );
+//   }
+// }
 
 //////////////// AUTH Form
 ///

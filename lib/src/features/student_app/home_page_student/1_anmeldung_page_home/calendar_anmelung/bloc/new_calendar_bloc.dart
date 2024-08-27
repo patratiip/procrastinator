@@ -62,6 +62,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
     on<CalendarNothingToAddEvent>((event, emit) async {
       await Future<void>.delayed(const Duration(seconds: 2));
       emit(state.copyWith(
+        message: 'Hast du alles geschaft!',
         status: NewCalendarStateStatus.allDone,
       ));
     });
@@ -80,6 +81,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
     ///User changed date
     on<CalendarDateChanged>((event, emit) {
       emit(state.copyWith(isValid: true));
+
       final today = DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day);
       final entriesBlocState = _entrysListBloc.state;
@@ -87,20 +89,24 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       final newDate =
           DateTime(event.date.year, event.date.month, event.date.day);
 
+      emit(state.copyWith(date: newDate));
+
       //Future check
-      if (newDate.isAfter(DateTime.now())) {
+      if (newDate.isAfter(today)) {
         emit(state.copyWith(
           isValid: false,
-          errorMessage: 'Achtung! Zukunft',
+          message: 'Achtung! Zukunft',
           status: NewCalendarStateStatus.error,
         ));
       }
 
       //School and Past check
-      if (state.type == 'Schule' && !newDate.isAtSameMomentAs(today)) {
+      if (state.isValid &&
+          state.type == 'Schule' &&
+          !newDate.isAtSameMomentAs(today)) {
         emit(state.copyWith(
           isValid: false,
-          errorMessage: 'In der Schule knnst du dich nur Heute anmelden',
+          message: 'In der Schule knnst du dich nur Heute anmelden',
           status: NewCalendarStateStatus.error,
         ));
       }
@@ -118,12 +124,8 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         if (entriesDateList.contains(newDate)) {
           emit(state.copyWith(
             isValid: false,
-            errorMessage: 'Anmeldung mit diese Datum schon exestiert',
+            message: 'Anmeldung mit diese Datum schon exestiert',
             status: NewCalendarStateStatus.error,
-          ));
-        } else {
-          emit(state.copyWith(
-            isValid: true,
           ));
         }
       }
@@ -141,18 +143,16 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         if (lectionsDateList.contains(newDate) == false) {
           emit(state.copyWith(
             isValid: false,
-            errorMessage: 'Keine Unterrichten!',
+            message: 'Keine Unterrichten!',
             status: NewCalendarStateStatus.error,
           ));
-        } else {
-          emit(state.copyWith(isValid: true));
         }
       }
 
       //Total Validation check
       if (state.isValid) {
         emit(state.copyWith(
-            date: newDate,
+            // date: newDate,
             status: state.type != null
                 ? NewCalendarStateStatus.readyToAdding
                 : NewCalendarStateStatus.hasDate));
@@ -163,30 +163,32 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
     on<CalendarTypeChanged>((event, emit) {
       emit(state.copyWith(isValid: true));
       final newType = event.type;
-      //TODO Add entry date check
       emit(state.copyWith(type: newType));
+
       final today = DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day);
+      final stateDate =
+          DateTime(state.date!.year, state.date!.month, state.date!.day);
 
       final entriesBlocState = _entrysListBloc.state;
       final lectionsBlocState = _kursplanBloc.state;
-      final stateDate =
-          DateTime(state.date!.year, state.date!.month, state.date!.day);
 
       //Future check
       if (stateDate.isAfter(today)) {
         emit(state.copyWith(
           isValid: false,
-          errorMessage: 'Achtung! Zukunft',
+          message: 'Achtung! Zukunft',
           status: NewCalendarStateStatus.error,
         ));
       }
 
       //School and Past check
-      if (newType == 'Schule' && !stateDate.isAtSameMomentAs(today)) {
+      if (state.isValid &&
+          newType == 'Schule' &&
+          !stateDate.isAtSameMomentAs(today)) {
         emit(state.copyWith(
           isValid: false,
-          errorMessage: 'In der Schule knnst du dich nur Heute anmelden',
+          message: 'In der Schule knnst du dich nur Heute anmelden',
           status: NewCalendarStateStatus.error,
         ));
       }
@@ -204,12 +206,8 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         if (entriesDateList.contains(stateDate)) {
           emit(state.copyWith(
             isValid: false,
-            errorMessage: 'Anmeldung mit diese Datum schon exestiert',
+            message: 'Anmeldung mit diese Datum schon exestiert',
             status: NewCalendarStateStatus.error,
-          ));
-        } else {
-          emit(state.copyWith(
-            isValid: true,
           ));
         }
       }
@@ -227,18 +225,15 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         if (lectionsDateList.contains(stateDate) == false) {
           emit(state.copyWith(
             isValid: false,
-            errorMessage: 'Keine Unterrichten!',
+            message: 'Keine Unterrichten!',
             status: NewCalendarStateStatus.error,
           ));
-        } else {
-          emit(state.copyWith(isValid: true));
         }
       }
 
       //Total Validation check
       if (state.isValid) {
         emit(state.copyWith(
-            type: newType,
             status: state.date != null
                 ? NewCalendarStateStatus.readyToAdding
                 : NewCalendarStateStatus.hasType));
@@ -263,44 +258,40 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         if (entryType == 'Schule') {
           entry.schoolVisit = true;
 
-          //TODO User null check, position data null check
-          final user = await _userRepository.user.first;
-          final schoolPosition = user!.schoolGeoPosition;
-          print(schoolPosition);
+          try {
+            final user = await _userRepository.user.first;
+            final schoolPosition = user!.schoolGeoPosition;
+            print(schoolPosition);
 
-          // final geoIsEnabled =
-          //     await _geolocationRepository.isGeolocationServiceEnabled();
-          // if (!geoIsEnabled) {
-          //   emit(state.copyWith(
-          //     isValid: false,
-          //     errorMessage: 'Location services are disabled.',
-          //     status: NewCalendarStateStatus.error,
-          //   ));
-          // }
+            final userGeoPosition =
+                await _geolocationRepository.determinePosition();
+            print(userGeoPosition);
 
-          // try {} catch (e) {}
+            final distanceToSchool = _geolocationRepository.distanceToSchool(
+                userGeoposition: userGeoPosition,
+                schoolLatitude: schoolPosition!.latitude,
+                schoolLongtitude: schoolPosition.longitude);
 
-          final userGeoPosition =
-              await _geolocationRepository.determinePosition();
-          print(userGeoPosition);
+            print('DISTANCE: $distanceToSchool');
 
-          final distanceToSchool = _geolocationRepository.distanceToSchool(
-              userGeoposition: userGeoPosition,
-              schoolLatitude: schoolPosition!.latitude,
-              schoolLongtitude: schoolPosition.longitude);
-
-          print('DISTANCE: $distanceToSchool');
-
-          if (distanceToSchool <= 100) {
-            typeDependIsOK = true;
-          } else {
+            if (distanceToSchool <= 100) {
+              typeDependIsOK = true;
+            } else {
+              emit(state.copyWith(
+                isValid: false,
+                message:
+                    'Du bist nicht in der Schule. Distance ${distanceToSchool.toInt()} meters',
+                status: NewCalendarStateStatus.error,
+              ));
+              typeDependIsOK = false;
+            }
+          } catch (e) {
             emit(state.copyWith(
-              isValid: false,
-              errorMessage:
-                  'Du bist nicht in der Schule. $distanceToSchool meters',
-              status: NewCalendarStateStatus.error,
-            ));
-            typeDependIsOK = false;
+                isValid: false,
+                message: '$e',
+                status: NewCalendarStateStatus.error));
+            print(e);
+            rethrow;
           }
         }
 

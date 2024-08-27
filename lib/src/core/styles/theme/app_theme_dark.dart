@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../color_scheme_my.dart';
@@ -10,9 +9,10 @@ abstract class MyAppThemeDark {
     colorScheme: ColorScheme.fromSeed(
       seedColor: MyAppColorScheme.primary,
       brightness: Brightness.dark,
-      background: MyAppColorScheme.primaryBackgroundDark,
+      // background: MyAppColorScheme.primaryBackgroundDark,
       secondary: MyAppColorScheme.secondary,
-      surface: MyAppColorScheme.secondaryBackgroundDark,
+      // surface: MyAppColorScheme.secondaryBackgroundDark,
+      surface: MyAppColorScheme.primaryBackgroundDark,
     ),
 //App Bar
     appBarTheme: const AppBarTheme(

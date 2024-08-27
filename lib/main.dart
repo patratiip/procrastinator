@@ -8,7 +8,7 @@ import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/bloc_observer.dart';
 import 'package:procrastinator/src/core/app/view/procrastinator.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/domain/comaring_loosed_lections_repository.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/statistic_diagramm_widget/domain/statistic_computing_service.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/domain/statistic_computing_service.dart';
 import 'package:user_repository/user_repository.dart';
 
 import 'firebase_options.dart';

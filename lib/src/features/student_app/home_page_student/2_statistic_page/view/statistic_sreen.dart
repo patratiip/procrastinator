@@ -14,8 +14,7 @@ class StatisticPageWidget extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            padding:
-                const EdgeInsets.only(top: 24, right: 16, left: 16, bottom: 32),
+            padding: const EdgeInsets.only(top: 24, right: 16, left: 16),
             child: const StatisticCircle(),
           ),
           Container(

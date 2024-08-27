@@ -18,7 +18,7 @@ class EntryAddingWidget extends StatelessWidget {
           constraints: const BoxConstraints(maxWidth: 600),
           // height: 400,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.circular(20),
           ),
           child: const Center(
@@ -157,66 +157,6 @@ class _CalendarForEntyAddingState extends State<CalendarForEntyAdding> {
   }
 }
 
-/////ERROR Message
-class ErrorMessageCalendarWidget extends StatelessWidget {
-  const ErrorMessageCalendarWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CalendarBloc, NewCalendarState>(
-        builder: (context, state) {
-      if (state.status == NewCalendarStateStatus.error) {
-        return Container(
-            width: double.infinity,
-            height: 24,
-            color: MyAppColorScheme.errorColor,
-            child: Text(
-              textAlign: TextAlign.center,
-              state.errorMessage!,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Colors.white,
-                    //fontWeight: FontWeight.w500
-                  ),
-            ));
-      } else {
-        return const SizedBox(
-            // height: 24
-            );
-      }
-    });
-  }
-}
-
-/////Succes Message
-class SuccesMessageCalendarWidget extends StatelessWidget {
-  const SuccesMessageCalendarWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<CalendarBloc, NewCalendarState>(
-        builder: (context, state) {
-      if (state.status == NewCalendarStateStatus.allDone) {
-        return Container(
-            width: double.infinity,
-            height: 24,
-            color: MyAppColorScheme.sucsessColor,
-            child: Text(
-              'Hast du alles geschaft!',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Colors.white,
-                    //fontWeight: FontWeight.w500
-                  ),
-            ));
-      } else {
-        return const SizedBox(
-            // height: 24
-            );
-      }
-    });
-  }
-}
-
 /////DROP
 class DropDownEntry extends StatefulWidget {
   const DropDownEntry({super.key});
@@ -275,6 +215,66 @@ class _DropDownEntryState extends State<DropDownEntry> {
         },
       ),
     );
+  }
+}
+
+/////ERROR Message
+class ErrorMessageCalendarWidget extends StatelessWidget {
+  const ErrorMessageCalendarWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CalendarBloc, NewCalendarState>(
+        builder: (context, state) {
+      if (state.status == NewCalendarStateStatus.error) {
+        return Container(
+            width: double.infinity,
+            // height: 24,
+            color: MyAppColorScheme.errorColor,
+            child: SelectableText(
+              textAlign: TextAlign.center,
+              state.message!,
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Colors.white,
+                    //fontWeight: FontWeight.w500
+                  ),
+            ));
+      } else {
+        return const SizedBox(
+            // height: 24
+            );
+      }
+    });
+  }
+}
+
+/////Succes Message
+class SuccesMessageCalendarWidget extends StatelessWidget {
+  const SuccesMessageCalendarWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<CalendarBloc, NewCalendarState>(
+        builder: (context, state) {
+      if (state.status == NewCalendarStateStatus.allDone) {
+        return Container(
+            width: double.infinity,
+            height: 24,
+            color: MyAppColorScheme.sucsessColor,
+            child: Text(
+              state.message ?? '',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Colors.white,
+                    //fontWeight: FontWeight.w500
+                  ),
+            ));
+      } else {
+        return const SizedBox(
+            // height: 24
+            );
+      }
+    });
   }
 }
 

@@ -1,10 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/core/router/main_navigation.dart';
-
-import '../../../../core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/core/styles/styles.dart';
 
 class UserProfilePageOptionsCardComponent extends StatefulWidget {
   final String title;

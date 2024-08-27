@@ -16,32 +16,32 @@ final class NewCalendarState extends Equatable {
     this.date,
     this.type,
     this.isValid = true,
-    this.errorMessage,
+    this.message,
     this.status = NewCalendarStateStatus.disabled,
   });
 
   final DateTime? date;
   final String? type;
   final bool isValid;
-  final String? errorMessage;
+  final String? message;
   final NewCalendarStateStatus status;
 
   NewCalendarState copyWith({
     DateTime? date,
     String? type,
     bool? isValid,
-    String? errorMessage,
+    String? message,
     NewCalendarStateStatus? status,
   }) {
     return NewCalendarState(
       date: date ?? this.date,
       type: type ?? this.type,
       isValid: isValid ?? this.isValid,
-      errorMessage: errorMessage ?? this.errorMessage,
+      message: message ?? this.message,
       status: status ?? this.status,
     );
   }
 
   @override
-  List<Object?> get props => [date, type, isValid, status];
+  List<Object?> get props => [date, type, isValid, message, status];
 }

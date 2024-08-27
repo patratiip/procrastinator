@@ -30,6 +30,7 @@ class AuthenticationBloc
       } else {
         emit(const AuthenticationState.unauthenticated());
       }
+      print('AUTH BLOC state $state');
     });
 
     on<AuthenticationLogOut>((event, emit) {

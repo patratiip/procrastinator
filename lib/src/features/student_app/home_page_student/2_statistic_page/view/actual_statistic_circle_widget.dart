@@ -1,14 +1,10 @@
-import 'package:entry_repository/entry_repository.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/statistic_progress_diagramm_component.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/statistic_diagramm_widget/bloc/statistic_diagramm_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/statistic_diagramm_widget/domain/statistic_computing_service.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/bloc/statistic_diagramm_bloc.dart';
 
 class StatisticCircle extends StatelessWidget {
   const StatisticCircle({super.key});
@@ -51,48 +47,48 @@ class StatisticCircle extends StatelessWidget {
                 ),
               ),
               BlocBuilder<StatisticDiagrammBloc, StatisticDiagrammState>(
-                                builder: (context, state) {
-              if (state is LoadedEntrysCountState) {
-                /////////DIAGRAMM Widget
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 44, bottom: 32),
-                      child: SizedBox(
-                        height: 220,
-                        width: 220,
-                        child: StatisticProgressDiagrammComponent(
+                builder: (context, state) {
+                  if (state is LoadedEntrysCountState) {
+                    /////////DIAGRAMM Widget
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 44, bottom: 32),
+                          child: SizedBox(
+                            height: 220,
+                            width: 220,
+                            child: StatisticProgressDiagrammComponent(
+                              totalVisits: totalVisits,
+                              schoolVisits: state.schoolVisitsCount,
+                              homeOffice: state.homeOfficeCount,
+                            ),
+                          ),
+                        ),
+                        NumbersWidget(
+                          schoolQty: state.schoolVisitsCount,
+                          homeQty: state.homeOfficeCount,
                           totalVisits: totalVisits,
-                          schoolVisits: state.schoolVisitsCount,
-                          homeOffice: state.homeOfficeCount,
+                        ),
+                        TotalDaysIndicator(
+                          schoolQty: state.schoolVisitsCount,
+                          homeQty: state.homeOfficeCount,
+                          totalVisits: totalVisits,
+                        ),
+                      ],
+                    );
+                  } else {
+                    return const Center(
+                      child: SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: CircularProgressIndicator(
+                          color: MyAppColorScheme.primary,
                         ),
                       ),
-                    ),
-                    NumbersWidget(
-                      schoolQty: state.schoolVisitsCount,
-                      homeQty: state.homeOfficeCount,
-                      totalVisits: totalVisits,
-                    ),
-                    TotalDaysIndicator(
-                      schoolQty: state.schoolVisitsCount,
-                      homeQty: state.homeOfficeCount,
-                      totalVisits: totalVisits,
-                    ),
-                  ],
-                );
-              } else {
-                return const Center(
-                  child: SizedBox(
-                    height: 40,
-                    width: 40,
-                    child: CircularProgressIndicator(
-                      color: MyAppColorScheme.primary,
-                    ),
-                  ),
-                );
-              }
-                                },
-                              ),
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),
@@ -197,6 +193,7 @@ class TotalDaysIndicator extends StatelessWidget {
             LinearProgressIndicator(
               value: entiesQty / totalVisits,
               color: MyAppColorScheme.primary,
+              backgroundColor: const Color.fromARGB(33, 125, 125, 125),
               minHeight: 40,
               borderRadius: BorderRadius.circular(12),
             ),
