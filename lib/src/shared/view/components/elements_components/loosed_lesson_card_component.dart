@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:lection_repository/lection_repository.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
@@ -24,6 +25,25 @@ class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
 
   void addEntry() {
     print('${lessonData.theme} Entry Added');
+
+    showCupertinoModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            height: 300,
+            child: Center(
+              child: Column(
+                children: [
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: const Text('YOOO!'))
+                ],
+              ),
+            ),
+          );
+        });
   }
 
   @override

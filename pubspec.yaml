@@ -83,6 +83,7 @@ dependencies:
 
   # widgets
   table_calendar: ^3.0.9
+  modal_bottom_sheet: ^3.0.0
   # percent_indicator: ^4.2.3
 
   # calendar_date_picker2: ^0.5.5

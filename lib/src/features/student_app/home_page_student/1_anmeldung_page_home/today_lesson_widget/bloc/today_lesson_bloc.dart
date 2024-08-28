@@ -10,8 +10,6 @@ class TodayLessonBloc extends Bloc<TodayLessonEvent, TodayLessonState> {
   TodayLessonBloc({required lectionsRepository})
       : _lectionsRepository = lectionsRepository,
         super(TodayLessonInitial()) {
- 
-
     on<LoadTodayLection>((event, emit) async {
       emit(TodayLectionLoading());
 

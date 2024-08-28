@@ -17,8 +17,10 @@ class FirebaseEntryRepository implements EntryRepositoty {
           .orderBy('date', descending: true)
           .snapshots()
           .map((snapshot) => snapshot.docs
-              .map((e) => Entry.fromEntity(EntryEntity.fromFirestore(e.data())))
-              .toList());
+              .map((entry) =>
+                  Entry.fromEntity(EntryEntity.fromFirestore(entry.data())))
+              .toList())
+          .asBroadcastStream();
     } catch (e) {
       log(e.toString());
       rethrow;

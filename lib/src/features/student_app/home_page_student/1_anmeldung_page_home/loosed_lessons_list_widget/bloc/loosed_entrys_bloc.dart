@@ -16,7 +16,7 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
   final ComparingLectionsAndEntriesService _comaringService;
   //Entries Bloc
   final EntrysListBloc _entrysListBloc;
-  late final StreamSubscription _entriesBloctreamSubscription;
+  late final StreamSubscription _entriesBlocStreamSubscription;
   //Lessons Bloc
   final KursplanBloc _kursplanBloc;
   late final StreamSubscription _kursplanBlocStreamSubscription;
@@ -28,7 +28,7 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
     //
 
     //Subscription - Entries Bloc
-    _entriesBloctreamSubscription = _entrysListBloc.stream.listen(
+    _entriesBlocStreamSubscription = _entrysListBloc.stream.listen(
       (state) {
         final kursplanBlocState = _kursplanBloc.state;
         if (state is EntrysListLoadedState &&
@@ -89,7 +89,7 @@ class LoosedEntrysBloc extends Bloc<LoosedEntrysEvent, LoosedEntrysState> {
 
     @override
     Future<void> close() {
-      _entriesBloctreamSubscription.cancel();
+      _entriesBlocStreamSubscription.cancel();
       _kursplanBlocStreamSubscription.cancel();
       print('Entrys subscription was cancelled');
       return super.close();

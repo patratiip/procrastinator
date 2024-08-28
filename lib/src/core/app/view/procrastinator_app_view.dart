@@ -45,11 +45,26 @@ class ProcrastinatorAppView extends StatelessWidget {
                     create: (context) => EntrysListBloc(
                         entrysRepository: GetIt.I<FirebaseEntryRepository>()),
                   ),
+
                   //Lections
                   BlocProvider(
                       create: (context) => KursplanBloc(
                           lectionsRepository:
                               GetIt.I<FirebaseLectionRepository>())),
+
+                  //Loosed Lections
+                  BlocProvider(
+                      create: (context) => LoosedEntrysBloc(
+                            EntrysListBloc(
+                                entrysRepository:
+                                    GetIt.I<FirebaseEntryRepository>()),
+                            KursplanBloc(
+                                lectionsRepository:
+                                    GetIt.I<FirebaseLectionRepository>()),
+                            comaringRepository:
+                                GetIt.I<ComparingLectionsAndEntriesService>(),
+                          )),
+
                   //Statistic
                   BlocProvider(
                       create: (context) => StatisticDiagrammBloc(
@@ -57,6 +72,7 @@ class ProcrastinatorAppView extends StatelessWidget {
                               entrysRepository:
                                   GetIt.I<FirebaseEntryRepository>()),
                           GetIt.I<StatisticComputingServise>())),
+
                   //TodayLection
                   BlocProvider(
                       create: (context) => TodayLessonBloc(

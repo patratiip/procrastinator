@@ -21,7 +21,8 @@ class FirebaseLectionRepository implements LectionRepository {
           .map((snapshot) => snapshot.docs
               .map((e) =>
                   Lection.fromEntity(LectionEntity.fromFirestore(e.data())))
-              .toList());
+              .toList())
+          .asBroadcastStream();
     } catch (e) {
       log(e.toString());
       rethrow;
