@@ -21,7 +21,7 @@ class TodayLessonBloc extends Bloc<TodayLessonEvent, TodayLessonState> {
           emit(TodayLessonEmpty());
         }
 
-        print('heute loaded');
+        print('TodayLesson BLOC: ');
       } catch (e) {
         emit(const TodayLectionFailure(exception: 'Failure'));
       }

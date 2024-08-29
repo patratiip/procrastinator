@@ -1,18 +1,18 @@
-part of 'loosed_entrys_bloc.dart';
+part of 'loosed_entries_bloc.dart';
 
-abstract class LoosedEntrysState extends Equatable {}
+abstract class LoosedEntriesState extends Equatable {}
 
-final class LoosedEntrysInitial extends LoosedEntrysState {
+final class LoosedEntrysInitial extends LoosedEntriesState {
   @override
   List<Object?> get props => [];
 }
 
-final class CompairingEntrysState extends LoosedEntrysState {
+final class CompairingEntrysState extends LoosedEntriesState {
   @override
   List<Object?> get props => [];
 }
 
-final class ComaredEntrysState extends LoosedEntrysState {
+final class ComaredEntrysState extends LoosedEntriesState {
   final List<Lection>? loosedLectionsList;
 
   ComaredEntrysState({required this.loosedLectionsList});
@@ -21,12 +21,12 @@ final class ComaredEntrysState extends LoosedEntrysState {
   List<Object?> get props => [loosedLectionsList];
 }
 
-final class CopmaredAllClear extends LoosedEntrysState {
+final class CopmaredAllClear extends LoosedEntriesState {
   @override
   List<Object?> get props => [];
 }
 
-final class CompairingEntrysFailure extends LoosedEntrysState {
+final class CompairingEntrysFailure extends LoosedEntriesState {
   final Object? exception;
 
   CompairingEntrysFailure({required this.exception});

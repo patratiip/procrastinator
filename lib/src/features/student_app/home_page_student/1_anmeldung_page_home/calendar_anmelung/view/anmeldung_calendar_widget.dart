@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/calendar_anmelung/bloc/new_calendar_bloc.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/calendar_anmelung/bloc/calendar_bloc.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class EntryAddingWidget extends StatelessWidget {
@@ -285,13 +286,44 @@ class EntryAddingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CalendarBloc, NewCalendarState>(
-      builder: (context, state) {
-        if (state.status == NewCalendarStateStatus.readyToAdding) {
-          return Container(
-            width: double.infinity,
-            height: 60,
-            child: ElevatedButton(
+    return BlocListener<LoosedEntriesBloc, LoosedEntriesState>(
+      listener: (context, state) {
+        if (state is CopmaredAllClear) {
+          context.read<CalendarBloc>().add(CalendarNothingToAddEvent());
+        }
+      },
+      child: BlocBuilder<CalendarBloc, NewCalendarState>(
+        builder: (context, state) {
+          if (state.status == NewCalendarStateStatus.readyToAdding) {
+            return Container(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton(
+                  style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(MyAppColorScheme.primary),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20))))),
+                  onPressed: () {
+                    final bloc = BlocProvider.of<CalendarBloc>(context);
+
+                    bloc.add(CalendarAddEntry());
+                  },
+                  child: Text(
+                    'Anmelden',
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Colors.white,
+                          //fontWeight: FontWeight.w500
+                        ),
+                  )),
+            );
+          } else if (state.status == NewCalendarStateStatus.inProgress) {
+            return Container(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton(
                 style: const ButtonStyle(
                     backgroundColor:
                         MaterialStatePropertyAll(MyAppColorScheme.primary),
@@ -299,115 +331,91 @@ class EntryAddingButton extends StatelessWidget {
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(20),
                             bottomRight: Radius.circular(20))))),
-                onPressed: () {
-                  final bloc = BlocProvider.of<CalendarBloc>(context);
-
-                  bloc.add(CalendarAddEntry());
-                },
-                child: Text(
-                  'Anmelden',
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Colors.white,
-                        //fontWeight: FontWeight.w500
-                      ),
-                )),
-          );
-        } else if (state.status == NewCalendarStateStatus.inProgress) {
-          return Container(
-            width: double.infinity,
-            height: 60,
-            child: ElevatedButton(
-              style: const ButtonStyle(
-                  backgroundColor:
-                      MaterialStatePropertyAll(MyAppColorScheme.primary),
-                  shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(20),
-                          bottomRight: Radius.circular(20))))),
-              onPressed: () {},
-              child: const Center(
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: CircularProgressIndicator(
-                    color: Colors.white,
+                onPressed: () {},
+                child: const Center(
+                  child: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-          );
+            );
 
-          //   ///error
-          // } else if (state.isValid == false) {
-          //   return Container(
-          //     width: double.infinity,
-          //     height: 60,
-          //     child: ElevatedButton(
-          //         style: const ButtonStyle(
-          //             backgroundColor:
-          //                 MaterialStatePropertyAll(MyAppColorScheme.errorColor),
-          //             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.only(
-          //                     bottomLeft: Radius.circular(20),
-          //                     bottomRight: Radius.circular(20))))),
-          //         onPressed: () {},
-          //         child: Text(
-          //           textAlign: TextAlign.center,
-          //           state.status!,
-          //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
-          //                 color: Colors.white,
-          //                 //fontWeight: FontWeight.w500
-          //               ),
-          //         )),
-          //   );
+            //   ///error
+            // } else if (state.isValid == false) {
+            //   return Container(
+            //     width: double.infinity,
+            //     height: 60,
+            //     child: ElevatedButton(
+            //         style: const ButtonStyle(
+            //             backgroundColor:
+            //                 MaterialStatePropertyAll(MyAppColorScheme.errorColor),
+            //             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.only(
+            //                     bottomLeft: Radius.circular(20),
+            //                     bottomRight: Radius.circular(20))))),
+            //         onPressed: () {},
+            //         child: Text(
+            //           textAlign: TextAlign.center,
+            //           state.status!,
+            //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
+            //                 color: Colors.white,
+            //                 //fontWeight: FontWeight.w500
+            //               ),
+            //         )),
+            //   );
 
-          //   ///You are hero
-          // } else if (state.status == 'Hast du alles geschaft!') {
-          //   return Container(
-          //     width: double.infinity,
-          //     height: 60,
-          //     child: ElevatedButton(
-          //         style: const ButtonStyle(
-          //             backgroundColor:
-          //                 MaterialStatePropertyAll(MyAppColorScheme.sucsessColor),
-          //             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-          //                 borderRadius: BorderRadius.only(
-          //                     bottomLeft: Radius.circular(20),
-          //                     bottomRight: Radius.circular(20))))),
-          //         onPressed: () {},
-          //         child: Text(
-          //           textAlign: TextAlign.center,
-          //           state.status!,
-          //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
-          //                 color: Colors.white,
-          //                 //fontWeight: FontWeight.w500
-          //               ),
-          //         )),
-          //   );
+            //   ///You are hero
+            // } else if (state.status == 'Hast du alles geschaft!') {
+            //   return Container(
+            //     width: double.infinity,
+            //     height: 60,
+            //     child: ElevatedButton(
+            //         style: const ButtonStyle(
+            //             backgroundColor:
+            //                 MaterialStatePropertyAll(MyAppColorScheme.sucsessColor),
+            //             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.only(
+            //                     bottomLeft: Radius.circular(20),
+            //                     bottomRight: Radius.circular(20))))),
+            //         onPressed: () {},
+            //         child: Text(
+            //           textAlign: TextAlign.center,
+            //           state.status!,
+            //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
+            //                 color: Colors.white,
+            //                 //fontWeight: FontWeight.w500
+            //               ),
+            //         )),
+            //   );
 
-          ////unactive
-        } else {
-          return Container(
-            width: double.infinity,
-            height: 60,
-            child: ElevatedButton(
-                style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.grey),
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(20),
-                            bottomRight: Radius.circular(20))))),
-                onPressed: () {},
-                child: Text(
-                  'Anmelden',
-                  style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                        color: Colors.white,
-                        //fontWeight: FontWeight.w500
-                      ),
-                )),
-          );
-        }
-      },
+            ////unactive
+          } else {
+            return Container(
+              width: double.infinity,
+              height: 60,
+              child: ElevatedButton(
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.grey),
+                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(20))))),
+                  onPressed: () {},
+                  child: Text(
+                    'Anmelden',
+                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                          color: Colors.white,
+                          //fontWeight: FontWeight.w500
+                        ),
+                  )),
+            );
+          }
+        },
+      ),
     );
   }
 }

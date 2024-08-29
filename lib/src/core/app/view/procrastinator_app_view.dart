@@ -7,10 +7,10 @@ import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/core/styles/theme/theme.dart';
 import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/calendar_anmelung/bloc/new_calendar_bloc.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/calendar_anmelung/bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/bloc/loosed_entrys_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/domain/comaring_loosed_lections_repository.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_entries_list_widget/domain/comaring_loosed_lections_repository.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/today_lesson_widget/bloc/today_lesson_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/bloc/statistic_diagramm_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/domain/statistic_computing_service.dart';
@@ -54,24 +54,21 @@ class ProcrastinatorAppView extends StatelessWidget {
 
                   //Loosed Lections
                   BlocProvider(
-                      create: (context) => LoosedEntrysBloc(
-                            EntrysListBloc(
-                                entrysRepository:
-                                    GetIt.I<FirebaseEntryRepository>()),
-                            KursplanBloc(
-                                lectionsRepository:
-                                    GetIt.I<FirebaseLectionRepository>()),
-                            comaringRepository:
+                      create: (context) => LoosedEntriesBloc(
+                            entriesRepository:
+                                GetIt.I<FirebaseEntryRepository>(),
+                            lectionsRepository:
+                                GetIt.I<FirebaseLectionRepository>(),
+                            comaringService:
                                 GetIt.I<ComparingLectionsAndEntriesService>(),
                           )),
 
                   //Statistic
                   BlocProvider(
                       create: (context) => StatisticDiagrammBloc(
-                          EntrysListBloc(
-                              entrysRepository:
-                                  GetIt.I<FirebaseEntryRepository>()),
-                          GetIt.I<StatisticComputingServise>())),
+                          entriesRepository: GetIt.I<FirebaseEntryRepository>(),
+                          computingService:
+                              GetIt.I<StatisticComputingServise>())),
 
                   //TodayLection
                   BlocProvider(
@@ -83,25 +80,11 @@ class ProcrastinatorAppView extends StatelessWidget {
                   //Calendar
                   BlocProvider(
                       create: (context) => CalendarBloc(
-                            EntrysListBloc(
-                                entrysRepository:
-                                    GetIt.I<FirebaseEntryRepository>()),
-                            KursplanBloc(
-                                lectionsRepository:
-                                    GetIt.I<FirebaseLectionRepository>()),
-                            LoosedEntrysBloc(
-                              EntrysListBloc(
-                                  entrysRepository:
-                                      GetIt.I<FirebaseEntryRepository>()),
-                              KursplanBloc(
-                                  lectionsRepository:
-                                      GetIt.I<FirebaseLectionRepository>()),
-                              comaringRepository:
-                                  GetIt.I<ComparingLectionsAndEntriesService>(),
-                            ),
                             userRepository: GetIt.I<FirebaseUserRepository>(),
-                            entrysRepository:
+                            entriesRepository:
                                 GetIt.I<FirebaseEntryRepository>(),
+                            lectionsRepository:
+                                GetIt.I<FirebaseLectionRepository>(),
                             geolocationRepository:
                                 GetIt.I<DeviceGeolocationRepository>(),
                           )

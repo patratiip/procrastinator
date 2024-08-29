@@ -1,4 +1,4 @@
-part of 'new_calendar_bloc.dart';
+part of 'calendar_bloc.dart';
 
 enum NewCalendarStateStatus {
   disabled,

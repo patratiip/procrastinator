@@ -1,14 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'loosed_entrys_bloc.dart';
+part of 'loosed_entries_bloc.dart';
 
-sealed class LoosedEntrysEvent extends Equatable {
-  const LoosedEntrysEvent();
+sealed class LoosedEntriesEvent extends Equatable {
+  const LoosedEntriesEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class ComairingLectionsAndVisitsEvent extends LoosedEntrysEvent {
+class ComairingLectionsAndVisitsEvent extends LoosedEntriesEvent {
   List<Lection>? lectionsList;
   List<Entry>? entriesList;
 

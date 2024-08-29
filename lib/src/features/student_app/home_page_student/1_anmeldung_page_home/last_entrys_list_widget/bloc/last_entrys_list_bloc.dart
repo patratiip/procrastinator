@@ -47,7 +47,7 @@ class EntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
 
           emit(EntrysListLoadedState(userVisits: entriesList));
 
-          print('Bloc: Entrys data was updated ${event.entriesList}');
+          // print('Bloc: Entrys data was updated ${event.entriesList}');
         } else {
           emit(EntrysListLoadingState());
         }

@@ -4,59 +4,105 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/loosed_lessons_list_widget/bloc/loosed_entrys_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:uuid/uuid.dart';
 
-part 'new_calendar_event.dart';
-part 'new_calendar_state.dart';
+part 'calendar_event.dart';
+part 'calendar_state.dart';
 
 class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
+  //
   final UserRepository _userRepository;
+  //Entries Repo
   final EntryRepositoty _entriesRepository;
+  late final StreamSubscription<List<Entry>?> _entrysListListener;
+  //Lessons Repo
+  final LectionRepository _lectionsRepository;
+  late final StreamSubscription<List<Lection>?> _lectionListListener;
   final GeolocationRepository _geolocationRepository;
-  //Entries Bloc
-  final EntrysListBloc _entrysListBloc;
-  //Lessons Bloc
-  final KursplanBloc _kursplanBloc;
-  //Loosed Bloc
-  final LoosedEntrysBloc _loosedEntriesBloc;
-  late final StreamSubscription _loosedEntriesBlocStreamSubscription;
+
+  // //Loosed Bloc
+  // final LoosedEntrysBloc _loosedEntriesBloc;
+  // late final StreamSubscription _loosedEntriesBlocStreamSubscription;
 
   CalendarBloc(
-      this._entrysListBloc, this._kursplanBloc, this._loosedEntriesBloc,
       {required userRepository,
-      required entrysRepository,
+      required entriesRepository,
+      required lectionsRepository,
       required geolocationRepository})
       : _userRepository = userRepository,
-        _entriesRepository = entrysRepository,
+        _entriesRepository = entriesRepository,
+        _lectionsRepository = lectionsRepository,
         _geolocationRepository = geolocationRepository,
         super(NewCalendarState(date: DateTime.now())) {
     //
+    //
 
-    //Subscription - Loosed Bloc
-    _loosedEntriesBlocStreamSubscription = _loosedEntriesBloc.stream.listen(
-      (state) {
-        if (state is CopmaredAllClear) {
-          // if (state.loosedLectionsList!.isEmpty) {
-          add(CalendarNothingToAddEvent());
-          // }
-        } else if (state is ComaredEntrysState) {
-          add(CalendarSomethingToAddEvent());
+    List<Entry> entriesListFromStream = [];
+    List<Lection> lectionsListFromStream = [];
+
+    //Subscription - Entries List from Repo
+    _entrysListListener = entriesRepository.getVisits().listen(
+      (entriesList) {
+        if (entriesList != null && entriesList.isNotEmpty) {
+          entriesListFromStream = entriesList;
         }
+        // print('Loosed Bloc Stram (Enrty): e: $entriesList, _l: $_lectionsList');
+        // if (entriesList != null &&
+        //     entriesList.isNotEmpty &&
+        //     lectionsListFromStream.isNotEmpty) {
+        //   add(ComairingLectionsAndVisitsEvent(
+        //     lectionsListFromStream,
+        //     entriesListFromStream,
+        //   ));
+        // }
       },
       cancelOnError: false,
     );
 
-    ///Initialization
-    on<CalendarInitializationEvent>((event, emit) async {
-      // await Future<void>.delayed(const Duration(seconds: 2));
-      // emit(state.copyWith(
-      //   status: 'Hast du alles geschaft!',
-      // ));
-    });
+    //Subscription - Lessons Bloc
+    _lectionListListener = lectionsRepository.getLections().listen(
+      (lectionsList) {
+        if (lectionsList != null && lectionsList.isNotEmpty) {
+          lectionsListFromStream = lectionsList;
+        }
+        // print( 'Loosed Bloc Stram (Lection): _e: $_entriesList, l: $lectionsList');
+        // if (lectionsList != null &&
+        //     lectionsList.isNotEmpty &&
+        //     entriesListFromStream.isNotEmpty) {
+        //   add(ComairingLectionsAndVisitsEvent(
+        //     lectionsListFromStream,
+        //     entriesListFromStream,
+        //   ));
+        // }
+      },
+      cancelOnError: false,
+    );
+
+    //Subscription - Loosed Bloc
+    // _loosedEntriesBlocStreamSubscription = _loosedEntriesBloc.stream.listen(
+    //   (state) {
+    //     if (state is CopmaredAllClear) {
+    //       // if (state.loosedLectionsList!.isEmpty) {
+    //       add(CalendarNothingToAddEvent());
+    //       // }
+    //     } else if (state is ComaredEntrysState) {
+    //       add(CalendarSomethingToAddEvent());
+    //     }
+    //   },
+    //   cancelOnError: false,
+    // );
+
+    // ///Initialization
+    // on<CalendarInitializationEvent>((event, emit) async {
+    //   // await Future<void>.delayed(const Duration(seconds: 2));
+    //   // emit(state.copyWith(
+    //   //   status: 'Hast du alles geschaft!',
+    //   // ));
+    // });
 
     ///Nothing to add
     on<CalendarNothingToAddEvent>((event, emit) async {
@@ -67,16 +113,16 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       ));
     });
 
-    ///Something to add
-    on<CalendarSomethingToAddEvent>(
-      (event, emit) async {
-        await Future<void>.delayed(const Duration(seconds: 2));
-        emit(state.copyWith(
-          status: NewCalendarStateStatus.disabled,
-        ));
-      },
-      transformer: sequential(),
-    );
+    // ///Something to add
+    // on<CalendarSomethingToAddEvent>(
+    //   (event, emit) async {
+    //     await Future<void>.delayed(const Duration(seconds: 2));
+    //     emit(state.copyWith(
+    //       status: NewCalendarStateStatus.disabled,
+    //     ));
+    //   },
+    //   transformer: sequential(),
+    // );
 
     ///User changed date
     on<CalendarDateChanged>((event, emit) {
@@ -84,8 +130,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
 
       final today = DateTime(
           DateTime.now().year, DateTime.now().month, DateTime.now().day);
-      final entriesBlocState = _entrysListBloc.state;
-      final lectionsBlocState = _kursplanBloc.state;
+
       final newDate =
           DateTime(event.date.year, event.date.month, event.date.day);
 
@@ -112,8 +157,8 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       }
 
       //Entry exist check
-      if (state.isValid && entriesBlocState is EntrysListLoadedState) {
-        final entriesDateList = entriesBlocState.userVisits!.map((entry) {
+      if (state.isValid && entriesListFromStream.isNotEmpty) {
+        final entriesDateList = entriesListFromStream.map((entry) {
           return DateTime(
             entry.date.year,
             entry.date.month,
@@ -131,8 +176,8 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       }
 
       //Lection at that date exists check
-      if (state.isValid && lectionsBlocState is LectionsListLoadedState) {
-        final lectionsDateList = lectionsBlocState.lectionsList.map((lection) {
+      if (state.isValid && lectionsListFromStream.isNotEmpty) {
+        final lectionsDateList = lectionsListFromStream.map((lection) {
           return DateTime(
             lection.date!.year,
             lection.date!.month,
@@ -170,9 +215,6 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       final stateDate =
           DateTime(state.date!.year, state.date!.month, state.date!.day);
 
-      final entriesBlocState = _entrysListBloc.state;
-      final lectionsBlocState = _kursplanBloc.state;
-
       //Future check
       if (stateDate.isAfter(today)) {
         emit(state.copyWith(
@@ -194,8 +236,8 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       }
 
       //Entry exist check
-      if (state.isValid && entriesBlocState is EntrysListLoadedState) {
-        final entriesDateList = entriesBlocState.userVisits!.map((entry) {
+      if (state.isValid && entriesListFromStream.isNotEmpty) {
+        final entriesDateList = entriesListFromStream.map((entry) {
           return DateTime(
             entry.date.year,
             entry.date.month,
@@ -213,8 +255,8 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       }
 
       //Lection at that date exists check
-      if (state.isValid && lectionsBlocState is LectionsListLoadedState) {
-        final lectionsDateList = lectionsBlocState.lectionsList.map((lection) {
+      if (state.isValid && lectionsListFromStream.isNotEmpty) {
+        final lectionsDateList = lectionsListFromStream.map((lection) {
           return DateTime(
             lection.date!.year,
             lection.date!.month,
@@ -310,17 +352,19 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
 
         if (typeDependIsOK) {
           _entriesRepository.addEntry(entry);
+          print('Calendar Bloc: Entry was added $entry');
         } else {}
 
         await Future<void>.delayed(const Duration(seconds: 1));
-        add(CalendarInitializationEvent());
-        // emit(state.copyWith(isValid: false, status: 'Added'));
+        emit(state.copyWith(
+          status: NewCalendarStateStatus.succes,
+        ));
       } else {}
     });
 
     @override
     Future<void> close() {
-      _loosedEntriesBlocStreamSubscription.cancel();
+      // _loosedEntriesBlocStreamSubscription.cancel();
       return super.close();
     }
   }

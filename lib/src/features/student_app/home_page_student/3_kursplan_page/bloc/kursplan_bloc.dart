@@ -34,7 +34,7 @@ class KursplanBloc extends Bloc<KursplanEvent, KursplanState> {
 
           emit(LectionsListLoadedState(lectionsList: lectionsList));
 
-          print('Bloc: Lections data was updated ${event.lectionsList}');
+          // print('Bloc: Lections data was updated ${event.lectionsList}');
         } else {
           emit(LectionsListLoadingState());
         }
