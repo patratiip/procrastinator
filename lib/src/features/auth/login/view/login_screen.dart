@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/features/auth/login/login.dart';
-import 'package:procrastinator/src/features/auth/sign_up/view/view.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
-import 'package:user_repository/user_repository.dart';
+import 'package:procrastinator/src/core/app/bloc/authentication_bloc.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -27,7 +25,8 @@ class LoginScreen extends StatelessWidget {
         body: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: BlocProvider(
-            create: (_) => LoginCubit(GetIt.I<FirebaseUserRepository>()),
+            create: (context) => LoginCubit(
+                context.read<AuthenticationBloc>().authenticationRepository),
             child: const _HeaderWidget(),
           ),
         ));

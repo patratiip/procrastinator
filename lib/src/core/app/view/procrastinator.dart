@@ -11,7 +11,7 @@ class ProcrastinatorApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
+    return RepositoryProvider<AuthenticationBloc>(
       create: (context) => AuthenticationBloc(
         authenticationRepository: authenticationRepository,
       ),

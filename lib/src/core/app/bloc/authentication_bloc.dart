@@ -13,12 +13,7 @@ class AuthenticationBloc
   late final StreamSubscription<MyUser?> _userSubscription;
 
   AuthenticationBloc({required this.authenticationRepository})
-      : super(
-          authenticationRepository.currentUser.isNotEmpty
-              ? AuthenticationState.authenticated(
-                  authenticationRepository.currentUser)
-              : const AuthenticationState.unauthenticated(),
-        ) {
+      : super(const AuthenticationState.unknown()) {
     //Subscription User
     _userSubscription = authenticationRepository.user.listen((user) {
       add(AuthenticationUserChanged(user));

@@ -15,12 +15,14 @@ class StatisticDiagrammBloc
   final EntryRepositoty _entriesRepository;
   late final StreamSubscription<List<Entry>?> _entrysListListener;
 
-  StatisticDiagrammBloc({required entriesRepository, required computingService})
+  StatisticDiagrammBloc(
+      {required EntryRepositoty entriesRepository,
+      required StatisticComputingServise computingService})
       : _entriesRepository = entriesRepository,
         _computingService = computingService,
         super(StatisticDiagrammInitial()) {
     //Subscription - Entries List from Repo
-    _entrysListListener = _entriesRepository.getVisits().listen(
+    _entrysListListener = entriesRepository.getVisits().listen(
       (entriesList) {
         if (entriesList != null && entriesList.isNotEmpty) {
           add(LoadSchoolVisitsCount(entriesList));

@@ -14,13 +14,14 @@ class FirebaseEntryRepository implements EntryRepositoty {
   Stream<List<Entry>?> getVisits() {
     try {
       return _userVisitsCollection
-          .orderBy('date', descending: true)
-          .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((entry) =>
-                  Entry.fromEntity(EntryEntity.fromFirestore(entry.data())))
-              .toList())
-          .asBroadcastStream();
+              .orderBy('date', descending: true)
+              .snapshots()
+              .map((snapshot) => snapshot.docs
+                  .map((entry) =>
+                      Entry.fromEntity(EntryEntity.fromFirestore(entry.data())))
+                  .toList())
+          // .asBroadcastStream()
+          ;
     } catch (e) {
       log(e.toString());
       rethrow;

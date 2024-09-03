@@ -10,7 +10,7 @@ part 'kursplan_state.dart';
 class KursplanBloc extends Bloc<KursplanEvent, KursplanState> {
   final LectionRepository _lectionsRepository;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
-  KursplanBloc({required lectionsRepository})
+  KursplanBloc({required LectionRepository lectionsRepository})
       : _lectionsRepository = lectionsRepository,
         super(KursplanInitialState()) {
     //Subscription

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/lesson_card_component.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page_home/today_lesson_widget/view/today_lesson_widget.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/today_lection_widget/view/today_lection_widget.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
 
 class KursplanPageWidget extends StatelessWidget {
@@ -20,7 +20,7 @@ class KursplanPageWidget extends StatelessWidget {
           child: Column(
             children: [
               //
-              const HeutigeUnterrichtWidget(),
+              const TodayLectionWidget(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
