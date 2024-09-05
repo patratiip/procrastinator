@@ -1,51 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:lection_repository/lection_repository.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
-class LoosedLessonCardComponent extends StatefulWidget {
+class LoosedLessonCardComponent extends StatelessWidget {
   final Lection lessonData;
   const LoosedLessonCardComponent({super.key, required this.lessonData});
 
   @override
-  State<LoosedLessonCardComponent> createState() =>
-      _LoosedLessonCardComponentState();
-}
-
-class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
-  final dateFormat = DateFormat('dd.MM.yy');
-
-  void addEntry() {
-    print('${widget.lessonData.theme} Entry Added');
-
-    showCupertinoModalBottomSheet(
-        context: context,
-        builder: (BuildContext context) {
-          return Container(
-            height: 300,
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Close!'))
-                ],
-              ),
-            ),
-          );
-        });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    var lessonData = widget.lessonData;
+    final dateFormat = DateFormat('dd.MM.yy');
+
     return Container(
       ///////ON TAP???///////
       height: 74,
@@ -102,12 +72,53 @@ class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
             ),
             Text(dateFormat.format(lessonData.date!)),
             IconButton(
-                onPressed: addEntry,
-                icon: const Icon(
-                  Icons.add_rounded,
-                  size: 32,
-                  color: MyAppColorScheme.primary,
-                ))
+              onPressed: () {
+                final bloc = BlocProvider.of<CalendarBloc>(context);
+
+                bloc.add(CalendarDateChanged(date: lessonData.date!));
+              },
+              icon: const Icon(
+                Icons.add_rounded,
+                size: 32,
+                color: MyAppColorScheme.primary,
+              ),
+            )
+            // IconButton(
+            //   onPressed: () {
+            //     print('${lessonData.theme} Entry Added');
+
+            //     showCupertinoModalBottomSheet(
+            //         context: context,
+            //         builder: (BuildContext context) {
+            //           return Container(
+            //             decoration:
+            //                 BoxDecoration(color: Theme.of(context).cardColor),
+            //             height: 300,
+            //             child: Center(
+            //               child: Column(
+            //                 mainAxisAlignment: MainAxisAlignment.center,
+            //                 children: [
+            //                   Text(
+            //                     dateFormat.format(lessonData.date!),
+            //                     style: Theme.of(context).textTheme.displayLarge,
+            //                   ),
+            //                   ElevatedButton(
+            //                       onPressed: () {
+            //                         Navigator.pop(context);
+            //                       },
+            //                       child: const Text('Close!'))
+            //                 ],
+            //               ),
+            //             ),
+            //           );
+            //         });
+            //   },
+            //   icon: const Icon(
+            //     Icons.add_rounded,
+            //     size: 32,
+            //     color: MyAppColorScheme.primary,
+            //   ),
+            // ),
           ]),
     );
   }

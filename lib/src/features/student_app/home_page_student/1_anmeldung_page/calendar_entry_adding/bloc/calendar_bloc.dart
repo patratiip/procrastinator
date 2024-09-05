@@ -4,13 +4,14 @@ import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lection_repository/lection_repository.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:uuid/uuid.dart';
 
 part 'calendar_event.dart';
 part 'calendar_state.dart';
 
-class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
+class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   //
   final UserRepository _userRepository;
   //Entries Repo
@@ -34,7 +35,10 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,
         _geolocationRepository = geolocationRepository,
-        super(NewCalendarState(date: DateTime.now())) {
+        super(CalendarState(
+          date: DateTime.now(),
+          calendarFormat: CalendarFormat.week,
+        )) {
     //
     //
 
@@ -124,7 +128,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       await Future<void>.delayed(const Duration(seconds: 2));
       emit(state.copyWith(
         message: 'Hast du alles geschaft!',
-        status: NewCalendarStateStatus.allDone,
+        status: CalendarStateStatus.allDone,
       ));
     });
 
@@ -138,6 +142,11 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
     //   },
     //   transformer: sequential(),
     // );
+
+    ///User changed calendar format
+    on<CalendarFormatChanged>((event, emit) {
+      emit(state.copyWith(calendarFormat: event.calendarFormat));
+    });
 
     ///User changed date
     on<CalendarDateChanged>((event, emit) {
@@ -156,7 +165,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         emit(state.copyWith(
           isValid: false,
           message: 'Achtung! Zukunft',
-          status: NewCalendarStateStatus.error,
+          status: CalendarStateStatus.error,
         ));
       }
 
@@ -167,7 +176,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         emit(state.copyWith(
           isValid: false,
           message: 'In der Schule knnst du dich nur Heute anmelden',
-          status: NewCalendarStateStatus.error,
+          status: CalendarStateStatus.error,
         ));
       }
 
@@ -185,7 +194,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
           emit(state.copyWith(
             isValid: false,
             message: 'Anmeldung mit diese Datum schon exestiert',
-            status: NewCalendarStateStatus.error,
+            status: CalendarStateStatus.error,
           ));
         }
       }
@@ -204,7 +213,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
           emit(state.copyWith(
             isValid: false,
             message: 'Keine Unterrichten!',
-            status: NewCalendarStateStatus.error,
+            status: CalendarStateStatus.error,
           ));
         }
       }
@@ -214,8 +223,8 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         emit(state.copyWith(
             // date: newDate,
             status: state.type != null
-                ? NewCalendarStateStatus.readyToAdding
-                : NewCalendarStateStatus.hasDate));
+                ? CalendarStateStatus.readyToAdding
+                : CalendarStateStatus.hasDate));
       }
     });
 
@@ -235,7 +244,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         emit(state.copyWith(
           isValid: false,
           message: 'Achtung! Zukunft',
-          status: NewCalendarStateStatus.error,
+          status: CalendarStateStatus.error,
         ));
       }
 
@@ -246,7 +255,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         emit(state.copyWith(
           isValid: false,
           message: 'In der Schule knnst du dich nur Heute anmelden',
-          status: NewCalendarStateStatus.error,
+          status: CalendarStateStatus.error,
         ));
       }
 
@@ -264,7 +273,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
           emit(state.copyWith(
             isValid: false,
             message: 'Anmeldung mit diese Datum schon exestiert',
-            status: NewCalendarStateStatus.error,
+            status: CalendarStateStatus.error,
           ));
         }
       }
@@ -283,7 +292,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
           emit(state.copyWith(
             isValid: false,
             message: 'Keine Unterrichten!',
-            status: NewCalendarStateStatus.error,
+            status: CalendarStateStatus.error,
           ));
         }
       }
@@ -292,17 +301,17 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       if (state.isValid) {
         emit(state.copyWith(
             status: state.date != null
-                ? NewCalendarStateStatus.readyToAdding
-                : NewCalendarStateStatus.hasType));
+                ? CalendarStateStatus.readyToAdding
+                : CalendarStateStatus.hasType));
       }
     });
 
     ///User submitted choise
     on<CalendarAddEntry>((event, emit) async {
-      if (state.status == NewCalendarStateStatus.readyToAdding) {
+      if (state.status == CalendarStateStatus.readyToAdding) {
         emit(state.copyWith(
           isValid: true,
-          status: NewCalendarStateStatus.inProgress,
+          status: CalendarStateStatus.inProgress,
         ));
 
         final entryType = state.type;
@@ -338,7 +347,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
                 isValid: false,
                 message:
                     'Du bist nicht in der Schule. Distance ${distanceToSchool.toInt()} meters',
-                status: NewCalendarStateStatus.error,
+                status: CalendarStateStatus.error,
               ));
               typeDependIsOK = false;
             }
@@ -346,7 +355,7 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
             emit(state.copyWith(
                 isValid: false,
                 message: '$e',
-                status: NewCalendarStateStatus.error));
+                status: CalendarStateStatus.error));
             print(e);
             rethrow;
           }
@@ -372,17 +381,15 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
 
         await Future<void>.delayed(const Duration(seconds: 1));
         emit(state.copyWith(
-          status: NewCalendarStateStatus.succes,
+          status: CalendarStateStatus.succes,
         ));
       } else {}
     });
-
-   
   }
-   @override
-    Future<void> close() {
-      _entrysListListener.cancel();
-      _lectionListListener.cancel();
-      return super.close();
-    }
+  @override
+  Future<void> close() {
+    _entrysListListener.cancel();
+    _lectionListListener.cancel();
+    return super.close();
+  }
 }

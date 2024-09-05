@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/entry_adding_calendar/bloc/calendar_bloc.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/calendar_entry_adding/bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class EntryAddingCalendarWidget extends StatelessWidget {
-  const EntryAddingCalendarWidget({super.key});
+class CalendarEntryAddingWidget extends StatelessWidget {
+  const CalendarEntryAddingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +26,8 @@ class EntryAddingCalendarWidget extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CalendarForEntyAdding(),
+                // CalendarForEntyAdding(),
+                CalendarForEntyAddingNewBloc(),
                 DropDownEntry(),
                 ErrorMessageCalendarWidget(),
                 SuccesMessageCalendarWidget(),
@@ -42,128 +42,125 @@ class EntryAddingCalendarWidget extends StatelessWidget {
 }
 
 ///////CALENDAR
-class CalendarForEntyAdding extends StatefulWidget {
-  const CalendarForEntyAdding({super.key});
+class CalendarForEntyAddingNewBloc extends StatelessWidget {
+  const CalendarForEntyAddingNewBloc({super.key});
 
-  @override
-  State<CalendarForEntyAdding> createState() => _CalendarForEntyAddingState();
-}
-
-class _CalendarForEntyAddingState extends State<CalendarForEntyAdding> {
-  DateTime today = DateTime.now();
-
-  CalendarFormat formatOfCalendar = CalendarFormat.week;
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('de_DE', null);
     initializeDateFormatting('ru', null);
-    return TableCalendar(
-      availableGestures: AvailableGestures.horizontalSwipe,
-
-      rowHeight: 66,
-
-      ///HEADER Style
-      headerStyle: HeaderStyle(
-        // leftChevronVisible: false,
-        // rightChevronVisible: false,
-
-        headerPadding: const EdgeInsets.symmetric(vertical: 8.0),
-
-        leftChevronIcon: const Icon(
-          Icons.chevron_left_rounded,
-          size: 34,
-          color: Colors.grey,
-        ),
-        rightChevronIcon: const Icon(
-          Icons.chevron_right_rounded,
-          size: 34,
-          color: Colors.grey,
-        ),
-
-        rightChevronMargin: const EdgeInsets.symmetric(horizontal: 0),
-        leftChevronMargin: const EdgeInsets.symmetric(horizontal: 0),
-        leftChevronPadding:
-            const EdgeInsets.only(top: 12, bottom: 12, right: 12),
-        rightChevronPadding:
-            const EdgeInsets.only(top: 12, bottom: 12, left: 12),
-
-        //Button
-        formatButtonDecoration: BoxDecoration(
-          // border: Border.fromBorderSide(BorderSide(color: MyAppColorScheme.primary)),
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          color: Theme.of(context).colorScheme.background,
-        ),
-
-        titleTextFormatter: (date, locale) =>
-            DateFormat.yMMMM(locale).format(date),
-        titleTextStyle: Theme.of(context).textTheme.titleMedium!,
-        formatButtonTextStyle: Theme.of(context).textTheme.bodyLarge!,
-      ),
-
-      calendarStyle: const CalendarStyle(
-        markerSize: 44,
-
-        defaultTextStyle: TextStyle(fontSize: 18),
-
-        //TODAY Style
-
-        markerSizeScale: 2,
-        todayTextStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-        todayDecoration: BoxDecoration(
-            color: Color.fromARGB(255, 202, 200, 255), shape: BoxShape.circle),
-
-        //SELECTED Style
-        selectedTextStyle: TextStyle(
-            color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
-        selectedDecoration: BoxDecoration(
-            color: MyAppColorScheme.primary, shape: BoxShape.circle),
-      ),
-      // daysOfWeekHeight: 24,
-      // pageJumpingEnabled: true,
-      formatAnimationCurve: Curves.elasticInOut,
-      formatAnimationDuration: const Duration(milliseconds: 800),
-
-      daysOfWeekStyle: DaysOfWeekStyle(
-        dowTextFormatter: (date, locale) =>
-            DateFormat.E(locale).format(date).substring(0, 2),
-      ),
-      // weekendDays: [DateTime.saturday, DateTime.sunday],
-      focusedDay: today,
-      firstDay: DateTime(1900),
-      lastDay: DateTime(3000),
-      //
-      selectedDayPredicate: (day) => isSameDay(day, today),
-
-      locale: 'de_DE',
-
-      availableCalendarFormats: const {
-        CalendarFormat.month: 'Monat',
-        CalendarFormat.twoWeeks: '2 Wochen',
-        CalendarFormat.week: 'Woche'
-      },
-
-      onFormatChanged: (format) {
-        setState(() {
-          if (formatOfCalendar == CalendarFormat.week) {
-            formatOfCalendar = CalendarFormat.month;
-          } else if (formatOfCalendar == CalendarFormat.month) {
-            formatOfCalendar = CalendarFormat.twoWeeks;
-          } else if (formatOfCalendar == CalendarFormat.twoWeeks) {
-            formatOfCalendar = CalendarFormat.week;
-          }
-        });
-      },
-      calendarFormat: formatOfCalendar,
-      startingDayOfWeek: StartingDayOfWeek.monday,
-
-      //Set Bloc State.date
-      onDaySelected: (DateTime day, DateTime focusedDay) {
-        setState(() {
-          today = day;
-        });
+    return BlocBuilder<CalendarBloc, CalendarState>(
+      builder: (context, state) {
         final bloc = BlocProvider.of<CalendarBloc>(context);
+        var formatOfCalendar = state.calendarFormat;
+        var today = state.date;
+        return TableCalendar(
+          availableGestures: AvailableGestures.horizontalSwipe,
 
-        bloc.add(CalendarDateChanged(date: day));
+          rowHeight: 66,
+
+          ///HEADER Style
+          headerStyle: HeaderStyle(
+            // leftChevronVisible: false,
+            // rightChevronVisible: false,
+
+            headerPadding: const EdgeInsets.symmetric(vertical: 8.0),
+
+            leftChevronIcon: const Icon(
+              Icons.chevron_left_rounded,
+              size: 34,
+              color: Colors.grey,
+            ),
+            rightChevronIcon: const Icon(
+              Icons.chevron_right_rounded,
+              size: 34,
+              color: Colors.grey,
+            ),
+
+            rightChevronMargin: const EdgeInsets.symmetric(horizontal: 0),
+            leftChevronMargin: const EdgeInsets.symmetric(horizontal: 0),
+            leftChevronPadding:
+                const EdgeInsets.only(top: 12, bottom: 12, right: 12),
+            rightChevronPadding:
+                const EdgeInsets.only(top: 12, bottom: 12, left: 12),
+
+            //Button
+            formatButtonDecoration: BoxDecoration(
+              // border: Border.fromBorderSide(BorderSide(color: MyAppColorScheme.primary)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
+              color: Theme.of(context).colorScheme.background,
+            ),
+
+            titleTextFormatter: (date, locale) =>
+                DateFormat.yMMMM(locale).format(date),
+            titleTextStyle: Theme.of(context).textTheme.titleMedium!,
+            formatButtonTextStyle: Theme.of(context).textTheme.bodyLarge!,
+          ),
+
+          calendarStyle: const CalendarStyle(
+            markerSize: 44,
+
+            defaultTextStyle: TextStyle(fontSize: 18),
+
+            //TODAY Style
+
+            markerSizeScale: 2,
+            todayTextStyle:
+                TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+            todayDecoration: BoxDecoration(
+                color: Color.fromARGB(255, 202, 200, 255),
+                shape: BoxShape.circle),
+
+            //SELECTED Style
+            selectedTextStyle: TextStyle(
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
+            selectedDecoration: BoxDecoration(
+                color: MyAppColorScheme.primary, shape: BoxShape.circle),
+          ),
+          // daysOfWeekHeight: 24,
+          // pageJumpingEnabled: true,
+          formatAnimationCurve: Curves.elasticInOut,
+          formatAnimationDuration: const Duration(milliseconds: 800),
+
+          daysOfWeekStyle: DaysOfWeekStyle(
+            dowTextFormatter: (date, locale) =>
+                DateFormat.E(locale).format(date).substring(0, 2),
+          ),
+          // weekendDays: [DateTime.saturday, DateTime.sunday],
+          focusedDay: today!,
+          firstDay: DateTime(1900),
+          lastDay: DateTime(3000),
+          //
+          selectedDayPredicate: (day) => isSameDay(day, today),
+
+          locale: 'de_DE',
+
+          availableCalendarFormats: const {
+            CalendarFormat.month: 'Monat',
+            CalendarFormat.twoWeeks: '2 Wochen',
+            CalendarFormat.week: 'Woche'
+          },
+
+          onFormatChanged: (format) {
+            if (formatOfCalendar == CalendarFormat.week) {
+              bloc.add(
+                  CalendarFormatChanged(calendarFormat: CalendarFormat.month));
+            } else if (formatOfCalendar == CalendarFormat.month) {
+              bloc.add(CalendarFormatChanged(
+                  calendarFormat: CalendarFormat.twoWeeks));
+            } else if (formatOfCalendar == CalendarFormat.twoWeeks) {
+              bloc.add(
+                  CalendarFormatChanged(calendarFormat: CalendarFormat.week));
+            }
+          },
+          calendarFormat: formatOfCalendar!,
+          startingDayOfWeek: StartingDayOfWeek.monday,
+
+          //Set Bloc State.date
+          onDaySelected: (DateTime day, DateTime focusedDay) {
+            bloc.add(CalendarDateChanged(date: day));
+          },
+        );
       },
     );
   }
@@ -236,9 +233,8 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CalendarBloc, NewCalendarState>(
-        builder: (context, state) {
-      if (state.status == NewCalendarStateStatus.error) {
+    return BlocBuilder<CalendarBloc, CalendarState>(builder: (context, state) {
+      if (state.status == CalendarStateStatus.error) {
         return Container(
             width: double.infinity,
             // height: 24,
@@ -266,9 +262,8 @@ class SuccesMessageCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CalendarBloc, NewCalendarState>(
-        builder: (context, state) {
-      if (state.status == NewCalendarStateStatus.allDone) {
+    return BlocBuilder<CalendarBloc, CalendarState>(builder: (context, state) {
+      if (state.status == CalendarStateStatus.allDone) {
         return Container(
             width: double.infinity,
             height: 24,
@@ -302,9 +297,9 @@ class EntryAddingButton extends StatelessWidget {
           context.read<CalendarBloc>().add(CalendarNothingToAddEvent());
         }
       },
-      child: BlocBuilder<CalendarBloc, NewCalendarState>(
+      child: BlocBuilder<CalendarBloc, CalendarState>(
         builder: (context, state) {
-          if (state.status == NewCalendarStateStatus.readyToAdding) {
+          if (state.status == CalendarStateStatus.readyToAdding) {
             return Container(
               width: double.infinity,
               height: 60,
@@ -329,7 +324,7 @@ class EntryAddingButton extends StatelessWidget {
                         ),
                   )),
             );
-          } else if (state.status == NewCalendarStateStatus.inProgress) {
+          } else if (state.status == CalendarStateStatus.inProgress) {
             return Container(
               width: double.infinity,
               height: 60,

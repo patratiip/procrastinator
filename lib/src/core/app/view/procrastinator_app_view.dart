@@ -7,7 +7,7 @@ import 'package:procrastinator/main.dart';
 import 'package:procrastinator/src/core/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/core/styles/theme/theme.dart';
 import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/entry_adding_calendar/bloc/calendar_bloc.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/calendar_entry_adding/bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
