@@ -18,6 +18,15 @@ class KursplanBloc extends Bloc<KursplanEvent, KursplanState> {
       (lectionsList) {
         add(LectionsListChangedEvent(lectionsList));
       },
+      onError: (error, stackTrace) {
+        // Запись ошибки в лог
+        print('Ошибка в потоке записей: $error');
+        // Дополнительная информация об ошибке (например, стек вызовов)
+        print('StackTrace: $stackTrace');
+
+        // Дополнительные действия при ошибке (например, уведомление пользователя)
+        // ...
+      },
       cancelOnError: false,
     );
 
@@ -42,11 +51,12 @@ class KursplanBloc extends Bloc<KursplanEvent, KursplanState> {
       transformer: sequential(),
     );
 
-    @override
+    
+  }
+  @override
     Future<void> close() {
       _lectionListListener.cancel();
       print('Entrys subscription was cancelled');
       return super.close();
     }
-  }
 }

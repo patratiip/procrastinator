@@ -19,12 +19,8 @@ class LoosedLessonCardComponent extends StatefulWidget {
 class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
   final dateFormat = DateFormat('dd.MM.yy');
 
-  get lessonData {
-    return widget.lessonData;
-  }
-
   void addEntry() {
-    print('${lessonData.theme} Entry Added');
+    print('${widget.lessonData.theme} Entry Added');
 
     showCupertinoModalBottomSheet(
         context: context,
@@ -33,12 +29,13 @@ class _LoosedLessonCardComponentState extends State<LoosedLessonCardComponent> {
             height: 300,
             child: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: const Text('YOOO!'))
+                      child: const Text('Close!'))
                 ],
               ),
             ),

@@ -13,14 +13,13 @@ class FirebaseLectionRepository implements LectionRepository {
   Stream<List<Lection>?> getLections() {
     try {
       return _lectionsCollectionRef
-              .orderBy('date', descending: false)
-              .snapshots()
-              .map((snapshot) => snapshot.docs
-                  .map((e) =>
-                      Lection.fromEntity(LectionEntity.fromFirestore(e.data())))
-                  .toList())
-          // .asBroadcastStream()
-          ;
+          .orderBy('date', descending: false)
+          .snapshots()
+          .map((snapshot) => snapshot.docs
+              .map((e) =>
+                  Lection.fromEntity(LectionEntity.fromFirestore(e.data())))
+              .toList())
+          .asBroadcastStream();
     } catch (e) {
       log(e.toString());
       rethrow;

@@ -57,6 +57,15 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         //   ));
         // }
       },
+      onError: (error, stackTrace) {
+        // Запись ошибки в лог
+        print('Ошибка в потоке записей: $error');
+        // Дополнительная информация об ошибке (например, стек вызовов)
+        print('StackTrace: $stackTrace');
+
+        // Дополнительные действия при ошибке (например, уведомление пользователя)
+        // ...
+      },
       cancelOnError: false,
     );
 
@@ -75,6 +84,15 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
         //     entriesListFromStream,
         //   ));
         // }
+      },
+      onError: (error, stackTrace) {
+        // Запись ошибки в лог
+        print('Ошибка в потоке записей: $error');
+        // Дополнительная информация об ошибке (например, стек вызовов)
+        print('StackTrace: $stackTrace');
+
+        // Дополнительные действия при ошибке (например, уведомление пользователя)
+        // ...
       },
       cancelOnError: false,
     );
@@ -359,11 +377,12 @@ class CalendarBloc extends Bloc<NewCalendarEvent, NewCalendarState> {
       } else {}
     });
 
-    @override
+   
+  }
+   @override
     Future<void> close() {
       _entrysListListener.cancel();
       _lectionListListener.cancel();
       return super.close();
     }
-  }
 }

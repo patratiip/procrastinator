@@ -5,7 +5,6 @@ import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/main.dart';
 import 'package:procrastinator/src/core/app/bloc/authentication_bloc.dart';
-import 'package:procrastinator/src/core/di/di_container.dart';
 import 'package:procrastinator/src/core/styles/theme/theme.dart';
 import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/entry_adding_calendar/bloc/calendar_bloc.dart';
@@ -17,7 +16,6 @@ import 'package:procrastinator/src/features/student_app/home_page_student/2_stat
 import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/domain/statistic_computing_service.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
 import 'package:procrastinator/src/features/student_app/student_main_screen.dart';
-import 'package:user_repository/user_repository.dart';
 
 class ProcrastinatorAppView extends StatelessWidget {
   const ProcrastinatorAppView({super.key});
@@ -34,8 +32,6 @@ class ProcrastinatorAppView extends StatelessWidget {
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: ((context, state) {
             if (state.status == AuthenticationStatus.authenticated) {
-              //Dependencies
-              initGetIt();
               return MultiBlocProvider(
                 providers: [
                   // BlocProvider(

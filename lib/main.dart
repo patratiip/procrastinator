@@ -17,11 +17,13 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //Bloc Observer
   Bloc.observer = const AppBlocObserver();
- 
+
+  //Dependencies
+  initGetIt();
 
   //Auth Repo
+  final userRepository = FirebaseUserRepository();
+  await userRepository.user.first;
 
-  // await locator<FirebaseUserRepository>().user.first;
-
-  runApp(ProcrastinatorApp(FirebaseUserRepo()));
+  runApp(ProcrastinatorApp(userRepository));
 }

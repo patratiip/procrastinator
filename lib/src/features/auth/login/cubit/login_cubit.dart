@@ -67,10 +67,12 @@ class LoginCubit extends Cubit<LoginState> {
         );
         // await Future<void>.delayed(const Duration(seconds: 2));
         emit(state.copyWith(status: LoginStatus.success));
-      } on LogInWithEmailAndPasswordFailure catch (e) {
+      }
+      // on LogInWithEmailAndPasswordFailure
+      catch (e) {
         emit(
           state.copyWith(
-            errorMessage: e.message,
+            errorMessage: e.toString(),
             status: LoginStatus.failure,
           ),
         );

@@ -14,6 +14,7 @@ class StatisticDiagrammBloc
   //Entries Repo
   final EntryRepositoty _entriesRepository;
   late final StreamSubscription<List<Entry>?> _entrysListListener;
+  
 
   StatisticDiagrammBloc(
       {required EntryRepositoty entriesRepository,
@@ -28,7 +29,7 @@ class StatisticDiagrammBloc
           add(LoadSchoolVisitsCount(entriesList));
         }
       },
-      cancelOnError: false,
+      // cancelOnError: false,
     );
 
     on<LoadSchoolVisitsCount>(
@@ -54,11 +55,12 @@ class StatisticDiagrammBloc
       transformer: sequential(),
     );
 
-    @override
+   
+  }
+   @override
     Future<void> close() {
       _entrysListListener.cancel();
       print('Entrys subscription was cancelled');
       return super.close();
     }
-  }
 }

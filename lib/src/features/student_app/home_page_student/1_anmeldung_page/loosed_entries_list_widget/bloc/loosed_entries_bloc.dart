@@ -46,7 +46,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
           ));
         }
       },
-      cancelOnError: false,
+      // cancelOnError: false,
     );
 
     //Subscription - Lessons Bloc
@@ -63,6 +63,15 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
             entriesListFromStream,
           ));
         }
+      },
+      onError: (error, stackTrace) {
+        // Запись ошибки в лог
+        print('Ошибка в потоке записей: $error');
+        // Дополнительная информация об ошибке (например, стек вызовов)
+        print('StackTrace: $stackTrace');
+
+        // Дополнительные действия при ошибке (например, уведомление пользователя)
+        // ...
       },
       cancelOnError: false,
     );
@@ -91,12 +100,13 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
       transformer: sequential(),
     );
 
-    @override
+   
+  }
+   @override
     Future<void> close() {
       _entrysListListener.cancel();
       _lectionListListener.cancel();
       print('Entrys subscription was cancelled');
       return super.close();
     }
-  }
 }
