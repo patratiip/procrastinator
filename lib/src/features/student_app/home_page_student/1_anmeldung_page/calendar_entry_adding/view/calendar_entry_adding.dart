@@ -1,3 +1,4 @@
+import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -5,6 +6,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/calendar_entry_adding/bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
+import 'package:rive_animated_icon/rive_animated_icon.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarEntryAddingWidget extends StatelessWidget {
@@ -12,27 +14,104 @@ class CalendarEntryAddingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 24),
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 600),
-          // height: 400,
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // CalendarForEntyAdding(),
-                CalendarForEntyAddingNewBloc(),
-                DropDownEntry(),
-                ErrorMessageCalendarWidget(),
-                SuccesMessageCalendarWidget(),
-                EntryAddingButton(),
-              ],
+    return BlocListener<CalendarBloc, CalendarState>(
+      listenWhen: (previous, current) =>
+          previous.status != CalendarStateStatus.readyToAdding,
+      listener: (context, state) {
+        //TODO Change Status to success after snack bar design finishing
+        if (state.status == CalendarStateStatus.readyToAdding) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: const Duration(seconds: 5),
+            elevation: 40,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Theme.of(context).cardColor,
+            content: Container(
+              width: 100,
+              height: 100,
+              decoration: BoxDecoration(color: Theme.of(context).cardColor),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 12),
+                    child: AnimateIcon(
+                      key: UniqueKey(),
+                      onTap: () {},
+                      iconType: IconType.continueAnimation,
+                      // height: 56,
+                      // width: 56,
+                      color: MyAppColorScheme.sucsessColor,
+                      animateIcon: AnimateIcons.upload,
+                    ),
+                  ),
+                  Text(
+                    'Hast du das geschaft!',
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .copyWith(color: MyAppColorScheme.sucsessColor),
+                  ),
+                ],
+              ),
+            ),
+          ));
+
+          // showCupertinoModalBottomSheet(
+          //     closeProgressThreshold: 2,
+          //     duration: Duration(seconds: 2),
+          //     context: context,
+          //     builder: (BuildContext context) {
+          //       return Container(
+          //         decoration: BoxDecoration(color: Theme.of(context).cardColor),
+          //         height: 300,
+          //         child: Center(
+          //           child: Column(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Text(
+          //                 'Halellujah!',
+          //                 style: Theme.of(context).textTheme.displayLarge,
+          //               ),
+          //               ElevatedButton(
+          //                   onPressed: () {
+          //                     Navigator.pop(context);
+          //                   },
+          //                   child: const Text('Close!'))
+          //             ],
+          //           ),
+          //         ),
+          //       );
+          //     });
+        }
+        // if (state.status == CalendarStateStatus.error) {
+        //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        // }
+      },
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 24),
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 600),
+            // height: 400,
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // CalendarForEntyAdding(),
+                  CalendarForEntyAddingNewBloc(),
+                  DropDownEntry(),
+                  ErrorMessageCalendarWidget(),
+                  SuccesMessageCalendarWidget(),
+                  EntryAddingButton(),
+                ],
+              ),
             ),
           ),
         ),

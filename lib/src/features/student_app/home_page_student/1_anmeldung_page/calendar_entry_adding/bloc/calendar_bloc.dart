@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:entry_repository/entry_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,25 +51,10 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       (entriesList) {
         if (entriesList != null && entriesList.isNotEmpty) {
           entriesListFromStream = entriesList;
+          if (state.status != CalendarStateStatus.inProgress) {
+            add(CalendarDateChanged(date: state.date!));
+          }
         }
-        // print('Loosed Bloc Stram (Enrty): e: $entriesList, _l: $_lectionsList');
-        // if (entriesList != null &&
-        //     entriesList.isNotEmpty &&
-        //     lectionsListFromStream.isNotEmpty) {
-        //   add(ComairingLectionsAndVisitsEvent(
-        //     lectionsListFromStream,
-        //     entriesListFromStream,
-        //   ));
-        // }
-      },
-      onError: (error, stackTrace) {
-        // Запись ошибки в лог
-        print('Ошибка в потоке записей: $error');
-        // Дополнительная информация об ошибке (например, стек вызовов)
-        print('StackTrace: $stackTrace');
-
-        // Дополнительные действия при ошибке (например, уведомление пользователя)
-        // ...
       },
       cancelOnError: false,
     );
@@ -79,24 +65,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         if (lectionsList != null && lectionsList.isNotEmpty) {
           lectionsListFromStream = lectionsList;
         }
-        // print( 'Loosed Bloc Stram (Lection): _e: $_entriesList, l: $lectionsList');
-        // if (lectionsList != null &&
-        //     lectionsList.isNotEmpty &&
-        //     entriesListFromStream.isNotEmpty) {
-        //   add(ComairingLectionsAndVisitsEvent(
-        //     lectionsListFromStream,
-        //     entriesListFromStream,
-        //   ));
-        // }
-      },
-      onError: (error, stackTrace) {
-        // Запись ошибки в лог
-        print('Ошибка в потоке записей: $error');
-        // Дополнительная информация об ошибке (например, стек вызовов)
-        print('StackTrace: $stackTrace');
-
-        // Дополнительные действия при ошибке (например, уведомление пользователя)
-        // ...
       },
       cancelOnError: false,
     );
@@ -377,12 +345,15 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         if (typeDependIsOK) {
           entriesRepository.addEntry(entry);
           print('Calendar Bloc: Entry was added $entry');
+          await Future<void>.delayed(const Duration(seconds: 1));
+          emit(state.copyWith(
+            message: '',
+            status: CalendarStateStatus.success,
+          ));
+          emit(state.copyWith(
+            status: CalendarStateStatus.disabled,
+          ));
         } else {}
-
-        await Future<void>.delayed(const Duration(seconds: 1));
-        emit(state.copyWith(
-          status: CalendarStateStatus.succes,
-        ));
       } else {}
     });
   }

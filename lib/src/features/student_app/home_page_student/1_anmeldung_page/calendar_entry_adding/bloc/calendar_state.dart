@@ -6,7 +6,7 @@ enum CalendarStateStatus {
   hasType,
   inProgress,
   readyToAdding,
-  succes,
+  success,
   error,
   allDone,
 }

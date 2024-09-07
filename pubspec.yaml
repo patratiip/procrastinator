@@ -85,8 +85,13 @@ dependencies:
   table_calendar: ^3.0.9
   modal_bottom_sheet: ^3.0.0
   # percent_indicator: ^4.2.3
-
   # calendar_date_picker2: ^0.5.5
+
+  #ui
+  # flutter_animated_icons: ^1.0.1
+  animated_icon: ^0.0.9
+  rive_animated_icon: ^2.0.0
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
