@@ -1,4 +1,5 @@
 import 'package:entry_repository/entry_repository.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -74,7 +75,33 @@ class EntryCardComponent extends StatelessWidget {
               //Delete BUTTON
               IconButton(
                   onPressed: () {
-                    block.add(DeleteEntryEvent(entryRef: visitData.visitID));
+                    //TODO Add confirmation dialog with my design
+                    showCupertinoDialog<void>(
+                      context: context,
+                      builder: (BuildContext context) => CupertinoAlertDialog(
+                        title: const Text('Anmeldung löschen'),
+                        content: const Text(
+                            'Möchtest du echt diese Anmeldung löschen?'),
+                        actions: <CupertinoDialogAction>[
+                          CupertinoDialogAction(
+                            isDefaultAction: true,
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('No'),
+                          ),
+                          CupertinoDialogAction(
+                            isDestructiveAction: true,
+                            onPressed: () {
+                              block.add(DeleteEntryEvent(
+                                  entryRef: visitData.visitID));
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Yes'),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.delete_outline_outlined,
                       color: Colors.red)),

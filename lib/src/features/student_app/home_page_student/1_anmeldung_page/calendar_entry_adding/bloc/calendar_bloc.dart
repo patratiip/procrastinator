@@ -350,9 +350,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
             message: '',
             status: CalendarStateStatus.success,
           ));
-          emit(state.copyWith(
-            status: CalendarStateStatus.disabled,
-          ));
         } else {}
       } else {}
     });

@@ -16,44 +16,42 @@ class CalendarEntryAddingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<CalendarBloc, CalendarState>(
       listenWhen: (previous, current) =>
-          previous.status != CalendarStateStatus.readyToAdding,
+          previous.status != CalendarStateStatus.success,
       listener: (context, state) {
-        //TODO Change Status to success after snack bar design finishing
-        if (state.status == CalendarStateStatus.readyToAdding) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        if (state.status == CalendarStateStatus.success) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              //s
+              SnackBar(
             duration: const Duration(seconds: 5),
             elevation: 40,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
             behavior: SnackBarBehavior.floating,
-            backgroundColor: Theme.of(context).cardColor,
+            backgroundColor: MyAppColorScheme.sucsessColor,
             content: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(color: Theme.of(context).cardColor),
-              child: Column(
+              width: double.infinity,
+              height: 38,
+              decoration: BoxDecoration(color: MyAppColorScheme.sucsessColor),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(right: 12),
                     child: AnimateIcon(
-                      key: UniqueKey(),
-                      onTap: () {},
-                      iconType: IconType.continueAnimation,
-                      // height: 56,
-                      // width: 56,
-                      color: MyAppColorScheme.sucsessColor,
-                      animateIcon: AnimateIcons.upload,
-                    ),
+                        key: UniqueKey(),
+                        onTap: () {},
+                        iconType: IconType.continueAnimation,
+                        height: 50,
+                        width: 50,
+                        color: Colors.white,
+                        animateIcon: AnimateIcons.upload),
                   ),
-                  Text(
-                    'Hast du das geschaft!',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelLarge!
-                        .copyWith(color: MyAppColorScheme.sucsessColor),
-                  ),
+                  Text('Hast du das geschaft!',
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge!
+                          .copyWith(color: Colors.white)),
                 ],
               ),
             ),
@@ -222,14 +220,14 @@ class CalendarForEntyAddingNewBloc extends StatelessWidget {
 
           onFormatChanged: (format) {
             if (formatOfCalendar == CalendarFormat.week) {
-              bloc.add(
-                  CalendarFormatChanged(calendarFormat: CalendarFormat.month));
+              bloc.add(const CalendarFormatChanged(
+                  calendarFormat: CalendarFormat.month));
             } else if (formatOfCalendar == CalendarFormat.month) {
-              bloc.add(CalendarFormatChanged(
+              bloc.add(const CalendarFormatChanged(
                   calendarFormat: CalendarFormat.twoWeeks));
             } else if (formatOfCalendar == CalendarFormat.twoWeeks) {
-              bloc.add(
-                  CalendarFormatChanged(calendarFormat: CalendarFormat.week));
+              bloc.add(const CalendarFormatChanged(
+                  calendarFormat: CalendarFormat.week));
             }
           },
           calendarFormat: formatOfCalendar!,
