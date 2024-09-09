@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 
@@ -67,10 +68,14 @@ class EntryCardComponent extends StatelessWidget {
                         size: 28,
                       ),
                   ])),
-              if (visitData.schoolVisit == true) const Text('Schule'),
-              if (visitData.homeOffice == true) const Text('Heim'),
-              if (visitData.krank == true) const Text('Krank'),
-              if (visitData.fehl == true) const Text('Fehl'),
+              if (visitData.schoolVisit == true)
+                Text(Localization.of(context).schoolEntryType),
+              if (visitData.homeOffice == true)
+                Text(Localization.of(context).homeEntryType),
+              if (visitData.krank == true)
+                Text(Localization.of(context).sickEntryType),
+              if (visitData.fehl == true)
+                Text(Localization.of(context).looseEntryType),
               Text(dateFormat.format(visitData.date)),
               //Delete BUTTON
               IconButton(
@@ -79,16 +84,17 @@ class EntryCardComponent extends StatelessWidget {
                     showCupertinoDialog<void>(
                       context: context,
                       builder: (BuildContext context) => CupertinoAlertDialog(
-                        title: const Text('Anmeldung löschen'),
-                        content: const Text(
-                            'Möchtest du echt diese Anmeldung löschen?'),
+                        title: Text(
+                            Localization.of(context).deleteEntryDialogHeader),
+                        content: Text(Localization.of(context)
+                            .deleteEntryShureTextDialog),
                         actions: <CupertinoDialogAction>[
                           CupertinoDialogAction(
                             isDefaultAction: true,
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: const Text('No'),
+                            child: Text(Localization.of(context).noButtonText),
                           ),
                           CupertinoDialogAction(
                             isDestructiveAction: true,
@@ -97,7 +103,7 @@ class EntryCardComponent extends StatelessWidget {
                                   entryRef: visitData.visitID));
                               Navigator.pop(context);
                             },
-                            child: const Text('Yes'),
+                            child: Text(Localization.of(context).yesButtonText),
                           ),
                         ],
                       ),

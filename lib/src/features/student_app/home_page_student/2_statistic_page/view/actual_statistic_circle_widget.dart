@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/statistic_progress_diagramm_component.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/bloc/statistic_diagramm_bloc.dart';
@@ -36,7 +37,8 @@ class StatisticCircle extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        '$userDisplayname Anmeldungen',
+                        Localization.of(context)
+                            .userNameAndEntriesHeader(userDisplayname!),
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
@@ -119,7 +121,7 @@ class NumbersWidget extends StatelessWidget {
               // if (user.userVisits!.length  >= 0){
               //   return
               // }
-              Text('$schoolQty Tage oder',
+              Text(Localization.of(context).statisticWidgetNDays(schoolQty!),
                   style: Theme.of(context).textTheme.bodyLarge),
               Text(
                 '${(percent.format(schoolQty! / totalVisits)).toString()} ',
@@ -132,7 +134,7 @@ class NumbersWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                'im Schule',
+                Localization.of(context).inSchool,
                 style: Theme.of(context).textTheme.bodyLarge,
                 //
                 overflow: TextOverflow.ellipsis,
@@ -143,7 +145,7 @@ class NumbersWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                '$homeQty Tage oder',
+                Localization.of(context).statisticWidgetNDays(homeQty!),
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
               Text(
@@ -156,7 +158,7 @@ class NumbersWidget extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Text(
-                'Zuhause',
+                Localization.of(context).atHomeStatisticWidget,
                 style: Theme.of(context).textTheme.bodyLarge,
                 //
                 overflow: TextOverflow.ellipsis,
@@ -197,7 +199,10 @@ class TotalDaysIndicator extends StatelessWidget {
               minHeight: 40,
               borderRadius: BorderRadius.circular(12),
             ),
-            Text('Insgesamt $entiesQty von $totalVisits Tage',
+            Text(
+                Localization.of(context)
+                    .totalEntiesTotalVisitsDaysStatisticWidget(
+                        entiesQty, totalVisits),
                 textAlign: TextAlign.center),
           ],
         ),

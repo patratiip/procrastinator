@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/lesson_card_component.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/today_lection_widget/view/today_lection_widget.dart';
@@ -25,7 +26,7 @@ class KursplanPageWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Nächste',
+                    Localization.of(context).lectionsListWidgetHeader,
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   BlocBuilder<KursplanBloc, KursplanState>(

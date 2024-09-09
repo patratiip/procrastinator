@@ -63,7 +63,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         // useLegacyColorScheme: true,
         // backgroundColor: Theme.of(context).colorScheme.background,
-        // currentIndex: _selectedTab,
+        currentIndex: _selectedTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''),
           BottomNavigationBarItem(

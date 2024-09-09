@@ -279,6 +279,187 @@ class Localization {
       args: [],
     );
   }
+
+  /// `Next lections`
+  String get lectionsListWidgetHeader {
+    return Intl.message(
+      'Next lections',
+      name: 'lectionsListWidgetHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Log out`
+  String get logOutButtonText {
+    return Intl.message(
+      'Log out',
+      name: 'logOutButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit progile`
+  String get profileEdit {
+    return Intl.message(
+      'Edit progile',
+      name: 'profileEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sick list`
+  String get sickList {
+    return Intl.message(
+      'Sick list',
+      name: 'sickList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loose report`
+  String get looseReport {
+    return Intl.message(
+      'Loose report',
+      name: 'looseReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bug Report`
+  String get bugReport {
+    return Intl.message(
+      'Bug Report',
+      name: 'bugReport',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Documents`
+  String get documents {
+    return Intl.message(
+      'Documents',
+      name: 'documents',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Contacts`
+  String get contacts {
+    return Intl.message(
+      'Contacts',
+      name: 'contacts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Name`
+  String get name {
+    return Intl.message(
+      'Name',
+      name: 'name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{userDisplayname} Entries`
+  String userNameAndEntriesHeader(Object userDisplayname) {
+    return Intl.message(
+      '$userDisplayname Entries',
+      name: 'userNameAndEntriesHeader',
+      desc: '',
+      args: [userDisplayname],
+    );
+  }
+
+  /// `{schoolQty} days or`
+  String statisticWidgetNDays(Object schoolQty) {
+    return Intl.message(
+      '$schoolQty days or',
+      name: 'statisticWidgetNDays',
+      desc: '',
+      args: [schoolQty],
+    );
+  }
+
+  /// `in School`
+  String get inSchool {
+    return Intl.message(
+      'in School',
+      name: 'inSchool',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `at Home`
+  String get atHomeStatisticWidget {
+    return Intl.message(
+      'at Home',
+      name: 'atHomeStatisticWidget',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Totally {entiesQty} from {totalVisits} days`
+  String totalEntiesTotalVisitsDaysStatisticWidget(
+      Object entiesQty, Object totalVisits) {
+    return Intl.message(
+      'Totally $entiesQty from $totalVisits days',
+      name: 'totalEntiesTotalVisitsDaysStatisticWidget',
+      desc: '',
+      args: [entiesQty, totalVisits],
+    );
+  }
+
+  /// `Delete entry`
+  String get deleteEntryDialogHeader {
+    return Intl.message(
+      'Delete entry',
+      name: 'deleteEntryDialogHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you shure that you want to delete this entry?`
+  String get deleteEntryShureTextDialog {
+    return Intl.message(
+      'Are you shure that you want to delete this entry?',
+      name: 'deleteEntryShureTextDialog',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No`
+  String get noButtonText {
+    return Intl.message(
+      'No',
+      name: 'noButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes`
+  String get yesButtonText {
+    return Intl.message(
+      'Yes',
+      name: 'yesButtonText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

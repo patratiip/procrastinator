@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/app/bloc/authentication_bloc.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/user_profile_options_component.dart';
 
@@ -45,7 +46,7 @@ class StudentProfilePageWidget extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          state.user!.name ?? 'Name',
+                          state.user!.name ?? Localization.of(context).name,
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                         Text(state.user!.email,
@@ -58,22 +59,22 @@ class StudentProfilePageWidget extends StatelessWidget {
                   Column(
                     children: [
                       UserProfilePageOptionsCardComponent(
-                        title: 'Profile bearbeiten',
+                        title: Localization.of(context).profileEdit,
                       ),
                       UserProfilePageOptionsCardComponent(
-                        title: 'Krankmeldung',
+                        title: Localization.of(context).sickList,
                       ),
                       UserProfilePageOptionsCardComponent(
-                        title: 'Fehlmeldung',
+                        title: Localization.of(context).looseReport,
                       ),
                       UserProfilePageOptionsCardComponent(
-                        title: 'Bug Report',
+                        title: Localization.of(context).bugReport,
                       ),
                       UserProfilePageOptionsCardComponent(
-                        title: 'Unterlagen',
+                        title: Localization.of(context).documents,
                       ),
                       UserProfilePageOptionsCardComponent(
-                        title: 'Kontakten',
+                        title: Localization.of(context).contacts,
                       ),
                       const SizedBox(height: 32),
                       const _LogOutButton(),
@@ -113,7 +114,7 @@ class _LogOutButton extends StatelessWidget {
               backgroundColor:
                   WidgetStatePropertyAll(MyAppColorScheme.errorColor)),
           child: Text(
-            'Abmelden',
+            Localization.of(context).logOutButtonText,
             style: Theme.of(context).textTheme.titleLarge!.copyWith(
                   color: Colors.white,
                   //fontWeight: FontWeight.w500
