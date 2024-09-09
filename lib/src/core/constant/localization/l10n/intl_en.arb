@@ -1,0 +1,8 @@
+{
+  "anmeldungLogInScreenName": "Login",
+  "emailTextFieldLabel": "E-mail",
+  "passwordTextFieldLabel": "Password",
+  "logInButtonName": "Login",
+  "forgotPassButtonName": "Forgot password?",
+  "anmeldungAppBarText": "Main"
+}

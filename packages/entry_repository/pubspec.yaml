@@ -11,9 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #localization
-  intl: ^0.18.1
-
   # firebase
   firebase_core: ^2.30.0
   firebase_auth: ^4.19.5

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'home_page_student/1_anmeldung_page/view/anmeldung_page.dart';
 import 'home_page_student/2_statistic_page/view/statistic_page.dart';
 import 'home_page_student/3_kursplan_page/view/kursplan_page_widget.dart';
@@ -18,7 +19,8 @@ class StudentMainScreen extends StatefulWidget {
 
 class _StudentMainScreenState extends State<StudentMainScreen> {
   int _selectedTab = 0;
-  String _appBarText = 'Anmeldung';
+  //TODO Initial value
+  String _appBarText = '';
 
   // static List<Widget> _widgetOptions = <Widget>[
   //   AnmeldungPageWidget(),
@@ -32,7 +34,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
     setState(() {
       _selectedTab = index;
       if (_selectedTab == 0) {
-        _appBarText = 'Anmeldung';
+        _appBarText = Localization.of(context).anmeldungAppBarText;
       } else if (_selectedTab == 1) {
         _appBarText = 'Statistik';
       } else if (_selectedTab == 2) {

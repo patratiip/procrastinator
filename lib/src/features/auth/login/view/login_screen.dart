@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/features/auth/login/login.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
@@ -20,7 +21,7 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
         // resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Anmeldung'),
+          title: Text(Localization.of(context).anmeldungLogInScreenName),
         ),
         body: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
@@ -207,9 +208,9 @@ class _EmailTextField extends StatelessWidget {
             errorBorder: MyThemeTextField.errorBorder,
             contentPadding: const EdgeInsets.all(14),
             border: MyThemeTextField.textFieldInputBorder,
-            label: const Text(
-              'E-mail',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            label: Text(
+              Localization.of(context).emailTextFieldLabel,
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
             // helperText: '',
             // errorText: state.emailIsValid == false ? '' : null,
@@ -261,9 +262,9 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
                 focusedBorder: MyThemeTextField.focusedBorder,
                 contentPadding: const EdgeInsets.all(14),
                 border: MyThemeTextField.textFieldInputBorder,
-                label: const Text(
-                  'Password',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                label: Text(
+                  Localization.of(context).passwordTextFieldLabel,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 helperMaxLines: 1));
       },
@@ -291,7 +292,7 @@ class _AuthButtonWidget extends StatelessWidget {
             //     context.read<LoginCubit>().logInWithCredentials()
             //     : null,
             child: Text(
-              'Anmelden',
+              Localization.of(context).logInButtonName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Colors.white,
                     //fontWeight: FontWeight.w500
@@ -311,7 +312,7 @@ class _AuthButtonWidget extends StatelessWidget {
             style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(Colors.grey)),
             child: Text(
-              'Anmelden',
+              Localization.of(context).logInButtonName,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Colors.white,
                     //fontWeight: FontWeight.w500
@@ -336,7 +337,7 @@ class _ResetPasswordButton extends StatelessWidget {
           return TextButton(
             onPressed: context.read<LoginCubit>().resetPassword,
             child: Text(
-              'Kennwort vergessen?',
+              Localization.of(context).forgotPassButtonName,
               style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     color: MyAppColorScheme.primary,
                     //fontWeight: FontWeight.w500

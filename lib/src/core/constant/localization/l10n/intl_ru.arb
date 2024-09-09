@@ -1,0 +1,8 @@
+{
+  "anmeldungLogInScreenName": "Вход",
+  "emailTextFieldLabel": "E-mail",
+  "passwordTextFieldLabel": "Пароль",
+  "logInButtonName": "Войти",
+  "forgotPassButtonName": "Забыли пароль?",
+  "anmeldungAppBarText": "Регистрация"
+}
