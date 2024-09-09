@@ -109,6 +109,176 @@ class Localization {
       args: [],
     );
   }
+
+  /// `Statistiс`
+  String get statistikAppBarText {
+    return Intl.message(
+      'Statistiс',
+      name: 'statistikAppBarText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Lections plan`
+  String get lectionsPlanAppBarText {
+    return Intl.message(
+      'Lections plan',
+      name: 'lectionsPlanAppBarText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile`
+  String get profileAppBarText {
+    return Intl.message(
+      'Profile',
+      name: 'profileAppBarText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Entry was added successfully!`
+  String get entrySuccessfulAddedCalendarMessage {
+    return Intl.message(
+      'Entry was added successfully!',
+      name: 'entrySuccessfulAddedCalendarMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Month`
+  String get calendarFormatButton {
+    return Intl.message(
+      'Month',
+      name: 'calendarFormatButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2 Weeks`
+  String get calendarFormatButtonTwoWeeks {
+    return Intl.message(
+      '2 Weeks',
+      name: 'calendarFormatButtonTwoWeeks',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Week`
+  String get calendarFormatButtonWeek {
+    return Intl.message(
+      'Week',
+      name: 'calendarFormatButtonWeek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose entry type...`
+  String get entryTypeDropdownHintText {
+    return Intl.message(
+      'Choose entry type...',
+      name: 'entryTypeDropdownHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `School`
+  String get schoolEntryType {
+    return Intl.message(
+      'School',
+      name: 'schoolEntryType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Home`
+  String get homeEntryType {
+    return Intl.message(
+      'Home',
+      name: 'homeEntryType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sick`
+  String get sickEntryType {
+    return Intl.message(
+      'Sick',
+      name: 'sickEntryType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loose`
+  String get looseEntryType {
+    return Intl.message(
+      'Loose',
+      name: 'looseEntryType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add entry`
+  String get addEntryButtonText {
+    return Intl.message(
+      'Add entry',
+      name: 'addEntryButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Last 5 Entries`
+  String get lastFiveEntriesWidgetHeader {
+    return Intl.message(
+      'Last 5 Entries',
+      name: 'lastFiveEntriesWidgetHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Loosed entries`
+  String get loosedEntriesWidgetHeader {
+    return Intl.message(
+      'Loosed entries',
+      name: 'loosedEntriesWidgetHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today's lection`
+  String get todayLectionWidgetHeader {
+    return Intl.message(
+      'Today\'s lection',
+      name: 'todayLectionWidgetHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No lections found today`
+  String get noLessonsToday {
+    return Intl.message(
+      'No lections found today',
+      name: 'noLessonsToday',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

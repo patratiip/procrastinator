@@ -22,13 +22,6 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
   //TODO Initial value
   String _appBarText = '';
 
-  // static List<Widget> _widgetOptions = <Widget>[
-  //   AnmeldungPageWidget(),
-  //   StatisticPageWidget(),
-  //   KursplanPageWidget(),
-  //   StudentProfilePageWidget(),
-  // ];
-
   void onSelectedTab(int index) {
     if (_selectedTab == index) return;
     setState(() {
@@ -36,11 +29,11 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
       if (_selectedTab == 0) {
         _appBarText = Localization.of(context).anmeldungAppBarText;
       } else if (_selectedTab == 1) {
-        _appBarText = 'Statistik';
+        _appBarText = Localization.of(context).statistikAppBarText;
       } else if (_selectedTab == 2) {
-        _appBarText = 'Kursplan';
+        _appBarText = Localization.of(context).lectionsPlanAppBarText;
       } else if (_selectedTab == 3) {
-        _appBarText = 'Profile';
+        _appBarText = Localization.of(context).profileAppBarText;
       }
     });
   }
@@ -49,7 +42,9 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_appBarText),
+        title: Text(_appBarText.isEmpty
+            ? Localization.of(context).anmeldungAppBarText
+            : _appBarText),
       ),
       body: Center(
         child: Container(
@@ -68,7 +63,7 @@ class _StudentMainScreenState extends State<StudentMainScreen> {
       bottomNavigationBar: BottomNavigationBar(
         // useLegacyColorScheme: true,
         // backgroundColor: Theme.of(context).colorScheme.background,
-        currentIndex: _selectedTab,
+        // currentIndex: _selectedTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''),
           BottomNavigationBarItem(

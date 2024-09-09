@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/entry_card_component.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
@@ -9,19 +10,12 @@ class LastEntrysListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('last');
     return Center(
       child: Padding(
         padding: const EdgeInsets.only(top: 24, bottom: 24),
         child: Container(
           constraints: const BoxConstraints(maxWidth: 600),
           child: BlocBuilder<EntrysListBloc, EntrysListState>(
-            // buildWhen: (previous, current) {
-            //   if (previous != current) {
-            //     return true;
-            //   }
-            //   return false;
-            // },
             builder: (context, state) {
               if (state is EntrysListLoadedState) {
                 return Center(
@@ -29,14 +23,10 @@ class LastEntrysListWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Letzte 5 Anmeldungen',
+                        Localization.of(context).lastFiveEntriesWidgetHeader,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-                      // StreamBuilder(
-                      //     stream: state.userVisits,
-                      //     builder: (context, snapshot) {
-                      //       if (!snapshot.hasData) return Container();
-                      // return
+
                       ListView.builder(
                           primary: false,
                           shrinkWrap: true,

@@ -4,5 +4,22 @@
   "passwordTextFieldLabel": "Password",
   "logInButtonName": "Login",
   "forgotPassButtonName": "Forgot password?",
-  "anmeldungAppBarText": "Main"
+  "anmeldungAppBarText": "Main",
+  "statistikAppBarText": "Statistiс",
+  "lectionsPlanAppBarText": "Lections plan",
+  "profileAppBarText": "Profile",
+  "entrySuccessfulAddedCalendarMessage": "Entry was added successfully!",
+  "calendarFormatButton": "Month",
+  "calendarFormatButtonTwoWeeks": "2 Weeks",
+  "calendarFormatButtonWeek": "Week",
+  "entryTypeDropdownHintText": "Choose entry type...",
+  "schoolEntryType": "School",
+  "homeEntryType": "Home",
+  "sickEntryType": "Sick",
+  "looseEntryType": "Loose",
+  "addEntryButtonText": "Add entry",
+  "lastFiveEntriesWidgetHeader": "Last 5 Entries",
+  "loosedEntriesWidgetHeader": "Loosed entries",
+  "todayLectionWidgetHeader": "Today's lection",
+  "noLessonsToday": "No lections found today"
 }

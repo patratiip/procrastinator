@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/no_lessons_component.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/today_lesson_card_component.dart';
@@ -10,7 +11,6 @@ class TodayLectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('heut');
     return BlocBuilder<TodayLectionBloc, TodayLectionState>(
       builder: (context, state) {
         if (state is TodayLectionLoaded) {
@@ -22,7 +22,7 @@ class TodayLectionWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Heutige Lektion',
+                      Localization.of(context).todayLectionWidgetHeader,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     TodayLessonCardComponent(
@@ -38,7 +38,7 @@ class TodayLectionWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Heutige Lektion',
+                Localization.of(context).todayLectionWidgetHeader,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Container(
@@ -64,7 +64,7 @@ class TodayLectionWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Heutige Lektion',
+                Localization.of(context).todayLectionWidgetHeader,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               Container(

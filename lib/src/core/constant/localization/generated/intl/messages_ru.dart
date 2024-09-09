@@ -22,14 +22,42 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "addEntryButtonText": MessageLookupByLibrary.simpleMessage("Добавить"),
         "anmeldungAppBarText":
             MessageLookupByLibrary.simpleMessage("Регистрация"),
         "anmeldungLogInScreenName":
             MessageLookupByLibrary.simpleMessage("Вход"),
+        "calendarFormatButton": MessageLookupByLibrary.simpleMessage("Месяц"),
+        "calendarFormatButtonTwoWeeks":
+            MessageLookupByLibrary.simpleMessage("2 Недели"),
+        "calendarFormatButtonWeek":
+            MessageLookupByLibrary.simpleMessage("Неделя"),
         "emailTextFieldLabel": MessageLookupByLibrary.simpleMessage("E-mail"),
+        "entrySuccessfulAddedCalendarMessage":
+            MessageLookupByLibrary.simpleMessage("Запись успешно добавлена!"),
+        "entryTypeDropdownHintText":
+            MessageLookupByLibrary.simpleMessage("Выберите тип записи..."),
         "forgotPassButtonName":
             MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
+        "homeEntryType": MessageLookupByLibrary.simpleMessage("Дом"),
+        "lastFiveEntriesWidgetHeader":
+            MessageLookupByLibrary.simpleMessage("Пять последних записей"),
+        "lectionsPlanAppBarText":
+            MessageLookupByLibrary.simpleMessage("План занятий"),
         "logInButtonName": MessageLookupByLibrary.simpleMessage("Войти"),
-        "passwordTextFieldLabel": MessageLookupByLibrary.simpleMessage("Пароль")
+        "looseEntryType": MessageLookupByLibrary.simpleMessage("Пропуск"),
+        "loosedEntriesWidgetHeader":
+            MessageLookupByLibrary.simpleMessage("Пропущенные записи"),
+        "noLessonsToday":
+            MessageLookupByLibrary.simpleMessage("Сегодня нет лекций"),
+        "passwordTextFieldLabel":
+            MessageLookupByLibrary.simpleMessage("Пароль"),
+        "profileAppBarText": MessageLookupByLibrary.simpleMessage("Профиль"),
+        "schoolEntryType": MessageLookupByLibrary.simpleMessage("Школа"),
+        "sickEntryType": MessageLookupByLibrary.simpleMessage("Болезнь"),
+        "statistikAppBarText":
+            MessageLookupByLibrary.simpleMessage(" Статистика"),
+        "todayLectionWidgetHeader":
+            MessageLookupByLibrary.simpleMessage("Сегодня")
       };
 }

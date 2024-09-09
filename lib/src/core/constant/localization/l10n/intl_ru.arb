@@ -4,5 +4,22 @@
   "passwordTextFieldLabel": "Пароль",
   "logInButtonName": "Войти",
   "forgotPassButtonName": "Забыли пароль?",
-  "anmeldungAppBarText": "Регистрация"
+  "anmeldungAppBarText": "Регистрация",
+  "statistikAppBarText": " Статистика",
+  "lectionsPlanAppBarText": "План занятий",
+  "profileAppBarText": "Профиль",
+  "entrySuccessfulAddedCalendarMessage": "Запись успешно добавлена!",
+  "calendarFormatButton": "Месяц",
+  "calendarFormatButtonTwoWeeks": "2 Недели",
+  "calendarFormatButtonWeek": "Неделя",
+  "entryTypeDropdownHintText": "Выберите тип записи...",
+  "schoolEntryType": "Школа",
+  "homeEntryType": "Дом",
+  "sickEntryType": "Болезнь",
+  "looseEntryType": "Пропуск",
+  "addEntryButtonText": "Добавить",
+  "lastFiveEntriesWidgetHeader": "Пять последних записей",
+  "loosedEntriesWidgetHeader": "Пропущенные записи",
+  "todayLectionWidgetHeader": "Сегодня",
+  "noLessonsToday": "Сегодня нет лекций"
 }

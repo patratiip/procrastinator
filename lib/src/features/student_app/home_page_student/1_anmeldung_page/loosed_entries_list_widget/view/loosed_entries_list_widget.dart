@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/loosed_lesson_card_component.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
@@ -24,7 +25,7 @@ class LoosedEntriesListWidget extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          'Fehlende Anmeldungen',
+                          Localization.of(context).loosedEntriesWidgetHeader,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         // TextButton(

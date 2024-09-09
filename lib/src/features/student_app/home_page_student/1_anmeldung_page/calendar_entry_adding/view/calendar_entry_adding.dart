@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/calendar_entry_adding/bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
@@ -47,7 +48,9 @@ class CalendarEntryAddingWidget extends StatelessWidget {
                         color: Colors.white,
                         animateIcon: AnimateIcons.upload),
                   ),
-                  Text('Hast du das geschaft!',
+                  Text(
+                      Localization.of(context)
+                          .entrySuccessfulAddedCalendarMessage,
                       style: Theme.of(context)
                           .textTheme
                           .labelLarge!
@@ -56,33 +59,6 @@ class CalendarEntryAddingWidget extends StatelessWidget {
               ),
             ),
           ));
-
-          // showCupertinoModalBottomSheet(
-          //     closeProgressThreshold: 2,
-          //     duration: Duration(seconds: 2),
-          //     context: context,
-          //     builder: (BuildContext context) {
-          //       return Container(
-          //         decoration: BoxDecoration(color: Theme.of(context).cardColor),
-          //         height: 300,
-          //         child: Center(
-          //           child: Column(
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             children: [
-          //               Text(
-          //                 'Halellujah!',
-          //                 style: Theme.of(context).textTheme.displayLarge,
-          //               ),
-          //               ElevatedButton(
-          //                   onPressed: () {
-          //                     Navigator.pop(context);
-          //                   },
-          //                   child: const Text('Close!'))
-          //             ],
-          //           ),
-          //         ),
-          //       );
-          //     });
         }
         // if (state.status == CalendarStateStatus.error) {
         //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
@@ -210,12 +186,16 @@ class CalendarForEntyAddingNewBloc extends StatelessWidget {
           //
           selectedDayPredicate: (day) => isSameDay(day, today),
 
-          locale: 'de_DE',
+          locale: Localizations.localeOf(context).languageCode
+          // 'de_DE'
+          ,
 
-          availableCalendarFormats: const {
-            CalendarFormat.month: 'Monat',
-            CalendarFormat.twoWeeks: '2 Wochen',
-            CalendarFormat.week: 'Woche'
+          availableCalendarFormats: {
+            CalendarFormat.month: Localization.of(context).calendarFormatButton,
+            CalendarFormat.twoWeeks:
+                Localization.of(context).calendarFormatButtonTwoWeeks,
+            CalendarFormat.week:
+                Localization.of(context).calendarFormatButtonWeek
           },
 
           onFormatChanged: (format) {
@@ -244,22 +224,21 @@ class CalendarForEntyAddingNewBloc extends StatelessWidget {
 }
 
 /////DROP
-class DropDownEntry extends StatefulWidget {
+class DropDownEntry extends StatelessWidget {
   const DropDownEntry({super.key});
 
   @override
-  State<DropDownEntry> createState() => _DropDownEntryState();
-}
-
-class _DropDownEntryState extends State<DropDownEntry> {
-  final List<DropdownMenuEntry> _dropDownCalendarOptions = [
-    const DropdownMenuEntry(label: 'Schule', value: 0),
-    const DropdownMenuEntry(label: 'Heim', value: 1),
-    const DropdownMenuEntry(label: 'Krank', value: 2),
-    const DropdownMenuEntry(label: 'Fehl', value: 3),
-  ];
-  @override
   Widget build(BuildContext context) {
+    final List<DropdownMenuEntry> dropDownCalendarOptions = [
+      DropdownMenuEntry(
+          label: Localization.of(context).schoolEntryType, value: 0),
+      DropdownMenuEntry(
+          label: Localization.of(context).homeEntryType, value: 1),
+      DropdownMenuEntry(
+          label: Localization.of(context).sickEntryType, value: 2),
+      DropdownMenuEntry(
+          label: Localization.of(context).looseEntryType, value: 3),
+    ];
     return Container(
       margin: const EdgeInsets.only(top: 12, bottom: 22, left: 8, right: 8),
 
@@ -268,8 +247,8 @@ class _DropDownEntryState extends State<DropDownEntry> {
         enableSearch: false,
         expandedInsets: EdgeInsets.zero,
         // width: double.infinity,
-        hintText: 'Standort wählen...',
-        dropdownMenuEntries: _dropDownCalendarOptions,
+        hintText: Localization.of(context).entryTypeDropdownHintText,
+        dropdownMenuEntries: dropDownCalendarOptions,
         textStyle: Theme.of(context).textTheme.titleMedium,
         // controller: ,
 
@@ -296,8 +275,19 @@ class _DropDownEntryState extends State<DropDownEntry> {
                 0.1))),
         onSelected: (value) {
           final bloc = BlocProvider.of<CalendarBloc>(context);
-          final type = _dropDownCalendarOptions[value].label;
-          bloc.add(CalendarTypeChanged(type: type));
+          late final String? type;
+          switch (dropDownCalendarOptions[value].value) {
+            case 0:
+              type = 'Schule';
+            case 1:
+              type = 'Heim';
+            case 2:
+              type = 'Krank';
+            case 3:
+              type = 'Fehl';
+          }
+
+          bloc.add(CalendarTypeChanged(type: type!));
         },
       ),
     );
@@ -394,7 +384,7 @@ class EntryAddingButton extends StatelessWidget {
                     bloc.add(CalendarAddEntry());
                   },
                   child: Text(
-                    'Anmelden',
+                    Localization.of(context).addEntryButtonText,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Colors.white,
                           //fontWeight: FontWeight.w500
@@ -488,7 +478,7 @@ class EntryAddingButton extends StatelessWidget {
                               bottomRight: Radius.circular(20))))),
                   onPressed: () {},
                   child: Text(
-                    'Anmelden',
+                    Localization.of(context).addEntryButtonText,
                     style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Colors.white,
                           //fontWeight: FontWeight.w500

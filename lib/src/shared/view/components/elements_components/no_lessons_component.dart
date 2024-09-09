@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 
 class NoLessonCardComponent extends StatelessWidget {
   const NoLessonCardComponent({
@@ -17,7 +16,7 @@ class NoLessonCardComponent extends StatelessWidget {
       decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(12)),
-      child: const Center(child: Text('Heute gibt es keine Unterrichten')),
+      child:  Center(child: Text(Localization.of(context).noLessonsToday)),
     );
   }
 }
