@@ -39,5 +39,11 @@
   "deleteEntryDialogHeader": "Удалить запись",
   "deleteEntryShureTextDialog": "Вы действительно хотите удалить эту запись?",
   "noButtonText": "Нет",
-  "yesButtonText": "Да"
+  "yesButtonText": "Да",
+  "allEntriesAddedSuccessMessage": "Отлично! Вы добавили все записи",
+  "calendarStateErrorMessage_future": "Осторожно! Будущее",
+  "calendarStateErrorMessage_schoolTypeOnlyToday": "Отметиться в школе можно только в текущий день",
+  "calendarStateErrorMessage_thisDateExists": "Запись с этой датой уже существует",
+  "calendarStateErrorMessage_noLessonsToday": "Уроков в этот день нет!",
+  "calendarStateErrorMessage_distanceToSchool": "Ты не в школе. Дистанция {distance} метров"
 }

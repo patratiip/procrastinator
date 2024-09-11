@@ -11,13 +11,28 @@ enum CalendarStateStatus {
   allDone,
 }
 
+enum CalendarStateMessage {
+  //default
+  empty,
+  //all is done
+  allEntriesAdded,
+  //errors
+  futureError,
+  schoolOnlyToday,
+  enrtyWithThisDateExists,
+  noLessonsToday,
+  distanceToSchool,
+  errorOnGeopositionCheck
+}
+
 final class CalendarState extends Equatable {
   const CalendarState({
     this.date,
     this.calendarFormat,
     this.type,
     this.isValid = true,
-    this.message,
+    this.value,
+    this.message = CalendarStateMessage.empty,
     this.status = CalendarStateStatus.disabled,
   });
 
@@ -25,7 +40,8 @@ final class CalendarState extends Equatable {
   final CalendarFormat? calendarFormat;
   final String? type;
   final bool isValid;
-  final String? message;
+  final dynamic value;
+  final CalendarStateMessage message;
   final CalendarStateStatus status;
 
   CalendarState copyWith({
@@ -33,7 +49,8 @@ final class CalendarState extends Equatable {
     CalendarFormat? calendarFormat,
     String? type,
     bool? isValid,
-    String? message,
+    dynamic value,
+    CalendarStateMessage? message,
     CalendarStateStatus? status,
   }) {
     return CalendarState(
@@ -41,6 +58,7 @@ final class CalendarState extends Equatable {
       calendarFormat: calendarFormat ?? this.calendarFormat,
       type: type ?? this.type,
       isValid: isValid ?? this.isValid,
+      value: value ?? this.value,
       message: message ?? this.message,
       status: status ?? this.status,
     );
@@ -48,5 +66,5 @@ final class CalendarState extends Equatable {
 
   @override
   List<Object?> get props =>
-      [date, calendarFormat, type, isValid, message, status];
+      [date, calendarFormat, type, isValid, value, message, status];
 }

@@ -39,5 +39,11 @@
   "deleteEntryDialogHeader": "Delete entry",
   "deleteEntryShureTextDialog": "Are you shure that you want to delete this entry?",
   "noButtonText": "No",
-  "yesButtonText": "Yes"
+  "yesButtonText": "Yes",
+  "allEntriesAddedSuccessMessage": "You have done everything!",
+  "calendarStateErrorMessage_future": "Attention! Future",
+  "calendarStateErrorMessage_schoolTypeOnlyToday": "You can only register at the school today",
+  "calendarStateErrorMessage_thisDateExists": "Registration with this date already exists",
+  "calendarStateErrorMessage_noLessonsToday": "No lections this day!",
+  "calendarStateErrorMessage_distanceToSchool": "You are not at school. Distance {distance} meters"
 }

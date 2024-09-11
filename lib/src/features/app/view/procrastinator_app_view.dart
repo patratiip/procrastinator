@@ -33,7 +33,7 @@ class ProcrastinatorAppView extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        locale: const Locale('de'),
+        // locale: const Locale('de'),
         supportedLocales: Localization.delegate.supportedLocales,
 
         //THEME
@@ -44,11 +44,6 @@ class ProcrastinatorAppView extends StatelessWidget {
             if (state.status == AuthenticationStatus.authenticated) {
               return MultiBlocProvider(
                 providers: [
-                  // BlocProvider(
-                  //   create: (context) => SignInBloc(
-                  //       context.read<AuthenticationBloc>().authenticationRepository),
-                  // ),
-
                   //Entries
                   BlocProvider(
                     create: (context) => EntrysListBloc(

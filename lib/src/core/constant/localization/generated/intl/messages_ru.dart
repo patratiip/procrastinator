@@ -20,16 +20,20 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'ru';
 
-  static String m0(schoolQty) => "${schoolQty} дней или";
+  static String m0(distance) => "Ты не в школе. Дистанция ${distance} метров";
 
-  static String m1(entiesQty, totalVisits) =>
+  static String m1(schoolQty) => "${schoolQty} дней или";
+
+  static String m2(entiesQty, totalVisits) =>
       "Всего ${entiesQty} из ${totalVisits} дней";
 
-  static String m2(userDisplayname) => "Записи ${userDisplayname}";
+  static String m3(userDisplayname) => "Записи ${userDisplayname}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "addEntryButtonText": MessageLookupByLibrary.simpleMessage("Добавить"),
+        "allEntriesAddedSuccessMessage": MessageLookupByLibrary.simpleMessage(
+            "Отлично! Вы добавили все записи"),
         "anmeldungAppBarText":
             MessageLookupByLibrary.simpleMessage("Регистрация"),
         "anmeldungLogInScreenName":
@@ -41,6 +45,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("2 Недели"),
         "calendarFormatButtonWeek":
             MessageLookupByLibrary.simpleMessage("Неделя"),
+        "calendarStateErrorMessage_distanceToSchool": m0,
+        "calendarStateErrorMessage_future":
+            MessageLookupByLibrary.simpleMessage("Осторожно! Будущее"),
+        "calendarStateErrorMessage_noLessonsToday":
+            MessageLookupByLibrary.simpleMessage("Уроков в этот день нет!"),
+        "calendarStateErrorMessage_schoolTypeOnlyToday":
+            MessageLookupByLibrary.simpleMessage(
+                "Отметиться в школе можно только в текущий день"),
+        "calendarStateErrorMessage_thisDateExists":
+            MessageLookupByLibrary.simpleMessage(
+                "Запись с этой датой уже существует"),
         "contacts": MessageLookupByLibrary.simpleMessage("Контакты"),
         "deleteEntryDialogHeader":
             MessageLookupByLibrary.simpleMessage("Удалить запись"),
@@ -81,13 +96,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "schoolEntryType": MessageLookupByLibrary.simpleMessage("Школа"),
         "sickEntryType": MessageLookupByLibrary.simpleMessage("Болезнь"),
         "sickList": MessageLookupByLibrary.simpleMessage("Больничный"),
-        "statisticWidgetNDays": m0,
+        "statisticWidgetNDays": m1,
         "statistikAppBarText":
             MessageLookupByLibrary.simpleMessage(" Статистика"),
         "todayLectionWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Сегодня"),
-        "totalEntiesTotalVisitsDaysStatisticWidget": m1,
-        "userNameAndEntriesHeader": m2,
+        "totalEntiesTotalVisitsDaysStatisticWidget": m2,
+        "userNameAndEntriesHeader": m3,
         "yesButtonText": MessageLookupByLibrary.simpleMessage("Да")
       };
 }

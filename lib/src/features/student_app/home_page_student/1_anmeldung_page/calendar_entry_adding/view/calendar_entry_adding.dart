@@ -7,7 +7,6 @@ import 'package:procrastinator/src/core/constant/localization/generated/l10n.dar
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/calendar_entry_adding/bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
-import 'package:rive_animated_icon/rive_animated_icon.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarEntryAddingWidget extends StatelessWidget {
@@ -33,7 +32,8 @@ class CalendarEntryAddingWidget extends StatelessWidget {
             content: Container(
               width: double.infinity,
               height: 38,
-              decoration: BoxDecoration(color: MyAppColorScheme.sucsessColor),
+              decoration:
+                  const BoxDecoration(color: MyAppColorScheme.sucsessColor),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -141,7 +141,7 @@ class CalendarForEntyAddingNewBloc extends StatelessWidget {
             formatButtonDecoration: BoxDecoration(
               // border: Border.fromBorderSide(BorderSide(color: MyAppColorScheme.primary)),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
             ),
 
             titleTextFormatter: (date, locale) =>
@@ -259,13 +259,13 @@ class DropDownEntry extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           filled: true,
-          fillColor: Theme.of(context).colorScheme.background,
+          fillColor: Theme.of(context).colorScheme.surface,
         ),
 
         ///MENU
         menuStyle: MenuStyle(
-            backgroundColor: WidgetStatePropertyAll(
-                Theme.of(context).colorScheme.background),
+            backgroundColor:
+                WidgetStatePropertyAll(Theme.of(context).colorScheme.surface),
             surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
             shadowColor: const WidgetStatePropertyAll(Colors.transparent),
             // side: MaterialStatePropertyAll(BorderSide()),
@@ -303,17 +303,32 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
     return BlocBuilder<CalendarBloc, CalendarState>(builder: (context, state) {
       if (state.status == CalendarStateStatus.error) {
         return Container(
-            width: double.infinity,
-            // height: 24,
-            color: MyAppColorScheme.errorColor,
-            child: SelectableText(
-              textAlign: TextAlign.center,
-              state.message!,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Colors.white,
-                    //fontWeight: FontWeight.w500
-                  ),
-            ));
+          padding: const EdgeInsets.all(8),
+          width: double.infinity,
+          color: MyAppColorScheme.errorColor,
+          child: Text(
+            switch (state.message) {
+              CalendarStateMessage.empty => '',
+              CalendarStateMessage.allEntriesAdded => '',
+              CalendarStateMessage.futureError =>
+                Localization.of(context).calendarStateErrorMessage_future,
+              CalendarStateMessage.schoolOnlyToday => Localization.of(context)
+                  .calendarStateErrorMessage_schoolTypeOnlyToday,
+              CalendarStateMessage.enrtyWithThisDateExists =>
+                Localization.of(context)
+                    .calendarStateErrorMessage_thisDateExists,
+              CalendarStateMessage.noLessonsToday => Localization.of(context)
+                  .calendarStateErrorMessage_noLessonsToday,
+              CalendarStateMessage.distanceToSchool => Localization.of(context)
+                  .calendarStateErrorMessage_distanceToSchool(state.value),
+              CalendarStateMessage.errorOnGeopositionCheck => state.value,
+            },
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        );
       } else {
         return const SizedBox(
             // height: 24
@@ -332,11 +347,11 @@ class SuccesMessageCalendarWidget extends StatelessWidget {
     return BlocBuilder<CalendarBloc, CalendarState>(builder: (context, state) {
       if (state.status == CalendarStateStatus.allDone) {
         return Container(
+            padding: const EdgeInsets.all(8),
             width: double.infinity,
-            height: 24,
             color: MyAppColorScheme.sucsessColor,
             child: Text(
-              state.message ?? '',
+              Localization.of(context).allEntriesAddedSuccessMessage,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     color: Colors.white,
@@ -367,14 +382,14 @@ class EntryAddingButton extends StatelessWidget {
       child: BlocBuilder<CalendarBloc, CalendarState>(
         builder: (context, state) {
           if (state.status == CalendarStateStatus.readyToAdding) {
-            return Container(
+            return SizedBox(
               width: double.infinity,
               height: 60,
               child: ElevatedButton(
                   style: const ButtonStyle(
                       backgroundColor:
-                          MaterialStatePropertyAll(MyAppColorScheme.primary),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                          WidgetStatePropertyAll(MyAppColorScheme.primary),
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(20),
                               bottomRight: Radius.circular(20))))),
@@ -392,14 +407,14 @@ class EntryAddingButton extends StatelessWidget {
                   )),
             );
           } else if (state.status == CalendarStateStatus.inProgress) {
-            return Container(
+            return SizedBox(
               width: double.infinity,
               height: 60,
               child: ElevatedButton(
                 style: const ButtonStyle(
                     backgroundColor:
-                        MaterialStatePropertyAll(MyAppColorScheme.primary),
-                    shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                        WidgetStatePropertyAll(MyAppColorScheme.primary),
+                    shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(20),
                             bottomRight: Radius.circular(20))))),
@@ -416,63 +431,15 @@ class EntryAddingButton extends StatelessWidget {
               ),
             );
 
-            //   ///error
-            // } else if (state.isValid == false) {
-            //   return Container(
-            //     width: double.infinity,
-            //     height: 60,
-            //     child: ElevatedButton(
-            //         style: const ButtonStyle(
-            //             backgroundColor:
-            //                 MaterialStatePropertyAll(MyAppColorScheme.errorColor),
-            //             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.only(
-            //                     bottomLeft: Radius.circular(20),
-            //                     bottomRight: Radius.circular(20))))),
-            //         onPressed: () {},
-            //         child: Text(
-            //           textAlign: TextAlign.center,
-            //           state.status!,
-            //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
-            //                 color: Colors.white,
-            //                 //fontWeight: FontWeight.w500
-            //               ),
-            //         )),
-            //   );
-
-            //   ///You are hero
-            // } else if (state.status == 'Hast du alles geschaft!') {
-            //   return Container(
-            //     width: double.infinity,
-            //     height: 60,
-            //     child: ElevatedButton(
-            //         style: const ButtonStyle(
-            //             backgroundColor:
-            //                 MaterialStatePropertyAll(MyAppColorScheme.sucsessColor),
-            //             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.only(
-            //                     bottomLeft: Radius.circular(20),
-            //                     bottomRight: Radius.circular(20))))),
-            //         onPressed: () {},
-            //         child: Text(
-            //           textAlign: TextAlign.center,
-            //           state.status!,
-            //           style: Theme.of(context).textTheme.labelLarge!.copyWith(
-            //                 color: Colors.white,
-            //                 //fontWeight: FontWeight.w500
-            //               ),
-            //         )),
-            //   );
-
             ////unactive
           } else {
-            return Container(
+            return SizedBox(
               width: double.infinity,
               height: 60,
               child: ElevatedButton(
                   style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(Colors.grey),
-                      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+                      backgroundColor: WidgetStatePropertyAll(Colors.grey),
+                      shape: WidgetStatePropertyAll(RoundedRectangleBorder(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(20),
                               bottomRight: Radius.circular(20))))),

@@ -39,5 +39,11 @@
   "deleteEntryDialogHeader": "Anmeldung löschen",
   "deleteEntryShureTextDialog": "Möchtest du echt diese Anmeldung löschen?",
   "noButtonText": "No",
-  "yesButtonText": "Yes"
+  "yesButtonText": "Yes",
+  "allEntriesAddedSuccessMessage": "Hast du alles geschaft!",
+  "calendarStateErrorMessage_future": "Achtung! Zukunft",
+  "calendarStateErrorMessage_schoolTypeOnlyToday": "In der Schule knnst du dich nur Heute anmelden",
+  "calendarStateErrorMessage_thisDateExists": "Anmeldung mit diese Datum schon exestiert",
+  "calendarStateErrorMessage_noLessonsToday": "Keine Unterrichten!",
+  "calendarStateErrorMessage_distanceToSchool": "Du bist nicht in der Schule. Distance {distance} meters"
 }

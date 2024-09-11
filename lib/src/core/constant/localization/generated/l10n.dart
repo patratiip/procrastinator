@@ -460,6 +460,66 @@ class Localization {
       args: [],
     );
   }
+
+  /// `You have done everything!`
+  String get allEntriesAddedSuccessMessage {
+    return Intl.message(
+      'You have done everything!',
+      name: 'allEntriesAddedSuccessMessage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Attention! Future`
+  String get calendarStateErrorMessage_future {
+    return Intl.message(
+      'Attention! Future',
+      name: 'calendarStateErrorMessage_future',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can only register at the school today`
+  String get calendarStateErrorMessage_schoolTypeOnlyToday {
+    return Intl.message(
+      'You can only register at the school today',
+      name: 'calendarStateErrorMessage_schoolTypeOnlyToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Registration with this date already exists`
+  String get calendarStateErrorMessage_thisDateExists {
+    return Intl.message(
+      'Registration with this date already exists',
+      name: 'calendarStateErrorMessage_thisDateExists',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No lections this day!`
+  String get calendarStateErrorMessage_noLessonsToday {
+    return Intl.message(
+      'No lections this day!',
+      name: 'calendarStateErrorMessage_noLessonsToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are not at school. Distance {distance} meters`
+  String calendarStateErrorMessage_distanceToSchool(Object distance) {
+    return Intl.message(
+      'You are not at school. Distance $distance meters',
+      name: 'calendarStateErrorMessage_distanceToSchool',
+      desc: '',
+      args: [distance],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

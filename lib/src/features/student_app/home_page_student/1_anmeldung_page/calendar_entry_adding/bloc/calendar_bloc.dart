@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:entry_repository/entry_repository.dart';
-import 'package:flutter/material.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,7 +94,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     on<CalendarNothingToAddEvent>((event, emit) async {
       await Future<void>.delayed(const Duration(seconds: 2));
       emit(state.copyWith(
-        message: 'Hast du alles geschaft!',
+        message: CalendarStateMessage.allEntriesAdded,
         status: CalendarStateStatus.allDone,
       ));
     });
@@ -132,7 +131,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       if (newDate.isAfter(today)) {
         emit(state.copyWith(
           isValid: false,
-          message: 'Achtung! Zukunft',
+          message: CalendarStateMessage.futureError,
           status: CalendarStateStatus.error,
         ));
       }
@@ -143,7 +142,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
           !newDate.isAtSameMomentAs(today)) {
         emit(state.copyWith(
           isValid: false,
-          message: 'In der Schule knnst du dich nur Heute anmelden',
+          message: CalendarStateMessage.schoolOnlyToday,
           status: CalendarStateStatus.error,
         ));
       }
@@ -161,7 +160,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         if (entriesDateList.contains(newDate)) {
           emit(state.copyWith(
             isValid: false,
-            message: 'Anmeldung mit diese Datum schon exestiert',
+            message: CalendarStateMessage.enrtyWithThisDateExists,
             status: CalendarStateStatus.error,
           ));
         }
@@ -180,7 +179,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         if (lectionsDateList.contains(newDate) == false) {
           emit(state.copyWith(
             isValid: false,
-            message: 'Keine Unterrichten!',
+            message: CalendarStateMessage.noLessonsToday,
             status: CalendarStateStatus.error,
           ));
         }
@@ -211,7 +210,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       if (stateDate.isAfter(today)) {
         emit(state.copyWith(
           isValid: false,
-          message: 'Achtung! Zukunft',
+          message: CalendarStateMessage.futureError,
           status: CalendarStateStatus.error,
         ));
       }
@@ -222,7 +221,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
           !stateDate.isAtSameMomentAs(today)) {
         emit(state.copyWith(
           isValid: false,
-          message: 'In der Schule knnst du dich nur Heute anmelden',
+          message: CalendarStateMessage.schoolOnlyToday,
           status: CalendarStateStatus.error,
         ));
       }
@@ -240,7 +239,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         if (entriesDateList.contains(stateDate)) {
           emit(state.copyWith(
             isValid: false,
-            message: 'Anmeldung mit diese Datum schon exestiert',
+            message: CalendarStateMessage.enrtyWithThisDateExists,
             status: CalendarStateStatus.error,
           ));
         }
@@ -259,7 +258,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         if (lectionsDateList.contains(stateDate) == false) {
           emit(state.copyWith(
             isValid: false,
-            message: 'Keine Unterrichten!',
+            message: CalendarStateMessage.noLessonsToday,
             status: CalendarStateStatus.error,
           ));
         }
@@ -313,8 +312,8 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
             } else {
               emit(state.copyWith(
                 isValid: false,
-                message:
-                    'Du bist nicht in der Schule. Distance ${distanceToSchool.toInt()} meters',
+                value: distanceToSchool.toInt(),
+                message: CalendarStateMessage.distanceToSchool,
                 status: CalendarStateStatus.error,
               ));
               typeDependIsOK = false;
@@ -322,7 +321,8 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
           } catch (e) {
             emit(state.copyWith(
                 isValid: false,
-                message: '$e',
+                value: e,
+                message: CalendarStateMessage.errorOnGeopositionCheck,
                 status: CalendarStateStatus.error));
             print(e);
             rethrow;
@@ -347,7 +347,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
           print('Calendar Bloc: Entry was added $entry');
           await Future<void>.delayed(const Duration(seconds: 1));
           emit(state.copyWith(
-            message: '',
             status: CalendarStateStatus.success,
           ));
         } else {}
