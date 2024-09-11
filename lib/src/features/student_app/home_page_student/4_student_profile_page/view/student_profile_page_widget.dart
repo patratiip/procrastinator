@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/core/app/bloc/authentication_bloc.dart';
+import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/user_profile_options_component.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:procrastinator/bloc_observer.dart';
-import 'package:procrastinator/src/core/app/view/procrastinator.dart';
+import 'package:procrastinator/src/features/app/view/procrastinator.dart';
 import 'package:procrastinator/src/core/di/di_container.dart';
 import 'package:user_repository/user_repository.dart';
 import 'firebase_options.dart';
