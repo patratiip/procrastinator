@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/firebase_options.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
+import 'package:procrastinator/src/core/di/logic/composition_root.dart';
 import 'package:procrastinator/src/core/di/service_locator.dart';
 import 'package:procrastinator/src/core/utils/app_bloc_observer.dart';
 import 'package:procrastinator/src/core/utils/refined_logger.dart';
@@ -45,15 +46,11 @@ final class AppRunner {
       try {
         //Dependencies
         initGetIt();
-        //Auth Repo
-        final userRepository = FirebaseUserRepository();
-        await userRepository.user.first;
 
-        //TODO Add Composition Root
-        // final result = await CompositionRoot(config, logger).compose();
+        final result =
+            await CompositionRoot(config, logger).composeAppDependencies();
         // Attach this widget to the root of the tree.
-        // runApp(App(result: result));
-        runApp(ProcrastinatorApp(userRepository));
+        runApp(ProcrastinatorApp(result));
       } catch (e, stackTrace) {
         logger.error('Initialization failed', error: e, stackTrace: stackTrace);
         runApp(

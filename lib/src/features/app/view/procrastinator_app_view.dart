@@ -6,6 +6,7 @@ import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/main.dart';
+import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/core/styles/theme/theme.dart';
 import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
@@ -84,9 +85,8 @@ class ProcrastinatorAppView extends StatelessWidget {
                   //Calendar
                   BlocProvider(
                       create: (context) => CalendarBloc(
-                            userRepository: context
-                                .read<AuthenticationBloc>()
-                                .authenticationRepository,
+                            userRepository:
+                                AppDependenciesScope.of(context).userRepository,
                             entriesRepository:
                                 locator<FirebaseEntryRepository>(),
                             lectionsRepository:
