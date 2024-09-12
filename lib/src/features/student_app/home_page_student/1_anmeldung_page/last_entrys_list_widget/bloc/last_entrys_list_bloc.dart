@@ -20,13 +20,11 @@ class EntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
         add(EntrysListChangedEvent(entrysList));
         // print('Entrys Stream Listener Bloc: $entrysList');
       },
-      onError: (error, stackTrace) {
-        
-        print('Ошибка в потоке записей: $error');
-        
-        print('StackTrace: $stackTrace');
+      // onError: (error, stackTrace) {
+      //   print('Error in entries stream: $error');
 
-      },
+      //   print('StackTrace: $stackTrace');
+      // },
       cancelOnError: false,
     );
 
@@ -88,13 +86,11 @@ class EntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
         // }
       },
     );
-
-    
   }
   @override
-    Future<void> close()  {
-       _entrysListListener.cancel();
-      print('Entrys subscription was cancelled');
-      return super.close();
-    }
+  Future<void> close() {
+    _entrysListListener.cancel();
+    print('Entrys subscription was cancelled');
+    return super.close();
+  }
 }

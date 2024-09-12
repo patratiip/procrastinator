@@ -44,6 +44,7 @@ class AuthenticationBloc
   @override
   Future<void> close() {
     _userSubscription.cancel();
+    print('User subscription was cancelled');
     return super.close();
   }
 }

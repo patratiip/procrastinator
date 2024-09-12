@@ -79,7 +79,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
 
           if (loosedLections.isNotEmpty) {
             emit(ComaredEntrysState(loosedLectionsList: loosedLections));
-            print('Bloc: compared $loosedLections');
+            // print('Bloc: compared $loosedLections');
             // } catch (e) {
             //   CompairingEntrysFailure(exception: e);
             // }
@@ -95,7 +95,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
   Future<void> close() {
     _entrysListListener.cancel();
     _lectionListListener.cancel();
-    print('Entrys subscription was cancelled');
+    print('Loosed lections subscription was cancelled');
     return super.close();
   }
 }

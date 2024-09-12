@@ -344,7 +344,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
         if (typeDependIsOK) {
           entriesRepository.addEntry(entry);
-          print('Calendar Bloc: Entry was added $entry');
+          // print('Calendar Bloc: Entry was added $entry');
           await Future<void>.delayed(const Duration(seconds: 1));
           emit(state.copyWith(
             status: CalendarStateStatus.success,
