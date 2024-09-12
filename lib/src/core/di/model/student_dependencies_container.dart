@@ -1,6 +1,11 @@
+import 'package:entry_repository/entry_repository.dart';
+import 'package:geolocation_repository/geolocation_repository.dart';
+import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/domain/statistic_computing_service.dart';
 
-/// {@template dependencies_container}
+/// {@template student_dependencies_container}
 /// Composed dependencies from the [CompositionRoot].
 ///
 /// This class contains all the dependencies that are required for the application
@@ -9,20 +14,42 @@ import 'package:procrastinator/src/features/initialization/logic/error_tracking_
 /// {@macro composition_process}
 /// {@endtemplate}
 base class StudentDependenciesContainer {
-  /// {@macro dependencies_container}
+  /// {@macro student_dependencies_container}
   const StudentDependenciesContainer({
-    // required this.appSettingsBloc,
+    required this.firebaseEntryRepository,
+    required this.firebaseLectionRepository,
+    required this.deviceGeolocationRepository,
+    required this.comparingLectionsAndEntriesService,
+    required this.statisticComputingServise,
     required this.errorTrackingManager,
   });
 
-  // /// [AppSettingsBloc] instance, used to manage theme and locale.
-  // final AppSettingsBloc appSettingsBloc;
+  /// [FirebaseEntryRepository] instance, used to manage theme and locale.
+  final FirebaseEntryRepository firebaseEntryRepository;
+
+  /// [FirebaseLectionRepository] instance, used to manage theme and locale.
+  final FirebaseLectionRepository firebaseLectionRepository;
+
+  /// [DeviceGeolocationRepository] instance, used to manage theme and locale.
+  final DeviceGeolocationRepository deviceGeolocationRepository;
+
+  /// [ComparingLectionsAndEntriesService] instance, used to manage theme and locale.
+  final ComparingLectionsAndEntriesService comparingLectionsAndEntriesService;
+
+  /// [StatisticComputingServise] instance, used to manage theme and locale.
+  final StatisticComputingServise statisticComputingServise;
+
+  //  FirebaseEntryRepository();
+  //  FirebaseLectionRepository();
+  //  DeviceGeolocationRepository();
+  //  ComparingLectionsAndEntriesService();
+  // StatisticComputingServise();
 
   /// [ErrorTrackingManager] instance, used to report errors.
   final ErrorTrackingManager errorTrackingManager;
 }
 
-/// {@template testing_dependencies_container}
+/// {@template testing_student_dependencies_container}
 /// A special version of [StudentDependenciesContainer] that is used in tests.
 ///
 /// In order to use [StudentDependenciesContainer] in tests, it is needed to

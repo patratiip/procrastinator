@@ -9,6 +9,7 @@ import 'package:user_repository/user_repository.dart';
 void initGetIt() {
   // locator.registerSingleton(FirebaseUserRepositoryB());
   // locator.registerSingleton(FirebaseUserRepo());
+  // final String currentUser = FirebaseAuth.instance.currentUser!.uid;
   locator.registerLazySingleton(() => FirebaseEntryRepository());
   locator.registerLazySingleton(() => FirebaseLectionRepository());
   locator.registerLazySingleton(() => DeviceGeolocationRepository());

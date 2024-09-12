@@ -1,8 +1,14 @@
 import 'package:clock/clock.dart';
+import 'package:entry_repository/entry_repository.dart';
+import 'package:geolocation_repository/geolocation_repository.dart';
+import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/model/app_dependencies_container.dart';
+import 'package:procrastinator/src/core/di/model/student_dependencies_container.dart';
 import 'package:procrastinator/src/core/utils/refined_logger.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
+import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/domain/statistic_computing_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -28,7 +34,7 @@ final class CompositionRoot {
   final RefinedLogger logger;
 
   /// Composes dependencies and returns result of composition.
-  Future<CompositionResult> composeAppDependencies() async {
+  Future<AppCompositionResult> composeAppDependencies() async {
     final stopwatch = clock.stopwatch()..start();
 
     logger.info('Initializing dependencies...');
@@ -37,7 +43,7 @@ final class CompositionRoot {
     logger.info('Dependencies initialized');
 
     stopwatch.stop();
-    final result = CompositionResult(
+    final result = AppCompositionResult(
       dependencies: dependencies,
       msSpent: stopwatch.elapsedMilliseconds,
     );
@@ -45,24 +51,25 @@ final class CompositionRoot {
     return result;
   }
 
-  // /// Composes dependencies for Student App and returns result of composition.
-  // Future<CompositionResult> composeStudentDependencies() async {
-  //   final stopwatch = clock.stopwatch()..start();
+  /// Composes dependencies for Student App and returns result of composition.
+  Future<StudentAppCompositionResult> composeStudentDependencies(
+      String currentUser) async {
+    final stopwatch = clock.stopwatch()..start();
 
-  //   logger.info('Initializing dependencies...');
-  //   // initialize dependencies
-  //   final dependencies =
-  //       await StudentDependenciesFactory(config, logger).create();
-  //   logger.info('Student dependencies initialized');
+    logger.info('Initializing dependencies...');
+    // initialize dependencies
+    final dependencies =
+        await StudentDependenciesFactory(config, logger).create();
+    logger.info('Student dependencies initialized');
 
-  //   stopwatch.stop();
-  //   final result = CompositionResult(
-  //     dependencies: dependencies,
-  //     msSpent: stopwatch.elapsedMilliseconds,
-  //   );
+    stopwatch.stop();
+    final result = StudentAppCompositionResult(
+      dependencies: dependencies,
+      msSpent: stopwatch.elapsedMilliseconds,
+    );
 
-  //   return result;
-  // }
+    return result;
+  }
 }
 
 /// {@template factory}
@@ -82,9 +89,9 @@ abstract class AsyncFactory<T> {
 }
 
 /// {@template dependencies_factory}
-/// Factory that creates an instance of [DependenciesContainer].
+/// Factory that creates an instance of [AppDependenciesContainer].
 /// {@endtemplate}
-class AppDependenciesFactory extends AsyncFactory<DependenciesContainer> {
+class AppDependenciesFactory extends AsyncFactory<AppDependenciesContainer> {
   /// {@macro dependencies_factory}
   AppDependenciesFactory(this.config, this.logger);
 
@@ -95,45 +102,138 @@ class AppDependenciesFactory extends AsyncFactory<DependenciesContainer> {
   final RefinedLogger logger;
 
   @override
-  Future<DependenciesContainer> create() async {
+  Future<AppDependenciesContainer> create() async {
     // final sharedPreferences = SharedPreferencesAsync();
 
     final errorTrackingManager =
         await ErrorTrackingManagerFactory(config, logger).create();
     final userRepository = await FirebaseUserRepositoryFactory().create();
 
-    return DependenciesContainer(
+    return AppDependenciesContainer(
       userRepository: userRepository,
       errorTrackingManager: errorTrackingManager,
     );
   }
 }
 
-// /// {@template dependencies_factory}
-// /// Factory that creates an instance of [DependenciesContainer].
-// /// {@endtemplate}
-// class StudentDependenciesFactory extends AsyncFactory<DependenciesContainer> {
-//   /// {@macro dependencies_factory}
-//   StudentDependenciesFactory(this.config, this.logger);
+/// {@template firebase_user_repo_factory}
+/// Factory that creates an instance of [FirebaseUserRepository].
+/// {@endtemplate}
+class FirebaseUserRepositoryFactory
+    extends AsyncFactory<FirebaseUserRepository> {
+  /// {@macro firebase_user_repo_factory}
 
-//   /// Application configuration
-//   final Config config;
+  @override
+  Future<FirebaseUserRepository> create() async {
+    ///Auth Repo
+    final userRepository = FirebaseUserRepository();
+    await userRepository.user.first;
+    return userRepository;
+  }
+}
 
-//   /// Logger used to log information during composition process.
-//   final RefinedLogger logger;
+/// {@template student_dependencies_factory}
+/// Factory that creates an instance of [StudentDependenciesContainer].
+/// {@endtemplate}
+class StudentDependenciesFactory
+    extends AsyncFactory<StudentDependenciesContainer> {
+  /// {@macro student_dependencies_factory}
+  StudentDependenciesFactory(this.config, this.logger);
 
-//   @override
-//   Future<DependenciesContainer> create() async {
-//     final errorTrackingManager =
-//         await ErrorTrackingManagerFactory(config, logger).create();
-//     // final settingsBloc = await SettingsBlocFactory(sharedPreferences).create();
+  /// Application configuration
+  final Config config;
 
-//     return StudentsDependenciesContainer(
-//       // appSettingsBloc: settingsBloc,
-//       errorTrackingManager: errorTrackingManager,
-//     );
-//   }
-// }
+  /// Logger used to log information during composition process.
+  final RefinedLogger logger;
+
+  @override
+  Future<StudentDependenciesContainer> create() async {
+    final errorTrackingManager =
+        await ErrorTrackingManagerFactory(config, logger).create();
+    final firebaseEntryRepository = FirebaseEntryRepositoryFactory().create();
+    final firebaseLectionRepository =
+        FirebaseLectionRepositoryFactory().create();
+    final deviceGeolocationRepository =
+        DeviceGeolocationRepositoryFactory().create();
+    final comparingLectionsAndEntriesService =
+        ComparingLectionsAndEntriesServiceFactory().create();
+    final statisticComputingServise =
+        StatisticComputingServiseFactory().create();
+
+    return StudentDependenciesContainer(
+      errorTrackingManager: errorTrackingManager,
+      firebaseEntryRepository: firebaseEntryRepository,
+      firebaseLectionRepository: firebaseLectionRepository,
+      deviceGeolocationRepository: deviceGeolocationRepository,
+      comparingLectionsAndEntriesService: comparingLectionsAndEntriesService,
+      statisticComputingServise: statisticComputingServise,
+    );
+  }
+}
+
+/// {@template firebase_lection_repo_factory}
+/// Factory that creates an instance of [FirebaseLectionRepository].
+/// {@endtemplate}
+class FirebaseLectionRepositoryFactory
+    extends Factory<FirebaseLectionRepository> {
+  /// {@macro firebase_lection_repo_factory}
+
+  @override
+  FirebaseLectionRepository create() {
+    return FirebaseLectionRepository();
+  }
+}
+
+/// {@template firebase_entry_repo_factory}
+/// Factory that creates an instance of [FirebaseEntryRepository].
+/// {@endtemplate}
+class FirebaseEntryRepositoryFactory extends Factory<FirebaseEntryRepository> {
+  /// {@macro firebase_entry_repo_factory}
+
+  @override
+  FirebaseEntryRepository create() {
+    return FirebaseEntryRepository();
+  }
+}
+
+/// {@template device_geolocation_repo_factory}
+/// Factory that creates an instance of [DeviceGeolocationRepository].
+/// {@endtemplate}
+class DeviceGeolocationRepositoryFactory
+    extends Factory<DeviceGeolocationRepository> {
+  /// {@macro fdevice_geolocation_repo_factory}
+
+  @override
+  DeviceGeolocationRepository create() {
+    return DeviceGeolocationRepository();
+  }
+}
+
+/// {@template comparing_service_factory}
+/// Factory that creates an instance of [ComparingLectionsAndEntriesService].
+/// {@endtemplate}
+class ComparingLectionsAndEntriesServiceFactory
+    extends Factory<ComparingLectionsAndEntriesService> {
+  /// {@macro comparing_service_factory}
+
+  @override
+  ComparingLectionsAndEntriesService create() {
+    return ComparingLectionsAndEntriesService();
+  }
+}
+
+/// {@template statistic_computing_servise_factory}
+/// Factory that creates an instance of [StatisticComputingServise].
+/// {@endtemplate}
+class StatisticComputingServiseFactory
+    extends Factory<StatisticComputingServise> {
+  /// {@macro statistic_computing_servise_factory}
+
+  @override
+  StatisticComputingServise create() {
+    return StatisticComputingServise();
+  }
+}
 
 /// {@template error_tracking_manager_factory}
 /// Factory that creates an instance of [ErrorTrackingManager].
@@ -161,28 +261,6 @@ class ErrorTrackingManagerFactory extends AsyncFactory<ErrorTrackingManager> {
     }
 
     return errorTrackingManager;
-  }
-}
-
-//////////////////////////////////////////////////////////////////////////
-/////Auth Repo
-// final userRepository = FirebaseUserRepository();
-// await userRepository.user.first;
-
-/// {@template firebase_user_repo_factory}
-/// Factory that creates an instance of [FirebaseUserRepository].
-/// {@endtemplate}
-class FirebaseUserRepositoryFactory
-    extends AsyncFactory<FirebaseUserRepository> {
-  /// {@macro firebase_user_repo_factory}
-  FirebaseUserRepositoryFactory();
-
-  @override
-  Future<FirebaseUserRepository> create() async {
-    ///Auth Repo
-    final userRepository = FirebaseUserRepository();
-    await userRepository.user.first;
-    return userRepository;
   }
 }
 
@@ -217,21 +295,46 @@ class FirebaseUserRepositoryFactory
 ///
 /// {@macro composition_process}
 /// {@endtemplate}
-final class CompositionResult {
+final class AppCompositionResult {
   /// {@macro composition_result}
-  const CompositionResult({
+  const AppCompositionResult({
     required this.dependencies,
     required this.msSpent,
   });
 
   /// The dependencies container
-  final DependenciesContainer dependencies;
+  final AppDependenciesContainer dependencies;
 
   /// The number of milliseconds spent
   final int msSpent;
 
   @override
-  String toString() => '$CompositionResult('
+  String toString() => '$AppCompositionResult('
+      'dependencies: $dependencies, '
+      'msSpent: $msSpent'
+      ')';
+}
+
+/// {@template composition_result}
+/// Result of composition
+///
+/// {@macro composition_process}
+/// {@endtemplate}
+final class StudentAppCompositionResult {
+  /// {@macro composition_result}
+  const StudentAppCompositionResult({
+    required this.dependencies,
+    required this.msSpent,
+  });
+
+  /// The dependencies container
+  final StudentDependenciesContainer dependencies;
+
+  /// The number of milliseconds spent
+  final int msSpent;
+
+  @override
+  String toString() => '$AppCompositionResult('
       'dependencies: $dependencies, '
       'msSpent: $msSpent'
       ')';

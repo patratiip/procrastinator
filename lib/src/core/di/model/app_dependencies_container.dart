@@ -9,9 +9,9 @@ import 'package:user_repository/user_repository.dart';
 ///
 /// {@macro composition_process}
 /// {@endtemplate}
-base class DependenciesContainer {
+base class AppDependenciesContainer {
   /// {@macro dependencies_container}
-  const DependenciesContainer({
+  const AppDependenciesContainer({
     required this.userRepository,
     required this.errorTrackingManager,
   });
@@ -24,12 +24,12 @@ base class DependenciesContainer {
 }
 
 /// {@template testing_dependencies_container}
-/// A special version of [DependenciesContainer] that is used in tests.
+/// A special version of [AppDependenciesContainer] that is used in tests.
 ///
-/// In order to use [DependenciesContainer] in tests, it is needed to
+/// In order to use [AppDependenciesContainer] in tests, it is needed to
 /// extend this class and provide the dependencies that are needed for the test.
 /// {@endtemplate}
-base class TestDependenciesContainer implements DependenciesContainer {
+base class TestDependenciesContainer implements AppDependenciesContainer {
   @override
   Object? noSuchMethod(Invocation invocation) {
     throw UnimplementedError(
@@ -39,17 +39,3 @@ base class TestDependenciesContainer implements DependenciesContainer {
     );
   }
 }
-
-// class AppDependenciesContainer extends DependenciesContainer {
-//   AppDependenciesContainer({
-//     required super.errorTrackingManager,
-//     required this.userRepository,
-//   });
-
-//   /// [UserRepository] instance, used to manage theme and locale.
-//   final UserRepository userRepository;
-// }
-
-// class StudentsDependenciesContainer extends DependenciesContainer {
-//   StudentsDependenciesContainer({required super.errorTrackingManager});
-// }

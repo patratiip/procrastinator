@@ -5,7 +5,7 @@ import 'package:procrastinator/src/core/di/model/app_dependencies_container.dart
 import 'package:procrastinator/src/core/utils/extensions/context_extension.dart';
 
 /// {@template dependencies_scope}
-/// A scope that provides composed [DependenciesContainer].
+/// A scope that provides composed [AppDependenciesContainer].
 ///
 /// **Testing**:
 ///
@@ -31,17 +31,18 @@ class AppDependenciesScope extends InheritedWidget {
   });
 
   /// Container with dependencies.
-  final DependenciesContainer dependencies;
+  final AppDependenciesContainer dependencies;
 
   /// Get the dependencies from the [context].
-  static DependenciesContainer of(BuildContext context) =>
+  static AppDependenciesContainer of(BuildContext context) =>
       context.inhOf<AppDependenciesScope>(listen: false).dependencies;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<DependenciesContainer>('dependencies', dependencies),
+      DiagnosticsProperty<AppDependenciesContainer>(
+          'dependencies', dependencies),
     );
   }
 
@@ -58,17 +59,18 @@ class StudentDependenciesScope extends InheritedWidget {
   });
 
   /// Container with dependencies.
-  final DependenciesContainer dependencies;
+  final AppDependenciesContainer dependencies;
 
   /// Get the dependencies from the [context].
-  static DependenciesContainer of(BuildContext context) =>
+  static AppDependenciesContainer of(BuildContext context) =>
       context.inhOf<AppDependenciesScope>(listen: false).dependencies;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<DependenciesContainer>('dependencies', dependencies),
+      DiagnosticsProperty<AppDependenciesContainer>(
+          'dependencies', dependencies),
     );
   }
 

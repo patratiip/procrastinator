@@ -44,6 +44,7 @@ final class AppRunner {
 
     Future<void> initializeAndRun() async {
       try {
+        
         //Dependencies
         initGetIt();
 
