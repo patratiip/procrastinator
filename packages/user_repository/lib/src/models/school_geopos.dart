@@ -13,7 +13,8 @@ class SchoolGeoPosition {
     return GeoPoint(schoolGeoPosition.latitude, schoolGeoPosition.longitude);
   }
 
-  String toString(){
+  @override
+  String toString() {
     return 'School Geoposition $latitude, $longitude';
   }
 }

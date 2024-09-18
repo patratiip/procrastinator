@@ -2,6 +2,7 @@ import 'models/models.dart';
 
 abstract class UserRepository {
   Stream<MyUser?> get user;
+  Stream<MyUser?> get userCollection;
 
   MyUser get currentUser;
 

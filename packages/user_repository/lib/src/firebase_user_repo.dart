@@ -26,6 +26,13 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
+  Stream<MyUser> get userCollection {
+    final String currentUser = _firebaseAuth.currentUser!.uid;
+    return usersCollection.doc(currentUser).snapshots().map((userCol) =>
+        MyUser.fromEntity(MyUserEntity.fromDocument(userCol.data()!)));
+  }
+
+  @override
   MyUser get currentUser {
     return _firebaseAuth.currentUser?.toUser ?? MyUser.empty;
   }
@@ -100,14 +107,14 @@ class FirebaseUserRepository implements UserRepository {
     await _firebaseAuth.currentUser!.sendEmailVerification();
   }
 
-  deleteProfile() async {
-    //TODO Exceptions!!!
-    try {
-      await _firebaseAuth.currentUser!.delete();
-    } catch (e) {
-      print(e);
-    }
-  }
+  // deleteProfile() async {
+  //   //TODO Exceptions!!!
+  //   try {
+  //     await _firebaseAuth.currentUser!.delete();
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 }
 
 extension on firebase_auth.User {
@@ -116,6 +123,7 @@ extension on firebase_auth.User {
     return MyUser(
       userId: uid,
       email: email!,
+      userType: UserType.undefined,
       name: displayName,
       photoURL: photoURL,
     );

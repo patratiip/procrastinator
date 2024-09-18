@@ -45,5 +45,7 @@
   "calendarStateErrorMessage_schoolTypeOnlyToday": "Отметиться в школе можно только в текущий день",
   "calendarStateErrorMessage_thisDateExists": "Запись с этой датой уже существует",
   "calendarStateErrorMessage_noLessonsToday": "Уроков в этот день нет!",
-  "calendarStateErrorMessage_distanceToSchool": "Ты не в школе. Дистанция {distance} метров"
+  "calendarStateErrorMessage_distanceToSchool": "Ты не в школе. Дистанция {distance} метров",
+  "userTypeLoginError": "Ваш тип пользователя Неопределён. Попробуйте выйти из приложения и заново выполнить вход. Если это не сработает свяжитесь пожалуйста с IT отделом академии Lutz&Grub.",
+  "authenticationUserTypeErrorScreeenText": "Ошибка аутентификации"
 }

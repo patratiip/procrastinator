@@ -13,11 +13,15 @@ base class AppDependenciesContainer {
   /// {@macro dependencies_container}
   const AppDependenciesContainer({
     required this.userRepository,
+    required this.currentUser,
     required this.errorTrackingManager,
   });
 
-  // /// [AppSettingsBloc] instance, used to manage theme and locale.
+  /// [UserRepository] instance, used to manage theme and locale.
   final UserRepository userRepository;
+
+  /// [MyUser] user data.
+  final MyUser currentUser;
 
   /// [ErrorTrackingManager] instance, used to report errors.
   final ErrorTrackingManager errorTrackingManager;

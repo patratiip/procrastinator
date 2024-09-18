@@ -49,31 +49,3 @@ class AppDependenciesScope extends InheritedWidget {
   @override
   bool updateShouldNotify(AppDependenciesScope oldWidget) => false;
 }
-
-class StudentDependenciesScope extends InheritedWidget {
-  /// {@macro dependencies_scope}
-  const StudentDependenciesScope({
-    required super.child,
-    required this.dependencies,
-    super.key,
-  });
-
-  /// Container with dependencies.
-  final AppDependenciesContainer dependencies;
-
-  /// Get the dependencies from the [context].
-  static AppDependenciesContainer of(BuildContext context) =>
-      context.inhOf<AppDependenciesScope>(listen: false).dependencies;
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-      DiagnosticsProperty<AppDependenciesContainer>(
-          'dependencies', dependencies),
-    );
-  }
-
-  @override
-  bool updateShouldNotify(AppDependenciesScope oldWidget) => false;
-}

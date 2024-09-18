@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:procrastinator/src/core/di/model/app_dependencies_container.dart';
+import 'package:procrastinator/src/core/di/model/student_dependencies_container.dart';
 import 'package:procrastinator/src/core/utils/extensions/context_extension.dart';
 
 /// {@template dependencies_scope}
-/// A scope that provides composed [AppDependenciesContainer].
+/// A scope that provides composed [StudentDependenciesContainer].
 ///
 /// **Testing**:
 ///
@@ -31,17 +31,17 @@ class StudentDependenciesScope extends InheritedWidget {
   });
 
   /// Container with dependencies.
-  final AppDependenciesContainer dependencies;
+  final StudentDependenciesContainer dependencies;
 
   /// Get the dependencies from the [context].
-  static AppDependenciesContainer of(BuildContext context) =>
+  static StudentDependenciesContainer of(BuildContext context) =>
       context.inhOf<StudentDependenciesScope>(listen: false).dependencies;
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties.add(
-      DiagnosticsProperty<AppDependenciesContainer>(
+      DiagnosticsProperty<StudentDependenciesContainer>(
           'dependencies', dependencies),
     );
   }

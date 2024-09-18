@@ -1,11 +1,16 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:user_repository/src/models/school_geopos.dart';
 
 import '../entities/entities.dart';
 
+enum UserType { undefined, student, management, trainer }
+
 class MyUser extends Equatable {
   String userId;
   String email;
+  UserType userType;
   String? name;
   String? photoURL;
   SchoolGeoPosition? schoolGeoPosition;
@@ -13,6 +18,7 @@ class MyUser extends Equatable {
   MyUser({
     required this.userId,
     required this.email,
+    required this.userType,
     this.name,
     this.photoURL,
     this.schoolGeoPosition,
@@ -21,6 +27,7 @@ class MyUser extends Equatable {
   static final empty = MyUser(
     userId: '',
     email: '',
+    userType: UserType.undefined,
   );
 
   /// Convenience getter to determine whether the current user is empty.
@@ -30,7 +37,24 @@ class MyUser extends Equatable {
   bool get isNotEmpty => this != MyUser.empty;
 
   MyUserEntity toEntity() {
-    final MyUserEntity entity = MyUserEntity(userId: userId, email: email);
+    String _userType = '';
+
+    switch (userType) {
+      case UserType.student:
+        _userType = 'student';
+        break;
+      case UserType.management:
+        _userType = 'management';
+        break;
+      case UserType.trainer:
+        _userType = 'trainer';
+        break;
+      default:
+        null;
+    }
+    MyUserEntity entity =
+        MyUserEntity(userId: userId, email: email, userType: _userType);
+
     if (name != null) {
       entity.name = name;
     }
@@ -45,7 +69,25 @@ class MyUser extends Equatable {
   }
 
   static MyUser fromEntity(MyUserEntity entity) {
-    final MyUser user = MyUser(userId: entity.userId, email: entity.email);
+    UserType _userType = UserType.undefined;
+
+    switch (entity.userType) {
+      case 'student':
+        _userType = UserType.student;
+        break;
+      case 'management':
+        _userType = UserType.management;
+        break;
+      case 'trainer':
+        _userType = UserType.trainer;
+        break;
+      default:
+        UserType.undefined;
+    }
+
+    MyUser user =
+        MyUser(userId: entity.userId, email: entity.email, userType: _userType);
+
     if (entity.name != null) {
       user.name = entity.name;
     }
@@ -61,9 +103,10 @@ class MyUser extends Equatable {
 
   @override
   String toString() {
-    return 'MyUser: $userId, $email, $name, $photoURL, $schoolGeoPosition';
+    return 'MyUser: $userId, $email, $userType, $name, $photoURL, $schoolGeoPosition';
   }
 
   @override
-  List<Object?> get props => [userId, email, name, photoURL, schoolGeoPosition];
+  List<Object?> get props =>
+      [userId, email, userType, name, photoURL, schoolGeoPosition];
 }

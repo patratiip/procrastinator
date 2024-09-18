@@ -4,6 +4,7 @@ import 'package:user_repository/src/models/school_geopos.dart';
 class MyUserEntity {
   String userId;
   String email;
+  String userType;
   String? name;
   String? photoURL;
   SchoolGeoPosition? schoolGeoPosition;
@@ -11,6 +12,7 @@ class MyUserEntity {
   MyUserEntity({
     required this.userId,
     required this.email,
+    required this.userType,
     this.name,
     this.photoURL,
     this.schoolGeoPosition,
@@ -20,6 +22,7 @@ class MyUserEntity {
     return {
       'uid': userId,
       'email': email,
+      'userType': userType,
       if (name != null) 'name': name,
       if (photoURL != null) 'photoURL': photoURL,
       if (schoolGeoPosition != null)
@@ -31,6 +34,7 @@ class MyUserEntity {
     return MyUserEntity(
       userId: doc['uid'],
       email: doc['email'],
+      userType: doc['userType'],
       name: doc['name'],
       photoURL: doc['photoURL'],
       schoolGeoPosition:
@@ -38,7 +42,8 @@ class MyUserEntity {
     );
   }
 
+  @override
   String toString() {
-    return 'MyUserEntity: $userId, $email, $name, $photoURL, $schoolGeoPosition';
+    return 'MyUserEntity: $userId, $email, $userType, $name, $photoURL, $schoolGeoPosition';
   }
 }

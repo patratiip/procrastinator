@@ -20,7 +20,7 @@
   "addEntryButtonText": "Add entry",
   "lastFiveEntriesWidgetHeader": "Last 5 Entries",
   "loosedEntriesWidgetHeader": "Loosed entries",
-  "todayLectionWidgetHeader": "Today's lection",
+  "todayLectionWidgetHeader": "Today lection",
   "noLessonsToday": "No lections found today",
   "lectionsListWidgetHeader": "Next lections",
   "logOutButtonText": "Log out",
@@ -45,5 +45,7 @@
   "calendarStateErrorMessage_schoolTypeOnlyToday": "You can only register at the school today",
   "calendarStateErrorMessage_thisDateExists": "Registration with this date already exists",
   "calendarStateErrorMessage_noLessonsToday": "No lections this day!",
-  "calendarStateErrorMessage_distanceToSchool": "You are not at school. Distance {distance} meters"
+  "calendarStateErrorMessage_distanceToSchool": "You are not at school. Distance {distance} meters",
+  "userTypeLoginError": "Your user type is Undefined. Try logging out of the application and logging in again. If this does not work, please contact the IT department of Lutz&Grub Academy.",
+  "authenticationUserTypeErrorScreeenText": "Authentication error"
 }

@@ -12,7 +12,7 @@ import 'package:procrastinator/src/features/initialization/logic/app_runner.dart
 import 'package:user_repository/user_repository.dart';
 import 'firebase_options.dart';
 
-GetIt locator = GetIt.instance;
+// GetIt locator = GetIt.instance;
 
 void main() => runZonedGuarded(
       () => const AppRunner().initializeAndRun(),

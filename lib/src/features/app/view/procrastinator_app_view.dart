@@ -1,24 +1,11 @@
-import 'package:entry_repository/entry_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:geolocation_repository/geolocation_repository.dart';
-import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/main.dart';
-import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/core/styles/theme/theme.dart';
+import 'package:procrastinator/src/features/app/view/apps_manager.dart';
 import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/calendar_entry_adding/bloc/calendar_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/today_lection_widget/bloc/today_lection_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/bloc/statistic_diagramm_bloc.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/domain/statistic_computing_service.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/3_kursplan_page/bloc/kursplan_bloc.dart';
-import 'package:procrastinator/src/features/student_app/student_main_screen.dart';
 
 class ProcrastinatorAppView extends StatelessWidget {
   const ProcrastinatorAppView({super.key});
@@ -26,92 +13,35 @@ class ProcrastinatorAppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Procrastinator',
-        localizationsDelegates: const [
-          Localization.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        // locale: const Locale('de'),
-        supportedLocales: Localization.delegate.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      title: 'Procrastinator',
+      localizationsDelegates: const [
+        Localization.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      // locale: const Locale('de'),
+      supportedLocales: Localization.delegate.supportedLocales,
 
-        //THEME
-        theme: MyAppThemeLight.themeLight,
-        darkTheme: MyAppThemeDark.darkTheme,
-        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: ((context, state) {
-            if (state.status == AuthenticationStatus.authenticated) {
-              return MultiBlocProvider(
-                providers: [
-                  //Entries
-                  BlocProvider(
-                    create: (context) => EntrysListBloc(
-                        entrysRepository: locator<FirebaseEntryRepository>()),
-                  ),
+      //THEME
+      theme: MyAppThemeLight.themeLight,
+      darkTheme: MyAppThemeDark.darkTheme,
+      home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        builder: ((context, state) {
+          //App Manager
+          if (state.status == AuthenticationStatus.authenticated) {
+            return const AppsManager();
 
-                  //Lections
-                  BlocProvider(
-                      create: (context) => KursplanBloc(
-                          lectionsRepository:
-                              locator<FirebaseLectionRepository>())),
-
-                  //Loosed Lections
-                  BlocProvider(
-                      create: (context) => LoosedEntriesBloc(
-                            entriesRepository:
-                                locator<FirebaseEntryRepository>(),
-                            lectionsRepository:
-                                locator<FirebaseLectionRepository>(),
-                            comaringService:
-                                locator<ComparingLectionsAndEntriesService>(),
-                          )),
-
-                  //Statistic
-                  BlocProvider(
-                      create: (context) => StatisticDiagrammBloc(
-                          entriesRepository: locator<FirebaseEntryRepository>(),
-                          computingService:
-                              locator<StatisticComputingServise>())),
-
-                  //TodayLection
-                  BlocProvider(
-                      create: (context) => TodayLectionBloc(
-                          lectionsRepository:
-                              locator<FirebaseLectionRepository>())
-                        ..add(LoadTodayLection())),
-
-                  //Calendar
-                  BlocProvider(
-                      create: (context) => CalendarBloc(
-                            userRepository:
-                                AppDependenciesScope.of(context).userRepository,
-                            entriesRepository:
-                                locator<FirebaseEntryRepository>(),
-                            lectionsRepository:
-                                locator<FirebaseLectionRepository>(),
-                            geolocationRepository:
-                                locator<DeviceGeolocationRepository>(),
-                          )
-                      // ..add(CalendarInitializationEvent())
-                      ),
-                ],
-                child: const StudentMainScreen(),
-              );
-            } else {
-              return const LoginScreen();
-            }
-          }),
-        ));
+            //Login
+          } else {
+            return const LoginScreen();
+          }
+        }),
+      ),
+    );
   }
 }
-
-
-
-
-
-
 
 // class Procrastinator extends StatelessWidget {
 //   final ProcrastinatorModel model;
@@ -121,12 +51,12 @@ class ProcrastinatorAppView extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
 //     return MaterialApp(
-      // debugShowCheckedModeBanner: false,
-      // title: 'Procrastinator',
+// debugShowCheckedModeBanner: false,
+// title: 'Procrastinator',
 
-      // //THEME
-      // theme: MyAppThemeLight.themeLight,
-      // darkTheme: MyAppThemeDark.darkTheme,
+// //THEME
+// theme: MyAppThemeLight.themeLight,
+// darkTheme: MyAppThemeDark.darkTheme,
 
 //       //ROUTING
 //       initialRoute: mainNavigation.initialRoute(model.isAuth),

@@ -260,10 +260,10 @@ class Localization {
     );
   }
 
-  /// `Today's lection`
+  /// `Today lection`
   String get todayLectionWidgetHeader {
     return Intl.message(
-      'Today\'s lection',
+      'Today lection',
       name: 'todayLectionWidgetHeader',
       desc: '',
       args: [],
@@ -518,6 +518,26 @@ class Localization {
       name: 'calendarStateErrorMessage_distanceToSchool',
       desc: '',
       args: [distance],
+    );
+  }
+
+  /// `Your user type is Undefined. Try logging out of the application and logging in again. If this does not work, please contact the IT department of Lutz&Grub Academy.`
+  String get userTypeLoginError {
+    return Intl.message(
+      'Your user type is Undefined. Try logging out of the application and logging in again. If this does not work, please contact the IT department of Lutz&Grub Academy.',
+      name: 'userTypeLoginError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Authentication error`
+  String get authenticationUserTypeErrorScreeenText {
+    return Intl.message(
+      'Authentication error',
+      name: 'authenticationUserTypeErrorScreeenText',
+      desc: '',
+      args: [],
     );
   }
 }

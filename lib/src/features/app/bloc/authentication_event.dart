@@ -13,6 +13,12 @@ class AuthenticationUserChanged extends AuthenticationEvent {
   const AuthenticationUserChanged(this.user);
 }
 
+class AuthenticationUserCollectionChanged extends AuthenticationEvent {
+  final MyUser? user;
+
+  const AuthenticationUserCollectionChanged(this.user);
+}
+
 class AuthenticationLogOut extends AuthenticationEvent {
   const AuthenticationLogOut();
 }

@@ -33,6 +33,8 @@ class Entry extends Equatable {
     if (fehl != null) {
       entity.fehl = fehl;
     }
+
+    
     return entity;
   }
 

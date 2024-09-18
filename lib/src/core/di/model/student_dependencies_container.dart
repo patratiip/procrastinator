@@ -2,8 +2,8 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/1_anmeldung_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
-import 'package:procrastinator/src/features/student_app/home_page_student/2_statistic_page/domain/statistic_computing_service.dart';
+import 'package:procrastinator/src/features/student_app/1_anmeldung_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
+import 'package:procrastinator/src/features/student_app/2_statistic_page/domain/statistic_computing_service.dart';
 
 /// {@template student_dependencies_container}
 /// Composed dependencies from the [CompositionRoot].
@@ -21,7 +21,7 @@ base class StudentDependenciesContainer {
     required this.deviceGeolocationRepository,
     required this.comparingLectionsAndEntriesService,
     required this.statisticComputingServise,
-    required this.errorTrackingManager,
+    
   });
 
   /// [FirebaseEntryRepository] instance, used to manage theme and locale.
@@ -45,8 +45,7 @@ base class StudentDependenciesContainer {
   //  ComparingLectionsAndEntriesService();
   // StatisticComputingServise();
 
-  /// [ErrorTrackingManager] instance, used to report errors.
-  final ErrorTrackingManager errorTrackingManager;
+
 }
 
 /// {@template testing_student_dependencies_container}

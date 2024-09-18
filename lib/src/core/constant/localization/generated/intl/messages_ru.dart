@@ -39,6 +39,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "anmeldungLogInScreenName":
             MessageLookupByLibrary.simpleMessage("Вход"),
         "atHomeStatisticWidget": MessageLookupByLibrary.simpleMessage("дома"),
+        "authenticationUserTypeErrorScreeenText":
+            MessageLookupByLibrary.simpleMessage("Ошибка аутентификации"),
         "bugReport": MessageLookupByLibrary.simpleMessage("Сообщить об ошибке"),
         "calendarFormatButton": MessageLookupByLibrary.simpleMessage("Месяц"),
         "calendarFormatButtonTwoWeeks":
@@ -103,6 +105,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Сегодня"),
         "totalEntiesTotalVisitsDaysStatisticWidget": m2,
         "userNameAndEntriesHeader": m3,
+        "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
+            "Ваш тип пользователя Неопределён. Попробуйте выйти из приложения и заново выполнить вход. Если это не сработает свяжитесь пожалуйста с IT отделом академии Lutz&Grub."),
         "yesButtonText": MessageLookupByLibrary.simpleMessage("Да")
       };
 }

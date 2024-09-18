@@ -11,6 +11,7 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository authenticationRepository;
   late final StreamSubscription<MyUser?> _userSubscription;
+  late final StreamSubscription<MyUser?> _userCollectionSubscription;
 
   AuthenticationBloc({required this.authenticationRepository})
       : super(
@@ -24,7 +25,17 @@ class AuthenticationBloc
       (user) {
         add(AuthenticationUserChanged(user));
       },
-      // cancelOnError: false
+      cancelOnError: false,
+    );
+
+    //Subscription User Collection
+    _userCollectionSubscription =
+        authenticationRepository.userCollection.listen(
+      (user) {
+        add(AuthenticationUserChanged(user));
+        print('USER COLLECTION');
+      },
+      cancelOnError: false,
     );
 
     on<AuthenticationUserChanged>((event, emit) {
@@ -33,7 +44,13 @@ class AuthenticationBloc
       } else {
         emit(const AuthenticationState.unauthenticated());
       }
-      print('AUTH BLOC state $state');
+      print('AUTH BLOC state: $state');
+    });
+
+    on<AuthenticationUserCollectionChanged>((event, emit) {
+      emit(AuthenticationState.authenticated(event.user!));
+
+      print('AUTH BLOC Collection changed state: $state');
     });
 
     on<AuthenticationLogOut>((event, emit) {
@@ -44,6 +61,7 @@ class AuthenticationBloc
   @override
   Future<void> close() {
     _userSubscription.cancel();
+    _userCollectionSubscription.cancel();
     print('User subscription was cancelled');
     return super.close();
   }

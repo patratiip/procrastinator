@@ -41,6 +41,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anmeldung"),
         "atHomeStatisticWidget":
             MessageLookupByLibrary.simpleMessage("Zuhause"),
+        "authenticationUserTypeErrorScreeenText":
+            MessageLookupByLibrary.simpleMessage("Authentifizierungsfehler"),
         "bugReport": MessageLookupByLibrary.simpleMessage("Bug Report"),
         "calendarFormatButton": MessageLookupByLibrary.simpleMessage("Monat"),
         "calendarFormatButtonTwoWeeks":
@@ -105,6 +107,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Heutige Lektion"),
         "totalEntiesTotalVisitsDaysStatisticWidget": m2,
         "userNameAndEntriesHeader": m3,
+        "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
+            "Ihr Benutzertyp ist Undefiniert. Versuchen Sie, sich von der Anwendung abzumelden und erneut anzumelden. Sollte dies nicht funktionieren, wenden Sie sich bitte an die IT-Abteilung der Lutz&Grub Academy."),
         "yesButtonText": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }

@@ -40,6 +40,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Login"),
         "atHomeStatisticWidget":
             MessageLookupByLibrary.simpleMessage("at Home"),
+        "authenticationUserTypeErrorScreeenText":
+            MessageLookupByLibrary.simpleMessage("Authentication error"),
         "bugReport": MessageLookupByLibrary.simpleMessage("Bug Report"),
         "calendarFormatButton": MessageLookupByLibrary.simpleMessage("Month"),
         "calendarFormatButtonTwoWeeks":
@@ -100,9 +102,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "statistikAppBarText":
             MessageLookupByLibrary.simpleMessage("Statistiс"),
         "todayLectionWidgetHeader":
-            MessageLookupByLibrary.simpleMessage("Today\'s lection"),
+            MessageLookupByLibrary.simpleMessage("Today lection"),
         "totalEntiesTotalVisitsDaysStatisticWidget": m2,
         "userNameAndEntriesHeader": m3,
+        "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
+            "Your user type is Undefined. Try logging out of the application and logging in again. If this does not work, please contact the IT department of Lutz&Grub Academy."),
         "yesButtonText": MessageLookupByLibrary.simpleMessage("Yes")
       };
 }
