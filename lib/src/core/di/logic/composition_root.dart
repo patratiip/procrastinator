@@ -8,6 +8,7 @@ import 'package:procrastinator/src/core/di/model/management_dependencies_contain
 import 'package:procrastinator/src/core/di/model/student_dependencies_container.dart';
 import 'package:procrastinator/src/core/di/model/trainer_dependencies_container.dart';
 import 'package:procrastinator/src/core/utils/refined_logger.dart';
+import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
 import 'package:procrastinator/src/features/student_app/1_anmeldung_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_page/domain/statistic_computing_service.dart';
@@ -115,6 +116,9 @@ final class CompositionRoot {
 abstract class Factory<T> {
   /// Creates an instance of [T].
   T create();
+
+  /// Creates an instance of [T].
+  // T createWithParam(dynamic parameter);
 }
 
 /// {@template async_factory}
@@ -123,6 +127,9 @@ abstract class Factory<T> {
 abstract class AsyncFactory<T> {
   /// Creates an instance of [T].
   Future<T> create();
+
+  /// Creates an instance of [T].
+  // Future<T> createWithParam(dynamic parameter);
 }
 
 /// {@template dependencies_factory}
@@ -143,11 +150,12 @@ class AppDependenciesFactory extends AsyncFactory<AppDependenciesContainer> {
     final errorTrackingManager =
         await ErrorTrackingManagerFactory(config, logger).create();
     final userRepository = await FirebaseUserRepositoryFactory().create();
-    final currentUser = await userRepository.user.first;
+    // final authenticationbloc =
+    //     AuthenticationBlocFactory(userRepository).create();
 
     return AppDependenciesContainer(
       userRepository: userRepository,
-      currentUser: currentUser,
+      // authenticationbloc: authenticationbloc,
       errorTrackingManager: errorTrackingManager,
     );
   }
@@ -167,6 +175,25 @@ class FirebaseUserRepositoryFactory
     return userRepository;
   }
 }
+
+// /// {@template authentication_bloc_factory}
+// /// Factory that creates an instance of [FirebaseUserRepository].
+// /// {@endtemplate}
+// class AuthenticationBlocFactory extends Factory<AuthenticationBloc> {
+//   /// {@macro authentication_bloc_factory}
+//   AuthenticationBlocFactory(this.userRepository);
+
+//   ///Auth Repo
+//   final FirebaseUserRepository userRepository;
+
+//   @override
+//   AuthenticationBloc create() {
+//     ///Auth Bloc
+//     final authBloc =
+//         AuthenticationBloc(authenticationRepository: userRepository);
+//     return authBloc;
+//   }
+// }
 
 //////////////////////////STUDENT APP////////////////////////////////////////
 

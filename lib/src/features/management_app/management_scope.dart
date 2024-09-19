@@ -40,32 +40,25 @@ class _ManagementAppScopeState extends State<ManagementAppScope> {
   @override
   void initState() {
     super.initState();
-
     const config = Config();
-    final user = AppDependenciesScope.of(context).currentUser;
+    final user = AppScopeScope.userOf(context, listen: false);
     final result = CompositionRoot(config, logger)
         .composeManagementDependencies(user.userId);
     managementDependenciesContainer = result.dependencies;
-
-    // Первичная инициализация виджета
   }
 
   @override
   void didUpdateWidget(ManagementAppScope oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Конфигурация виджета изменилась
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Изменилась конфигурация InheritedWidget'ов
-    // Также вызывается после initState, но до build'а
   }
 
   @override
   void dispose() {
-    // Перманетное удаление стейта из дерева
     super.dispose();
   }
 
@@ -106,7 +99,7 @@ class _ManagementAppScopeScope extends InheritedWidget {
   bool updateShouldNotify(_ManagementAppScopeScope oldWidget) =>
       !identical(state, oldWidget.state) || state != oldWidget.state;
 
-      @override
+  @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) =>
       super.debugFillProperties(
         properties

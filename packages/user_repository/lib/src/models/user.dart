@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:user_repository/src/models/school_geopos.dart';
+import 'package:user_repository/user_repository.dart';
 
-import '../entities/entities.dart';
-
-enum UserType { undefined, student, management, trainer }
+enum UserType { initial, undefined, student, management, trainer }
 
 class MyUser extends Equatable {
   String userId;
@@ -27,7 +24,7 @@ class MyUser extends Equatable {
   static final empty = MyUser(
     userId: '',
     email: '',
-    userType: UserType.undefined,
+    userType: UserType.initial,
   );
 
   /// Convenience getter to determine whether the current user is empty.

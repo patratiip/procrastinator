@@ -18,14 +18,12 @@ class ProcrastinatorApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => DefaultAssetBundle(
         bundle: SentryAssetBundle(),
-        child: AppDependenciesScope(
-          dependencies: result.dependencies,
-          //TODO Implement SettingsScope
-          child: BlocProvider(
-            create: (context) => AuthenticationBloc(
-              authenticationRepository:
-                  AppDependenciesScope.of(context).userRepository,
-            ),
+        child: BlocProvider(
+          create: (context) => AuthenticationBloc(
+              authenticationRepository: result.dependencies.userRepository),
+          child: AppScopeScope(
+            dependencies: result.dependencies,
+            //TODO Implement SettingsScope
             child: const ProcrastinatorAppView(),
           ),
         ),

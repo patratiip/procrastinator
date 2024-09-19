@@ -1,3 +1,4 @@
+import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -13,15 +14,14 @@ base class AppDependenciesContainer {
   /// {@macro dependencies_container}
   const AppDependenciesContainer({
     required this.userRepository,
-    required this.currentUser,
+   
     required this.errorTrackingManager,
   });
 
   /// [UserRepository] instance, used to manage theme and locale.
   final UserRepository userRepository;
 
-  /// [MyUser] user data.
-  final MyUser currentUser;
+
 
   /// [ErrorTrackingManager] instance, used to report errors.
   final ErrorTrackingManager errorTrackingManager;

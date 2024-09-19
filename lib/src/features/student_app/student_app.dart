@@ -68,8 +68,9 @@ class StudentApp extends StatelessWidget {
           //Calendar
           BlocProvider(
               create: (context) => CalendarBloc(
-                    userRepository:
-                        AppDependenciesScope.of(context).userRepository,
+                    userRepository: AppScopeScope.of(context)
+                        .dependenciesContainer
+                        .userRepository,
                     entriesRepository:
                         StudentAppScope.of(context, listen: false)
                             .studentDependenciesContainer

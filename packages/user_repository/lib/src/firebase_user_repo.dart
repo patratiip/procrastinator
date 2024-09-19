@@ -123,7 +123,7 @@ extension on firebase_auth.User {
     return MyUser(
       userId: uid,
       email: email!,
-      userType: UserType.undefined,
+      userType: UserType.initial,
       name: displayName,
       photoURL: photoURL,
     );
