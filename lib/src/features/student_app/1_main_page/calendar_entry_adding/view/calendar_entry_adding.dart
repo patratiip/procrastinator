@@ -172,8 +172,8 @@ class CalendarForEntyAddingNewBloc extends StatelessWidget {
           ),
           // daysOfWeekHeight: 24,
           // pageJumpingEnabled: true,
-          formatAnimationCurve: Curves.elasticInOut,
-          formatAnimationDuration: const Duration(milliseconds: 800),
+          formatAnimationCurve: Curves.easeInOut,
+          formatAnimationDuration: const Duration(milliseconds: 300),
 
           daysOfWeekStyle: DaysOfWeekStyle(
             dowTextFormatter: (date, locale) =>
