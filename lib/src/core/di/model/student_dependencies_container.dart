@@ -20,7 +20,6 @@ base class StudentDependenciesContainer {
     required this.deviceGeolocationRepository,
     required this.comparingLectionsAndEntriesService,
     required this.statisticComputingServise,
-    
   });
 
   /// [FirebaseEntryRepository] instance, used to manage theme and locale.
@@ -43,8 +42,6 @@ base class StudentDependenciesContainer {
   //  DeviceGeolocationRepository();
   //  ComparingLectionsAndEntriesService();
   // StatisticComputingServise();
-
-
 }
 
 /// {@template testing_student_dependencies_container}

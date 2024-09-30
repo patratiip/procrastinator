@@ -12,11 +12,11 @@ class StatisticDiagrammBloc
     extends Bloc<StatisticDiagrammEvent, StatisticDiagrammState> {
   final StatisticComputingServise _computingService;
   //Entries Repo
-  final EntryRepositoty _entriesRepository;
+  final IEntryRepositoty _entriesRepository;
   late final StreamSubscription<List<Entry>?> _entrysListListener;
 
   StatisticDiagrammBloc(
-      {required EntryRepositoty entriesRepository,
+      {required IEntryRepositoty entriesRepository,
       required StatisticComputingServise computingService})
       : _entriesRepository = entriesRepository,
         _computingService = computingService,

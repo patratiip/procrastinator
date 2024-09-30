@@ -2,8 +2,8 @@ import 'package:entry_repository/src/entities/entry_entity.dart';
 import 'package:equatable/equatable.dart';
 
 class Entry extends Equatable {
-  String visitID;
-  DateTime date;
+  final String visitID;
+  final DateTime date;
   bool? schoolVisit;
   bool? homeOffice;
   bool? krank;
@@ -34,7 +34,6 @@ class Entry extends Equatable {
       entity.fehl = fehl;
     }
 
-    
     return entity;
   }
 

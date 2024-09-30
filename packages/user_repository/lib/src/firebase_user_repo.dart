@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:rxdart/rxdart.dart';
 import 'package:user_repository/user_repository.dart';
 
-class FirebaseUserRepository implements UserRepository {
+class FirebaseUserRepository implements IUserRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final usersCollection =
       FirebaseFirestore.instance.collection('users_flutter');

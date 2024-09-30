@@ -8,7 +8,7 @@ part 'authentication_state.dart';
 
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
-  final UserRepository authenticationRepository;
+  final IUserRepository authenticationRepository;
   late final StreamSubscription<MyUser> _userSubscription;
   late final StreamSubscription<MyUser> _userCollectionSubscription;
 

@@ -6,8 +6,8 @@ part 'today_lection_event.dart';
 part 'today_lection_state.dart';
 
 class TodayLectionBloc extends Bloc<TodayLectionEvent, TodayLectionState> {
-  final LectionRepository _lectionsRepository;
-  TodayLectionBloc({required LectionRepository lectionsRepository})
+  final ILectionRepository _lectionsRepository;
+  TodayLectionBloc({required ILectionRepository lectionsRepository})
       : _lectionsRepository = lectionsRepository,
         super(TodayLessonInitial()) {
     on<LoadTodayLection>((event, emit) async {

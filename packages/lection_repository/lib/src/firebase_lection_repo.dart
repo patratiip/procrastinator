@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lection_repository/lection_repository.dart';
 
-class FirebaseLectionRepository implements LectionRepository {
+class FirebaseLectionRepository implements ILectionRepository {
   final _lectionsCollectionRef =
       FirebaseFirestore.instance.collection('kursplan_flutter');
 

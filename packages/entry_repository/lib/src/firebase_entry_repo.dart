@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:entry_repository/entry_repository.dart';
 
-class FirebaseEntryRepository implements EntryRepositoty {
+class FirebaseEntryRepository implements IEntryRepositoty {
   final String currentUser;
 
   FirebaseEntryRepository({required this.currentUser});

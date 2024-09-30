@@ -13,24 +13,24 @@ part 'calendar_state.dart';
 
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   //
-  final UserRepository _userRepository;
+  final IUserRepository _userRepository;
   //Entries Repo
-  final EntryRepositoty _entriesRepository;
+  final IEntryRepositoty _entriesRepository;
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   //Lessons Repo
-  final LectionRepository _lectionsRepository;
+  final ILectionRepository _lectionsRepository;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
-  final GeolocationRepository _geolocationRepository;
+  final IGeolocationRepository _geolocationRepository;
 
   // //Loosed Bloc
   // final LoosedEntrysBloc _loosedEntriesBloc;
   // late final StreamSubscription _loosedEntriesBlocStreamSubscription;
 
   CalendarBloc(
-      {required UserRepository userRepository,
-      required EntryRepositoty entriesRepository,
-      required LectionRepository lectionsRepository,
-      required GeolocationRepository geolocationRepository})
+      {required IUserRepository userRepository,
+      required IEntryRepositoty entriesRepository,
+      required ILectionRepository lectionsRepository,
+      required IGeolocationRepository geolocationRepository})
       : _userRepository = userRepository,
         _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,

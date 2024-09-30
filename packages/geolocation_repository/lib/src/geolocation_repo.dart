@@ -1,6 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 
-abstract class GeolocationRepository {
+abstract class IGeolocationRepository {
   Future<bool> isGeolocationServiceEnabled();
   Future<LocationPermission> checkGeoPositionPermission();
   Future<LocationPermission> requestGeoPositionPermission();

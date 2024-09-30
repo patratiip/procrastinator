@@ -5,7 +5,7 @@ import 'package:user_repository/user_repository.dart';
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
-  final UserRepository _authenticationRepository;
+  final IUserRepository _authenticationRepository;
   SignUpCubit(this._authenticationRepository) : super(const SignUpState());
 
   ///emailChanged

@@ -1,7 +1,7 @@
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:geolocator/geolocator.dart';
 
-class DeviceGeolocationRepository implements GeolocationRepository {
+class DeviceGeolocationRepository implements IGeolocationRepository {
   //
   @override
   Future<bool> isGeolocationServiceEnabled() async {
