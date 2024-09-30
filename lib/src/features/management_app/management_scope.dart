@@ -41,9 +41,9 @@ class _ManagementAppScopeState extends State<ManagementAppScope> {
   void initState() {
     super.initState();
     const config = Config();
-    final user = AppScopeScope.userOf(context, listen: false);
-    final result = CompositionRoot(config, logger)
-        .composeManagementDependencies(user.userId);
+    final user = AppScope.userOf(context, listen: false);
+    final result =
+        CompositionRoot(config, logger).composeManagementDependencies(user);
     managementDependenciesContainer = result.dependencies;
   }
 

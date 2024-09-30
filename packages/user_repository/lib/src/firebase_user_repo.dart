@@ -27,9 +27,15 @@ class FirebaseUserRepository implements UserRepository {
 
   @override
   Stream<MyUser> get userCollection {
-    final String currentUser = _firebaseAuth.currentUser!.uid;
-    return usersCollection.doc(currentUser).snapshots().map((userCol) =>
-        MyUser.fromEntity(MyUserEntity.fromDocument(userCol.data()!)));
+    if (_firebaseAuth.currentUser == null) {
+      return user;
+    } else {
+      return usersCollection
+          .doc(_firebaseAuth.currentUser!.uid)
+          .snapshots()
+          .map((userCol) =>
+              MyUser.fromEntity(MyUserEntity.fromDocument(userCol.data()!)));
+    }
   }
 
   @override

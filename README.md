@@ -14,5 +14,10 @@ Project Development Plan:
 
     1.	Firestore integration: Connect to Firestore. ✅
     2.	Bloc management: Implement blocs. ✅
-    3.	Architecture improvement: Optimize architecture.
+    3.	Architecture improvement: Optimize architecture.  ✅
+    4.  Architecture. DI. Apps for students, trainers, management
+        with they own dependencies scopes.  ✅
+    5.  Tests.
+    6.  Flavours.
+    7.  CI/CD.
     4.	Error processing.

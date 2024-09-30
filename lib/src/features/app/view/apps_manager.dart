@@ -60,8 +60,7 @@ class _UndefinedUserStatusScreen extends StatelessWidget {
           body: Center(
             child: Column(
               children: [
-                Text(
-                    'User email: ${state.user!.email}'),
+                Text('User email: ${state.user!.email}'),
                 Text(state.user!.userType.toString()),
                 const SizedBox(height: 100),
                 Padding(
@@ -87,13 +86,18 @@ class _DefaultAppScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: 40,
-          height: 40,
-          child: CircularProgressIndicator(
-            color: MyAppColorScheme.primary,
+    return Center(
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        color: Theme.of(context).canvasColor,
+        child: const Center(
+          child: SizedBox(
+            width: 40,
+            height: 40,
+            child: CircularProgressIndicator(
+              color: MyAppColorScheme.primary,
+            ),
           ),
         ),
       ),

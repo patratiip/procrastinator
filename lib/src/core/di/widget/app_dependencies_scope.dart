@@ -55,9 +55,9 @@ import 'package:user_repository/user_repository.dart';
 /// {@template AppScope_scope}
 /// AppScopeScope widget.
 /// {@endtemplate}
-class AppScopeScope extends StatefulWidget {
+class AppScope extends StatefulWidget {
   /// {@macro AppScope_scope}
-  const AppScopeScope({
+  const AppScope({
     required this.child,
     required this.dependencies,
     super.key,
@@ -69,14 +69,14 @@ class AppScopeScope extends StatefulWidget {
   /// Container with dependencies.
   final AppDependenciesContainer dependencies;
 
-  /// Get the [_AppScopeScopeState] instance.
-  static _AppScopeScopeState of(
+  /// Get the [_AppScopeState] instance.
+  static _AppScopeState of(
     BuildContext context, {
     bool listen = true,
   }) {
     final scope = listen
-        ? context.dependOnInheritedWidgetOfExactType<_AppScopeScopeInherited>()
-        : context.getInheritedWidgetOfExactType<_AppScopeScopeInherited>();
+        ? context.dependOnInheritedWidgetOfExactType<_AppScopeInherited>()
+        : context.getInheritedWidgetOfExactType<_AppScopeInherited>();
     return scope!.state;
   }
 
@@ -86,16 +86,16 @@ class AppScopeScope extends StatefulWidget {
     bool listen = true,
   }) {
     final scope = listen
-        ? context.dependOnInheritedWidgetOfExactType<_AppScopeScopeInherited>()
-        : context.getInheritedWidgetOfExactType<_AppScopeScopeInherited>();
+        ? context.dependOnInheritedWidgetOfExactType<_AppScopeInherited>()
+        : context.getInheritedWidgetOfExactType<_AppScopeInherited>();
     return scope!.currentUser!;
   }
 
   @override
-  State<AppScopeScope> createState() => _AppScopeScopeState();
+  State<AppScope> createState() => _AppScopeState();
 }
 
-class _AppScopeScopeState extends State<AppScopeScope> {
+class _AppScopeState extends State<AppScope> {
   late final AppDependenciesContainer dependenciesContainer;
 
   @override
@@ -106,7 +106,7 @@ class _AppScopeScopeState extends State<AppScopeScope> {
   }
 
   @override
-  void didUpdateWidget(AppScopeScope oldWidget) {
+  void didUpdateWidget(AppScope oldWidget) {
     super.didUpdateWidget(oldWidget);
     // The configuration of the widget has changed
   }
@@ -132,7 +132,7 @@ class _AppScopeScopeState extends State<AppScopeScope> {
           ..add(
             StringProperty(
               'description',
-              '_AppScopeScopeState State<AppScopeScope>',
+              '_AppScopeState State<AppScope>',
             ),
           ),
       );
@@ -141,7 +141,7 @@ class _AppScopeScopeState extends State<AppScopeScope> {
   Widget build(BuildContext context) =>
       BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
-          return _AppScopeScopeInherited(
+          return _AppScopeInherited(
             state: this,
             currentUser: state.user,
             child: widget.child,
@@ -153,9 +153,9 @@ class _AppScopeScopeState extends State<AppScopeScope> {
 /// {@template AppScope_scope_inherited}
 /// _AppScopeScopeInherited widget.
 /// {@endtemplate}
-class _AppScopeScopeInherited extends InheritedWidget {
+class _AppScopeInherited extends InheritedWidget {
   /// {@macro AppScope_scope_inherited}
-  const _AppScopeScopeInherited({
+  const _AppScopeInherited({
     required super.child,
     required this.state,
     required this.currentUser,
@@ -163,12 +163,12 @@ class _AppScopeScopeInherited extends InheritedWidget {
   });
 
   /// _AppScopeScopeState instance.
-  final _AppScopeScopeState state;
+  final _AppScopeState state;
 
   final MyUser? currentUser;
 
   @override
-  bool updateShouldNotify(_AppScopeScopeInherited oldWidget) =>
+  bool updateShouldNotify(_AppScopeInherited oldWidget) =>
       !identical(state, oldWidget.state) ||
       !identical(currentUser, oldWidget.currentUser) ||
       state != oldWidget.state ||
@@ -185,8 +185,8 @@ class _AppScopeScopeInherited extends InheritedWidget {
             ),
           )
           ..add(
-            ObjectFlagProperty<_AppScopeScopeState>(
-              '_AppScopeScopeState',
+            ObjectFlagProperty<_AppScopeState>(
+              '_AppScopeState',
               state,
               ifNull: 'none',
             ),

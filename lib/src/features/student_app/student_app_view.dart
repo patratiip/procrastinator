@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import '1_anmeldung_page/view/anmeldung_page.dart';
+import '1_main_page/view/anmeldung_page.dart';
 import '2_statistic_page/view/statistic_page.dart';
 import '3_kursplan_page/view/kursplan_page_widget.dart';
 import '4_student_profile_page/view/student_profile_page_widget.dart';

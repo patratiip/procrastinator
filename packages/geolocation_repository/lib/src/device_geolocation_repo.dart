@@ -3,24 +3,28 @@ import 'package:geolocator/geolocator.dart';
 
 class DeviceGeolocationRepository implements GeolocationRepository {
   //
+  @override
   Future<bool> isGeolocationServiceEnabled() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     return serviceEnabled;
   }
 
   //
+  @override
   Future<LocationPermission> checkGeoPositionPermission() async {
     LocationPermission permission = await Geolocator.checkPermission();
     return permission;
   }
 
   //
+  @override
   Future<LocationPermission> requestGeoPositionPermission() async {
     LocationPermission permission = await Geolocator.requestPermission();
     return permission;
   }
 
   //Get current position
+  @override
   Future<Position> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -64,6 +68,7 @@ class DeviceGeolocationRepository implements GeolocationRepository {
     // return geoposition;
   }
 
+  @override
   double distanceToSchool(
       {required Position userGeoposition,
       required double schoolLatitude,

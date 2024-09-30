@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/student_app/1_anmeldung_page/last_entrys_list_widget/view/last_entrys_list_widget.dart';
+import 'package:procrastinator/src/features/student_app/1_main_page/last_entrys_list_widget/view/last_entrys_list_widget.dart';
 
 import 'actual_statistic_circle_widget.dart';
 

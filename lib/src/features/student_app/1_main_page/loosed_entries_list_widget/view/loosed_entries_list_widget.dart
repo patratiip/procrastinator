@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/loosed_lesson_card_component.dart';
-import 'package:procrastinator/src/features/student_app/1_anmeldung_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
+import 'package:procrastinator/src/features/student_app/1_main_page/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
 
 class LoosedEntriesListWidget extends StatelessWidget {
   const LoosedEntriesListWidget({super.key});

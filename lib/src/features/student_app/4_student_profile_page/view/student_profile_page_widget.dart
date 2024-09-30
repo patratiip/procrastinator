@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/user_profile_options_component.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/logout_button.dart';
 
@@ -21,24 +21,9 @@ class StudentProfilePageWidget extends StatelessWidget {
               primary: true,
               child: Column(
                 children: [
-                  Center(
-                    child: Container(
-                      height: 160,
-                      width: 160,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: state.user!.photoURL != null
-                              ? NetworkImage(state.user!.photoURL!)
-                              : const NetworkImage(
-                                  'https://images.unsplash.com/photo-1589652717406-1c69efaf1ff8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwzfHxkb2clMjBjb21wdXRlcnxlbnwwfHx8fDE3MDY1Mjk2MDF8MA&ixlib=rb-4.0.3&q=80&w=1080'),
-                          fit: BoxFit.cover,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(32)),
-                      ),
-                    ),
-                  ),
+                  /////
+                  Photo(state.user!.photoURL),
+
                   Padding(
                     padding: const EdgeInsets.only(
                       top: 24,
@@ -95,6 +80,69 @@ class StudentProfilePageWidget extends StatelessWidget {
     );
   }
 }
+
+class Photo extends StatelessWidget {
+  final String? userPhoto;
+  const Photo(this.userPhoto, {super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        height: 160,
+        width: 160,
+        clipBehavior: Clip.hardEdge,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AppScope.userOf(context).photoURL != null
+                ? NetworkImage(AppScope.userOf(context).photoURL!)
+                : const NetworkImage(
+                    'https://images.unsplash.com/photo-1589652717406-1c69efaf1ff8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwzfHxkb2clMjBjb21wdXRlcnxlbnwwfHx8fDE3MDY1Mjk2MDF8MA&ixlib=rb-4.0.3&q=80&w=1080'),
+            fit: BoxFit.cover,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(32)),
+        ),
+      ),
+    );
+  }
+}
+
+// class UserPhotoWidget extends StatelessWidget {
+//   final String? userPhoto;
+//   const UserPhotoWidget({super.key, this.userPhoto});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return CachedNetworkImage(
+//         imageUrl: userPhoto!,
+//         imageBuilder: (context, imageProvider) => Container(
+//               decoration: BoxDecoration(
+//                 image: DecorationImage(
+//                   image: imageProvider,
+//                   fit: BoxFit.cover,
+//                   colorFilter: const ColorFilter.mode(
+//                     Colors.red,
+//                     BlendMode.colorBurn,
+//                   ),
+//                 ),
+//               ),
+//             ),
+//         placeholder: (context, url) => const CircularProgressIndicator(),
+//         errorWidget: (context, url, error) {
+//           return const Icon(Icons.error);
+//         });
+//   }
+// }
+
+// class PhotoW extends StatelessWidget {
+//   const PhotoW({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     print(AppScope.userOf(context).photoURL!);
+//     return Image.network(AppScope.userOf(context).photoURL!);
+//   }
+// }
 
 
 

@@ -21,7 +21,7 @@ class ProcrastinatorApp extends StatelessWidget {
         child: BlocProvider(
           create: (context) => AuthenticationBloc(
               authenticationRepository: result.dependencies.userRepository),
-          child: AppScopeScope(
+          child: AppScope(
             dependencies: result.dependencies,
             //TODO Implement SettingsScope
             child: const ProcrastinatorAppView(),

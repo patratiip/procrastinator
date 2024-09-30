@@ -4,7 +4,7 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lection_repository/lection_repository.dart';
-import 'package:procrastinator/src/features/student_app/1_anmeldung_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
+import 'package:procrastinator/src/features/student_app/1_main_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
 
 part 'loosed_entries_event.dart';
 part 'loosed_entries_state.dart';

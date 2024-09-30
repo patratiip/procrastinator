@@ -8,7 +8,7 @@ class ManagementApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = AppScopeScope.userOf(context);
+    final user = AppScope.userOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Management App'),
@@ -24,8 +24,8 @@ class ManagementApp extends StatelessWidget {
                 .firebaseEntryRepository
                 .toString()),
             const Padding(
-              padding:  EdgeInsets.all(16),
-              child:  LogOutButton(),
+              padding: EdgeInsets.all(16),
+              child: LogOutButton(),
             ),
           ],
         ),

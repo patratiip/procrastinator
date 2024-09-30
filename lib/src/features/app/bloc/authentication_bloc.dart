@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
@@ -10,8 +9,8 @@ part 'authentication_state.dart';
 class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final UserRepository authenticationRepository;
-  late final StreamSubscription<MyUser?> _userSubscription;
-  late final StreamSubscription<MyUser?> _userCollectionSubscription;
+  late final StreamSubscription<MyUser> _userSubscription;
+  late final StreamSubscription<MyUser> _userCollectionSubscription;
 
   AuthenticationBloc({required this.authenticationRepository})
       : super(
@@ -24,6 +23,7 @@ class AuthenticationBloc
     _userSubscription = authenticationRepository.user.listen(
       (user) {
         add(AuthenticationUserChanged(user));
+        print('USER STREAM!!!!!!!!!!!!');
       },
       cancelOnError: false,
     );
@@ -32,8 +32,10 @@ class AuthenticationBloc
     _userCollectionSubscription =
         authenticationRepository.userCollection.listen(
       (user) {
-        add(AuthenticationUserChanged(user));
-        print('USER COLLECTION');
+        if (state.user != null && state.user != user) {
+          add(AuthenticationUserCollectionChanged(user));
+          print('USER COLLECTION!!!!!!!!!!!!');
+        }
       },
       cancelOnError: false,
     );

@@ -30,6 +30,17 @@ class StudentAppScope extends StatefulWidget {
     return studentScope!.state;
   }
 
+  /// Get the [StudentDependenciesContainer].
+  static StudentDependenciesContainer depOf(
+    BuildContext context, {
+    bool listen = true,
+  }) {
+    final studentScope = listen
+        ? context.dependOnInheritedWidgetOfExactType<_StudentAppScopeScope>()
+        : context.getInheritedWidgetOfExactType<_StudentAppScopeScope>();
+    return studentScope!.state.studentDependenciesContainer;
+  }
+
   @override
   State<StudentAppScope> createState() => _StudentAppScopeState();
 }
@@ -42,9 +53,9 @@ class _StudentAppScopeState extends State<StudentAppScope> {
     super.initState();
 
     const config = Config();
-    final user = AppScopeScope.userOf(context, listen: false);
+    final user = AppScope.userOf(context, listen: false);
     final result =
-        CompositionRoot(config, logger).composeStudentDependencies(user.userId);
+        CompositionRoot(config, logger).composeStudentDependencies(user);
     studentDependenciesContainer = result.dependencies;
   }
 

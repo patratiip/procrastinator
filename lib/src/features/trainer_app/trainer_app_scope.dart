@@ -41,7 +41,7 @@ class _TrainerAppScopeState extends State<TrainerAppScope> {
   void initState() {
     super.initState();
     const config = Config();
-    final user = AppScopeScope.userOf(context, listen: false);
+    final user = AppScope.userOf(context, listen: false);
     final result =
         CompositionRoot(config, logger).composeTrainerDependencies(user.userId);
     trainerDependenciesContainer = result.dependencies;

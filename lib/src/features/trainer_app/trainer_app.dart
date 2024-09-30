@@ -8,7 +8,7 @@ class TrainerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = AppScopeScope.userOf(context);
+    final user = AppScope.userOf(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Trainer App'),
@@ -16,8 +16,8 @@ class TrainerApp extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text('User email: ${AppScopeScope.userOf(context).email}'),
-            Text('User name: ${AppScopeScope.userOf(context).name}'),
+            Text('User email: ${AppScope.userOf(context).email}'),
+            Text('User name: ${AppScope.userOf(context).name}'),
             Text(user.userType.toString()),
             Text(TrainerAppScope.of(context)
                 .trainerDependenciesContainer

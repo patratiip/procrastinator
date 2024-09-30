@@ -4,7 +4,7 @@ import 'package:procrastinator/src/core/constant/localization/generated/l10n.dar
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/no_lessons_component.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/today_lesson_card_component.dart';
-import 'package:procrastinator/src/features/student_app/1_anmeldung_page/today_lection_widget/bloc/today_lection_bloc.dart';
+import 'package:procrastinator/src/features/student_app/1_main_page/today_lection_widget/bloc/today_lection_bloc.dart';
 
 class TodayLectionWidget extends StatelessWidget {
   const TodayLectionWidget({super.key});
