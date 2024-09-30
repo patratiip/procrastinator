@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/1_main_page/calendar_entry_adding/entry_adding_calendar.dart';
+import 'package:procrastinator/src/features/student_app/1_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
 class LoosedLessonCardComponent extends StatelessWidget {

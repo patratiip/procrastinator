@@ -9,8 +9,8 @@ import 'package:procrastinator/src/core/di/model/student_dependencies_container.
 import 'package:procrastinator/src/core/di/model/trainer_dependencies_container.dart';
 import 'package:procrastinator/src/core/utils/refined_logger.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
-import 'package:procrastinator/src/features/student_app/1_main_page/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
-import 'package:procrastinator/src/features/student_app/2_statistic_page/domain/statistic_computing_service.dart';
+import 'package:procrastinator/src/features/student_app/1_main_screen/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
+import 'package:procrastinator/src/features/student_app/2_statistic_screen/domain/statistic_computing_service.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// {@template composition_root}

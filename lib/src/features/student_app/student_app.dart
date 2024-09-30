@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
-import 'package:procrastinator/src/features/student_app/1_main_page/calendar_entry_adding/entry_adding_calendar.dart';
-import 'package:procrastinator/src/features/student_app/1_main_page/last_entrys_list_widget/last_entrys_list_widget.dart';
-import 'package:procrastinator/src/features/student_app/1_main_page/loosed_entries_list_widget/loosed_entries_list_widget.dart';
-import 'package:procrastinator/src/features/student_app/1_main_page/today_lection_widget/bloc/today_lection_bloc.dart';
-import 'package:procrastinator/src/features/student_app/2_statistic_page/statistic_page.dart';
-import 'package:procrastinator/src/features/student_app/3_kursplan_page/kursplan_page.dart';
+import 'package:procrastinator/src/features/student_app/1_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
+import 'package:procrastinator/src/features/student_app/1_main_screen/last_entrys_list_widget/last_entrys_list_widget.dart';
+import 'package:procrastinator/src/features/student_app/1_main_screen/loosed_entries_list_widget/loosed_entries_list_widget.dart';
+import 'package:procrastinator/src/features/student_app/1_main_screen/today_lection_widget/bloc/today_lection_bloc.dart';
+import 'package:procrastinator/src/features/student_app/2_statistic_screen/statistic_page.dart';
+import 'package:procrastinator/src/features/student_app/3_kursplan_screen/kursplan_page.dart';
 import 'package:procrastinator/src/features/student_app/student_app_scope.dart';
 import 'package:procrastinator/src/features/student_app/student_app_view.dart';
 
