@@ -2,7 +2,7 @@
 //  LocationPushService.swift
 //  procrastinator.geo
 //
-//  Created by Piotr Patratii on 21.09.24.
+//  Created by Piotr Patratii on 25.09.24.
 //
 
 import CoreLocation
