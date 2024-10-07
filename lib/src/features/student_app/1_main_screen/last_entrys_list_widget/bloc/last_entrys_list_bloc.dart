@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,17 +8,17 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 part 'last_entrys_list_event.dart';
 part 'last_entrys_list_state.dart';
 
-class EntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
+class EntrysListBloc extends Bloc<EntriesListEvent, EntriesListState> {
   final IEntryRepositoty _entriesRepository;
   late final StreamSubscription<List<Entry>?> _entrysListListener;
 
   EntrysListBloc({required entrysRepository})
       : _entriesRepository = entrysRepository,
-        super(EntrysListInitial()) {
+        super(EntriesListInitial()) {
     //Subscription
     _entrysListListener = _entriesRepository.getVisits().listen(
       (entrysList) {
-        add(EntrysListChangedEvent(entrysList));
+        add(EntriesListChangedEvent(entrysList));
         // print('Entrys Stream Listener Bloc: $entrysList');
       },
       // onError: (error, stackTrace) {
@@ -43,18 +44,18 @@ class EntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
     //   transformer: sequential(),
     // );
 
-    on<EntrysListChangedEvent>(
+    on<EntriesListChangedEvent>(
       (event, emit) {
         if (event.entriesList != null) {
           final entriesList = event.entriesList;
 
           // _entriesRepository.addEntriesToHive(entriesList);
 
-          emit(EntrysListLoadedState(userVisits: entriesList));
+          emit(EntriesListLoadedState(userVisits: entriesList));
 
-          print('Bloc: Entrys data was updated ${event.entriesList}');
+          log('Bloc: Entrys data was updated ${event.entriesList}');
         } else {
-          emit(EntrysListLoadingState());
+          emit(EntriesListLoadingState());
         }
       },
       transformer: sequential(),
@@ -74,7 +75,7 @@ class EntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
 
     on<DeleteEntryEvent>(
       (event, emit) async {
-        emit(EntrysListLoadingState());
+        emit(EntriesListLoadingState());
 
         _entriesRepository.deleteEntry(event.entryRef);
 
@@ -90,7 +91,7 @@ class EntrysListBloc extends Bloc<EntrysListEvent, EntrysListState> {
   @override
   Future<void> close() {
     _entrysListListener.cancel();
-    print('Entrys subscription was cancelled');
+    log('Entrys subscription was cancelled');
     return super.close();
   }
 }

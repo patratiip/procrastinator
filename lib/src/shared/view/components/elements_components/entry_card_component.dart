@@ -43,38 +43,38 @@ class EntryCardComponent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8)),
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
-                    if (visitData.schoolVisit == true)
+                    if (visitData.entryType == EntryType.schoolVisit )
                       const Icon(
                         FontAwesomeIcons.schoolFlag,
                         color: Colors.white,
                         size: 20,
                       ),
-                    if (visitData.homeOffice == true)
+                    if (visitData.entryType == EntryType.homeOffice )
                       const Icon(
                         Icons.home_rounded,
                         color: Colors.white,
                         size: 28,
                       ),
-                    if (visitData.krank == true)
+                    if (visitData.entryType == EntryType.krank )
                       const Icon(
                         Icons.sick_outlined,
                         color: Colors.white,
                         size: 28,
                       ),
-                    if (visitData.fehl == true)
+                    if (visitData.entryType == EntryType.fehl )
                       const Icon(
                         Icons.close,
                         color: Colors.white,
                         size: 28,
                       ),
                   ])),
-              if (visitData.schoolVisit == true)
+              if (visitData.entryType == EntryType.schoolVisit )
                 Text(Localization.of(context).schoolEntryType),
-              if (visitData.homeOffice == true)
+              if (visitData.entryType == EntryType.homeOffice )
                 Text(Localization.of(context).homeEntryType),
-              if (visitData.krank == true)
+              if (visitData.entryType == EntryType.krank )
                 Text(Localization.of(context).sickEntryType),
-              if (visitData.fehl == true)
+              if (visitData.entryType == EntryType.fehl )
                 Text(Localization.of(context).looseEntryType),
               Text(dateFormat.format(visitData.date)),
               //Delete BUTTON

@@ -1,6 +1,7 @@
 import 'package:clock/clock.dart';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
+import 'package:group_repository/group_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/model/app_dependencies_container.dart';
@@ -289,11 +290,14 @@ class ManagementDependenciesFactory
     final statisticComputingServise =
         StatisticComputingServiseFactory().create();
 
+    final firebaseGroupRepository = FirebaseGroupRepositoryFactory().create();
+
     return ManagementDependenciesContainer(
       firebaseEntryRepository: firebaseEntryRepository,
       firebaseLectionRepository: firebaseLectionRepository,
       comparingLectionsAndEntriesService: comparingLectionsAndEntriesService,
       statisticComputingServise: statisticComputingServise,
+      firebaseGroupRepository: firebaseGroupRepository,
     );
   }
 }
@@ -322,6 +326,19 @@ class FirebaseEntryRepositoryFactory extends Factory<FirebaseEntryRepository> {
   @override
   FirebaseEntryRepository create() {
     return FirebaseEntryRepository(currentUser: currentUser);
+  }
+}
+
+/// {@template firebase_group_repo_factory}
+/// Factory that creates an instance of [FirebaseGroupRepository].
+/// {@endtemplate}
+class FirebaseGroupRepositoryFactory extends Factory<FirebaseGroupRepository> {
+  /// {@macro firebase_group_repo_factory}
+  FirebaseGroupRepositoryFactory();
+
+  @override
+  FirebaseGroupRepository create() {
+    return FirebaseGroupRepository();
   }
 }
 

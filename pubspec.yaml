@@ -20,6 +20,9 @@ dependencies:
   user_repository:
     path: packages/user_repository
 
+  group_repository:
+    path: packages/group_repository
+
   entry_repository:
     path: packages/entry_repository
 

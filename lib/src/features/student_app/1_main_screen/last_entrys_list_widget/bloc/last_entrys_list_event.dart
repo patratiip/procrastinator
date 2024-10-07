@@ -1,17 +1,16 @@
 part of 'last_entrys_list_bloc.dart';
 
-
-sealed class EntrysListEvent extends Equatable {
-  const EntrysListEvent();
+sealed class EntriesListEvent extends Equatable {
+  const EntriesListEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class EntrysListChangedEvent extends EntrysListEvent {
+class EntriesListChangedEvent extends EntriesListEvent {
   final List<Entry>? entriesList;
 
-  const EntrysListChangedEvent(this.entriesList);
+  const EntriesListChangedEvent(this.entriesList);
 
   @override
   List<Object?> get props => [entriesList];
@@ -23,7 +22,7 @@ class EntrysListChangedEvent extends EntrysListEvent {
 //   const AddEntryToListEvent(this.entry);
 // }
 
-class DeleteEntryEvent extends EntrysListEvent {
+class DeleteEntryEvent extends EntriesListEvent {
   final String entryRef;
 
   const DeleteEntryEvent({required this.entryRef});

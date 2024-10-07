@@ -6,7 +6,7 @@ import 'package:user_repository/user_repository.dart';
 
 class FirebaseUserRepository implements IUserRepository {
   final firebase_auth.FirebaseAuth _firebaseAuth;
-  final usersCollection =
+  final _usersCollection =
       FirebaseFirestore.instance.collection('users_flutter');
 
   FirebaseUserRepository({
@@ -19,7 +19,7 @@ class FirebaseUserRepository implements IUserRepository {
       if (firebaseUser == null) {
         yield MyUser.empty;
       } else {
-        yield await usersCollection.doc(firebaseUser.uid).get().then((value) =>
+        yield await _usersCollection.doc(firebaseUser.uid).get().then((value) =>
             MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
       }
     });
@@ -30,7 +30,7 @@ class FirebaseUserRepository implements IUserRepository {
     if (_firebaseAuth.currentUser == null) {
       return user;
     } else {
-      return usersCollection
+      return _usersCollection
           .doc(_firebaseAuth.currentUser!.uid)
           .snapshots()
           .map((userCol) =>
@@ -63,7 +63,7 @@ class FirebaseUserRepository implements IUserRepository {
           await _firebaseAuth.createUserWithEmailAndPassword(
               email: myUser.email, password: password);
 
-      myUser.userId = user.user!.uid;
+      myUser.copyWith(userId: user.user!.uid);
       return myUser;
     } on firebase_auth.FirebaseAuthException catch (e) {
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
@@ -86,7 +86,7 @@ class FirebaseUserRepository implements IUserRepository {
   @override
   Future<void> setUserData(MyUser myUser) async {
     try {
-      await usersCollection
+      await _usersCollection
           .doc(myUser.userId)
           .set(myUser.toEntity().toDocument());
     } catch (e) {
@@ -108,7 +108,7 @@ class FirebaseUserRepository implements IUserRepository {
     }
   }
 
-  onVerifyEmail() async {
+  Future<void> onVerifyEmail() async {
     //TODO Exceptions!!!
     await _firebaseAuth.currentUser!.sendEmailVerification();
   }
@@ -121,6 +121,18 @@ class FirebaseUserRepository implements IUserRepository {
   //     print(e);
   //   }
   // }
+
+  /// Add [Group] to User collection
+  Future<void> addGroupToUserCollection(String groupID) async {
+    try {
+      await _usersCollection.doc(currentUser.userId).update({
+        'group': FirebaseFirestore.instance.doc('group_flutter/$groupID'),
+      });
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 }
 
 extension on firebase_auth.User {

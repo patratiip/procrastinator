@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -196,7 +197,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     });
 
     ///User changed type of entry
-    on<CalendarTypeChanged>((event, emit) {
+    on<CalendarEntryTypeChanged>((event, emit) {
       emit(state.copyWith(isValid: true));
       final newType = event.type;
       emit(state.copyWith(type: newType));
@@ -283,29 +284,32 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
         final entryType = state.type;
 
-        final entry = Entry(visitID: const Uuid().v4(), date: state.date!);
+        final entry = Entry(
+            visitID: const Uuid().v4(),
+            date: state.date!,
+            entryType: EntryType.homeOffice);
 
         bool typeDependIsOK = false;
 
         //School Geoposition Check
         if (entryType == 'Schule') {
-          entry.schoolVisit = true;
+          entry.copyWith(entryType: EntryType.schoolVisit);
 
           try {
             final user = await _userRepository.user.first;
-            final schoolPosition = user!.schoolGeoPosition;
-            print(schoolPosition);
+            final schoolPosition = user.schoolGeoPosition;
+            log(schoolPosition.toString());
 
             final userGeoPosition =
                 await _geolocationRepository.determinePosition();
-            print(userGeoPosition);
+            log(userGeoPosition.toString());
 
             final distanceToSchool = _geolocationRepository.distanceToSchool(
                 userGeoposition: userGeoPosition,
                 schoolLatitude: schoolPosition!.latitude,
                 schoolLongtitude: schoolPosition.longitude);
 
-            print('DISTANCE: $distanceToSchool');
+            log('DISTANCE: $distanceToSchool');
 
             if (distanceToSchool <= 100) {
               typeDependIsOK = true;
@@ -324,19 +328,19 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
                 value: e,
                 message: CalendarStateMessage.errorOnGeopositionCheck,
                 status: CalendarStateStatus.error));
-            print(e);
+            log(e.toString());
             rethrow;
           }
         }
 
         if (entryType == 'Heim') {
-          entry.homeOffice = true;
+          entry.copyWith(entryType: EntryType.homeOffice);
           typeDependIsOK = true;
         } else if (entryType == 'Krank') {
-          entry.krank = true;
+          entry.copyWith(entryType: EntryType.krank);
           typeDependIsOK = true;
         } else if (entryType == 'Fehl') {
-          entry.fehl = true;
+          entry.copyWith(entryType: EntryType.fehl);
           typeDependIsOK = true;
         }
 

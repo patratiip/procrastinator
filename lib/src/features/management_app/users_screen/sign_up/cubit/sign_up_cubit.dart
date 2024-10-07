@@ -74,8 +74,8 @@ class SignUpCubit extends Cubit<SignUpState> {
 
       //Creating local user from state
       MyUser userFromForm = MyUser.empty;
-      userFromForm.email = state.email;
-      userFromForm.name = state.userName;
+      userFromForm.copyWith(email: state.email);
+      userFromForm.copyWith(name: state.userName);
       try {
         MyUser myUser = await _authenticationRepository.signUp(
             userFromForm, state.password);

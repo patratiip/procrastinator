@@ -8,6 +8,7 @@ class MyUserEntity {
   String? name;
   String? photoURL;
   SchoolGeoPosition? schoolGeoPosition;
+  String? group;
 
   MyUserEntity({
     required this.userId,
@@ -16,6 +17,7 @@ class MyUserEntity {
     this.name,
     this.photoURL,
     this.schoolGeoPosition,
+    this.group,
   });
 
   Map<String, Object?> toDocument() {
@@ -27,6 +29,8 @@ class MyUserEntity {
       if (photoURL != null) 'photoURL': photoURL,
       if (schoolGeoPosition != null)
         'schoolGeoPosition': SchoolGeoPosition.toFirebase(schoolGeoPosition!),
+      if (group != null)
+        'group': FirebaseFirestore.instance.doc('group_flutter/$group'),
     };
   }
 
@@ -39,11 +43,13 @@ class MyUserEntity {
       photoURL: doc['photoURL'],
       schoolGeoPosition:
           SchoolGeoPosition.fromFirebase(doc['schoolPosition'] as GeoPoint),
+      group:
+          doc['group'] != null ? (doc['group'] as DocumentReference).id : null,
     );
   }
 
   @override
   String toString() {
-    return 'MyUserEntity: $userId, $email, $userType, $name, $photoURL, $schoolGeoPosition';
+    return 'MyUserEntity: $userId, $email, $userType, $name, $photoURL, $schoolGeoPosition, $group';
   }
 }

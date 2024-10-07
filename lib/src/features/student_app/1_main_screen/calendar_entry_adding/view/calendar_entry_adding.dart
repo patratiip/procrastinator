@@ -287,7 +287,7 @@ class DropDownEntry extends StatelessWidget {
               type = 'Fehl';
           }
 
-          bloc.add(CalendarTypeChanged(type: type!));
+          bloc.add(CalendarEntryTypeChanged(type: type!));
         },
       ),
     );

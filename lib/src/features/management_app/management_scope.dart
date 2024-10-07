@@ -22,12 +22,23 @@ class ManagementAppScope extends StatefulWidget {
   /// Get the [_ManagementAppScopeState] instance.
   static _ManagementAppScopeState of(
     BuildContext context, {
-    bool listen = true,
+    bool listen = false,
   }) {
     final managementScope = listen
         ? context.dependOnInheritedWidgetOfExactType<_ManagementAppScopeScope>()
         : context.getInheritedWidgetOfExactType<_ManagementAppScopeScope>();
     return managementScope!.state;
+  }
+
+  /// Get the [ManagementDependenciesContainer] instance.
+  static ManagementDependenciesContainer depOf(
+    BuildContext context, {
+    bool listen = false,
+  }) {
+    final managementScope = listen
+        ? context.dependOnInheritedWidgetOfExactType<_ManagementAppScopeScope>()
+        : context.getInheritedWidgetOfExactType<_ManagementAppScopeScope>();
+    return managementScope!.state.managementDependenciesContainer;
   }
 
   @override

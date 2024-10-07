@@ -40,4 +40,20 @@ class Group extends Equatable {
   @override
   List<Object?> get props =>
       [groupID, groupName, totalDays, klassBook, listOfStudents];
+
+  Group copyWith({
+    String? groupID,
+    String? groupName,
+    int? totalDays,
+    String? klassBook,
+    List<String>? listOfStudents,
+  }) {
+    return Group(
+      groupID: groupID ?? this.groupID,
+      groupName: groupName ?? this.groupName,
+      totalDays: totalDays ?? this.totalDays,
+      klassBook: klassBook ?? this.klassBook,
+      listOfStudents: listOfStudents ?? this.listOfStudents,
+    );
+  }
 }

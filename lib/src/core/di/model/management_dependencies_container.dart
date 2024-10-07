@@ -1,4 +1,5 @@
 import 'package:entry_repository/entry_repository.dart';
+import 'package:group_repository/group_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/features/student_app/1_main_screen/loosed_entries_list_widget/domain/comaring_loosed_entries_repository.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/domain/statistic_computing_service.dart';
@@ -18,6 +19,7 @@ base class ManagementDependenciesContainer {
     required this.firebaseLectionRepository,
     required this.comparingLectionsAndEntriesService,
     required this.statisticComputingServise,
+    required this.firebaseGroupRepository,
   });
 
   /// [FirebaseEntryRepository] instance, used to manage theme and locale.
@@ -31,6 +33,9 @@ base class ManagementDependenciesContainer {
 
   /// [StatisticComputingServise] instance, used to manage theme and locale.
   final StatisticComputingServise statisticComputingServise;
+
+  /// [FirebaseGroupRepository] instance, used to manage theme and locale.
+  final FirebaseGroupRepository firebaseGroupRepository;
 }
 
 /// {@template testing_student_dependencies_container}

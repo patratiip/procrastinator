@@ -1,65 +1,70 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:entry_repository/src/entities/entry_entity.dart';
 import 'package:equatable/equatable.dart';
+
+enum EntryType { schoolVisit, homeOffice, krank, fehl }
 
 class Entry extends Equatable {
   final String visitID;
   final DateTime date;
-  bool? schoolVisit;
-  bool? homeOffice;
-  bool? krank;
-  bool? fehl;
+  final EntryType entryType;
 
-  Entry(
-      {required this.visitID,
-      required this.date,
-      this.schoolVisit,
-      this.homeOffice,
-      this.krank,
-      this.fehl});
+  const Entry({
+    required this.visitID,
+    required this.date,
+    required this.entryType,
+  });
 
-  static final empty = Entry(visitID: '', date: DateTime.now());
+  // static final empty = Entry(visitID: '', date: DateTime.now(), entryType: null);
 
   EntryEntity toEntity() {
     final EntryEntity entity = EntryEntity(visitID: visitID, date: date);
-    if (schoolVisit != null) {
-      entity.schoolVisit = schoolVisit;
+    if (entryType == EntryType.schoolVisit) {
+      entity.schoolVisit = true;
     }
-    if (homeOffice != null) {
-      entity.homeOffice = homeOffice;
+    if (entryType == EntryType.homeOffice) {
+      entity.homeOffice = true;
     }
-    if (krank != null) {
-      entity.krank = krank;
+    if (entryType == EntryType.krank) {
+      entity.krank = true;
     }
-    if (fehl != null) {
-      entity.fehl = fehl;
+    if (entryType == EntryType.fehl) {
+      entity.fehl = true;
     }
 
     return entity;
   }
 
   static Entry fromEntity(EntryEntity entity) {
-    final Entry entry = Entry(visitID: entity.visitID, date: entity.date);
+    final Entry entry = Entry(
+        visitID: entity.visitID,
+        date: entity.date,
+        entryType: EntryType.homeOffice);
     if (entity.schoolVisit != null) {
-      entry.schoolVisit = entity.schoolVisit;
+      entry.copyWith(entryType: EntryType.schoolVisit);
     }
-    if (entity.homeOffice != null) {
-      entry.homeOffice = entity.homeOffice;
-    }
+
     if (entity.krank != null) {
-      entry.krank = entity.krank;
+      entry.copyWith(entryType: EntryType.krank);
     }
     if (entity.fehl != null) {
-      entry.fehl = entity.fehl;
+      entry.copyWith(entryType: EntryType.fehl);
     }
     return entry;
   }
 
   @override
-  List<Object?> get props =>
-      [visitID, date, schoolVisit, homeOffice, krank, fehl];
+  List<Object> get props => [visitID, date, entryType];
 
-  @override
-  String toString() {
-    return 'Entry: $visitID, $date, $schoolVisit, $homeOffice, $krank, $fehl';
+  Entry copyWith({
+    String? visitID,
+    DateTime? date,
+    EntryType? entryType,
+  }) {
+    return Entry(
+      visitID: visitID ?? this.visitID,
+      date: date ?? this.date,
+      entryType: entryType ?? this.entryType,
+    );
   }
 }

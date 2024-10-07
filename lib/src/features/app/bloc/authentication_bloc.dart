@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
@@ -23,7 +24,7 @@ class AuthenticationBloc
     _userSubscription = authenticationRepository.user.listen(
       (user) {
         add(AuthenticationUserChanged(user));
-        print('USER STREAM!!!!!!!!!!!!');
+        log('USER STREAM!!!!!!!!!!!! ${user == state.user}');
       },
       cancelOnError: false,
     );
@@ -34,7 +35,7 @@ class AuthenticationBloc
       (user) {
         if (state.user != null && state.user != user) {
           add(AuthenticationUserCollectionChanged(user));
-          print('USER COLLECTION!!!!!!!!!!!!');
+          log('USER COLLECTION!!!!!!!!!!!!${user == state.user}');
         }
       },
       cancelOnError: false,
@@ -46,13 +47,13 @@ class AuthenticationBloc
       } else {
         emit(const AuthenticationState.unauthenticated());
       }
-      print('AUTH BLOC state: $state');
+      log('AUTH BLOC state: $state');
     });
 
     on<AuthenticationUserCollectionChanged>((event, emit) {
       emit(AuthenticationState.authenticated(event.user!));
 
-      print('AUTH BLOC Collection changed state: $state');
+      log('AUTH BLOC Collection changed state: $state');
     });
 
     on<AuthenticationLogOut>((event, emit) {
@@ -64,7 +65,7 @@ class AuthenticationBloc
   Future<void> close() {
     _userSubscription.cancel();
     _userCollectionSubscription.cancel();
-    print('User subscription was cancelled');
+    log('User subscription was cancelled');
     return super.close();
   }
 }

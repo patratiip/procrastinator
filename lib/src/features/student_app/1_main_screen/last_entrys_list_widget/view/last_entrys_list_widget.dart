@@ -15,9 +15,9 @@ class LastEntrysListWidget extends StatelessWidget {
         padding: const EdgeInsets.only(top: 24, bottom: 24),
         child: Container(
           constraints: const BoxConstraints(maxWidth: 600),
-          child: BlocBuilder<EntrysListBloc, EntrysListState>(
+          child: BlocBuilder<EntrysListBloc, EntriesListState>(
             builder: (context, state) {
-              if (state is EntrysListLoadedState) {
+              if (state is EntriesListLoadedState) {
                 return Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +26,6 @@ class LastEntrysListWidget extends StatelessWidget {
                         Localization.of(context).lastFiveEntriesWidgetHeader,
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
-
                       ListView.builder(
                           primary: false,
                           shrinkWrap: true,
@@ -38,11 +37,10 @@ class LastEntrysListWidget extends StatelessWidget {
                               visitData: state.userVisits![index],
                             );
                           })
-                      // }),
                     ],
                   ),
                 );
-              } else if (state is EntrysListLoadingState) {
+              } else if (state is EntriesListLoadingState) {
                 return const Center(
                     child: SizedBox(
                   height: 32,

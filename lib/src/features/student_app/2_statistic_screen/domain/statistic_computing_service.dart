@@ -6,7 +6,7 @@ class StatisticComputingServise {
   int computeSchoolVisitsQty(List<Entry> entries) {
     int count = 0;
     for (var entry in entries) {
-      if (entry.schoolVisit == true) {
+      if (entry.entryType == EntryType.schoolVisit) {
         count += 1;
       }
     }
@@ -16,7 +16,7 @@ class StatisticComputingServise {
   int computeHomeOfficeQty(List<Entry> entries) {
     int count = 0;
     for (var entry in entries) {
-      if (entry.homeOffice == true) {
+      if (entry.entryType == EntryType.homeOffice) {
         count += 1;
       }
     }
@@ -26,7 +26,7 @@ class StatisticComputingServise {
   int computeKrankQty(List<Entry> entries) {
     int count = 0;
     for (var entry in entries) {
-      if (entry.krank == true) {
+      if (entry.entryType == EntryType.krank) {
         count += 1;
       }
     }
@@ -36,7 +36,7 @@ class StatisticComputingServise {
   int computeFehlQty(List<Entry> entries) {
     int count = 0;
     for (var entry in entries) {
-      if (entry.fehl == true) {
+      if (entry.entryType == EntryType.fehl) {
         count += 1;
       }
     }

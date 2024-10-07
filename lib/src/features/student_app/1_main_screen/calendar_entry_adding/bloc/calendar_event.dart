@@ -20,8 +20,8 @@ final class CalendarDateChanged extends CalendarEvent {
   List<Object> get props => [date];
 }
 
-final class CalendarTypeChanged extends CalendarEvent {
-  const CalendarTypeChanged({required this.type});
+final class CalendarEntryTypeChanged extends CalendarEvent {
+  const CalendarEntryTypeChanged({required this.type});
   final String type;
   @override
   List<Object> get props => [type];

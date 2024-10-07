@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/features/management_app/main_screen/management_main_screen.dart';
 import 'package:procrastinator/src/features/management_app/management_profile_screen/management_profile_screen.dart';
 import 'package:procrastinator/src/features/management_app/users_screen/view/users_screen.dart';
 
@@ -26,7 +27,7 @@ class _ManagementAppViewState extends State<ManagementAppView> {
     return Scaffold(
       appBar: AppBar(title: const Text('Management App')),
       body: <Widget>[
-        Placeholder(),
+        const ManagementMainScreen(),
         const UsersScreen(),
         const ManagementProfileScreen()
       ][currentPageIndex],
