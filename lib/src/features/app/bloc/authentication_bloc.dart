@@ -24,19 +24,9 @@ class AuthenticationBloc
     _userSubscription = authenticationRepository.user.listen(
       (user) {
         add(AuthenticationUserChanged(user));
-        log('USER STREAM!!!!!!!!!!!! ${user == state.user}');
-      },
-      cancelOnError: false,
-    );
-
-    //Subscription User Collection
-    _userCollectionSubscription =
-        authenticationRepository.userCollection.listen(
-      (user) {
-        if (state.user != null && state.user != user) {
-          add(AuthenticationUserCollectionChanged(user));
-          log('USER COLLECTION!!!!!!!!!!!!${user == state.user}');
-        }
+        // log('USER STREAM  ${user == state.user}');
+        // log('USER STATE ${state.user}');
+        // log('USER  ${user}');
       },
       cancelOnError: false,
     );
@@ -47,13 +37,13 @@ class AuthenticationBloc
       } else {
         emit(const AuthenticationState.unauthenticated());
       }
-      log('AUTH BLOC state: $state');
+      // log('AUTH BLOC state: $state');
     });
 
     on<AuthenticationUserCollectionChanged>((event, emit) {
       emit(AuthenticationState.authenticated(event.user!));
 
-      log('AUTH BLOC Collection changed state: $state');
+      // log('AUTH BLOC Collection changed state: $state');
     });
 
     on<AuthenticationLogOut>((event, emit) {

@@ -1,6 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:user_repository/src/models/school_geopos.dart';
 import 'package:user_repository/user_repository.dart';
@@ -94,16 +92,16 @@ class MyUser extends Equatable {
         MyUser(userId: entity.userId, email: entity.email, userType: _userType);
 
     if (entity.name != null) {
-      user.copyWith(name: entity.name);
+      user = user.copyWith(name: entity.name);
     }
     if (entity.photoURL != null) {
-      user.copyWith(photoURL: entity.photoURL);
+      user = user.copyWith(photoURL: entity.photoURL);
     }
     if (entity.schoolGeoPosition != null) {
-      user.copyWith(schoolGeoPosition: entity.schoolGeoPosition);
+      user = user.copyWith(schoolGeoPosition: entity.schoolGeoPosition);
     }
     if (entity.group != null) {
-      user.copyWith(group: entity.group);
+      user = user.copyWith(group: entity.group);
     }
 
     return user;

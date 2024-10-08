@@ -13,29 +13,49 @@ class FirebaseUserRepository implements IUserRepository {
     firebase_auth.FirebaseAuth? firebaseAuth,
   }) : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance;
 
+  // @override
+  // Stream<MyUser> get user {
+  //   return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
+  //     if (firebaseUser == null) {
+  //       yield MyUser.empty;
+  //     } else {
+  //       yield await _usersCollection.doc(firebaseUser.uid).get().then((value) =>
+  //           MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
+  //     }
+  //   });
+  // }
+
+  // @override
+  // Stream<MyUser> get userCollection {
+  //   if (_firebaseAuth.currentUser == null) {
+  //     return user;
+  //   } else {
+  //     return _usersCollection
+  //         .doc(_firebaseAuth.currentUser!.uid)
+  //         .snapshots()
+  //         .map((userCol) =>
+  //             MyUser.fromEntity(MyUserEntity.fromDocument(userCol.data()!)));
+  //   }
+  // }
   @override
   Stream<MyUser> get user {
-    return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
+    return _firebaseAuth.authStateChanges().switchMap((firebaseUser) {
       if (firebaseUser == null) {
-        yield MyUser.empty;
+        return Stream.value(MyUser.empty);
       } else {
-        yield await _usersCollection.doc(firebaseUser.uid).get().then((value) =>
-            MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
+        return _usersCollection
+            .doc(firebaseUser.uid)
+            .snapshots()
+            .map((snapshot) {
+          final data = snapshot.data();
+          if (data != null) {
+            return MyUser.fromEntity(MyUserEntity.fromDocument(data));
+          } else {
+            return MyUser.empty;
+          }
+        });
       }
     });
-  }
-
-  @override
-  Stream<MyUser> get userCollection {
-    if (_firebaseAuth.currentUser == null) {
-      return user;
-    } else {
-      return _usersCollection
-          .doc(_firebaseAuth.currentUser!.uid)
-          .snapshots()
-          .map((userCol) =>
-              MyUser.fromEntity(MyUserEntity.fromDocument(userCol.data()!)));
-    }
   }
 
   @override

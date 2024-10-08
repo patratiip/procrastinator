@@ -36,19 +36,19 @@ class Entry extends Equatable {
   }
 
   static Entry fromEntity(EntryEntity entity) {
-    final Entry entry = Entry(
+    Entry entry = Entry(
         visitID: entity.visitID,
         date: entity.date,
         entryType: EntryType.homeOffice);
-    if (entity.schoolVisit != null) {
-      entry.copyWith(entryType: EntryType.schoolVisit);
-    }
 
+    if (entity.schoolVisit != null) {
+      entry = entry.copyWith(entryType: EntryType.schoolVisit);
+    }
     if (entity.krank != null) {
-      entry.copyWith(entryType: EntryType.krank);
+      entry = entry.copyWith(entryType: EntryType.krank);
     }
     if (entity.fehl != null) {
-      entry.copyWith(entryType: EntryType.fehl);
+      entry = entry.copyWith(entryType: EntryType.fehl);
     }
     return entry;
   }

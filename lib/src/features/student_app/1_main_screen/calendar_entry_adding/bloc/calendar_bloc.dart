@@ -284,7 +284,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
         final entryType = state.type;
 
-        final entry = Entry(
+        Entry entry = Entry(
             visitID: const Uuid().v4(),
             date: state.date!,
             entryType: EntryType.homeOffice);
@@ -293,7 +293,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
         //School Geoposition Check
         if (entryType == 'Schule') {
-          entry.copyWith(entryType: EntryType.schoolVisit);
+          entry = entry.copyWith(entryType: EntryType.schoolVisit);
 
           try {
             final user = await _userRepository.user.first;
@@ -334,13 +334,13 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         }
 
         if (entryType == 'Heim') {
-          entry.copyWith(entryType: EntryType.homeOffice);
+          entry = entry.copyWith(entryType: EntryType.homeOffice);
           typeDependIsOK = true;
         } else if (entryType == 'Krank') {
-          entry.copyWith(entryType: EntryType.krank);
+          entry = entry.copyWith(entryType: EntryType.krank);
           typeDependIsOK = true;
         } else if (entryType == 'Fehl') {
-          entry.copyWith(entryType: EntryType.fehl);
+          entry = entry.copyWith(entryType: EntryType.fehl);
           typeDependIsOK = true;
         }
 

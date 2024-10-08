@@ -10,7 +10,6 @@ class LoosedEntriesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('loosed');
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 600),
