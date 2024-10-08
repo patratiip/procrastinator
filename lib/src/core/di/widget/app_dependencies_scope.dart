@@ -80,6 +80,17 @@ class AppScope extends StatefulWidget {
     return scope!.state;
   }
 
+  /// Get the [AppDependenciesContainer] instance.
+  static AppDependenciesContainer depConOf(
+    BuildContext context, {
+    bool listen = true,
+  }) {
+    final scope = listen
+        ? context.dependOnInheritedWidgetOfExactType<_AppScopeInherited>()
+        : context.getInheritedWidgetOfExactType<_AppScopeInherited>();
+    return scope!.state.dependenciesContainer;
+  }
+
   /// Get the [MyUser] instance.
   static MyUser userOf(
     BuildContext context, {

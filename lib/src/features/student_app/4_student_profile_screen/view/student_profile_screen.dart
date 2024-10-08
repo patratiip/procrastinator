@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
-import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
+import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/features/student_app/4_student_profile_screen/student_profile_screen.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/user_profile_options_component.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/logout_button.dart';
 
@@ -11,9 +12,9 @@ class StudentProfilePageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+    return BlocBuilder<UserProfileBloc, UserProfileState>(
       builder: (context, state) {
-        if (state.status == AuthenticationStatus.authenticated) {
+        if (state.user != null && state.group != null) {
           return Center(
             child: SingleChildScrollView(
               padding: const EdgeInsets.only(
@@ -37,7 +38,7 @@ class StudentProfilePageWidget extends StatelessWidget {
                         ),
                         Text(state.user!.email,
                             style: Theme.of(context).textTheme.bodyLarge),
-                        Text('group',
+                        Text(state.group?.groupName ?? 'Group',
                             style: Theme.of(context).textTheme.bodyLarge),
                       ],
                     ),
@@ -74,7 +75,15 @@ class StudentProfilePageWidget extends StatelessWidget {
             ),
           );
         } else {
-          return const SizedBox();
+          return const Center(
+            child: SizedBox(
+              width: 40,
+              height: 40,
+              child: CircularProgressIndicator(
+                color: MyAppColorScheme.primary,
+              ),
+            ),
+          );
         }
       },
     );

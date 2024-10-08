@@ -8,21 +8,17 @@ class FirebaseTrainerGroupRepository implements IGroupRepository {
       FirebaseFirestore.instance.collection('group_flutter');
 
   @override
-  Stream<Group>? getGroupData(String? groupID) {
-    if (groupID != null) {
-      try {
-        return _groupCollection
-            .doc(groupID)
-            .snapshots()
-            .map((group) =>
-                Group.fromEntity(GroupEntity.fromFirestore(group.data()!)))
-            .asBroadcastStream();
-      } catch (e) {
-        log(e.toString());
-        rethrow;
-      }
-    } else {
-      return null;
+  Stream<Group> getGroupData(String groupID) {
+    try {
+      return _groupCollection
+          .doc(groupID)
+          .snapshots()
+          .map((group) =>
+              Group.fromEntity(GroupEntity.fromFirestore(group.data()!))).asBroadcastStream();
+          
+    } catch (e) {
+      log(e.toString());
+      rethrow;
     }
   }
 
@@ -66,4 +62,7 @@ class FirebaseTrainerGroupRepository implements IGroupRepository {
       rethrow;
     }
   }
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

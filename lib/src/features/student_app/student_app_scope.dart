@@ -31,7 +31,7 @@ class StudentAppScope extends StatefulWidget {
   }
 
   /// Get the [StudentDependenciesContainer].
-  static StudentDependenciesContainer depOf(
+  static StudentDependenciesContainer depConOf(
     BuildContext context, {
     bool listen = true,
   }) {

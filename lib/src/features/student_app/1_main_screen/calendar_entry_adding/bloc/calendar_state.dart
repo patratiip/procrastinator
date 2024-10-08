@@ -26,6 +26,14 @@ enum CalendarStateMessage {
 }
 
 final class CalendarState extends Equatable {
+  final DateTime? date;
+  final CalendarFormat? calendarFormat;
+  final String? type;
+  final bool isValid;
+  final dynamic value;
+  final CalendarStateMessage message;
+  final CalendarStateStatus status;
+
   const CalendarState({
     this.date,
     this.calendarFormat,
@@ -35,14 +43,6 @@ final class CalendarState extends Equatable {
     this.message = CalendarStateMessage.empty,
     this.status = CalendarStateStatus.disabled,
   });
-
-  final DateTime? date;
-  final CalendarFormat? calendarFormat;
-  final String? type;
-  final bool isValid;
-  final dynamic value;
-  final CalendarStateMessage message;
-  final CalendarStateStatus status;
 
   CalendarState copyWith({
     DateTime? date,

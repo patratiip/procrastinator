@@ -26,7 +26,7 @@ class AuthenticationBloc
         add(AuthenticationUserChanged(user));
         // log('USER STREAM  ${user == state.user}');
         // log('USER STATE ${state.user}');
-        // log('USER  ${user}');
+        log('USER  ${user}');
       },
       cancelOnError: false,
     );
