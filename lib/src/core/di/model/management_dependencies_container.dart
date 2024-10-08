@@ -34,8 +34,8 @@ base class ManagementDependenciesContainer {
   /// [StatisticComputingServise] instance, used to manage theme and locale.
   final StatisticComputingServise statisticComputingServise;
 
-  /// [FirebaseGroupRepository] instance, used to manage theme and locale.
-  final FirebaseGroupRepository firebaseGroupRepository;
+  /// [IGroupRepository] instance, used to manage theme and locale.
+  final IGroupRepository firebaseGroupRepository;
 }
 
 /// {@template testing_student_dependencies_container}

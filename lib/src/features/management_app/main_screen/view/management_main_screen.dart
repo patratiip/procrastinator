@@ -24,7 +24,8 @@ class GroupAddingWidget extends StatefulWidget {
 }
 
 class _GroupAddingWidgetState extends State<GroupAddingWidget> {
-  final FirebaseGroupRepository repo = FirebaseGroupRepository();
+  final FirebaseManagementGroupRepository repo =
+      FirebaseManagementGroupRepository();
   final FirebaseUserRepository userRepository = FirebaseUserRepository();
 
   final String uid = '4S8aSHqLrbWZn6Gu2FWkbpCX1UK2';

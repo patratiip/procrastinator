@@ -43,7 +43,7 @@ class _TrainerAppScopeState extends State<TrainerAppScope> {
     const config = Config();
     final user = AppScope.userOf(context, listen: false);
     final result =
-        CompositionRoot(config, logger).composeTrainerDependencies(user.userId);
+        CompositionRoot(config, logger).composeTrainerDependencies(user);
     trainerDependenciesContainer = result.dependencies;
   }
 

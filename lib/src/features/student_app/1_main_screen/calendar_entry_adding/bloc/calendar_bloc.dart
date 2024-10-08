@@ -28,10 +28,10 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   // late final StreamSubscription _loosedEntriesBlocStreamSubscription;
 
   CalendarBloc(
-      {required IUserRepository userRepository,
-      required IEntryRepositoty entriesRepository,
-      required ILectionRepository lectionsRepository,
-      required IGeolocationRepository geolocationRepository})
+      {required userRepository,
+      required entriesRepository,
+      required lectionsRepository,
+      required geolocationRepository})
       : _userRepository = userRepository,
         _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,

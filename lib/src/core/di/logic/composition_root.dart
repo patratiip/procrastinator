@@ -93,12 +93,13 @@ final class CompositionRoot {
   }
 
   /// Composes dependencies for Trainer App and returns result of composition.
-  TrainerAppCompositionResult composeTrainerDependencies(String currentUser) {
+  TrainerAppCompositionResult composeTrainerDependencies(MyUser currentUser) {
     final stopwatch = clock.stopwatch()..start();
 
     logger.info('Initializing Trainer dependencies...');
     // initialize dependencies
-    final dependencies = TrainerDependenciesFactory(config, logger).create();
+    final dependencies =
+        TrainerDependenciesFactory(config, logger, currentUser).create();
     logger.info('Trainer dependencies initialized');
 
     stopwatch.stop();
@@ -218,6 +219,8 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
         FirebaseEntryRepositoryFactory(currentUser.userId).create();
     final firebaseLectionRepository =
         FirebaseLectionRepositoryFactory().create();
+    final firebaseGroupRepository =
+        FirebaseGroupRepositoryFactory(currentUser.userType).create();
     final deviceGeolocationRepository =
         DeviceGeolocationRepositoryFactory().create();
     final comparingLectionsAndEntriesService =
@@ -228,6 +231,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
     return StudentDependenciesContainer(
       firebaseEntryRepository: firebaseEntryRepository,
       firebaseLectionRepository: firebaseLectionRepository,
+      firebaseGroupRepository: firebaseGroupRepository,
       deviceGeolocationRepository: deviceGeolocationRepository,
       comparingLectionsAndEntriesService: comparingLectionsAndEntriesService,
       statisticComputingServise: statisticComputingServise,
@@ -242,7 +246,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
 /// {@endtemplate}
 class TrainerDependenciesFactory extends Factory<TrainerDependenciesContainer> {
   /// {@macro Trainer_dependencies_factory}
-  TrainerDependenciesFactory(this.config, this.logger);
+  TrainerDependenciesFactory(this.config, this.logger, this.currentUser);
 
   /// Application configuration
   final Config config;
@@ -250,13 +254,18 @@ class TrainerDependenciesFactory extends Factory<TrainerDependenciesContainer> {
   /// Logger used to log information during composition process.
   final RefinedLogger logger;
 
+  final MyUser currentUser;
+
   @override
   TrainerDependenciesContainer create() {
     final firebaseLectionRepository =
         FirebaseLectionRepositoryFactory().create();
+    final firebaseGroupRepository =
+        FirebaseGroupRepositoryFactory(currentUser.userType).create();
 
     return TrainerDependenciesContainer(
       firebaseLectionRepository: firebaseLectionRepository,
+      firebaseGroupRepository: firebaseGroupRepository,
     );
   }
 }
@@ -289,8 +298,8 @@ class ManagementDependenciesFactory
         ComparingLectionsAndEntriesServiceFactory().create();
     final statisticComputingServise =
         StatisticComputingServiseFactory().create();
-
-    final firebaseGroupRepository = FirebaseGroupRepositoryFactory().create();
+    final firebaseGroupRepository =
+        FirebaseGroupRepositoryFactory(currentUser.userType).create();
 
     return ManagementDependenciesContainer(
       firebaseEntryRepository: firebaseEntryRepository,
@@ -330,15 +339,23 @@ class FirebaseEntryRepositoryFactory extends Factory<FirebaseEntryRepository> {
 }
 
 /// {@template firebase_group_repo_factory}
-/// Factory that creates an instance of [FirebaseGroupRepository].
+/// Factory that creates an instance of [FirebaseManagementGroupRepository].
 /// {@endtemplate}
-class FirebaseGroupRepositoryFactory extends Factory<FirebaseGroupRepository> {
+class FirebaseGroupRepositoryFactory extends Factory<IGroupRepository> {
   /// {@macro firebase_group_repo_factory}
-  FirebaseGroupRepositoryFactory();
+  FirebaseGroupRepositoryFactory(this.userType);
+
+  UserType userType;
 
   @override
-  FirebaseGroupRepository create() {
-    return FirebaseGroupRepository();
+  IGroupRepository create() {
+    if (userType == UserType.management) {
+      return FirebaseManagementGroupRepository();
+    } else if (userType == UserType.trainer) {
+      return FirebaseTrainerGroupRepository();
+    } else {
+      return FirebaseStudentGroupRepository();
+    }
   }
 }
 
