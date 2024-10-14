@@ -12,14 +12,16 @@ final class StatisticDiagrammInitial extends StatisticDiagrammState {}
 final class LoadingEntrysCountState extends StatisticDiagrammState {}
 
 final class LoadedEntrysCountState extends StatisticDiagrammState {
+  final int totalDays;
   final int? schoolVisitsCount;
   final int? homeOfficeCount;
-  final int? krankCount;
-  final int? fehlCount;
+  final int? sickCount;
+  final int? looseCount;
 
   const LoadedEntrysCountState(
-      {this.homeOfficeCount,
-      this.krankCount,
-      this.fehlCount,
+      {required this.totalDays,
+      this.homeOfficeCount,
+      this.sickCount,
+      this.looseCount,
       this.schoolVisitsCount});
 }

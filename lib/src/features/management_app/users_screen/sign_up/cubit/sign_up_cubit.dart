@@ -1,12 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:group_repository/group_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpState> {
   final IUserRepository _authenticationRepository;
-  SignUpCubit(this._authenticationRepository) : super(const SignUpState());
+  final IGroupRepository _groupRepository;
+  
+  SignUpCubit(this._authenticationRepository, this._groupRepository) : super(const SignUpState());
 
   ///emailChanged
   void emailChanged(String value) {

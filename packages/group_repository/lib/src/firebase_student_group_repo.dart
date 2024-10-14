@@ -30,5 +30,20 @@ class FirebaseStudentGroupRepository implements IGroupRepository {
   }
 
   @override
+  Stream<Group> getGroupData(String groupID) {
+    try {
+      return _groupCollection
+          .doc(groupID)
+          .snapshots()
+          .map((group) =>
+              Group.fromEntity(GroupEntity.fromFirestore(group.data()!)))
+          .asBroadcastStream();
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

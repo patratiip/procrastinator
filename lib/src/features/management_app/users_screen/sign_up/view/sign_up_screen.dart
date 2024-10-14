@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
+import 'package:procrastinator/src/features/management_app/management_scope.dart';
 import 'package:procrastinator/src/features/management_app/users_screen/sign_up/sign_up.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
@@ -25,8 +26,8 @@ class SignUpScreen extends StatelessWidget {
         body: SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: BlocProvider(
-        create: (_) => SignUpCubit(
-            AppScope.of(context).dependenciesContainer.userRepository),
+        create: (_) => SignUpCubit(AppScope.depConOf(context).userRepository,
+            ManagementAppScope.depOf(context).firebaseGroupRepository),
         child: const _HeaderWidget(),
       ),
     ));
@@ -357,14 +358,9 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
 }
 
 /////DROP
-class _GroupDropDown extends StatefulWidget {
+class _GroupDropDown extends StatelessWidget {
   const _GroupDropDown({super.key});
 
-  @override
-  State<_GroupDropDown> createState() => _GroupDropDownState();
-}
-
-class _GroupDropDownState extends State<_GroupDropDown> {
   @override
   Widget build(BuildContext context) {
     final List<DropdownMenuEntry> dropEntriesList = [
@@ -372,6 +368,7 @@ class _GroupDropDownState extends State<_GroupDropDown> {
       DropdownMenuEntry(value: 1, label: 'SI 23-4'),
       DropdownMenuEntry(value: 2, label: 'AE 24-4')
     ];
+
     return Container(
       margin: const EdgeInsets.only(top: 12, bottom: 22, left: 8, right: 8),
 

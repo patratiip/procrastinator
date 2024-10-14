@@ -23,12 +23,18 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(distance) =>
       "Du bist nicht in der Schule. Distance ${distance} meters";
 
-  static String m1(schoolQty) => "${schoolQty} Tage oder";
+  static String m1(loosedQty, possibleLooseDays) =>
+      "Fehl ${loosedQty} von ${possibleLooseDays} Tage";
 
-  static String m2(entiesQty, totalVisits) =>
+  static String m2(entiesQty, possibleLooseDays) =>
+      "Krank ${entiesQty} von ${possibleLooseDays} Tage";
+
+  static String m3(schoolQty) => "${schoolQty} Tage oder";
+
+  static String m4(entiesQty, totalVisits) =>
       "Insgesamt ${entiesQty} von ${totalVisits} Tage";
 
-  static String m3(userDisplayname) => "${userDisplayname} Anmeldungen";
+  static String m5(userDisplayname) => "${userDisplayname} Anmeldungen";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -88,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "looseReport": MessageLookupByLibrary.simpleMessage("Fehlmeldung"),
         "loosedEntriesWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Fehlende Anmeldungen"),
+        "loosedFromPossibleDays": m1,
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "noButtonText": MessageLookupByLibrary.simpleMessage("No"),
         "noLessonsToday": MessageLookupByLibrary.simpleMessage(
@@ -98,17 +105,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "profileEdit":
             MessageLookupByLibrary.simpleMessage("Profile bearbeiten"),
         "schoolEntryType": MessageLookupByLibrary.simpleMessage("Schule"),
+        "sickDaysFromPossible": m2,
         "sickEntryType": MessageLookupByLibrary.simpleMessage("Krank"),
         "sickList": MessageLookupByLibrary.simpleMessage("Krankmeldung"),
-        "statisticWidgetNDays": m1,
+        "statisticWidgetNDays": m3,
         "statistikAppBarText":
             MessageLookupByLibrary.simpleMessage("Statistik"),
         "todayLectionWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Heutige Lektion"),
-        "totalEntiesTotalVisitsDaysStatisticWidget": m2,
-        "userNameAndEntriesHeader": m3,
+        "totalEntiesTotalVisitsDaysStatisticWidget": m4,
+        "userNameAndEntriesHeader": m5,
         "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
             "Ihr Benutzertyp ist Undefiniert. Versuchen Sie, sich von der Anwendung abzumelden und erneut anzumelden. Sollte dies nicht funktionieren, wenden Sie sich bitte an die IT-Abteilung der Lutz&Grub Academy."),
-        "yesButtonText": MessageLookupByLibrary.simpleMessage("Yes")
+        "yesButtonText": MessageLookupByLibrary.simpleMessage("Yes"),
+        "youHaveNoOneEntryAdded": MessageLookupByLibrary.simpleMessage(
+            "Sie haben keinen einzigen Eintrag hinzugefügt")
       };
 }

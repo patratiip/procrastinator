@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/management_app/main_screen/management_main_screen.dart';
 import 'package:procrastinator/src/features/management_app/management_profile_screen/management_profile_screen.dart';
@@ -23,7 +22,6 @@ class _ManagementAppViewState extends State<ManagementAppView> {
 
   @override
   Widget build(BuildContext context) {
-    final user = AppScope.userOf(context);
     return Scaffold(
       appBar: AppBar(title: const Text('Management App')),
       body: <Widget>[

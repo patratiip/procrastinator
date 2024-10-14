@@ -540,6 +540,36 @@ class Localization {
       args: [],
     );
   }
+
+  /// `Sick {entiesQty} from {possibleLooseDays} days`
+  String sickDaysFromPossible(Object entiesQty, Object possibleLooseDays) {
+    return Intl.message(
+      'Sick $entiesQty from $possibleLooseDays days',
+      name: 'sickDaysFromPossible',
+      desc: '',
+      args: [entiesQty, possibleLooseDays],
+    );
+  }
+
+  /// `Loosed {loosedQty} from {possibleLooseDays} days`
+  String loosedFromPossibleDays(Object loosedQty, Object possibleLooseDays) {
+    return Intl.message(
+      'Loosed $loosedQty from $possibleLooseDays days',
+      name: 'loosedFromPossibleDays',
+      desc: '',
+      args: [loosedQty, possibleLooseDays],
+    );
+  }
+
+  /// `You have no one entry added`
+  String get youHaveNoOneEntryAdded {
+    return Intl.message(
+      'You have no one entry added',
+      name: 'youHaveNoOneEntryAdded',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

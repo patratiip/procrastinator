@@ -49,9 +49,13 @@ class StudentApp extends StatelessWidget {
           //Statistic
           BlocProvider(
               create: (context) => StatisticDiagrammBloc(
+                  AppScope.userOf(context, listen: false).group!,
                   entriesRepository:
                       StudentAppScope.depConOf(context, listen: false)
                           .firebaseEntryRepository,
+                  groupRepository:
+                      StudentAppScope.depConOf(context, listen: false)
+                          .firebaseGroupRepository,
                   computingService:
                       StudentAppScope.depConOf(context, listen: false)
                           .statisticComputingServise)),

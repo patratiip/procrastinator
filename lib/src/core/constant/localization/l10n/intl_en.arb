@@ -47,5 +47,8 @@
   "calendarStateErrorMessage_noLessonsToday": "No lections this day!",
   "calendarStateErrorMessage_distanceToSchool": "You are not at school. Distance {distance} meters",
   "userTypeLoginError": "Your user type is Undefined. Try logging out of the application and logging in again. If this does not work, please contact the IT department of Lutz&Grub Academy.",
-  "authenticationUserTypeErrorScreeenText": "Authentication error"
+  "authenticationUserTypeErrorScreeenText": "Authentication error",
+  "sickDaysFromPossible": "Sick {entiesQty} from {possibleLooseDays} days",
+  "loosedFromPossibleDays": "Loosed {loosedQty} from {possibleLooseDays} days",
+  "youHaveNoOneEntryAdded": "You have no one entry added"
 }

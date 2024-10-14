@@ -47,5 +47,8 @@
   "calendarStateErrorMessage_noLessonsToday": "Keine Unterrichten!",
   "calendarStateErrorMessage_distanceToSchool": "Du bist nicht in der Schule. Distance {distance} meters",
   "userTypeLoginError": "Ihr Benutzertyp ist Undefiniert. Versuchen Sie, sich von der Anwendung abzumelden und erneut anzumelden. Sollte dies nicht funktionieren, wenden Sie sich bitte an die IT-Abteilung der Lutz&Grub Academy.",
-  "authenticationUserTypeErrorScreeenText": "Authentifizierungsfehler"
+  "authenticationUserTypeErrorScreeenText": "Authentifizierungsfehler",
+  "sickDaysFromPossible": "Krank {entiesQty} von {possibleLooseDays} Tage",
+  "loosedFromPossibleDays": "Fehl {loosedQty} von {possibleLooseDays} Tage",
+  "youHaveNoOneEntryAdded": "Sie haben keinen einzigen Eintrag hinzugefügt"
 }

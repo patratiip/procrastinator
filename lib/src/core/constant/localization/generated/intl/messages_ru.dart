@@ -22,12 +22,18 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(distance) => "Ты не в школе. Дистанция ${distance} метров";
 
-  static String m1(schoolQty) => "${schoolQty} дней или";
+  static String m1(loosedQty, possibleLooseDays) =>
+      "Пропуски ${loosedQty} из ${possibleLooseDays} дней";
 
-  static String m2(entiesQty, totalVisits) =>
+  static String m2(entiesQty, possibleLooseDays) =>
+      "Больничный ${entiesQty} из ${possibleLooseDays} дней";
+
+  static String m3(schoolQty) => "${schoolQty} дней или";
+
+  static String m4(entiesQty, totalVisits) =>
       "Всего ${entiesQty} из ${totalVisits} дней";
 
-  static String m3(userDisplayname) => "Записи ${userDisplayname}";
+  static String m5(userDisplayname) => "Записи ${userDisplayname}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -86,6 +92,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Уведомить о пропуске"),
         "loosedEntriesWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Пропущенные записи"),
+        "loosedFromPossibleDays": m1,
         "name": MessageLookupByLibrary.simpleMessage("Имя"),
         "noButtonText": MessageLookupByLibrary.simpleMessage("Нет"),
         "noLessonsToday":
@@ -96,17 +103,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "profileEdit":
             MessageLookupByLibrary.simpleMessage("Редактировать профиль"),
         "schoolEntryType": MessageLookupByLibrary.simpleMessage("Школа"),
+        "sickDaysFromPossible": m2,
         "sickEntryType": MessageLookupByLibrary.simpleMessage("Болезнь"),
         "sickList": MessageLookupByLibrary.simpleMessage("Больничный"),
-        "statisticWidgetNDays": m1,
+        "statisticWidgetNDays": m3,
         "statistikAppBarText":
             MessageLookupByLibrary.simpleMessage(" Статистика"),
         "todayLectionWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Сегодня"),
-        "totalEntiesTotalVisitsDaysStatisticWidget": m2,
-        "userNameAndEntriesHeader": m3,
+        "totalEntiesTotalVisitsDaysStatisticWidget": m4,
+        "userNameAndEntriesHeader": m5,
         "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
             "Ваш тип пользователя Неопределён. Попробуйте выйти из приложения и заново выполнить вход. Если это не сработает свяжитесь пожалуйста с IT отделом академии Lutz&Grub."),
-        "yesButtonText": MessageLookupByLibrary.simpleMessage("Да")
+        "yesButtonText": MessageLookupByLibrary.simpleMessage("Да"),
+        "youHaveNoOneEntryAdded": MessageLookupByLibrary.simpleMessage(
+            "У вас нет ни одной добавленной записи")
       };
 }
