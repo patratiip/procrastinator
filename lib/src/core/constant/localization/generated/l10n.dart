@@ -570,6 +570,76 @@ class Localization {
       args: [],
     );
   }
+
+  /// `Group`
+  String get groupText {
+    return Intl.message(
+      'Group',
+      name: 'groupText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select a user type`
+  String get selectAUserTypeText {
+    return Intl.message(
+      'Select a user type',
+      name: 'selectAUserTypeText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Student`
+  String get studentLabel {
+    return Intl.message(
+      'Student',
+      name: 'studentLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Manager`
+  String get managerLabel {
+    return Intl.message(
+      'Manager',
+      name: 'managerLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trainer`
+  String get trainerLabel {
+    return Intl.message(
+      'Trainer',
+      name: 'trainerLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register`
+  String get registrationButtonText {
+    return Intl.message(
+      'Register',
+      name: 'registrationButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose the location of the school`
+  String get schoolLocationDropDownText {
+    return Intl.message(
+      'Choose the location of the school',
+      name: 'schoolLocationDropDownText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

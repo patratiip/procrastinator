@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SchoolGeoPosition {
-  double longitude;
-  double latitude;
-  SchoolGeoPosition(this.longitude, this.latitude);
+  final double latitude;
+  final double longitude;
+
+  SchoolGeoPosition({required this.latitude, required this.longitude});
 
   static SchoolGeoPosition fromFirebase(GeoPoint geoPoint) {
-    return SchoolGeoPosition(geoPoint.longitude, geoPoint.latitude);
+    return SchoolGeoPosition(
+        latitude: geoPoint.latitude, longitude: geoPoint.longitude);
   }
 
   static GeoPoint toFirebase(SchoolGeoPosition schoolGeoPosition) {

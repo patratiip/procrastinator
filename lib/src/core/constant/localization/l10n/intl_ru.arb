@@ -50,5 +50,12 @@
   "authenticationUserTypeErrorScreeenText": "Ошибка аутентификации",
   "sickDaysFromPossible": "Больничный {entiesQty} из {possibleLooseDays} дней",
   "loosedFromPossibleDays": "Пропуски {loosedQty} из {possibleLooseDays} дней",
-  "youHaveNoOneEntryAdded": "У вас нет ни одной добавленной записи"
+  "youHaveNoOneEntryAdded": "У вас нет ни одной добавленной записи",
+  "groupText": "Группа",
+  "selectAUserTypeText": "Выберите тип пользователя",
+  "studentLabel": "Студент",
+  "managerLabel": "Менеджер",
+  "trainerLabel": "Тренер",
+  "registrationButtonText": "Зарегистрировать",
+  "schoolLocationDropDownText": "Выберите расположение школы"
 }

@@ -60,8 +60,7 @@ class _StudentAppViewState extends State<StudentAppView> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        // useLegacyColorScheme: true,
-        // backgroundColor: Theme.of(context).colorScheme.background,
+   
         currentIndex: _selectedTab,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''),

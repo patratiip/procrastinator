@@ -41,8 +41,9 @@ class MyUserEntity {
       userType: doc['userType'],
       name: doc['name'],
       photoURL: doc['photoURL'],
-      schoolGeoPosition:
-          SchoolGeoPosition.fromFirebase(doc['schoolPosition'] as GeoPoint),
+      schoolGeoPosition: doc['schoolGeoPosition'] != null
+          ? SchoolGeoPosition.fromFirebase(doc['schoolGeoPosition'] as GeoPoint)
+          : null,
       group:
           doc['group'] != null ? (doc['group'] as DocumentReference).id : null,
     );

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:group_repository/group_repository.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
-import 'package:procrastinator/src/features/management_app/management_scope.dart';
+import 'package:procrastinator/src/features/management_app/main_screen/group_list/group_list.dart';
 import 'package:procrastinator/src/features/management_app/users_screen/sign_up/sign_up.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
+import 'package:user_repository/user_repository.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -26,8 +29,7 @@ class SignUpScreen extends StatelessWidget {
         body: SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: BlocProvider(
-        create: (_) => SignUpCubit(AppScope.depConOf(context).userRepository,
-            ManagementAppScope.depOf(context).firebaseGroupRepository),
+        create: (_) => SignUpCubit(AppScope.depConOf(context).userRepository),
         child: const _HeaderWidget(),
       ),
     ));
@@ -121,7 +123,11 @@ class _RegisterFormWidget extends StatelessWidget {
           const _PassValidationIndicatorWidget(),
           const _PasswordTextField(),
           const SizedBox(height: 16),
+          const _UserTypeDropDown(),
+          const SizedBox(height: 16),
           const _GroupDropDown(),
+          const SizedBox(height: 16),
+          const _SchoolLocationDropDown(),
           const SizedBox(height: 32),
           const _ErrorMessageWidget(),
           const Column(
@@ -168,7 +174,7 @@ class _NameTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
+    return BlocBuilder<SignUpCubit, SignUpCubitState>(
       buildWhen: (previous, current) => previous.userName != current.userName,
       builder: (context, state) {
         // final _email = context.read<LoginCubit>().state.email.toString();
@@ -241,7 +247,7 @@ class _EmailTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
+    return BlocBuilder<SignUpCubit, SignUpCubitState>(
       buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
         // final _email = context.read<LoginCubit>().state.email.toString();
@@ -318,7 +324,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
+    return BlocBuilder<SignUpCubit, SignUpCubitState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
         return TextFormField(
@@ -359,28 +365,183 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
 
 /////DROP
 class _GroupDropDown extends StatelessWidget {
-  const _GroupDropDown({super.key});
+  const _GroupDropDown();
 
   @override
   Widget build(BuildContext context) {
-    final List<DropdownMenuEntry> dropEntriesList = [
-      DropdownMenuEntry(value: 0, label: 'AE 23-4'),
-      DropdownMenuEntry(value: 1, label: 'SI 23-4'),
-      DropdownMenuEntry(value: 2, label: 'AE 24-4')
+    return BlocBuilder<SignUpCubit, SignUpCubitState>(
+      builder: (context, state) {
+        if (state.userType == UserType.student) {
+          return BlocBuilder<GroupListBloc, GroupListState>(
+            builder: (context, state) {
+              if (state is GroupListLoadedState) {
+                return Container(
+                  // margin: const EdgeInsets.only(top: 12, bottom: 12, left: 8, right: 8),
+                  child: DropdownMenu(
+                    enableSearch: false,
+                    expandedInsets: EdgeInsets.zero,
+                    hintText: Localization.of(context).groupText,
+                    dropdownMenuEntries:
+
+                        // Group mapping
+                        state.groupList!
+                            .map<DropdownMenuEntry<Group>>((Group group) {
+                      return DropdownMenuEntry<Group>(
+                          value: group, label: group.groupName);
+                    }).toList(),
+
+                    //
+                    textStyle: Theme.of(context).textTheme.titleMedium,
+
+                    ///INPUT
+                    inputDecorationTheme: InputDecorationTheme(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      filled: true,
+                      fillColor: Theme.of(context).cardColor,
+                    ),
+
+                    ///MENU
+                    menuStyle: MenuStyle(
+                        backgroundColor:
+                            WidgetStatePropertyAll(Theme.of(context).cardColor),
+                        surfaceTintColor:
+                            const WidgetStatePropertyAll(Colors.transparent),
+                        shadowColor:
+                            const WidgetStatePropertyAll(Colors.transparent),
+                        // side: const WidgetStatePropertyAll(BorderSide()),
+                        shape: WidgetStatePropertyAll(OutlinedBorder.lerp(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12)),
+                            const RoundedRectangleBorder(),
+                            0.1))),
+                    onSelected: (value) {
+                      context.read<SignUpCubit>().groupChanged(value!);
+                    },
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: CircularProgressIndicator(
+                      color: MyAppColorScheme.primary,
+                    ),
+                  ),
+                );
+              }
+            },
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+}
+
+///// School Locations DropDown
+class _SchoolLocationDropDown extends StatelessWidget {
+  const _SchoolLocationDropDown();
+
+  @override
+  Widget build(BuildContext context) {
+    final schoolLocations = [
+      DropdownMenuEntry(
+          label: 'Nürnberg',
+          value:
+              SchoolGeoPosition(latitude: 49.4492803, longitude: 11.0615792)),
+      DropdownMenuEntry(
+          label: 'Karlsruhe',
+          value: SchoolGeoPosition(latitude: 49.0443115, longitude: 8.3922262)),
+      DropdownMenuEntry(
+          label: 'Stuttgart',
+          value: SchoolGeoPosition(latitude: 48.6963833, longitude: 9.1629165)),
+      DropdownMenuEntry(
+          label: 'Heilbron',
+          value: SchoolGeoPosition(latitude: 49.1466648, longitude: 9.1965098)),
+    ];
+
+    return BlocBuilder<SignUpCubit, SignUpCubitState>(
+      builder: (context, state) {
+        if (state.userType == UserType.student) {
+          return Container(
+            // margin: const EdgeInsets.only(top: 12, bottom: 12, left: 8, right: 8),
+            child: DropdownMenu(
+              enableSearch: false,
+              expandedInsets: EdgeInsets.zero,
+              hintText: Localization.of(context).schoolLocationDropDownText,
+              dropdownMenuEntries: schoolLocations,
+
+              //
+              textStyle: Theme.of(context).textTheme.titleMedium,
+
+              ///INPUT
+              inputDecorationTheme: InputDecorationTheme(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                filled: true,
+                fillColor: Theme.of(context).cardColor,
+              ),
+
+              ///MENU
+              menuStyle: MenuStyle(
+                  backgroundColor:
+                      WidgetStatePropertyAll(Theme.of(context).cardColor),
+                  surfaceTintColor:
+                      const WidgetStatePropertyAll(Colors.transparent),
+                  shadowColor: const WidgetStatePropertyAll(Colors.transparent),
+                  // side: const WidgetStatePropertyAll(BorderSide()),
+                  shape: WidgetStatePropertyAll(OutlinedBorder.lerp(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12)),
+                      const RoundedRectangleBorder(),
+                      0.1))),
+              onSelected: (value) {
+                context.read<SignUpCubit>().geopositionChanged(value!);
+              },
+            ),
+          );
+        } else {
+          return const SizedBox.shrink();
+        }
+      },
+    );
+  }
+}
+
+///// User Type DropDown
+class _UserTypeDropDown extends StatelessWidget {
+  const _UserTypeDropDown();
+
+  @override
+  Widget build(BuildContext context) {
+    final userTypes = [
+      DropdownMenuEntry(
+          label: Localization.of(context).studentLabel,
+          value: UserType.student),
+      DropdownMenuEntry(
+          label: Localization.of(context).managerLabel,
+          value: UserType.management),
+      DropdownMenuEntry(
+          label: Localization.of(context).trainerLabel, value: UserType.trainer)
     ];
 
     return Container(
-      margin: const EdgeInsets.only(top: 12, bottom: 22, left: 8, right: 8),
-
-      // width: double.infinity,
+      // margin: const EdgeInsets.only(top: 12, bottom: 12, left: 8, right: 8),
       child: DropdownMenu(
         enableSearch: false,
         expandedInsets: EdgeInsets.zero,
-        // width: double.infinity,
-        hintText: 'Group',
-        dropdownMenuEntries: dropEntriesList,
+        hintText: Localization.of(context).selectAUserTypeText,
+        dropdownMenuEntries: userTypes,
+
+        //
         textStyle: Theme.of(context).textTheme.titleMedium,
-        // controller: ,
 
         ///INPUT
         inputDecorationTheme: InputDecorationTheme(
@@ -389,61 +550,27 @@ class _GroupDropDown extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           filled: true,
-          fillColor: Theme.of(context).colorScheme.error,
+          fillColor: Theme.of(context).cardColor,
         ),
 
         ///MENU
         menuStyle: MenuStyle(
             backgroundColor:
-                WidgetStatePropertyAll(Theme.of(context).colorScheme.surface),
+                WidgetStatePropertyAll(Theme.of(context).cardColor),
             surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
             shadowColor: const WidgetStatePropertyAll(Colors.transparent),
-            // side: MaterialStatePropertyAll(BorderSide()),
+            // side: const WidgetStatePropertyAll(BorderSide()),
             shape: WidgetStatePropertyAll(OutlinedBorder.lerp(
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 const RoundedRectangleBorder(),
                 0.1))),
-        // onSelected: (value) {
-        //   final bloc = BlocProvider.of<CalendarBloc>(context);
-        //   late final String? type;
-        //   switch (dropEntriesList[value].value) {
-        //     case 0:
-        //       type = 'Schule';
-        //     case 1:
-        //       type = 'Heim';
-        //     case 2:
-        //       type = 'Krank';
-        //     case 3:
-        //       type = 'Fehl';
-        //   }
-
-        //   bloc.add(CalendarTypeChanged(type: type!));
-        // },
+        onSelected: (value) {
+          context.read<SignUpCubit>().userTypeChanged(value!);
+        },
       ),
     );
   }
 }
-
-// ///GroupDropDown Menu
-// class _GroupDropDown extends StatefulWidget {
-//   const _GroupDropDown({super.key});
-
-//   @override
-//   State<_GroupDropDown> createState() => _GroupDropDownState();
-// }
-
-// class _GroupDropDownState extends State<_GroupDropDown> {
-//   final List<DropdownMenuEntry> dropEntriesList = [
-//     DropdownMenuEntry(value: 0, label: 'AE 23-4'),
-//     DropdownMenuEntry(value: 1, label: 'SI 23-4'),
-//     DropdownMenuEntry(value: 2, label: 'AE 24-4')
-//   ];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return DropdownMenu(dropdownMenuEntries: dropEntriesList);
-//   }
-// }
 
 ///AuthBUTTON
 class _SignUpButtonWidget extends StatelessWidget {
@@ -451,11 +578,13 @@ class _SignUpButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(
+    return BlocBuilder<SignUpCubit, SignUpCubitState>(
       builder: (context, state) {
         if (state.email.isNotEmpty &&
             state.password.isNotEmpty &&
             state.userName.isNotEmpty &&
+            // (state.userType == UserType.student && state.groupRef != null) &&
+            // state.userType != UserType.undefined &&
             state.containsUpperCase &&
             state.containsLowerCase &&
             state.containsNumber &&
@@ -471,7 +600,7 @@ class _SignUpButtonWidget extends StatelessWidget {
             //     context.read<LoginCubit>().logInWithCredentials()
             //     : null,
             child: Text(
-              'Registrieren',
+              Localization.of(context).registrationButtonText,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Colors.white,
                     //fontWeight: FontWeight.w500
@@ -491,7 +620,7 @@ class _SignUpButtonWidget extends StatelessWidget {
             style: const ButtonStyle(
                 backgroundColor: WidgetStatePropertyAll(Colors.grey)),
             child: Text(
-              'Registrieren',
+              Localization.of(context).registrationButtonText,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Colors.white,
                     //fontWeight: FontWeight.w500
@@ -510,7 +639,8 @@ class _ErrorMessageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
+    return BlocBuilder<SignUpCubit, SignUpCubitState>(
+        builder: (context, state) {
       if (state.status == SignUpStatus.failure &&
           state.errorMessage!.isNotEmpty) {
         return Padding(
@@ -532,7 +662,8 @@ class _PassValidationIndicatorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpCubit, SignUpState>(builder: (context, state) {
+    return BlocBuilder<SignUpCubit, SignUpCubitState>(
+        builder: (context, state) {
       if (state.password.isNotEmpty) {
         return Padding(
           padding: const EdgeInsets.only(top: 32, bottom: 24),

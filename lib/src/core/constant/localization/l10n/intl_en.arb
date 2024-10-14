@@ -50,5 +50,12 @@
   "authenticationUserTypeErrorScreeenText": "Authentication error",
   "sickDaysFromPossible": "Sick {entiesQty} from {possibleLooseDays} days",
   "loosedFromPossibleDays": "Loosed {loosedQty} from {possibleLooseDays} days",
-  "youHaveNoOneEntryAdded": "You have no one entry added"
+  "youHaveNoOneEntryAdded": "You have no one entry added",
+  "groupText": "Group",
+  "selectAUserTypeText": "Select a user type",
+  "studentLabel": "Student",
+  "managerLabel": "Manager",
+  "trainerLabel": "Trainer",
+  "registrationButtonText": "Register",
+  "schoolLocationDropDownText": "Choose the location of the school"
 }

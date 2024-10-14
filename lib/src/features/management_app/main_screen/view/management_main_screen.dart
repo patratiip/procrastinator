@@ -74,12 +74,7 @@ class _GroupAddingWidgetState extends State<GroupAddingWidget> {
             onPressed: addGroupToUser,
             child: const Text('Add Group to User'),
           ),
-          BlocProvider<GroupListBloc>(
-            create: (context) => GroupListBloc(
-                groupRepository:
-                    ManagementAppScope.depOf(context).firebaseGroupRepository),
-            child: const GroupList(),
-          ),
+          const GroupList(),
         ],
       ),
     );

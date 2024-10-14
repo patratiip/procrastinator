@@ -7,10 +7,14 @@ enum SignUpStatus {
   failure,
 }
 
-final class SignUpState extends Equatable {
+final class SignUpCubitState extends Equatable {
   final String email;
   final String password;
   final String userName;
+
+  final String? groupRef;
+  final UserType userType;
+  final SchoolGeoPosition? schoolGeoPosition;
 
   final bool? emailIsValid;
   final bool? passwordIsValid;
@@ -24,10 +28,13 @@ final class SignUpState extends Equatable {
   final String? errorMessage;
   final SignUpStatus status;
 
-  const SignUpState({
+  const SignUpCubitState({
     this.email = '',
     this.password = '',
     this.userName = '',
+    this.groupRef,
+    this.userType = UserType.undefined,
+    this.schoolGeoPosition,
     this.emailIsValid,
     this.passwordIsValid,
     this.errorMessage,
@@ -44,6 +51,9 @@ final class SignUpState extends Equatable {
         email,
         password,
         userName,
+        groupRef,
+        userType,
+        schoolGeoPosition,
         emailIsValid,
         passwordIsValid,
         containsUpperCase,
@@ -55,10 +65,13 @@ final class SignUpState extends Equatable {
         status,
       ];
 
-  SignUpState copyWith({
+  SignUpCubitState copyWith({
     String? email,
     String? password,
     String? userName,
+    String? groupRef,
+    UserType? userType,
+    SchoolGeoPosition? schoolGeoPosition,
     bool? emailIsValid,
     bool? passwordIsValid,
     bool? containsUpperCase,
@@ -69,10 +82,13 @@ final class SignUpState extends Equatable {
     String? errorMessage,
     SignUpStatus? status,
   }) {
-    return SignUpState(
+    return SignUpCubitState(
       email: email ?? this.email,
       password: password ?? this.password,
       userName: userName ?? this.userName,
+      groupRef: groupRef ?? this.groupRef,
+      userType: userType ?? this.userType,
+      schoolGeoPosition: schoolGeoPosition ?? this.schoolGeoPosition,
       emailIsValid: emailIsValid ?? this.emailIsValid,
       passwordIsValid: passwordIsValid ?? this.passwordIsValid,
       containsUpperCase: containsUpperCase ?? this.containsUpperCase,

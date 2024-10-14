@@ -27,9 +27,11 @@ class _ManagementAppViewState extends State<ManagementAppView> {
       body: <Widget>[
         const ManagementMainScreen(),
         const UsersScreen(),
-        const ManagementProfileScreen()
+        const ManagementProfileScreen(),
       ][currentPageIndex],
       bottomNavigationBar: NavigationBar(
+          // height: 60,
+          // backgroundColor: Colors.amber,
           onDestinationSelected: onSelectedTab,
           indicatorColor: MyAppColorScheme.primary,
           selectedIndex: currentPageIndex,
@@ -57,7 +59,7 @@ class _ManagementAppViewState extends State<ManagementAppView> {
               ),
               icon: Icon(Icons.person),
               label: 'Profile',
-            ),
+            )
           ]),
     );
   }

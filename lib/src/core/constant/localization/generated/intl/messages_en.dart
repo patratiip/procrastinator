@@ -79,6 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose entry type..."),
         "forgotPassButtonName":
             MessageLookupByLibrary.simpleMessage("Forgot password?"),
+        "groupText": MessageLookupByLibrary.simpleMessage("Group"),
         "homeEntryType": MessageLookupByLibrary.simpleMessage("Home"),
         "inSchool": MessageLookupByLibrary.simpleMessage("in School"),
         "lastFiveEntriesWidgetHeader":
@@ -94,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loosedEntriesWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Loosed entries"),
         "loosedFromPossibleDays": m1,
+        "managerLabel": MessageLookupByLibrary.simpleMessage("Manager"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
         "noButtonText": MessageLookupByLibrary.simpleMessage("No"),
         "noLessonsToday":
@@ -102,16 +104,24 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password"),
         "profileAppBarText": MessageLookupByLibrary.simpleMessage("Profile"),
         "profileEdit": MessageLookupByLibrary.simpleMessage("Edit progile"),
+        "registrationButtonText":
+            MessageLookupByLibrary.simpleMessage("Register"),
         "schoolEntryType": MessageLookupByLibrary.simpleMessage("School"),
+        "schoolLocationDropDownText": MessageLookupByLibrary.simpleMessage(
+            "Choose the location of the school"),
+        "selectAUserTypeText":
+            MessageLookupByLibrary.simpleMessage("Select a user type"),
         "sickDaysFromPossible": m2,
         "sickEntryType": MessageLookupByLibrary.simpleMessage("Sick"),
         "sickList": MessageLookupByLibrary.simpleMessage("Sick list"),
         "statisticWidgetNDays": m3,
         "statistikAppBarText":
             MessageLookupByLibrary.simpleMessage("Statistiс"),
+        "studentLabel": MessageLookupByLibrary.simpleMessage("Student"),
         "todayLectionWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Today lection"),
         "totalEntiesTotalVisitsDaysStatisticWidget": m4,
+        "trainerLabel": MessageLookupByLibrary.simpleMessage("Trainer"),
         "userNameAndEntriesHeader": m5,
         "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
             "Your user type is Undefined. Try logging out of the application and logging in again. If this does not work, please contact the IT department of Lutz&Grub Academy."),

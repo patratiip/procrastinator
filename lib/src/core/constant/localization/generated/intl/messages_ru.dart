@@ -77,6 +77,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Выберите тип записи..."),
         "forgotPassButtonName":
             MessageLookupByLibrary.simpleMessage("Забыли пароль?"),
+        "groupText": MessageLookupByLibrary.simpleMessage("Группа"),
         "homeEntryType": MessageLookupByLibrary.simpleMessage("Дом"),
         "inSchool": MessageLookupByLibrary.simpleMessage("в школе"),
         "lastFiveEntriesWidgetHeader":
@@ -93,6 +94,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "loosedEntriesWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Пропущенные записи"),
         "loosedFromPossibleDays": m1,
+        "managerLabel": MessageLookupByLibrary.simpleMessage("Менеджер"),
         "name": MessageLookupByLibrary.simpleMessage("Имя"),
         "noButtonText": MessageLookupByLibrary.simpleMessage("Нет"),
         "noLessonsToday":
@@ -102,16 +104,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "profileAppBarText": MessageLookupByLibrary.simpleMessage("Профиль"),
         "profileEdit":
             MessageLookupByLibrary.simpleMessage("Редактировать профиль"),
+        "registrationButtonText":
+            MessageLookupByLibrary.simpleMessage("Зарегистрировать"),
         "schoolEntryType": MessageLookupByLibrary.simpleMessage("Школа"),
+        "schoolLocationDropDownText":
+            MessageLookupByLibrary.simpleMessage("Выберите расположение школы"),
+        "selectAUserTypeText":
+            MessageLookupByLibrary.simpleMessage("Выберите тип пользователя"),
         "sickDaysFromPossible": m2,
         "sickEntryType": MessageLookupByLibrary.simpleMessage("Болезнь"),
         "sickList": MessageLookupByLibrary.simpleMessage("Больничный"),
         "statisticWidgetNDays": m3,
         "statistikAppBarText":
             MessageLookupByLibrary.simpleMessage(" Статистика"),
+        "studentLabel": MessageLookupByLibrary.simpleMessage("Студент"),
         "todayLectionWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Сегодня"),
         "totalEntiesTotalVisitsDaysStatisticWidget": m4,
+        "trainerLabel": MessageLookupByLibrary.simpleMessage("Тренер"),
         "userNameAndEntriesHeader": m5,
         "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
             "Ваш тип пользователя Неопределён. Попробуйте выйти из приложения и заново выполнить вход. Если это не сработает свяжитесь пожалуйста с IT отделом академии Lutz&Grub."),

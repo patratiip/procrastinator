@@ -51,6 +51,7 @@ class FirebaseUserRepository implements IUserRepository {
           if (data != null) {
             return MyUser.fromEntity(MyUserEntity.fromDocument(data));
           } else {
+            log('message');
             return MyUser.empty;
           }
         });
@@ -69,7 +70,7 @@ class FirebaseUserRepository implements IUserRepository {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
     } on firebase_auth.FirebaseAuthException catch (e) {
-      print(e.message);
+      log(e.code);
       throw LogInWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const LogInWithEmailAndPasswordFailure();
@@ -82,10 +83,12 @@ class FirebaseUserRepository implements IUserRepository {
       firebase_auth.UserCredential user =
           await _firebaseAuth.createUserWithEmailAndPassword(
               email: myUser.email, password: password);
-
-      myUser.copyWith(userId: user.user!.uid);
+      log('Sign Up user -- ${user.toString()}');
+      myUser = myUser.copyWith(userId: user.user!.uid);
+      log('Sign Up -- ${myUser.toString()}');
       return myUser;
     } on firebase_auth.FirebaseAuthException catch (e) {
+      log(e.code);
       throw SignUpWithEmailAndPasswordFailure.fromCode(e.code);
     } catch (_) {
       throw const SignUpWithEmailAndPasswordFailure();
@@ -110,7 +113,7 @@ class FirebaseUserRepository implements IUserRepository {
           .doc(myUser.userId)
           .set(myUser.toEntity().toDocument());
     } catch (e) {
-      log(e.toString());
+      log('SET -- ${e.toString()}');
       rethrow;
     }
   }

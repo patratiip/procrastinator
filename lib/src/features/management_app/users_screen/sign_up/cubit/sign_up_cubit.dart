@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_repository/group_repository.dart';
@@ -5,11 +7,12 @@ import 'package:user_repository/user_repository.dart';
 
 part 'sign_up_state.dart';
 
-class SignUpCubit extends Cubit<SignUpState> {
+class SignUpCubit extends Cubit<SignUpCubitState> {
   final IUserRepository _authenticationRepository;
-  final IGroupRepository _groupRepository;
-  
-  SignUpCubit(this._authenticationRepository, this._groupRepository) : super(const SignUpState());
+
+  SignUpCubit(
+    this._authenticationRepository,
+  ) : super(const SignUpCubitState());
 
   ///emailChanged
   void emailChanged(String value) {
@@ -52,6 +55,27 @@ class SignUpCubit extends Cubit<SignUpState> {
     emit(state.copyWith(password: value));
   }
 
+  ///groupChanged
+  void groupChanged(Group group) {
+    emit(state.copyWith(errorMessage: null, status: SignUpStatus.initial));
+
+    emit(state.copyWith(groupRef: group.groupID));
+  }
+
+  ///userTypeChanged
+  void userTypeChanged(UserType userType) {
+    emit(state.copyWith(errorMessage: null, status: SignUpStatus.initial));
+
+    emit(state.copyWith(userType: userType));
+  }
+
+  ///geopositionChanged
+  void geopositionChanged(SchoolGeoPosition schoolGeoPosition) {
+    emit(state.copyWith(errorMessage: null, status: SignUpStatus.initial));
+
+    emit(state.copyWith(schoolGeoPosition: schoolGeoPosition));
+  }
+
   Future<void> signUpAndCreateUserCollection() async {
     //Email Validation
     final mailIsValid = _validateEmail(state.email);
@@ -72,29 +96,54 @@ class SignUpCubit extends Cubit<SignUpState> {
       emit(state.copyWith(
           errorMessage: 'Please enter a user name',
           status: SignUpStatus.failure));
+    } else if (state.userType == UserType.undefined) {
+      emit(state.copyWith(
+          errorMessage: 'Please enter a user type',
+          status: SignUpStatus.failure));
+    } else if (state.userType == UserType.student && state.groupRef == null) {
+      emit(state.copyWith(
+          errorMessage: 'Please enter a user group',
+          status: SignUpStatus.failure));
+    } else if (state.userType == UserType.student &&
+        state.schoolGeoPosition == null) {
+      emit(state.copyWith(
+          errorMessage: 'Please enter a user school geoposition',
+          status: SignUpStatus.failure));
     } else {
       emit(state.copyWith(status: SignUpStatus.inProgress));
 
       //Creating local user from state
       MyUser userFromForm = MyUser.empty;
-      userFromForm.copyWith(email: state.email);
-      userFromForm.copyWith(name: state.userName);
+      userFromForm = userFromForm.copyWith(email: state.email);
+      userFromForm = userFromForm.copyWith(name: state.userName);
       try {
         MyUser myUser = await _authenticationRepository.signUp(
             userFromForm, state.password);
 
         //Creating user collection
-        await _authenticationRepository.setUserData(myUser);
+        if (state.userType == UserType.student) {
+          await _authenticationRepository.setUserData(myUser.copyWith(
+            userType: state.userType,
+            group: state.groupRef,
+            schoolGeoPosition: state.schoolGeoPosition,
+          ));
+        } else {
+          await _authenticationRepository
+              .setUserData(myUser.copyWith(userType: state.userType));
+        }
+
         emit(state.copyWith(status: SignUpStatus.success));
       } on SignUpWithEmailAndPasswordFailure catch (e) {
+        //TODO exception
         emit(
           state.copyWith(
             errorMessage: e.message,
             status: SignUpStatus.failure,
           ),
         );
-      } catch (_) {
-        emit(state.copyWith(status: SignUpStatus.failure));
+      } catch (e) {
+        emit(state.copyWith(
+            errorMessage: e.toString(), status: SignUpStatus.failure));
       }
     }
   }
