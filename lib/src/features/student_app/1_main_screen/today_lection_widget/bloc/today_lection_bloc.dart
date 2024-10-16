@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lection_repository/lection_repository.dart';
@@ -20,9 +22,8 @@ class TodayLectionBloc extends Bloc<TodayLectionEvent, TodayLectionState> {
         } else {
           emit(TodayLectionEmpty());
         }
-
-        // print('TodayLesson BLOC: ');
       } catch (e) {
+        log(e.toString());
         emit(const TodayLectionFailure(exception: 'Failure'));
       }
     });

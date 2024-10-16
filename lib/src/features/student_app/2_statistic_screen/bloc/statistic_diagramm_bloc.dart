@@ -29,7 +29,7 @@ class StatisticDiagrammBloc
         _computingService = computingService,
         super(StatisticDiagrammInitial()) {
     /// Subscription - Entries List from Repo
-    _entrysListListener = entriesRepository.getVisits().listen(
+    _entrysListListener = _entriesRepository.getVisits().listen(
       (entriesList) {
         if (entriesList != null && entriesList.isNotEmpty) {
           add(LoadSchoolVisitsCount(entriesList));
@@ -43,7 +43,7 @@ class StatisticDiagrammBloc
         emit(LoadingEntrysCountState());
         if (event.entriesList!.isNotEmpty) {
           //TODO add exceptions check
-          final totalDaysFromGroup = await groupRepository
+          final totalDaysFromGroup = await _groupRepository
               .getGroupData(studentGroupID)
               .first
               .then((group) => group.totalDays);

@@ -21,12 +21,12 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
         _groupRepository = groupRepository,
         super(const UserProfileState()) {
     //Subscription User
-    _userSubscription = userRepository.user.listen((user) {
+    _userSubscription = _userRepository.user.listen((user) {
       add(UserProfileDataChanged(user: user));
     }, cancelOnError: false);
 
     /// Subscription Group
-    _groupSubscription = groupRepository.myGroupStream().listen((group) {
+    _groupSubscription = _groupRepository.myGroupStream().listen((group) {
       add(UserProfileDataChanged(group: group));
     }, cancelOnError: false);
 
@@ -46,7 +46,9 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   @override
   Future<void> close() {
     _userSubscription.cancel();
+    _groupSubscription.cancel();
     log('User subscription was cancelled');
+    log('Group subscription was cancelled');
     return super.close();
   }
 }

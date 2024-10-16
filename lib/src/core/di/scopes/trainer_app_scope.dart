@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/logic/composition_root.dart';
-import 'package:procrastinator/src/core/di/model/trainer_dependencies_container.dart';
-import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
+import 'package:procrastinator/src/core/di/dependenies_containers/trainer_dependencies_container.dart';
+import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
 import 'package:procrastinator/src/core/utils/refined_logger.dart';
 
 /// {@template trainer_app_scope}

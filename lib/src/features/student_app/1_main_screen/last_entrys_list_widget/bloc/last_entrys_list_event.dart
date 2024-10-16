@@ -16,11 +16,6 @@ class EntriesListChangedEvent extends EntriesListEvent {
   List<Object?> get props => [entriesList];
 }
 
-// class AddEntryToListEvent extends EntrysListEvent {
-//   final Entry? entry;
-
-//   const AddEntryToListEvent(this.entry);
-// }
 
 class DeleteEntryEvent extends EntriesListEvent {
   final String entryRef;

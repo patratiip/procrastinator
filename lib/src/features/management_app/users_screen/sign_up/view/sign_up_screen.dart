@@ -3,9 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
+import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/features/management_app/main_screen/group_list/group_list.dart';
+import 'package:procrastinator/src/core/di/scopes/management_scope.dart';
 import 'package:procrastinator/src/features/management_app/users_screen/sign_up/sign_up.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:user_repository/user_repository.dart';
@@ -29,7 +30,10 @@ class SignUpScreen extends StatelessWidget {
         body: SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: BlocProvider(
-        create: (_) => SignUpCubit(AppScope.depConOf(context).userRepository),
+        create: (_) => SignUpCubit(
+            AppScope.depConOf(context).userRepository,
+            ManagementAppScope.depOf(context, listen: false)
+                .firebaseGroupRepository),
         child: const _HeaderWidget(),
       ),
     ));
@@ -226,9 +230,9 @@ class _NameTextField extends StatelessWidget {
             errorBorder: MyThemeTextField.errorBorder,
             contentPadding: const EdgeInsets.all(14),
             border: MyThemeTextField.textFieldInputBorder,
-            label: const Text(
-              'Name',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            label: Text(
+              Localization.of(context).name,
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
             // helperText: '',
             // errorText: state.emailIsValid == false ? '' : null,
@@ -298,9 +302,9 @@ class _EmailTextField extends StatelessWidget {
             errorBorder: MyThemeTextField.errorBorder,
             contentPadding: const EdgeInsets.all(14),
             border: MyThemeTextField.textFieldInputBorder,
-            label: const Text(
-              'E-mail',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            label: Text(
+              Localization.of(context).emailTextFieldLabel,
+              style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
             // helperText: '',
             // errorText: state.emailIsValid == false ? '' : null,
@@ -353,9 +357,9 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
                 focusedBorder: MyThemeTextField.focusedBorder,
                 contentPadding: const EdgeInsets.all(14),
                 border: MyThemeTextField.textFieldInputBorder,
-                label: const Text(
-                  'Password',
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+                label: Text(
+                  Localization.of(context).passwordTextFieldLabel,
+                  style: const TextStyle(fontSize: 16, color: Colors.grey),
                 ),
                 helperMaxLines: 1));
       },

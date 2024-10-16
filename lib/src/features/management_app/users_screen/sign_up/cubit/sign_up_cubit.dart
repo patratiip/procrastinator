@@ -9,10 +9,10 @@ part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpCubitState> {
   final IUserRepository _authenticationRepository;
+  final IGroupRepository _groupRepository;
 
-  SignUpCubit(
-    this._authenticationRepository,
-  ) : super(const SignUpCubitState());
+  SignUpCubit(this._authenticationRepository, this._groupRepository)
+      : super(const SignUpCubitState());
 
   ///emailChanged
   void emailChanged(String value) {
@@ -127,14 +127,15 @@ class SignUpCubit extends Cubit<SignUpCubitState> {
             group: state.groupRef,
             schoolGeoPosition: state.schoolGeoPosition,
           ));
+          await _groupRepository.addStudentToGroup(
+              state.groupRef!, myUser.userId);
         } else {
           await _authenticationRepository
               .setUserData(myUser.copyWith(userType: state.userType));
         }
 
-        emit(state.copyWith(status: SignUpStatus.success));
+        // emit(state.copyWith(status: SignUpStatus.success));
       } on SignUpWithEmailAndPasswordFailure catch (e) {
-        //TODO exception
         emit(
           state.copyWith(
             errorMessage: e.message,
@@ -142,8 +143,10 @@ class SignUpCubit extends Cubit<SignUpCubitState> {
           ),
         );
       } catch (e) {
-        emit(state.copyWith(
-            errorMessage: e.toString(), status: SignUpStatus.failure));
+        //TODO exception
+        log(e.toString());
+        // emit(state.copyWith(
+        //     errorMessage: e.toString(), status: SignUpStatus.failure));
       }
     }
   }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,8 +34,6 @@ class KursplanBloc extends Bloc<KursplanEvent, KursplanState> {
           // _lectionsRepository.addLectionsToHive(lectionsList);
 
           emit(LectionsListLoadedState(lectionsList: lectionsList));
-
-          // print('Bloc: Lections data was updated ${event.lectionsList}');
         } else {
           emit(LectionsListLoadingState());
         }
@@ -45,7 +44,7 @@ class KursplanBloc extends Bloc<KursplanEvent, KursplanState> {
   @override
   Future<void> close() {
     _lectionListListener.cancel();
-    print('Lections subscription was cancelled');
+    log('Lections subscription was cancelled');
     return super.close();
   }
 }

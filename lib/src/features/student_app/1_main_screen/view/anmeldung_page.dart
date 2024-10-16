@@ -9,18 +9,17 @@ class AnmeldungPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
-        primary: true,
-        child: Column(
-          children: [
-            CalendarEntryAddingWidget(),
-            LoosedEntriesListWidget(),
-            TodayLectionWidget(),
-            LastEntrysListWidget(),
-          ],
-        ),
+    return const SingleChildScrollView(
+      padding: EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
+      primary: true,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          CalendarEntryAddingWidget(),
+          LoosedEntriesListWidget(),
+          TodayLectionWidget(),
+          LastEntrysListWidget(),
+        ],
       ),
     );
   }

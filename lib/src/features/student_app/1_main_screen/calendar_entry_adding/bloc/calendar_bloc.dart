@@ -23,9 +23,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   late final StreamSubscription<List<Lection>?> _lectionListListener;
   final IGeolocationRepository _geolocationRepository;
 
-  // //Loosed Bloc
-  // final LoosedEntrysBloc _loosedEntriesBloc;
-  // late final StreamSubscription _loosedEntriesBlocStreamSubscription;
 
   CalendarBloc(
       {required IUserRepository userRepository,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/di/widget/app_dependencies_scope.dart';
+import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/components/elements_components/statistic_progress_diagramm_component.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/bloc/statistic_diagramm_bloc.dart';
@@ -39,11 +39,19 @@ class StatisticCircle extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                     ),
-                    IconButton(
+                    BlocBuilder<StatisticDiagrammBloc, StatisticDiagrammState>(
+                      builder: (context, state) {
+                        if (state is LoadedEntrysCountState) {
+                          return IconButton(
 
-                        //TODO Add statistic download as CSV feature
-                        onPressed: () {},
-                        icon: const Icon(Icons.cloud_download_rounded))
+                              //TODO Add statistic download as CSV feature
+                              onPressed: () {},
+                              icon: const Icon(Icons.cloud_download_rounded));
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    )
                   ],
                 ),
               ),
@@ -114,8 +122,11 @@ class StatisticCircle extends StatelessWidget {
                       ),
                     );
                   } else {
-                    return Text(
-                        Localization.of(context).youHaveNoOneEntryAdded);
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 60),
+                      child:
+                          Text(Localization.of(context).youHaveNoOneEntryAdded),
+                    );
                   }
                 },
               ),

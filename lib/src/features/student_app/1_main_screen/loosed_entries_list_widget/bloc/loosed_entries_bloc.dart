@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -32,12 +33,11 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
     List<Lection> lectionsListFromStream = [];
 
     //Subscription - Entries List from Repo
-    _entrysListListener = entriesRepository.getVisits().listen(
+    _entrysListListener = _entriesRepository.getVisits().listen(
       (entriesList) {
         if (entriesList != null && entriesList.isNotEmpty) {
           entriesListFromStream = entriesList;
         }
-        // print('Loosed Bloc Stram (Enrty): e: $entriesList, _l: $_lectionsList');
         if (entriesListFromStream.isNotEmpty &&
             lectionsListFromStream.isNotEmpty) {
           add(ComairingLectionsAndVisitsEvent(
@@ -46,16 +46,15 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
           ));
         }
       },
-      // cancelOnError: false,
+      cancelOnError: false,
     );
 
     //Subscription - Lessons Bloc
-    _lectionListListener = lectionsRepository.getLections().listen(
+    _lectionListListener = _lectionsRepository.getLections().listen(
       (lectionsList) {
         if (lectionsList != null && lectionsList.isNotEmpty) {
           lectionsListFromStream = lectionsList;
         }
-        // print( 'Loosed Bloc Stram (Lection): _e: $_entriesList, l: $lectionsList');
         if (lectionsListFromStream.isNotEmpty &&
             entriesListFromStream.isNotEmpty) {
           add(ComairingLectionsAndVisitsEvent(
@@ -79,10 +78,6 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
 
           if (loosedLections.isNotEmpty) {
             emit(ComaredEntrysState(loosedLectionsList: loosedLections));
-            // print('Bloc: compared $loosedLections');
-            // } catch (e) {
-            //   CompairingEntrysFailure(exception: e);
-            // }
           } else {
             emit(CopmaredAllClear());
           }
@@ -95,7 +90,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
   Future<void> close() {
     _entrysListListener.cancel();
     _lectionListListener.cancel();
-    print('Loosed lections subscription was cancelled');
+    log('Loosed lections subscription was cancelled');
     return super.close();
   }
 }

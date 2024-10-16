@@ -1,3 +1,3 @@
 export 'bloc/calendar_bloc.dart';
-export 'domain/domain.dart';
+export 'validators/validators.dart';
 export 'view/view.dart';

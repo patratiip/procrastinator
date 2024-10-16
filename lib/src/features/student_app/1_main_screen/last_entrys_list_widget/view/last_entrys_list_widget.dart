@@ -10,52 +10,49 @@ class LastEntrysListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 24, bottom: 24),
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: BlocBuilder<EntrysListBloc, EntriesListState>(
-            builder: (context, state) {
-              if (state is EntriesListLoadedState) {
-                return Center(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        Localization.of(context).lastFiveEntriesWidgetHeader,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                      ListView.builder(
-                          primary: false,
-                          shrinkWrap: true,
-                          itemCount: state.userVisits!.length < 5
-                              ? state.userVisits!.length
-                              : 5,
-                          itemBuilder: (BuildContext context, int index) {
-                            return EntryCardComponent(
-                              visitData: state.userVisits![index],
-                            );
-                          })
-                    ],
-                  ),
-                );
-              } else if (state is EntriesListLoadingState) {
-                return const Center(
-                    child: SizedBox(
-                  height: 32,
-                  width: 32,
-                  child: CircularProgressIndicator(
-                    color: MyAppColorScheme.primary,
-                  ),
-                ));
-              } else {
-                return const SizedBox();
-              }
-            },
-          ),
-        ),
-      ),
+    return BlocBuilder<EntrysListBloc, EntriesListState>(
+      builder: (context, state) {
+        if (state is EntriesListLoadedState && state.userVisits!.isNotEmpty) {
+          return Center(
+              child: Padding(
+                  padding: const EdgeInsets.only(top: 24, bottom: 24),
+                  child: Container(
+                      constraints: const BoxConstraints(maxWidth: 600),
+                      child: Center(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            Localization.of(context)
+                                .lastFiveEntriesWidgetHeader,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          ListView.builder(
+                              primary: false,
+                              shrinkWrap: true,
+                              itemCount: state.userVisits!.length < 5
+                                  ? state.userVisits!.length
+                                  : 5,
+                              itemBuilder: (BuildContext context, int index) {
+                                return EntryCardComponent(
+                                  visitData: state.userVisits![index],
+                                );
+                              })
+                        ],
+                      )))));
+        } else if (state is EntriesListLoadingState) {
+          return const Center(
+              child: SizedBox(
+            height: 32,
+            width: 32,
+            child: CircularProgressIndicator(
+              color: MyAppColorScheme.primary,
+            ),
+          ));
+        } else {
+          return const SizedBox();
+        }
+      },
     );
   }
 }
