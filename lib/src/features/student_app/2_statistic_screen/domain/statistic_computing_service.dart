@@ -26,7 +26,7 @@ class StatisticComputingServise {
   int computeKrankQty(List<Entry> entries) {
     int count = 0;
     for (var entry in entries) {
-      if (entry.entryType == EntryType.krank) {
+      if (entry.entryType == EntryType.sick) {
         count += 1;
       }
     }
@@ -36,7 +36,7 @@ class StatisticComputingServise {
   int computeFehlQty(List<Entry> entries) {
     int count = 0;
     for (var entry in entries) {
-      if (entry.entryType == EntryType.fehl) {
+      if (entry.entryType == EntryType.loosed) {
         count += 1;
       }
     }

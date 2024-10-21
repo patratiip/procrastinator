@@ -1,7 +1,7 @@
 part of 'calendar_bloc.dart';
 
 enum CalendarStateStatus {
-  disabled,
+  initial,
   hasDate,
   hasType,
   inProgress,
@@ -12,11 +12,8 @@ enum CalendarStateStatus {
 }
 
 enum CalendarStateMessage {
-  //default
   empty,
-  //all is done
   allEntriesAdded,
-  //errors
   futureError,
   schoolOnlyToday,
   enrtyWithThisDateExists,
@@ -28,8 +25,9 @@ enum CalendarStateMessage {
 final class CalendarState extends Equatable {
   final DateTime? date;
   final CalendarFormat? calendarFormat;
-  final String? type;
-  final bool isValid;
+  final EntryType? entryType;
+  final List<Entry> entriesList;
+  final List<Lection> lectionsList;
   final dynamic value;
   final CalendarStateMessage message;
   final CalendarStateStatus status;
@@ -37,18 +35,20 @@ final class CalendarState extends Equatable {
   const CalendarState({
     this.date,
     this.calendarFormat,
-    this.type,
-    this.isValid = true,
+    this.entryType,
+    this.entriesList = const [],
+    this.lectionsList = const [],
     this.value,
     this.message = CalendarStateMessage.empty,
-    this.status = CalendarStateStatus.disabled,
+    this.status = CalendarStateStatus.initial,
   });
 
   CalendarState copyWith({
     DateTime? date,
     CalendarFormat? calendarFormat,
-    String? type,
-    bool? isValid,
+    EntryType? entryType,
+    List<Entry>? entriesList,
+    List<Lection>? lectionsList,
     dynamic value,
     CalendarStateMessage? message,
     CalendarStateStatus? status,
@@ -56,8 +56,9 @@ final class CalendarState extends Equatable {
     return CalendarState(
       date: date ?? this.date,
       calendarFormat: calendarFormat ?? this.calendarFormat,
-      type: type ?? this.type,
-      isValid: isValid ?? this.isValid,
+      entryType: entryType ?? this.entryType,
+      entriesList: entriesList ?? this.entriesList,
+      lectionsList: lectionsList ?? this.lectionsList,
       value: value ?? this.value,
       message: message ?? this.message,
       status: status ?? this.status,
@@ -65,6 +66,14 @@ final class CalendarState extends Equatable {
   }
 
   @override
-  List<Object?> get props =>
-      [date, calendarFormat, type, isValid, value, message, status];
+  List<Object?> get props => [
+        date,
+        calendarFormat,
+        entryType,
+        entriesList,
+        lectionsList,
+        value,
+        message,
+        status,
+      ];
 }

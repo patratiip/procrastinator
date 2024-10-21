@@ -82,9 +82,7 @@ class StudentApp extends StatelessWidget {
                     geolocationRepository:
                         StudentAppScope.depConOf(context, listen: false)
                             .deviceGeolocationRepository,
-                  )
-              // ..add(CalendarInitializationEvent())
-              ),
+                  )..add(CalendarSubscriptionsRequested())),
           BlocProvider(
               create: (context) => UserProfileBloc(
                   userRepository:

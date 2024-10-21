@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:equatable/equatable.dart';
@@ -11,18 +12,16 @@ import 'package:uuid/uuid.dart';
 
 part 'calendar_event.dart';
 part 'calendar_state.dart';
+part 'validators_calendar_bloc.dart';
 
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
-  //
   final IUserRepository _userRepository;
-  //Entries Repo
   final IEntryRepositoty _entriesRepository;
-  late final StreamSubscription<List<Entry>?> _entrysListListener;
-  //Lessons Repo
   final ILectionRepository _lectionsRepository;
-  late final StreamSubscription<List<Lection>?> _lectionListListener;
   final IGeolocationRepository _geolocationRepository;
 
+  late final StreamSubscription<List<Entry>?> _entrysListListener;
+  late final StreamSubscription<List<Lection>?> _lectionListListener;
 
   CalendarBloc(
       {required IUserRepository userRepository,
@@ -34,326 +33,217 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         _lectionsRepository = lectionsRepository,
         _geolocationRepository = geolocationRepository,
         super(CalendarState(
-          date: DateTime.now(),
+          date: _normalizeDate(DateTime.now()),
           calendarFormat: CalendarFormat.week,
         )) {
-    //
-    //
+    on<CalendarNothingToAddEvent>(_calendarNothingToAddEvent);
+    on<CalendarSubscriptionsRequested>(_calendarSubscriptionsRequested);
+    on<CalendarEntriesUpdated>(_calendarEntriesUpdated,
+        transformer: sequential());
+    on<CalendarLectionsUpdated>(_calendarLectionsUpdated,
+        transformer: sequential());
+    //TODO add a timing in that user can change calendar formats
+    on<CalendarFormatChanged>(_calendarFormatChanged,
+        transformer: sequential());
+    on<CalendarDateChanged>(_calendarDateChanged, transformer: sequential());
+    on<CalendarEntryTypeChanged>(_calendarEntryTypeChanged,
+        transformer: sequential());
+    on<CalendarAddEntry>(_calendarAddEntry, transformer: droppable());
+  }
 
-    List<Entry> entriesListFromStream = [];
-    List<Lection> lectionsListFromStream = [];
+  /// Nothing to add
+  ///
+  Future<void> _calendarNothingToAddEvent(
+      CalendarNothingToAddEvent event, Emitter<CalendarState> emit) async {
+    await Future<void>.delayed(const Duration(seconds: 2));
+    emit(state.copyWith(
+      message: CalendarStateMessage.allEntriesAdded,
+      status: CalendarStateStatus.allDone,
+    ));
+  }
 
-    //Subscription - Entries List from Repo
+  /// User changed calendar format
+  ///
+  Future<void> _calendarFormatChanged(
+      CalendarFormatChanged event, Emitter<CalendarState> emit) async {
+    emit(state.copyWith(calendarFormat: event.calendarFormat));
+  }
+
+  /// Got new Entries list
+  ///
+  Future<void> _calendarEntriesUpdated(
+      CalendarEntriesUpdated event, Emitter<CalendarState> emit) async {
+    emit(state.copyWith(entriesList: event.entriesList));
+  }
+
+  /// Got new Entries list
+  ///
+  Future<void> _calendarLectionsUpdated(
+      CalendarLectionsUpdated event, Emitter<CalendarState> emit) async {
+    emit(state.copyWith(lectionsList: event.lectionsList));
+  }
+
+  /// User changed date
+  ///
+  Future<void> _calendarDateChanged(
+      CalendarDateChanged event, Emitter<CalendarState> emit) async {
+    emit(state.copyWith(date: _normalizeDate(event.date)));
+
+    _isStateValidCheckerAndErrorEmitter(emit: emit);
+  }
+
+  /// User changed type of entry
+  ///
+  Future<void> _calendarEntryTypeChanged(
+      CalendarEntryTypeChanged event, Emitter<CalendarState> emit) async {
+    emit(state.copyWith(entryType: event.entryType));
+
+    _isStateValidCheckerAndErrorEmitter(emit: emit);
+  }
+
+  /// User submitted choise
+  ///
+  Future<void> _calendarAddEntry(
+      CalendarAddEntry event, Emitter<CalendarState> emit) async {
+    if (state.status != CalendarStateStatus.readyToAdding) return;
+
+    emit(state.copyWith(status: CalendarStateStatus.inProgress));
+
+    Entry entry = Entry(
+        visitID: const Uuid().v4(),
+        date: state.date!,
+        entryType: state.entryType!);
+
+    if (!await _isStudentInSchoolAndErrorEmitter(emit: emit)) {
+      return;
+    }
+
+    // Entry Adding
+    try {
+      _entriesRepository.addEntry(entry);
+      emit(state.copyWith(status: CalendarStateStatus.success));
+    } catch (e) {
+      emit(state.copyWith(
+          value: e,
+          message: CalendarStateMessage.errorOnGeopositionCheck,
+          status: CalendarStateStatus.error));
+      log(e.toString());
+      rethrow;
+    }
+  }
+
+  /// Subscriptions
+  Future<void> _calendarSubscriptionsRequested(
+      CalendarSubscriptionsRequested event, Emitter<CalendarState> emit) async {
     _entrysListListener = _entriesRepository.getVisits().listen(
       (entriesList) {
-        if (entriesList != null && entriesList.isNotEmpty) {
-          entriesListFromStream = entriesList;
-          if (state.status != CalendarStateStatus.inProgress) {
-            add(CalendarDateChanged(date: state.date!));
-          }
+        add(CalendarEntriesUpdated(entriesList));
+        if (state.status != CalendarStateStatus.initial) {
+          _isStateValidCheckerAndErrorEmitter(emit: emit);
         }
       },
       cancelOnError: false,
     );
 
-    //Subscription - Lessons Bloc
     _lectionListListener = _lectionsRepository.getLections().listen(
       (lectionsList) {
-        if (lectionsList != null && lectionsList.isNotEmpty) {
-          lectionsListFromStream = lectionsList;
-        }
+        add(CalendarLectionsUpdated(lectionsList));
       },
       cancelOnError: false,
     );
-
-    //Subscription - Loosed Bloc
-    // _loosedEntriesBlocStreamSubscription = _loosedEntriesBloc.stream.listen(
-    //   (state) {
-    //     if (state is CopmaredAllClear) {
-    //       // if (state.loosedLectionsList!.isEmpty) {
-    //       add(CalendarNothingToAddEvent());
-    //       // }
-    //     } else if (state is ComaredEntrysState) {
-    //       add(CalendarSomethingToAddEvent());
-    //     }
-    //   },
-    //   cancelOnError: false,
-    // );
-
-    // ///Initialization
-    // on<CalendarInitializationEvent>((event, emit) async {
-    //   // await Future<void>.delayed(const Duration(seconds: 2));
-    //   // emit(state.copyWith(
-    //   //   status: 'Hast du alles geschaft!',
-    //   // ));
-    // });
-
-    ///Nothing to add
-    on<CalendarNothingToAddEvent>((event, emit) async {
-      await Future<void>.delayed(const Duration(seconds: 2));
-      emit(state.copyWith(
-        message: CalendarStateMessage.allEntriesAdded,
-        status: CalendarStateStatus.allDone,
-      ));
-    });
-
-    // ///Something to add
-    // on<CalendarSomethingToAddEvent>(
-    //   (event, emit) async {
-    //     await Future<void>.delayed(const Duration(seconds: 2));
-    //     emit(state.copyWith(
-    //       status: NewCalendarStateStatus.disabled,
-    //     ));
-    //   },
-    //   transformer: sequential(),
-    // );
-
-    ///User changed calendar format
-    on<CalendarFormatChanged>((event, emit) {
-      emit(state.copyWith(calendarFormat: event.calendarFormat));
-    });
-
-    ///User changed date
-    on<CalendarDateChanged>((event, emit) {
-      emit(state.copyWith(isValid: true));
-
-      final today = DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day);
-
-      final newDate =
-          DateTime(event.date.year, event.date.month, event.date.day);
-
-      emit(state.copyWith(date: newDate));
-
-      //Future check
-      if (newDate.isAfter(today)) {
-        emit(state.copyWith(
-          isValid: false,
-          message: CalendarStateMessage.futureError,
-          status: CalendarStateStatus.error,
-        ));
-      }
-
-      //School and Past check
-      if (state.isValid &&
-          state.type == 'Schule' &&
-          !newDate.isAtSameMomentAs(today)) {
-        emit(state.copyWith(
-          isValid: false,
-          message: CalendarStateMessage.schoolOnlyToday,
-          status: CalendarStateStatus.error,
-        ));
-      }
-
-      //Entry exist check
-      if (state.isValid && entriesListFromStream.isNotEmpty) {
-        final entriesDateList = entriesListFromStream.map((entry) {
-          return DateTime(
-            entry.date.year,
-            entry.date.month,
-            entry.date.day,
-          );
-        }).toList();
-
-        if (entriesDateList.contains(newDate)) {
-          emit(state.copyWith(
-            isValid: false,
-            message: CalendarStateMessage.enrtyWithThisDateExists,
-            status: CalendarStateStatus.error,
-          ));
-        }
-      }
-
-      //Lection at that date exists check
-      if (state.isValid && lectionsListFromStream.isNotEmpty) {
-        final lectionsDateList = lectionsListFromStream.map((lection) {
-          return DateTime(
-            lection.date!.year,
-            lection.date!.month,
-            lection.date!.day,
-          );
-        }).toList();
-
-        if (lectionsDateList.contains(newDate) == false) {
-          emit(state.copyWith(
-            isValid: false,
-            message: CalendarStateMessage.noLessonsToday,
-            status: CalendarStateStatus.error,
-          ));
-        }
-      }
-
-      //Total Validation check
-      if (state.isValid) {
-        emit(state.copyWith(
-            // date: newDate,
-            status: state.type != null
-                ? CalendarStateStatus.readyToAdding
-                : CalendarStateStatus.hasDate));
-      }
-    });
-
-    ///User changed type of entry
-    on<CalendarEntryTypeChanged>((event, emit) {
-      emit(state.copyWith(isValid: true));
-      final newType = event.type;
-      emit(state.copyWith(type: newType));
-
-      final today = DateTime(
-          DateTime.now().year, DateTime.now().month, DateTime.now().day);
-      final stateDate =
-          DateTime(state.date!.year, state.date!.month, state.date!.day);
-
-      //Future check
-      if (stateDate.isAfter(today)) {
-        emit(state.copyWith(
-          isValid: false,
-          message: CalendarStateMessage.futureError,
-          status: CalendarStateStatus.error,
-        ));
-      }
-
-      //School and Past check
-      if (state.isValid &&
-          newType == 'Schule' &&
-          !stateDate.isAtSameMomentAs(today)) {
-        emit(state.copyWith(
-          isValid: false,
-          message: CalendarStateMessage.schoolOnlyToday,
-          status: CalendarStateStatus.error,
-        ));
-      }
-
-      //Entry exist check
-      if (state.isValid && entriesListFromStream.isNotEmpty) {
-        final entriesDateList = entriesListFromStream.map((entry) {
-          return DateTime(
-            entry.date.year,
-            entry.date.month,
-            entry.date.day,
-          );
-        }).toList();
-
-        if (entriesDateList.contains(stateDate)) {
-          emit(state.copyWith(
-            isValid: false,
-            message: CalendarStateMessage.enrtyWithThisDateExists,
-            status: CalendarStateStatus.error,
-          ));
-        }
-      }
-
-      //Lection at that date exists check
-      if (state.isValid && lectionsListFromStream.isNotEmpty) {
-        final lectionsDateList = lectionsListFromStream.map((lection) {
-          return DateTime(
-            lection.date!.year,
-            lection.date!.month,
-            lection.date!.day,
-          );
-        }).toList();
-
-        if (lectionsDateList.contains(stateDate) == false) {
-          emit(state.copyWith(
-            isValid: false,
-            message: CalendarStateMessage.noLessonsToday,
-            status: CalendarStateStatus.error,
-          ));
-        }
-      }
-
-      //Total Validation check
-      if (state.isValid) {
-        emit(state.copyWith(
-            status: state.date != null
-                ? CalendarStateStatus.readyToAdding
-                : CalendarStateStatus.hasType));
-      }
-    });
-
-    ///User submitted choise
-    on<CalendarAddEntry>((event, emit) async {
-      if (state.status == CalendarStateStatus.readyToAdding) {
-        emit(state.copyWith(
-          isValid: true,
-          status: CalendarStateStatus.inProgress,
-        ));
-
-        final entryType = state.type;
-
-        Entry entry = Entry(
-            visitID: const Uuid().v4(),
-            date: state.date!,
-            entryType: EntryType.homeOffice);
-
-        bool typeDependIsOK = false;
-
-        //School Geoposition Check
-        if (entryType == 'Schule') {
-          entry = entry.copyWith(entryType: EntryType.schoolVisit);
-
-          try {
-            final user = await _userRepository.user.first;
-            final schoolPosition = user.schoolGeoPosition;
-            log(schoolPosition.toString());
-
-            final userGeoPosition =
-                await _geolocationRepository.determinePosition();
-            log(userGeoPosition.toString());
-
-            final distanceToSchool = _geolocationRepository.distanceToSchool(
-                userGeoposition: userGeoPosition,
-                schoolLatitude: schoolPosition!.latitude,
-                schoolLongtitude: schoolPosition.longitude);
-
-            log('DISTANCE: $distanceToSchool');
-
-            if (distanceToSchool <= 100) {
-              typeDependIsOK = true;
-            } else {
-              emit(state.copyWith(
-                isValid: false,
-                value: distanceToSchool.toInt(),
-                message: CalendarStateMessage.distanceToSchool,
-                status: CalendarStateStatus.error,
-              ));
-              typeDependIsOK = false;
-            }
-          } catch (e) {
-            emit(state.copyWith(
-                isValid: false,
-                value: e,
-                message: CalendarStateMessage.errorOnGeopositionCheck,
-                status: CalendarStateStatus.error));
-            log(e.toString());
-            rethrow;
-          }
-        }
-
-        if (entryType == 'Heim') {
-          entry = entry.copyWith(entryType: EntryType.homeOffice);
-          typeDependIsOK = true;
-        } else if (entryType == 'Krank') {
-          entry = entry.copyWith(entryType: EntryType.krank);
-          typeDependIsOK = true;
-        } else if (entryType == 'Fehl') {
-          entry = entry.copyWith(entryType: EntryType.fehl);
-          typeDependIsOK = true;
-        }
-
-        // FINALLY ENTRY ADDING... or not :(
-
-        if (typeDependIsOK) {
-          entriesRepository.addEntry(entry);
-          // print('Calendar Bloc: Entry was added $entry');
-          await Future<void>.delayed(const Duration(seconds: 1));
-          emit(state.copyWith(
-            status: CalendarStateStatus.success,
-          ));
-        } else {}
-      } else {}
-    });
   }
+
+  /// Checks if everything is allright or handled an Error State
+  bool _isStateValidCheckerAndErrorEmitter(
+      {required Emitter<CalendarState> emit}) {
+    emit(state.copyWith(status: CalendarStateStatus.initial));
+    // log(state.lectionsList.toString());
+
+    // Future check
+    if (!_isDateInTheFuture(state.date!)) {
+      emit(state.copyWith(
+        message: CalendarStateMessage.futureError,
+        status: CalendarStateStatus.error,
+      ));
+      return false;
+    }
+
+    // School and Past check
+    if (!_ifTypeIsSchoolDateIsToday(state.entryType, state.date!)) {
+      emit(state.copyWith(
+        message: CalendarStateMessage.schoolOnlyToday,
+        status: CalendarStateStatus.error,
+      ));
+      return false;
+    }
+
+    // Entry exist check
+    if (state.entriesList.isNotEmpty &&
+        !_entryAtThatDateExist(state.date!, state.entriesList)) {
+      emit(state.copyWith(
+        message: CalendarStateMessage.enrtyWithThisDateExists,
+        status: CalendarStateStatus.error,
+      ));
+      return false;
+    }
+
+    // Lection at that date exists check
+    if (state.lectionsList.isNotEmpty &&
+        !_lectionWithTisDateExist(state.date!, state.lectionsList)) {
+      emit(state.copyWith(
+        message: CalendarStateMessage.noLessonsToday,
+        status: CalendarStateStatus.error,
+      ));
+      return false;
+    }
+
+    emit(state.copyWith(status: _isReadyToAdding()));
+    return true;
+  }
+
+  ///
+  CalendarStateStatus _isReadyToAdding() {
+    return state.entryType != null
+        ? CalendarStateStatus.readyToAdding
+        : CalendarStateStatus.hasDate;
+  }
+
+  /// Checks if Student is in the scool
+  /// or handled an Error State with a distance to school
+  Future<bool> _isStudentInSchoolAndErrorEmitter(
+      {required Emitter<CalendarState> emit}) async {
+    if (state.entryType! != EntryType.schoolVisit) return true;
+    try {
+      final user = await _userRepository.user.first;
+      final schoolPosition = user.schoolGeoPosition;
+
+      final userGeoPosition = await _geolocationRepository.determinePosition();
+
+      final distanceToSchool = _geolocationRepository.distanceToSchool(
+          userGeoposition: userGeoPosition,
+          schoolLatitude: schoolPosition!.latitude,
+          schoolLongtitude: schoolPosition.longitude);
+
+      if (distanceToSchool >= 100) {
+        emit(state.copyWith(
+          value: distanceToSchool.toInt(),
+          message: CalendarStateMessage.distanceToSchool,
+          status: CalendarStateStatus.error,
+        ));
+        return false;
+      } else {
+        return true;
+      }
+    } catch (e) {
+      emit(state.copyWith(
+          value: e,
+          message: CalendarStateMessage.errorOnGeopositionCheck,
+          status: CalendarStateStatus.error));
+      log(e.toString());
+      return false;
+    }
+  }
+
   @override
   Future<void> close() {
     _entrysListListener.cancel();

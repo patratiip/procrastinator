@@ -1,4 +1,5 @@
 import 'package:animated_icon/animated_icon.dart';
+import 'package:entry_repository/entry_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -231,13 +232,16 @@ class DropDownEntry extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<DropdownMenuEntry> dropDownCalendarOptions = [
       DropdownMenuEntry(
-          label: Localization.of(context).schoolEntryType, value: 0),
+          label: Localization.of(context).schoolEntryType,
+          value: EntryType.schoolVisit),
       DropdownMenuEntry(
-          label: Localization.of(context).homeEntryType, value: 1),
+          label: Localization.of(context).homeEntryType,
+          value: EntryType.homeOffice),
       DropdownMenuEntry(
-          label: Localization.of(context).sickEntryType, value: 2),
+          label: Localization.of(context).sickEntryType, value: EntryType.sick),
       DropdownMenuEntry(
-          label: Localization.of(context).looseEntryType, value: 3),
+          label: Localization.of(context).looseEntryType,
+          value: EntryType.loosed),
     ];
     return Container(
       margin: const EdgeInsets.only(top: 12, bottom: 22, left: 8, right: 8),
@@ -273,21 +277,10 @@ class DropDownEntry extends StatelessWidget {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 const RoundedRectangleBorder(),
                 0.1))),
-        onSelected: (value) {
+        onSelected: (entryType) {
           final bloc = BlocProvider.of<CalendarBloc>(context);
-          late final String? type;
-          switch (dropDownCalendarOptions[value].value) {
-            case 0:
-              type = 'Schule';
-            case 1:
-              type = 'Heim';
-            case 2:
-              type = 'Krank';
-            case 3:
-              type = 'Fehl';
-          }
 
-          bloc.add(CalendarEntryTypeChanged(type: type!));
+          bloc.add(CalendarEntryTypeChanged(entryType: entryType));
         },
       ),
     );
@@ -305,7 +298,7 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(8),
           width: double.infinity,
-          color: MyAppColorScheme.errorColor,
+          // color: MyAppColorScheme.errorColor,
           child: Text(
             switch (state.message) {
               CalendarStateMessage.empty => '',
@@ -325,7 +318,7 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
             },
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: Colors.white,
+                  color: MyAppColorScheme.errorColor,
                 ),
           ),
         );
@@ -376,7 +369,8 @@ class EntryAddingButton extends StatelessWidget {
     return BlocListener<LoosedEntriesBloc, LoosedEntriesState>(
       listener: (context, state) {
         if (state is CopmaredAllClear) {
-          context.read<CalendarBloc>().add(CalendarNothingToAddEvent());
+          //TODO add Something to add Event
+          // context.read<CalendarBloc>().add(CalendarNothingToAddEvent());
         }
       },
       child: BlocBuilder<CalendarBloc, CalendarState>(

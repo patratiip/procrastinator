@@ -4,10 +4,10 @@ sealed class CalendarEvent extends Equatable {
   const CalendarEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
-final class CalendarInitializationEvent extends CalendarEvent {}
+final class CalendarSubscriptionsRequested extends CalendarEvent {}
 
 final class CalendarNothingToAddEvent extends CalendarEvent {}
 
@@ -21,10 +21,10 @@ final class CalendarDateChanged extends CalendarEvent {
 }
 
 final class CalendarEntryTypeChanged extends CalendarEvent {
-  const CalendarEntryTypeChanged({required this.type});
-  final String type;
+  const CalendarEntryTypeChanged({required this.entryType});
+  final EntryType entryType;
   @override
-  List<Object> get props => [type];
+  List<Object> get props => [entryType];
 }
 
 final class CalendarFormatChanged extends CalendarEvent {
@@ -32,6 +32,24 @@ final class CalendarFormatChanged extends CalendarEvent {
   final CalendarFormat calendarFormat;
   @override
   List<Object> get props => [calendarFormat];
+}
+
+class CalendarEntriesUpdated extends CalendarEvent {
+  final List<Entry>? entriesList;
+
+  const CalendarEntriesUpdated(this.entriesList);
+
+  @override
+  List<Object?> get props => [entriesList];
+}
+
+class CalendarLectionsUpdated extends CalendarEvent {
+  final List<Lection>? lectionsList;
+
+  const CalendarLectionsUpdated(this.lectionsList);
+
+  @override
+  List<Object?> get props => [lectionsList];
 }
 
 final class CalendarAddEntry extends CalendarEvent {}

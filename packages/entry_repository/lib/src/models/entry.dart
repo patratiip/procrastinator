@@ -2,7 +2,7 @@
 import 'package:entry_repository/src/entities/entry_entity.dart';
 import 'package:equatable/equatable.dart';
 
-enum EntryType { schoolVisit, homeOffice, krank, fehl }
+enum EntryType { schoolVisit, homeOffice, sick, loosed }
 
 class Entry extends Equatable {
   final String visitID;
@@ -25,10 +25,10 @@ class Entry extends Equatable {
     if (entryType == EntryType.homeOffice) {
       entity.homeOffice = true;
     }
-    if (entryType == EntryType.krank) {
+    if (entryType == EntryType.sick) {
       entity.krank = true;
     }
-    if (entryType == EntryType.fehl) {
+    if (entryType == EntryType.loosed) {
       entity.fehl = true;
     }
 
@@ -45,10 +45,10 @@ class Entry extends Equatable {
       entry = entry.copyWith(entryType: EntryType.schoolVisit);
     }
     if (entity.krank != null) {
-      entry = entry.copyWith(entryType: EntryType.krank);
+      entry = entry.copyWith(entryType: EntryType.sick);
     }
     if (entity.fehl != null) {
-      entry = entry.copyWith(entryType: EntryType.fehl);
+      entry = entry.copyWith(entryType: EntryType.loosed);
     }
     return entry;
   }

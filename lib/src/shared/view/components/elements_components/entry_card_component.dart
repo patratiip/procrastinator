@@ -43,38 +43,38 @@ class EntryCardComponent extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8)),
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
-                    if (visitData.entryType == EntryType.schoolVisit )
+                    if (visitData.entryType == EntryType.schoolVisit)
                       const Icon(
                         FontAwesomeIcons.schoolFlag,
                         color: Colors.white,
                         size: 20,
                       ),
-                    if (visitData.entryType == EntryType.homeOffice )
+                    if (visitData.entryType == EntryType.homeOffice)
                       const Icon(
                         Icons.home_rounded,
                         color: Colors.white,
                         size: 28,
                       ),
-                    if (visitData.entryType == EntryType.krank )
+                    if (visitData.entryType == EntryType.sick)
                       const Icon(
                         Icons.sick_outlined,
                         color: Colors.white,
                         size: 28,
                       ),
-                    if (visitData.entryType == EntryType.fehl )
+                    if (visitData.entryType == EntryType.loosed)
                       const Icon(
                         Icons.close,
                         color: Colors.white,
                         size: 28,
                       ),
                   ])),
-              if (visitData.entryType == EntryType.schoolVisit )
+              if (visitData.entryType == EntryType.schoolVisit)
                 Text(Localization.of(context).schoolEntryType),
-              if (visitData.entryType == EntryType.homeOffice )
+              if (visitData.entryType == EntryType.homeOffice)
                 Text(Localization.of(context).homeEntryType),
-              if (visitData.entryType == EntryType.krank )
+              if (visitData.entryType == EntryType.sick)
                 Text(Localization.of(context).sickEntryType),
-              if (visitData.entryType == EntryType.fehl )
+              if (visitData.entryType == EntryType.loosed)
                 Text(Localization.of(context).looseEntryType),
               Text(dateFormat.format(visitData.date)),
               //Delete BUTTON

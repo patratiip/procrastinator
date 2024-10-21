@@ -47,7 +47,7 @@ class EntrysListBloc extends Bloc<EntriesListEvent, EntriesListState> {
   @override
   Future<void> close() {
     _entrysListListener.cancel();
-    log('Entrys subscription was cancelled');
+    log('Entries subscription was cancelled');
     return super.close();
   }
 }
