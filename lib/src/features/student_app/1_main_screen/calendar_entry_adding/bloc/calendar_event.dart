@@ -7,7 +7,7 @@ sealed class CalendarEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-final class CalendarSubscriptionsRequested extends CalendarEvent {}
+// final class CalendarSubscriptionsRequested extends CalendarEvent {}
 
 final class CalendarNothingToAddEvent extends CalendarEvent {}
 

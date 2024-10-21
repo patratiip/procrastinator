@@ -36,8 +36,10 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
           date: _normalizeDate(DateTime.now()),
           calendarFormat: CalendarFormat.week,
         )) {
+    _initializeListeners();
+
     on<CalendarNothingToAddEvent>(_calendarNothingToAddEvent);
-    on<CalendarSubscriptionsRequested>(_calendarSubscriptionsRequested);
+
     on<CalendarEntriesUpdated>(_calendarEntriesUpdated,
         transformer: sequential());
     on<CalendarLectionsUpdated>(_calendarLectionsUpdated,
@@ -50,6 +52,28 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         transformer: sequential());
     on<CalendarAddEntry>(_calendarAddEntry, transformer: droppable());
   }
+
+  /// Subscriptons initialization
+  void _initializeListeners() {
+    _entrysListListener = _entriesRepository.getVisits().listen(
+      (entriesList) {
+        add(CalendarEntriesUpdated(entriesList));
+        if (state.status != CalendarStateStatus.initial) {
+          add(CalendarDateChanged(date: state.date!));
+        }
+      },
+      cancelOnError: false,
+    );
+
+    _lectionListListener = _lectionsRepository.getLections().listen(
+      (lectionsList) {
+        add(CalendarLectionsUpdated(lectionsList));
+      },
+      cancelOnError: false,
+    );
+  }
+
+
 
   /// Nothing to add
   ///
@@ -132,33 +156,9 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     }
   }
 
-  /// Subscriptions
-  Future<void> _calendarSubscriptionsRequested(
-      CalendarSubscriptionsRequested event, Emitter<CalendarState> emit) async {
-    _entrysListListener = _entriesRepository.getVisits().listen(
-      (entriesList) {
-        add(CalendarEntriesUpdated(entriesList));
-        if (state.status != CalendarStateStatus.initial) {
-          _isStateValidCheckerAndErrorEmitter(emit: emit);
-        }
-      },
-      cancelOnError: false,
-    );
-
-    _lectionListListener = _lectionsRepository.getLections().listen(
-      (lectionsList) {
-        add(CalendarLectionsUpdated(lectionsList));
-      },
-      cancelOnError: false,
-    );
-  }
-
   /// Checks if everything is allright or handled an Error State
   bool _isStateValidCheckerAndErrorEmitter(
       {required Emitter<CalendarState> emit}) {
-    emit(state.copyWith(status: CalendarStateStatus.initial));
-    // log(state.lectionsList.toString());
-
     // Future check
     if (!_isDateInTheFuture(state.date!)) {
       emit(state.copyWith(
@@ -197,15 +197,11 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       return false;
     }
 
-    emit(state.copyWith(status: _isReadyToAdding()));
+    emit(state.copyWith(
+        status: state.entryType != null
+            ? CalendarStateStatus.readyToAdding
+            : CalendarStateStatus.hasDate));
     return true;
-  }
-
-  ///
-  CalendarStateStatus _isReadyToAdding() {
-    return state.entryType != null
-        ? CalendarStateStatus.readyToAdding
-        : CalendarStateStatus.hasDate;
   }
 
   /// Checks if Student is in the scool
