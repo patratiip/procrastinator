@@ -240,6 +240,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   Future<void> close() {
     _entrysListListener.cancel();
     _lectionListListener.cancel();
+    log('Calendar listeners are closed');
     return super.close();
   }
 }
