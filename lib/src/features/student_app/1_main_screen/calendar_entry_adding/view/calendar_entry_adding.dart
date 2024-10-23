@@ -298,7 +298,7 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
         return Container(
           padding: const EdgeInsets.all(8),
           width: double.infinity,
-          // color: MyAppColorScheme.errorColor,
+          color: MyAppColorScheme.errorColor,
           child: Text(
             switch (state.message) {
               CalendarStateMessage.empty => '',
@@ -318,7 +318,7 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
             },
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                  color: MyAppColorScheme.errorColor,
+                  color: Colors.white,
                 ),
           ),
         );

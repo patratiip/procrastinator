@@ -45,11 +45,9 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     on<CalendarLectionsUpdated>(_calendarLectionsUpdated,
         transformer: sequential());
     //TODO add a timing in that user can change calendar formats
-    on<CalendarFormatChanged>(_calendarFormatChanged,
-        transformer: sequential());
+    on<CalendarFormatChanged>(_calendarFormatChanged);
     on<CalendarDateChanged>(_calendarDateChanged, transformer: sequential());
-    on<CalendarEntryTypeChanged>(_calendarEntryTypeChanged,
-        transformer: sequential());
+    on<CalendarEntryTypeChanged>(_calendarEntryTypeChanged);
     on<CalendarAddEntry>(_calendarAddEntry, transformer: droppable());
   }
 
@@ -72,8 +70,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       cancelOnError: false,
     );
   }
-
-
 
   /// Nothing to add
   ///
