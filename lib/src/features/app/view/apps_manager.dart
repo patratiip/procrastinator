@@ -4,13 +4,12 @@ import 'package:procrastinator/src/core/constant/localization/generated/l10n.dar
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/features/management_app/management_app.dart';
-import 'package:procrastinator/src/features/management_app/management_app_view.dart';
 import 'package:procrastinator/src/core/di/scopes/management_scope.dart';
 import 'package:procrastinator/src/features/student_app/student_app.dart';
 import 'package:procrastinator/src/core/di/scopes/student_app_scope.dart';
 import 'package:procrastinator/src/features/trainer_app/trainer_app.dart';
 import 'package:procrastinator/src/core/di/scopes/trainer_app_scope.dart';
-import 'package:procrastinator/src/shared/view/components/elements_components/logout_button.dart';
+import 'package:procrastinator/src/shared/view/components/logout_button.dart';
 import 'package:user_repository/user_repository.dart';
 
 class AppsManager extends StatelessWidget {

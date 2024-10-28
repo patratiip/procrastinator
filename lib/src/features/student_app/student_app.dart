@@ -19,7 +19,7 @@ class StudentApp extends StatelessWidget {
         providers: [
           //Entries
           BlocProvider(
-            create: (context) => EntrysListBloc(
+            create: (context) => EntriesListBloc(
                 entrysRepository:
                     StudentAppScope.depConOf(context, listen: false)
                         .firebaseEntryRepository),
@@ -71,18 +71,17 @@ class StudentApp extends StatelessWidget {
           //Calendar
           BlocProvider(
               create: (context) => CalendarBloc(
-                    userRepository: AppScope.depConOf(context, listen: false)
-                        .userRepository,
-                    entriesRepository:
-                        StudentAppScope.depConOf(context, listen: false)
-                            .firebaseEntryRepository,
-                    lectionsRepository:
-                        StudentAppScope.depConOf(context, listen: false)
-                            .firebaseLectionRepository,
-                    geolocationRepository:
-                        StudentAppScope.depConOf(context, listen: false)
-                            .deviceGeolocationRepository,
-                  )
+                  entriesRepository:
+                      StudentAppScope.depConOf(context, listen: false)
+                          .firebaseEntryRepository,
+                  lectionsRepository:
+                      StudentAppScope.depConOf(context, listen: false)
+                          .firebaseLectionRepository,
+                  geolocationRepository:
+                      StudentAppScope.depConOf(context, listen: false)
+                          .deviceGeolocationRepository,
+                  userSchoolGeoposition: AppScope.userOf(context, listen: false)
+                      .schoolGeoPosition!)
               // ..add(CalendarSubscriptionsRequested())
               ),
           BlocProvider(

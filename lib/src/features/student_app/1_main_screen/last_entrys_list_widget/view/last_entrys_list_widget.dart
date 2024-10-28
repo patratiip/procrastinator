@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
-import 'package:procrastinator/src/shared/view/components/elements_components/entry_card_component.dart';
+import 'package:procrastinator/src/shared/view/components/entry_card_component.dart';
 import 'package:procrastinator/src/features/student_app/1_main_screen/last_entrys_list_widget/bloc/last_entrys_list_bloc.dart';
 
 class LastEntrysListWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class LastEntrysListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EntrysListBloc, EntriesListState>(
+    return BlocBuilder<EntriesListBloc, EntriesListState>(
       builder: (context, state) {
         if (state is EntriesListLoadedState && state.userVisits!.isNotEmpty) {
           return Center(

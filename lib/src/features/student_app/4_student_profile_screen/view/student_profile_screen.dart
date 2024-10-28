@@ -4,8 +4,8 @@ import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/4_student_profile_screen/student_profile_screen.dart';
-import 'package:procrastinator/src/shared/view/components/elements_components/user_profile_options_component.dart';
-import 'package:procrastinator/src/shared/view/components/elements_components/logout_button.dart';
+import 'package:procrastinator/src/shared/view/components/user_profile_options_component.dart';
+import 'package:procrastinator/src/shared/view/components/logout_button.dart';
 
 class StudentProfilePageWidget extends StatelessWidget {
   const StudentProfilePageWidget({super.key});

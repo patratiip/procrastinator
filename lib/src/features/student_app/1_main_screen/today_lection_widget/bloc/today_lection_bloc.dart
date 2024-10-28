@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lection_repository/lection_repository.dart';
@@ -12,20 +13,29 @@ class TodayLectionBloc extends Bloc<TodayLectionEvent, TodayLectionState> {
   TodayLectionBloc({required ILectionRepository lectionsRepository})
       : _lectionsRepository = lectionsRepository,
         super(TodayLessonInitial()) {
-    on<LoadTodayLection>((event, emit) async {
-      emit(TodayLectionLoading());
+    on<TodayLectionEvent>(
+      (event, emit) => switch (event) {
+        final LoadTodayLection e => _loadTodayLection(e, emit)
+      },
+      transformer: sequential(),
+    );
+  }
 
-      try {
-        final todayLection = await _lectionsRepository.getTodayLection();
-        if (todayLection != null) {
-          emit(TodayLectionLoaded(todayLection: todayLection));
-        } else {
-          emit(TodayLectionEmpty());
-        }
-      } catch (e) {
-        log(e.toString());
-        emit(const TodayLectionFailure(exception: 'Failure'));
+  /// Loading Lection on that day if exist
+  Future<void> _loadTodayLection(
+      LoadTodayLection event, Emitter<TodayLectionState> emit) async {
+    emit(TodayLectionLoading());
+    try {
+      final todayLection = await _lectionsRepository.getTodayLection();
+      if (todayLection != null) {
+        emit(TodayLectionLoaded(todayLection: todayLection));
+      } else {
+        emit(TodayLectionEmpty());
       }
-    });
+    } on Object catch (e, st) {
+      onError(e, st);
+      emit(const TodayLectionFailure(exception: 'Failure'));
+      log(e.toString());
+    }
   }
 }

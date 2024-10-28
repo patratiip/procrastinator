@@ -11,7 +11,7 @@ sealed class CalendarEvent extends Equatable {
 
 final class CalendarNothingToAddEvent extends CalendarEvent {}
 
-final class CalendarSomethingToAddEvent extends CalendarEvent {}
+// final class CalendarSomethingToAddEvent extends CalendarEvent {}
 
 final class CalendarDateChanged extends CalendarEvent {
   const CalendarDateChanged({required this.date});

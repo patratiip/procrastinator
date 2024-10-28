@@ -15,7 +15,6 @@ part 'calendar_state.dart';
 part 'validators_calendar_bloc.dart';
 
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
-  final IUserRepository _userRepository;
   final IEntryRepositoty _entriesRepository;
   final ILectionRepository _lectionsRepository;
   final IGeolocationRepository _geolocationRepository;
@@ -23,32 +22,37 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
+  final SchoolGeoPosition _userSchoolGeoposition;
+
   CalendarBloc(
-      {required IUserRepository userRepository,
-      required IEntryRepositoty entriesRepository,
+      {required IEntryRepositoty entriesRepository,
       required ILectionRepository lectionsRepository,
-      required IGeolocationRepository geolocationRepository})
-      : _userRepository = userRepository,
-        _entriesRepository = entriesRepository,
+      required IGeolocationRepository geolocationRepository,
+      required SchoolGeoPosition userSchoolGeoposition})
+      : _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,
         _geolocationRepository = geolocationRepository,
+        _userSchoolGeoposition = userSchoolGeoposition,
         super(CalendarState(
           date: _normalizeDate(DateTime.now()),
           calendarFormat: CalendarFormat.week,
         )) {
     _initializeListeners();
 
-    on<CalendarNothingToAddEvent>(_calendarNothingToAddEvent);
-
-    on<CalendarEntriesUpdated>(_calendarEntriesUpdated,
-        transformer: sequential());
-    on<CalendarLectionsUpdated>(_calendarLectionsUpdated,
-        transformer: sequential());
-    //TODO add a timing in that user can change calendar formats
-    on<CalendarFormatChanged>(_calendarFormatChanged);
-    on<CalendarDateChanged>(_calendarDateChanged, transformer: sequential());
-    on<CalendarEntryTypeChanged>(_calendarEntryTypeChanged);
-    on<CalendarAddEntry>(_calendarAddEntry, transformer: droppable());
+    on<CalendarEvent>(
+      (event, emit) => switch (event) {
+        final CalendarNothingToAddEvent e =>
+          _calendarNothingToAddEvent(e, emit),
+        final CalendarEntriesUpdated e => _calendarEntriesUpdated(e, emit),
+        final CalendarLectionsUpdated e => _calendarLectionsUpdated(e, emit),
+        //TODO add a timing in that user can change calendar formats
+        final CalendarFormatChanged e => _calendarFormatChanged(e, emit),
+        final CalendarDateChanged e => _calendarDateChanged(e, emit),
+        final CalendarEntryTypeChanged e => _calendarEntryTypeChanged(e, emit),
+        final CalendarAddEntry e => _calendarAddEntry(e, emit),
+      },
+      transformer: sequential(),
+    );
   }
 
   /// Subscriptons initialization
@@ -142,7 +146,8 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     try {
       _entriesRepository.addEntry(entry);
       emit(state.copyWith(status: CalendarStateStatus.success));
-    } catch (e) {
+    } on Object catch (e, st) {
+      onError(e, st);
       emit(state.copyWith(
           value: e,
           message: CalendarStateMessage.errorOnGeopositionCheck,
@@ -206,15 +211,12 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       {required Emitter<CalendarState> emit}) async {
     if (state.entryType! != EntryType.schoolVisit) return true;
     try {
-      final user = await _userRepository.user.first;
-      final schoolPosition = user.schoolGeoPosition;
-
       final userGeoPosition = await _geolocationRepository.determinePosition();
 
       final distanceToSchool = _geolocationRepository.distanceToSchool(
           userGeoposition: userGeoPosition,
-          schoolLatitude: schoolPosition!.latitude,
-          schoolLongtitude: schoolPosition.longitude);
+          schoolLatitude: _userSchoolGeoposition.latitude,
+          schoolLongtitude: _userSchoolGeoposition.longitude);
 
       if (distanceToSchool >= 100) {
         emit(state.copyWith(
@@ -226,7 +228,8 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       } else {
         return true;
       }
-    } catch (e) {
+    } on Object catch (e, st) {
+      onError(e, st);
       emit(state.copyWith(
           value: e,
           message: CalendarStateMessage.errorOnGeopositionCheck,

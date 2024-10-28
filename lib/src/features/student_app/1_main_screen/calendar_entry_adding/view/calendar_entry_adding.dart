@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/1_main_screen/calendar_entry_adding/bloc/calendar_bloc.dart';
-import 'package:procrastinator/src/features/student_app/1_main_screen/calendar_entry_adding/widget/widget.dart';
+import 'package:procrastinator/src/features/student_app/1_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 
 class CalendarEntryAddingWidget extends StatelessWidget {
   const CalendarEntryAddingWidget({super.key});
