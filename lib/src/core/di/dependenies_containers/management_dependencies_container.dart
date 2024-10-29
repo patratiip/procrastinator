@@ -1,8 +1,8 @@
 import 'package:entry_repository/entry_repository.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
-import 'package:procrastinator/src/features/student_app/1_main_screen/loosed_entries_list_widget/service/comaring_loosed_entries_repository.dart';
-import 'package:procrastinator/src/features/student_app/2_statistic_screen/domain/statistic_computing_service.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/service/comaring_loosed_entries_repository.dart';
+import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
 
 /// {@template student_dependencies_container}
 /// Composed dependencies from the [CompositionRoot].

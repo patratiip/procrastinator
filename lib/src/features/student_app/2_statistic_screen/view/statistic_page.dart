@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/student_app/1_main_screen/last_entrys_list_widget/view/last_entrys_list_widget.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/last_entries_list_widget/view/last_entries_list_widget.dart';
 
 import 'actual_statistic_circle_widget.dart';
 
@@ -20,7 +20,7 @@ class StatisticPageWidget extends StatelessWidget {
           Container(
               padding: const EdgeInsets.only(
                   top: 16, right: 16, left: 16, bottom: 42),
-              child: const LastEntrysListWidget()),
+              child: const LastEntriesListWidget()),
         ],
       ),
     );

@@ -7,7 +7,7 @@ sealed class UserProfileEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class UserProfileDataChanged extends UserProfileEvent {
+final class UserProfileDataChanged extends UserProfileEvent {
   final MyUser? user;
   final Group? group;
 

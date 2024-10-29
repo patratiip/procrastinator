@@ -12,11 +12,11 @@ class ManagementAppView extends StatefulWidget {
 }
 
 class _ManagementAppViewState extends State<ManagementAppView> {
-  int currentPageIndex = 0;
+  int _currentIndex = 0;
 
-  void onSelectedTab(int index) {
+  void _onSelectedTab(int index) {
     setState(() {
-      currentPageIndex = index;
+      _currentIndex = index;
     });
   }
 
@@ -28,13 +28,13 @@ class _ManagementAppViewState extends State<ManagementAppView> {
         const ManagementMainScreen(),
         const UsersScreen(),
         const ManagementProfileScreen(),
-      ][currentPageIndex],
+      ][_currentIndex],
       bottomNavigationBar: NavigationBar(
           // height: 60,
           // backgroundColor: Colors.amber,
-          onDestinationSelected: onSelectedTab,
+          onDestinationSelected: _onSelectedTab,
           indicatorColor: MyAppColorScheme.primary,
-          selectedIndex: currentPageIndex,
+          selectedIndex: _currentIndex,
           destinations: const <Widget>[
             NavigationDestination(
               selectedIcon: Icon(

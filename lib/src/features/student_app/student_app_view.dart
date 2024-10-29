@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import '1_main_screen/view/anmeldung_page.dart';
+import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import '1_student_main_screen/view/student_main_screen.dart';
 import '2_statistic_screen/view/statistic_page.dart';
-import '3_kursplan_screen/view/kursplan_page_widget.dart';
+import '3_lection_plan_screen/view/lection_plan_page_widget.dart';
 import '4_student_profile_screen/view/student_profile_screen.dart';
 
 class StudentAppView extends StatefulWidget {
@@ -17,21 +18,21 @@ class StudentAppView extends StatefulWidget {
 }
 
 class _StudentAppViewState extends State<StudentAppView> {
-  int _selectedTab = 0;
+  int _currentIndex = 0;
   //TODO Initial value
   String _appBarText = '';
 
-  void onSelectedTab(int index) {
-    if (_selectedTab == index) return;
+  void _onSelectedTab(int index) {
+    if (_currentIndex == index) return;
     setState(() {
-      _selectedTab = index;
-      if (_selectedTab == 0) {
+      _currentIndex = index;
+      if (_currentIndex == 0) {
         _appBarText = Localization.of(context).anmeldungAppBarText;
-      } else if (_selectedTab == 1) {
+      } else if (_currentIndex == 1) {
         _appBarText = Localization.of(context).statistikAppBarText;
-      } else if (_selectedTab == 2) {
+      } else if (_currentIndex == 2) {
         _appBarText = Localization.of(context).lectionsPlanAppBarText;
-      } else if (_selectedTab == 3) {
+      } else if (_currentIndex == 3) {
         _appBarText = Localization.of(context).profileAppBarText;
       }
     });
@@ -45,36 +46,68 @@ class _StudentAppViewState extends State<StudentAppView> {
             ? Localization.of(context).anmeldungAppBarText
             : _appBarText),
       ),
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(maxWidth: 600),
-          child: IndexedStack(
-            index: _selectedTab,
-            children: const [
-              AnmeldungPageWidget(),
-              StatisticPageWidget(),
-              KursplanPageWidget(),
-              StudentProfilePageWidget(),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-   
-        currentIndex: _selectedTab,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart_outlined), label: ''),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.view_list_rounded), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: '')
-        ],
-        onTap: onSelectedTab,
+      body: <Widget>[
+        const StudentMainScreen(),
+        const StatisticPageWidget(),
+        const KursplanPageWidget(),
+        const StudentProfilePageWidget(),
+      ][_currentIndex],
+      bottomNavigationBar: NavigationBar(
+          // height: 60,
+          // backgroundColor: Colors.amber,
+          onDestinationSelected: _onSelectedTab,
+          indicatorColor: MyAppColorScheme.primary,
+          selectedIndex: _currentIndex,
+          destinations: const <Widget>[
+            NavigationDestination(
+              selectedIcon: Icon(
+                Icons.home_rounded,
+                color: Colors.white,
+              ),
+              icon: Icon(Icons.home_rounded),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(
+                Icons.bar_chart_outlined,
+                color: Colors.white,
+              ),
+              icon: Icon(Icons.bar_chart_outlined),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(
+                Icons.view_list_rounded,
+                color: Colors.white,
+              ),
+              icon: Icon(Icons.view_list_rounded),
+              label: '',
+            ),
+            NavigationDestination(
+              selectedIcon: Icon(
+                Icons.person_rounded,
+                color: Colors.white,
+              ),
+              icon: Icon(Icons.person_rounded),
+              label: '',
+            ),
+          ]),
 
-        //styling
-        selectedIconTheme: const IconThemeData(size: 32),
-      ),
+      //  BottomNavigationBar(
+      //   currentIndex: _currentIndex,
+      //   items: const [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.bar_chart_outlined), label: ''),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.view_list_rounded), label: ''),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: '')
+      //   ],
+      //   onTap: _onSelectedTab,
+
+      //   //styling
+      //   selectedIconTheme: const IconThemeData(size: 32),
+      // ),
     );
   }
 }
