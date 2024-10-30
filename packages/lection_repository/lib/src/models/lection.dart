@@ -4,10 +4,10 @@ import 'package:lection_repository/lection_repository.dart';
 
 class Lection extends Equatable {
   final String? lectionID;
-  final String? theme;
-  final String? trainer;
-  final DateTime? date;
-  final String? dayOfWeek;
+  final String theme;
+  final String trainer;
+  final DateTime date;
+  final String dayOfWeek;
 
   const Lection({
     this.lectionID,
@@ -17,10 +17,9 @@ class Lection extends Equatable {
     required this.dayOfWeek,
   });
 
-//TODO null check and ID
   LectionEntity toEntity() {
     return LectionEntity(
-      // lectionID: lectionID,
+      lectionID: lectionID,
       theme: theme,
       trainer: trainer,
       date: date,
@@ -30,10 +29,10 @@ class Lection extends Equatable {
 
   static Lection fromEntity(LectionEntity entity) {
     return Lection(
-      // lectionID: entity.lectionID,
+      lectionID: entity.lectionID,
       theme: entity.theme,
       trainer: entity.trainer,
-      date: entity.date,
+      date: _normalizeDate(entity.date),
       dayOfWeek: entity.dayOfWeek,
     );
   }
@@ -55,5 +54,10 @@ class Lection extends Equatable {
       date: date ?? this.date,
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,
     );
+  }
+
+  /// Returns normalized date
+  static DateTime _normalizeDate(DateTime date) {
+    return DateTime(date.year, date.month, date.day);
   }
 }

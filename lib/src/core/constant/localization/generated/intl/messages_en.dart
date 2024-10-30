@@ -66,6 +66,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Registration with this date already exists"),
         "contacts": MessageLookupByLibrary.simpleMessage("Contacts"),
+        "dashboardAppBarText":
+            MessageLookupByLibrary.simpleMessage("Dashboard"),
         "deleteEntryDialogHeader":
             MessageLookupByLibrary.simpleMessage("Delete entry"),
         "deleteEntryShureTextDialog": MessageLookupByLibrary.simpleMessage(
@@ -125,6 +127,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "userNameAndEntriesHeader": m5,
         "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
             "Your user type is Undefined. Try logging out of the application and logging in again. If this does not work, please contact the IT department of Lutz&Grub Academy."),
+        "usersAppBarText": MessageLookupByLibrary.simpleMessage("Users"),
         "yesButtonText": MessageLookupByLibrary.simpleMessage("Yes"),
         "youHaveNoOneEntryAdded":
             MessageLookupByLibrary.simpleMessage("You have no one entry added")

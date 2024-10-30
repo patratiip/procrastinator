@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Запись с этой датой уже существует"),
         "contacts": MessageLookupByLibrary.simpleMessage("Контакты"),
+        "dashboardAppBarText": MessageLookupByLibrary.simpleMessage("Главная"),
         "deleteEntryDialogHeader":
             MessageLookupByLibrary.simpleMessage("Удалить запись"),
         "deleteEntryShureTextDialog": MessageLookupByLibrary.simpleMessage(
@@ -125,6 +126,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "userNameAndEntriesHeader": m5,
         "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
             "Ваш тип пользователя Неопределён. Попробуйте выйти из приложения и заново выполнить вход. Если это не сработает свяжитесь пожалуйста с IT отделом академии Lutz&Grub."),
+        "usersAppBarText": MessageLookupByLibrary.simpleMessage("Пользователи"),
         "yesButtonText": MessageLookupByLibrary.simpleMessage("Да"),
         "youHaveNoOneEntryAdded": MessageLookupByLibrary.simpleMessage(
             "У вас нет ни одной добавленной записи")

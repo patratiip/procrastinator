@@ -7,7 +7,7 @@ sealed class EntriesListEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class EntriesListChangedEvent extends EntriesListEvent {
+final class EntriesListChangedEvent extends EntriesListEvent {
   final List<Entry>? entriesList;
 
   const EntriesListChangedEvent(this.entriesList);
@@ -16,12 +16,11 @@ class EntriesListChangedEvent extends EntriesListEvent {
   List<Object?> get props => [entriesList];
 }
 
-
-class DeleteEntryEvent extends EntriesListEvent {
+final class DeleteEntryEvent extends EntriesListEvent {
   final String entryRef;
 
   const DeleteEntryEvent({required this.entryRef});
 
   @override
-  List<Object?> get props => [entryRef];
+  List<Object> get props => [entryRef];
 }

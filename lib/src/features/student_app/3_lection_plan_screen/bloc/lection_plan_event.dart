@@ -8,7 +8,7 @@ sealed class LectionPlanEvent extends Equatable {
 }
 
 final class LectionsListChangedEvent extends LectionPlanEvent {
-  final List<Lection>? lectionsList;
+  final List<Lection> lectionsList;
 
   const LectionsListChangedEvent(this.lectionsList);
   @override

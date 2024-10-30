@@ -57,5 +57,7 @@
   "managerLabel": "Manager",
   "trainerLabel": "Trainer",
   "registrationButtonText": "Register",
-  "schoolLocationDropDownText": "Choose the location of the school"
+  "schoolLocationDropDownText": "Choose the location of the school",
+  "dashboardAppBarText": "Dashboard",
+  "usersAppBarText": "Users"
 }

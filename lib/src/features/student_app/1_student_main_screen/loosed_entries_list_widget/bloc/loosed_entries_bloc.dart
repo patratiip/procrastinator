@@ -5,25 +5,21 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lection_repository/lection_repository.dart';
-import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/service/comaring_loosed_entries_repository.dart';
 
 part 'loosed_entries_event.dart';
 part 'loosed_entries_state.dart';
 
 class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
-  final ComparingLectionsAndEntriesService _comaringService;
   final IEntryRepositoty _entriesRepository;
   final ILectionRepository _lectionsRepository;
 
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
-  LoosedEntriesBloc(
-      {required IEntryRepositoty entriesRepository,
-      required ILectionRepository lectionsRepository,
-      required comaringService})
-      : _comaringService = comaringService,
-        _entriesRepository = entriesRepository,
+  LoosedEntriesBloc({
+    required IEntryRepositoty entriesRepository,
+    required ILectionRepository lectionsRepository,
+  })  : _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,
         super(LoosedEntrysInitial()) {
     //
@@ -47,9 +43,8 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
         if (entriesListFromStream.isNotEmpty &&
             lectionsListFromStream.isNotEmpty) {
           add(ComairingLectionsAndVisitsEvent(
-            lectionsListFromStream,
-            entriesListFromStream,
-          ));
+              entriesList: entriesListFromStream,
+              lectionsList: lectionsListFromStream));
         }
       },
       cancelOnError: false,
@@ -64,8 +59,8 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
         if (lectionsListFromStream.isNotEmpty &&
             entriesListFromStream.isNotEmpty) {
           add(ComairingLectionsAndVisitsEvent(
-            lectionsListFromStream,
-            entriesListFromStream,
+            entriesList: entriesListFromStream,
+            lectionsList: lectionsListFromStream,
           ));
         }
       },
@@ -76,10 +71,10 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
   Future<void> _comairingLectionsAndVisitsEvent(
       ComairingLectionsAndVisitsEvent event,
       Emitter<LoosedEntriesState> emit) async {
-    if (event.entriesList!.isNotEmpty && event.lectionsList!.isNotEmpty) {
+    if (event.entriesList.isNotEmpty && event.lectionsList.isNotEmpty) {
       emit(CompairingEntrysState());
 
-      final loosedLections = _comaringService.comareLectionsAndEntrysState(
+      final loosedLections = _comareLectionsAndEntries(
         event.lectionsList,
         event.entriesList,
       );
@@ -90,6 +85,33 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
         emit(CopmaredAllClear());
       }
     }
+  }
+
+  List<Lection> _comareLectionsAndEntries(
+    List<Lection>? lectionList,
+    List<Entry>? entryList,
+  ) {
+    final filteredLectionsList = lectionList!
+        .where((lection) => lection.date.isBefore(DateTime.now()))
+        .toList();
+
+    final List<Lection> loosedLectionsList = [];
+
+    if (filteredLectionsList.isNotEmpty && entryList!.isNotEmpty) {
+      for (final lection in filteredLectionsList) {
+        bool found = false;
+        for (final visit in entryList) {
+          if (visit.date == lection.date) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          loosedLectionsList.add(lection);
+        }
+      }
+    }
+    return loosedLectionsList;
   }
 
   @override

@@ -34,7 +34,7 @@ final class CalendarFormatChanged extends CalendarEvent {
   List<Object> get props => [calendarFormat];
 }
 
-class CalendarEntriesUpdated extends CalendarEvent {
+final class CalendarEntriesUpdated extends CalendarEvent {
   final List<Entry>? entriesList;
 
   const CalendarEntriesUpdated(this.entriesList);
@@ -43,7 +43,7 @@ class CalendarEntriesUpdated extends CalendarEvent {
   List<Object?> get props => [entriesList];
 }
 
-class CalendarLectionsUpdated extends CalendarEvent {
+final class CalendarLectionsUpdated extends CalendarEvent {
   final List<Lection>? lectionsList;
 
   const CalendarLectionsUpdated(this.lectionsList);

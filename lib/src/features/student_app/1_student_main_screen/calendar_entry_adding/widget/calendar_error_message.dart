@@ -4,7 +4,6 @@ import 'package:procrastinator/src/core/constant/localization/generated/l10n.dar
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/bloc/calendar_bloc.dart';
 
-
 /// ERROR Message
 class ErrorMessageCalendarWidget extends StatelessWidget {
   const ErrorMessageCalendarWidget({super.key});

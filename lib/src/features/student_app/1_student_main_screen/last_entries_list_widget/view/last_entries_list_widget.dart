@@ -12,7 +12,7 @@ class LastEntriesListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EntriesListBloc, EntriesListState>(
       builder: (context, state) {
-        if (state is EntriesListLoadedState && state.userVisits!.isNotEmpty) {
+        if (state is EntriesListLoadedState && state.userVisits.isNotEmpty) {
           return Center(
               child: Padding(
                   padding: const EdgeInsets.only(top: 24, bottom: 24),
@@ -30,12 +30,12 @@ class LastEntriesListWidget extends StatelessWidget {
                           ListView.builder(
                               primary: false,
                               shrinkWrap: true,
-                              itemCount: state.userVisits!.length < 5
-                                  ? state.userVisits!.length
+                              itemCount: state.userVisits.length < 5
+                                  ? state.userVisits.length
                                   : 5,
                               itemBuilder: (BuildContext context, int index) {
                                 return EntryCardComponent(
-                                  visitData: state.userVisits![index],
+                                  visitData: state.userVisits[index],
                                 );
                               })
                         ],

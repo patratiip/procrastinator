@@ -34,11 +34,12 @@ class EntriesListBloc extends Bloc<EntriesListEvent, EntriesListState> {
 
   Future<void> _entriesListChangedEvent(
       EntriesListChangedEvent event, Emitter<EntriesListState> emit) async {
-    if (event.entriesList != null) {
-      final entriesList = event.entriesList;
-      emit(EntriesListLoadedState(userVisits: entriesList));
-    } else {
+    try {
       emit(EntriesListLoadingState());
+      emit(EntriesListLoadedState(userVisits: event.entriesList ?? []));
+    } on Object catch (e, st) {
+      onError(e, st);
+      emit(EntriesListFailure(exception: e));
     }
   }
 
@@ -49,6 +50,7 @@ class EntriesListBloc extends Bloc<EntriesListEvent, EntriesListState> {
       _entriesRepository.deleteEntry(event.entryRef);
     } on Object catch (e, st) {
       onError(e, st);
+      emit(EntriesListFailure(exception: e));
     }
   }
 

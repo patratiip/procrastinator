@@ -6,11 +6,11 @@ DateTime _normalizeDate(DateTime date) {
 }
 
 bool _entryAtThatDateExist(DateTime date, List<Entry> entriesList) {
-  return !entriesList.any((entry) => _normalizeDate(entry.date) == date);
+  return !entriesList.any((entry) => entry.date == date);
 }
 
 bool _lectionWithTisDateExist(DateTime date, List<Lection> lectionsList) {
-  return lectionsList.any((lection) => _normalizeDate(lection.date!) == date);
+  return lectionsList.any((lection) => lection.date == date);
 }
 
 bool _isDateInTheFuture(DateTime date) {

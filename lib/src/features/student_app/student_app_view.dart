@@ -19,7 +19,6 @@ class StudentAppView extends StatefulWidget {
 
 class _StudentAppViewState extends State<StudentAppView> {
   int _currentIndex = 0;
-  //TODO Initial value
   String _appBarText = '';
 
   void _onSelectedTab(int index) {
@@ -53,16 +52,14 @@ class _StudentAppViewState extends State<StudentAppView> {
         const StudentProfilePageWidget(),
       ][_currentIndex],
       bottomNavigationBar: NavigationBar(
-          // height: 60,
-          // backgroundColor: Colors.amber,
           onDestinationSelected: _onSelectedTab,
-          indicatorColor: MyAppColorScheme.primary,
+          indicatorColor: Colors.transparent,
           selectedIndex: _currentIndex,
           destinations: const <Widget>[
             NavigationDestination(
               selectedIcon: Icon(
                 Icons.home_rounded,
-                color: Colors.white,
+                color: MyAppColorScheme.primary,
               ),
               icon: Icon(Icons.home_rounded),
               label: '',
@@ -70,7 +67,7 @@ class _StudentAppViewState extends State<StudentAppView> {
             NavigationDestination(
               selectedIcon: Icon(
                 Icons.bar_chart_outlined,
-                color: Colors.white,
+                color: MyAppColorScheme.primary,
               ),
               icon: Icon(Icons.bar_chart_outlined),
               label: '',
@@ -78,7 +75,7 @@ class _StudentAppViewState extends State<StudentAppView> {
             NavigationDestination(
               selectedIcon: Icon(
                 Icons.view_list_rounded,
-                color: Colors.white,
+                color: MyAppColorScheme.primary,
               ),
               icon: Icon(Icons.view_list_rounded),
               label: '',
@@ -86,28 +83,12 @@ class _StudentAppViewState extends State<StudentAppView> {
             NavigationDestination(
               selectedIcon: Icon(
                 Icons.person_rounded,
-                color: Colors.white,
+                color: MyAppColorScheme.primary,
               ),
               icon: Icon(Icons.person_rounded),
               label: '',
             ),
           ]),
-
-      //  BottomNavigationBar(
-      //   currentIndex: _currentIndex,
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.bar_chart_outlined), label: ''),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.view_list_rounded), label: ''),
-      //     BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: '')
-      //   ],
-      //   onTap: _onSelectedTab,
-
-      //   //styling
-      //   selectedIconTheme: const IconThemeData(size: 32),
-      // ),
     );
   }
 }

@@ -38,7 +38,7 @@ class Entry extends Equatable {
   static Entry fromEntity(EntryEntity entity) {
     Entry entry = Entry(
         visitID: entity.visitID,
-        date: entity.date,
+        date: _normalizeDate(entity.date),
         entryType: EntryType.homeOffice);
 
     if (entity.schoolVisit != null) {
@@ -66,5 +66,10 @@ class Entry extends Equatable {
       date: date ?? this.date,
       entryType: entryType ?? this.entryType,
     );
+  }
+
+  /// Returns normalized date
+  static DateTime _normalizeDate(DateTime date) {
+    return DateTime(date.year, date.month, date.day);
   }
 }

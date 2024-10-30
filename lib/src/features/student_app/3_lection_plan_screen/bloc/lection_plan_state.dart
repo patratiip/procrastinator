@@ -4,29 +4,26 @@ sealed class LectionPlanState extends Equatable {
   const LectionPlanState();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 final class LectionPlanInitialState extends LectionPlanState {}
 
-final class LectionsListLoadingState extends LectionPlanState {
-  @override
-  List<Object?> get props => throw UnimplementedError();
-}
+final class LectionPlanLoadingState extends LectionPlanState {}
 
-final class LectionsListLoadedState extends LectionPlanState {
+final class LectionPlanLoadedState extends LectionPlanState {
   final List<Lection> lectionsList;
 
-  const LectionsListLoadedState({required this.lectionsList});
+  const LectionPlanLoadedState({required this.lectionsList});
 
   @override
-  List<Object?> get props => [lectionsList];
+  List<Object> get props => [lectionsList];
 }
 
-final class LectionsListFailureState extends LectionPlanState {
-  final String exception;
+final class LectionPlanFailureState extends LectionPlanState {
+  final Object exception;
 
-  const LectionsListFailureState({required this.exception});
+  const LectionPlanFailureState({required this.exception});
   @override
-  List<Object?> get props => [exception];
+  List<Object> get props => [exception];
 }

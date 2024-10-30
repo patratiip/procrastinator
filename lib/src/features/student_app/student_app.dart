@@ -41,9 +41,6 @@ class StudentApp extends StatelessWidget {
                     lectionsRepository:
                         StudentAppScope.depConOf(context, listen: false)
                             .firebaseLectionRepository,
-                    comaringService:
-                        StudentAppScope.depConOf(context, listen: false)
-                            .comparingLectionsAndEntriesService,
                   )),
 
           // Statistic

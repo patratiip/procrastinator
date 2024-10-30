@@ -48,35 +48,35 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  ///Login -
+  /// Login -
   Future<void> logInWithCredentials() async {
     emit(state.copyWith(status: LoginStatus.inProgress));
 
-    //Validation
-    final emailIsValid = validateEmail(state.email);
-    if (!emailIsValid) {
+    // Validation
+    if (!validateEmail(state.email)) {
       emit(state.copyWith(
           errorMessage: 'Please enter a valid email',
           emailIsValid: false,
           status: LoginStatus.failure));
-    } else {
-      try {
-        await _authenticationRepository.signIn(
-          state.email,
-          state.password,
-        );
-        // await Future<void>.delayed(const Duration(seconds: 2));
-        emit(state.copyWith(status: LoginStatus.success));
-      } on LogInWithEmailAndPasswordFailure catch (e) {
-        emit(
-          state.copyWith(
-            errorMessage: e.message,
-            status: LoginStatus.failure,
-          ),
-        );
-        // } catch (_) {
-        //   emit(state.copyWith(status: LoginStatus.failure));
-      }
+      return;
+    }
+
+    try {
+      await _authenticationRepository.signIn(
+        state.email,
+        state.password,
+      );
+      // await Future<void>.delayed(const Duration(seconds: 2));
+      emit(state.copyWith(status: LoginStatus.success));
+    } on LogInWithEmailAndPasswordFailure catch (e) {
+      emit(
+        state.copyWith(
+          errorMessage: e.message,
+          status: LoginStatus.failure,
+        ),
+      );
+      // } catch (_) {
+      //   emit(state.copyWith(status: LoginStatus.failure));
     }
   }
 

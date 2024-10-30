@@ -2,7 +2,6 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:group_repository/group_repository.dart';
-import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/service/comaring_loosed_entries_repository.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
 
 /// {@template student_dependencies_container}
@@ -20,7 +19,6 @@ base class StudentDependenciesContainer {
     required this.firebaseLectionRepository,
     required this.firebaseGroupRepository,
     required this.deviceGeolocationRepository,
-    required this.comparingLectionsAndEntriesService,
     required this.statisticComputingServise,
   });
 
@@ -36,8 +34,6 @@ base class StudentDependenciesContainer {
   /// [DeviceGeolocationRepository] instance, used to manage theme and locale.
   final DeviceGeolocationRepository deviceGeolocationRepository;
 
-  /// [ComparingLectionsAndEntriesService] instance, used to manage theme and locale.
-  final ComparingLectionsAndEntriesService comparingLectionsAndEntriesService;
 
   /// [StatisticComputingServise] instance, used to manage theme and locale.
   final StatisticComputingServise statisticComputingServise;

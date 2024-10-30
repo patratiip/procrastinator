@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/management_app/main_screen/management_main_screen.dart';
 import 'package:procrastinator/src/features/management_app/management_profile_screen/management_profile_screen.dart';
@@ -13,17 +14,29 @@ class ManagementAppView extends StatefulWidget {
 
 class _ManagementAppViewState extends State<ManagementAppView> {
   int _currentIndex = 0;
+  String _appBarText = '';
 
   void _onSelectedTab(int index) {
+    if (_currentIndex == index) return;
     setState(() {
       _currentIndex = index;
+      if (_currentIndex == 0) {
+        _appBarText = Localization.of(context).dashboardAppBarText;
+      } else if (_currentIndex == 1) {
+        _appBarText = Localization.of(context).usersAppBarText;
+      } else if (_currentIndex == 2) {
+        _appBarText = Localization.of(context).profileAppBarText;
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Management App')),
+      appBar: AppBar(
+          title: Text(_appBarText.isEmpty
+              ? Localization.of(context).anmeldungAppBarText
+              : _appBarText)),
       body: <Widget>[
         const ManagementMainScreen(),
         const UsersScreen(),

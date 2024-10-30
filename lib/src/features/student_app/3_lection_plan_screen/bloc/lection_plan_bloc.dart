@@ -26,7 +26,9 @@ class LectionPlanBloc extends Bloc<LectionPlanEvent, LectionPlanState> {
     /// Subscription
     _lectionListListener = _lectionsRepository.getLections().listen(
       (lectionsList) {
-        add(LectionsListChangedEvent(lectionsList));
+        if (lectionsList != null && lectionsList.isNotEmpty) {
+          add(LectionsListChangedEvent(lectionsList));
+        }
       },
       cancelOnError: false,
     );
@@ -34,12 +36,14 @@ class LectionPlanBloc extends Bloc<LectionPlanEvent, LectionPlanState> {
 
   Future<void> _lectionsListChangedEvent(
       LectionsListChangedEvent event, Emitter<LectionPlanState> emit) async {
-    if (event.lectionsList != null) {
-      final lectionsList = event.lectionsList!;
-
-      emit(LectionsListLoadedState(lectionsList: lectionsList));
-    } else {
-      emit(LectionsListLoadingState());
+    try {
+      emit(LectionPlanLoadingState());
+      emit(LectionPlanLoadedState(lectionsList: event.lectionsList));
+    } on Object catch (e, st) {
+      onError(e, st);
+      emit(LectionPlanFailureState(exception: e));
+      log(e.toString());
+      rethrow;
     }
   }
 

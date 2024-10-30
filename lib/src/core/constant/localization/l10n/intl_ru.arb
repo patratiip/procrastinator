@@ -57,5 +57,7 @@
   "managerLabel": "Менеджер",
   "trainerLabel": "Тренер",
   "registrationButtonText": "Зарегистрировать",
-  "schoolLocationDropDownText": "Выберите расположение школы"
+  "schoolLocationDropDownText": "Выберите расположение школы",
+  "dashboardAppBarText": "Главная",
+  "usersAppBarText": "Пользователи"
 }

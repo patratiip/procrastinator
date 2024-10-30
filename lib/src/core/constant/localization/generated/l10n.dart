@@ -640,6 +640,26 @@ class Localization {
       args: [],
     );
   }
+
+  /// `Dashboard`
+  String get dashboardAppBarText {
+    return Intl.message(
+      'Dashboard',
+      name: 'dashboardAppBarText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Users`
+  String get usersAppBarText {
+    return Intl.message(
+      'Users',
+      name: 'usersAppBarText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

@@ -1,6 +1,8 @@
 part of 'loosed_entries_bloc.dart';
 
-sealed class LoosedEntriesState extends Equatable {}
+sealed class LoosedEntriesState extends Equatable {
+  const LoosedEntriesState();
+}
 
 final class LoosedEntrysInitial extends LoosedEntriesState {
   @override
@@ -15,7 +17,7 @@ final class CompairingEntrysState extends LoosedEntriesState {
 final class ComaredEntrysState extends LoosedEntriesState {
   final List<Lection>? loosedLectionsList;
 
-  ComaredEntrysState({required this.loosedLectionsList});
+  const ComaredEntrysState({required this.loosedLectionsList});
 
   @override
   List<Object?> get props => [loosedLectionsList];
@@ -29,7 +31,7 @@ final class CopmaredAllClear extends LoosedEntriesState {
 final class CompairingLoosedEntriesFailure extends LoosedEntriesState {
   final Object? exception;
 
-  CompairingLoosedEntriesFailure({required this.exception});
+  const CompairingLoosedEntriesFailure({required this.exception});
 
   @override
   List<Object?> get props => [exception];

@@ -5,8 +5,6 @@ import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
 
-
-
 /// BUTTON
 class EntryAddingButton extends StatelessWidget {
   const EntryAddingButton({super.key});

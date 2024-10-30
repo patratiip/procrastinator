@@ -5,18 +5,16 @@ sealed class LoosedEntriesEvent extends Equatable {
   const LoosedEntriesEvent();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 final class ComairingLectionsAndVisitsEvent extends LoosedEntriesEvent {
-  final List<Lection>? lectionsList;
-  final List<Entry>? entriesList;
+  final List<Lection> lectionsList;
+  final List<Entry> entriesList;
 
   const ComairingLectionsAndVisitsEvent(
-    this.lectionsList,
-    this.entriesList,
-  );
+      {required this.lectionsList, required this.entriesList});
 
   @override
-  List<Object?> get props => [lectionsList, entriesList];
+  List<Object> get props => [lectionsList, entriesList];
 }

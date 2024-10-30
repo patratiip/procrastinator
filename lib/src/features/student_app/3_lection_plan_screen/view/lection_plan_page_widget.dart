@@ -31,10 +31,10 @@ class KursplanPageWidget extends StatelessWidget {
                   ),
                   BlocBuilder<LectionPlanBloc, LectionPlanState>(
                       builder: (context, state) {
-                    if (state is LectionsListLoadedState) {
+                    if (state is LectionPlanLoadedState) {
                       final filteredLections = state.lectionsList
                           .where((lection) =>
-                              lection.date!.isAfter(DateTime.now()))
+                              lection.date.isAfter(DateTime.now()))
                           .toList();
                       return ListView.builder(
                           primary: false,
@@ -46,7 +46,7 @@ class KursplanPageWidget extends StatelessWidget {
                             return LessonCardComponent(
                                 entryData: filteredLections[index]);
                           });
-                    } else if (state is LectionsListLoadingState) {
+                    } else if (state is LectionPlanLoadingState) {
                       return const Center(
                           child: SizedBox(
                         height: 40,

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
@@ -11,7 +12,6 @@ class AuthenticationBloc
     extends Bloc<AuthenticationEvent, AuthenticationState> {
   final IUserRepository authenticationRepository;
   late final StreamSubscription<MyUser> _userSubscription;
-  late final StreamSubscription<MyUser> _userCollectionSubscription;
 
   AuthenticationBloc({required this.authenticationRepository})
       : super(
@@ -20,41 +20,42 @@ class AuthenticationBloc
                   authenticationRepository.currentUser)
               : const AuthenticationState.unauthenticated(),
         ) {
-    //Subscription User
+    on<AuthenticationEvent>(
+      (event, emit) => switch (event) {
+        final AuthenticationUserChanged e =>
+          _authenticationUserChanged(e, emit),
+        final AuthenticationLogOut e => _authenticationLogOut(e, emit)
+      },
+      transformer: sequential(),
+    );
+
+    // Subscription User
     _userSubscription = authenticationRepository.user.listen(
       (user) {
         add(AuthenticationUserChanged(user));
-        // log('USER STREAM  ${user == state.user}');
-        // log('USER STATE ${state.user}');
-        log('USER  ${user}');
+        log('USER  $user');
       },
       cancelOnError: false,
     );
+  }
 
-    on<AuthenticationUserChanged>((event, emit) {
-      if (event.user != MyUser.empty) {
-        emit(AuthenticationState.authenticated(event.user!));
-      } else {
-        emit(const AuthenticationState.unauthenticated());
-      }
-      // log('AUTH BLOC state: $state');
-    });
-
-    on<AuthenticationUserCollectionChanged>((event, emit) {
+  Future<void> _authenticationUserChanged(AuthenticationUserChanged event,
+      Emitter<AuthenticationState> emit) async {
+    if (event.user != MyUser.empty) {
       emit(AuthenticationState.authenticated(event.user!));
+    } else {
+      emit(const AuthenticationState.unauthenticated());
+    }
+  }
 
-      // log('AUTH BLOC Collection changed state: $state');
-    });
-
-    on<AuthenticationLogOut>((event, emit) {
-      authenticationRepository.logOut();
-    });
+  Future<void> _authenticationLogOut(
+      AuthenticationLogOut event, Emitter<AuthenticationState> emit) async {
+    authenticationRepository.logOut();
   }
 
   @override
   Future<void> close() {
     _userSubscription.cancel();
-    _userCollectionSubscription.cancel();
     log('User subscription was cancelled');
     return super.close();
   }

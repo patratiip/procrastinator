@@ -67,6 +67,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Anmeldung mit diese Datum schon exestiert"),
         "contacts": MessageLookupByLibrary.simpleMessage("Kontakten"),
+        "dashboardAppBarText":
+            MessageLookupByLibrary.simpleMessage("Dashboard"),
         "deleteEntryDialogHeader":
             MessageLookupByLibrary.simpleMessage("Anmeldung löschen"),
         "deleteEntryShureTextDialog": MessageLookupByLibrary.simpleMessage(
@@ -127,6 +129,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "userNameAndEntriesHeader": m5,
         "userTypeLoginError": MessageLookupByLibrary.simpleMessage(
             "Ihr Benutzertyp ist Undefiniert. Versuchen Sie, sich von der Anwendung abzumelden und erneut anzumelden. Sollte dies nicht funktionieren, wenden Sie sich bitte an die IT-Abteilung der Lutz&Grub Academy."),
+        "usersAppBarText": MessageLookupByLibrary.simpleMessage("Benutzer"),
         "yesButtonText": MessageLookupByLibrary.simpleMessage("Yes"),
         "youHaveNoOneEntryAdded": MessageLookupByLibrary.simpleMessage(
             "Sie haben keinen einzigen Eintrag hinzugefügt")
