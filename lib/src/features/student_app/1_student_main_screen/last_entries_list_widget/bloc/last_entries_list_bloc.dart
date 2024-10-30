@@ -26,7 +26,9 @@ class EntriesListBloc extends Bloc<EntriesListEvent, EntriesListState> {
     // Users entries collection subscription
     _entrysListListener = _entriesRepository.getVisits().listen(
       (entrysList) {
-        add(EntriesListChangedEvent(entrysList));
+        if (entrysList != null && entrysList.isNotEmpty) {
+          add(EntriesListChangedEvent(entrysList));
+        }
       },
       cancelOnError: false,
     );
@@ -36,7 +38,7 @@ class EntriesListBloc extends Bloc<EntriesListEvent, EntriesListState> {
       EntriesListChangedEvent event, Emitter<EntriesListState> emit) async {
     try {
       emit(EntriesListLoadingState());
-      emit(EntriesListLoadedState(userVisits: event.entriesList ?? []));
+      emit(EntriesListLoadedState(userVisits: event.entriesList));
     } on Object catch (e, st) {
       onError(e, st);
       emit(EntriesListFailure(exception: e));

@@ -33,8 +33,8 @@ class KursplanPageWidget extends StatelessWidget {
                       builder: (context, state) {
                     if (state is LectionPlanLoadedState) {
                       final filteredLections = state.lectionsList
-                          .where((lection) =>
-                              lection.date.isAfter(DateTime.now()))
+                          .where(
+                              (lection) => lection.date.isAfter(DateTime.now()))
                           .toList();
                       return ListView.builder(
                           primary: false,

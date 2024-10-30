@@ -12,7 +12,7 @@ class LastEntriesListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EntriesListBloc, EntriesListState>(
       builder: (context, state) {
-        if (state is EntriesListLoadedState && state.userVisits.isNotEmpty) {
+        if (state is EntriesListLoadedState) {
           return Center(
               child: Padding(
                   padding: const EdgeInsets.only(top: 24, bottom: 24),

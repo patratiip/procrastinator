@@ -9,10 +9,7 @@ sealed class TodayLectionState extends Equatable {
 
 final class TodayLessonInitial extends TodayLectionState {}
 
-final class TodayLectionLoading extends TodayLectionState {
-  @override
-  List<Object?> get props => [];
-}
+final class TodayLectionLoading extends TodayLectionState {}
 
 final class TodayLectionLoaded extends TodayLectionState {
   final Lection? todayLection;
@@ -26,9 +23,9 @@ final class TodayLectionLoaded extends TodayLectionState {
 final class TodayLectionEmpty extends TodayLectionState {}
 
 final class TodayLectionFailure extends TodayLectionState {
-  final String exception;
+  final Object exception;
 
   const TodayLectionFailure({required this.exception});
   @override
-  List<Object?> get props => [exception];
+  List<Object> get props => [exception];
 }

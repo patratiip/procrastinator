@@ -4,7 +4,7 @@ sealed class LectionPlanEvent extends Equatable {
   const LectionPlanEvent();
 
   @override
-  List<Object?> get props => [];
+  List<Object> get props => [];
 }
 
 final class LectionsListChangedEvent extends LectionPlanEvent {
@@ -12,5 +12,5 @@ final class LectionsListChangedEvent extends LectionPlanEvent {
 
   const LectionsListChangedEvent(this.lectionsList);
   @override
-  List<Object?> get props => [lectionsList];
+  List<Object> get props => [lectionsList];
 }

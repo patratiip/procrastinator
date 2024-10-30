@@ -13,7 +13,7 @@ class EntryAddingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<LoosedEntriesBloc, LoosedEntriesState>(
       listener: (context, state) {
-        if (state is CopmaredAllClear) {
+        if (state is ComparedAllClear) {
           //TODO add Something to add Event
           // context.read<CalendarBloc>().add(CalendarNothingToAddEvent());
         }

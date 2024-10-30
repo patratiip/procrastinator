@@ -12,8 +12,7 @@ class LoosedEntriesListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LoosedEntriesBloc, LoosedEntriesState>(
       builder: (context, state) {
-        if (state is ComaredEntrysState &&
-            state.loosedLectionsList!.isNotEmpty) {
+        if (state is ComparedEntrysState) {
           return Center(
             child: Container(
               constraints: const BoxConstraints(maxWidth: 600),
@@ -31,12 +30,12 @@ class LoosedEntriesListWidget extends StatelessWidget {
                   ListView.builder(
                       primary: false,
                       shrinkWrap: true,
-                      itemCount: state.loosedLectionsList!.length < 3
-                          ? state.loosedLectionsList!.length
+                      itemCount: state.loosedLectionsList.length < 3
+                          ? state.loosedLectionsList.length
                           : 3,
                       itemBuilder: (BuildContext context, int index) {
                         return LoosedLessonCardComponent(
-                          lessonData: state.loosedLectionsList![index],
+                          lessonData: state.loosedLectionsList[index],
                         );
                       }),
                 ],

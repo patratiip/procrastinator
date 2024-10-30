@@ -21,7 +21,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
     required ILectionRepository lectionsRepository,
   })  : _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,
-        super(LoosedEntrysInitial()) {
+        super(const LoosedEntrysInitial()) {
     //
     on<LoosedEntriesEvent>(
       (event, emit) => switch (event) {
@@ -71,33 +71,29 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
   Future<void> _comairingLectionsAndVisitsEvent(
       ComairingLectionsAndVisitsEvent event,
       Emitter<LoosedEntriesState> emit) async {
-    if (event.entriesList.isNotEmpty && event.lectionsList.isNotEmpty) {
-      emit(CompairingEntrysState());
+    emit(const CompairingEntrysState());
 
-      final loosedLections = _comareLectionsAndEntries(
-        event.lectionsList,
-        event.entriesList,
-      );
+    final loosedLections =
+        _comareLectionsAndEntries(event.lectionsList, event.entriesList);
 
-      if (loosedLections.isNotEmpty) {
-        emit(ComaredEntrysState(loosedLectionsList: loosedLections));
-      } else {
-        emit(CopmaredAllClear());
-      }
+    if (loosedLections.isNotEmpty) {
+      emit(ComparedEntrysState(loosedLectionsList: loosedLections));
+    } else {
+      emit(const ComparedAllClear());
     }
   }
 
   List<Lection> _comareLectionsAndEntries(
-    List<Lection>? lectionList,
-    List<Entry>? entryList,
+    List<Lection> lectionList,
+    List<Entry> entryList,
   ) {
-    final filteredLectionsList = lectionList!
+    final filteredLectionsList = lectionList
         .where((lection) => lection.date.isBefore(DateTime.now()))
         .toList();
 
     final List<Lection> loosedLectionsList = [];
 
-    if (filteredLectionsList.isNotEmpty && entryList!.isNotEmpty) {
+    if (filteredLectionsList.isNotEmpty) {
       for (final lection in filteredLectionsList) {
         bool found = false;
         for (final visit in entryList) {

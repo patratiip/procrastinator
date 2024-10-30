@@ -24,8 +24,8 @@ class TodayLectionBloc extends Bloc<TodayLectionEvent, TodayLectionState> {
   /// Loading Lection on that day if exist
   Future<void> _loadTodayLection(
       LoadTodayLection event, Emitter<TodayLectionState> emit) async {
-    emit(TodayLectionLoading());
     try {
+      emit(TodayLectionLoading());
       final todayLection = await _lectionsRepository.getTodayLection();
       if (todayLection != null) {
         emit(TodayLectionLoaded(todayLection: todayLection));
@@ -34,8 +34,7 @@ class TodayLectionBloc extends Bloc<TodayLectionEvent, TodayLectionState> {
       }
     } on Object catch (e, st) {
       onError(e, st);
-      emit(const TodayLectionFailure(exception: 'Failure'));
-      log(e.toString());
+      emit(TodayLectionFailure(exception: e));
     }
   }
 }
