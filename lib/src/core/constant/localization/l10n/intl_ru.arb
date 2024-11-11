@@ -49,7 +49,7 @@
   "userTypeLoginError": "Ваш тип пользователя Неопределён. Попробуйте выйти из приложения и заново выполнить вход. Если это не сработает свяжитесь пожалуйста с IT отделом академии Lutz&Grub.",
   "authenticationUserTypeErrorScreeenText": "Ошибка аутентификации",
   "sickDaysFromPossible": "Больничный {entiesQty} из {possibleLooseDays} дней",
-  "loosedFromPossibleDays": "Пропуски {loosedQty} из {possibleLooseDays} дней",
+  "loosedFromPossibleDays": "Пропуски  и больничные {loosedQty} из {possibleLooseDays} дней",
   "youHaveNoOneEntryAdded": "У вас нет ни одной добавленной записи",
   "groupText": "Группа",
   "selectAUserTypeText": "Выберите тип пользователя",

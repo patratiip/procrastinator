@@ -61,7 +61,8 @@ class StatisticCircle extends StatelessWidget {
                     final sickDays = state.sickCount ?? 0;
                     final loosedDays = state.looseCount ?? 0;
                     final possibleLooseDays =
-                        (state.totalDays ~/ 10) - sickDays - loosedDays;
+                        // (state.totalDays ~/ 10) - sickDays - loosedDays;
+                        state.totalDays ~/ 10;
 
                     return Column(
                       children: [
@@ -100,14 +101,15 @@ class StatisticCircle extends StatelessWidget {
                                 totalVisits: state.totalDays,
                               ),
 
-                        /// Sick Days
-                        sickDays != 0
-                            ? SickDaysIndicator(sickDays, possibleLooseDays)
-                            : const SizedBox.shrink(),
+                        // /// Sick Days
+                        // sickDays != 0
+                        //     ? SickDaysIndicator(sickDays, possibleLooseDays)
+                        //     : const SizedBox.shrink(),
 
                         /// Loosed Days
                         loosedDays != 0
-                            ? LoosedDaysIndicator(loosedDays, possibleLooseDays)
+                            ? LoosedDaysIndicator(
+                                loosedDays + sickDays, possibleLooseDays)
                             : const SizedBox.shrink(),
                       ],
                     );
@@ -255,42 +257,6 @@ class TotalDaysIndicator extends StatelessWidget {
   }
 }
 
-class SickDaysIndicator extends StatelessWidget {
-  final int sickQty;
-  final int possibleLooseDays;
-  const SickDaysIndicator(this.sickQty, this.possibleLooseDays, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 12,
-          bottom: 12,
-          right: 16,
-          left: 16,
-        ),
-        child: Stack(
-          alignment: AlignmentDirectional.center,
-          children: [
-            LinearProgressIndicator(
-              value: sickQty / possibleLooseDays,
-              color: MyAppColorScheme.warningColor,
-              backgroundColor: const Color.fromARGB(33, 125, 125, 125),
-              minHeight: 24,
-              borderRadius: BorderRadius.circular(8),
-            ),
-            Text(
-                Localization.of(context)
-                    .sickDaysFromPossible(sickQty, possibleLooseDays),
-                textAlign: TextAlign.center),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class LoosedDaysIndicator extends StatelessWidget {
   final int loosedQty;
   final int possibleLooseDays;
@@ -327,3 +293,41 @@ class LoosedDaysIndicator extends StatelessWidget {
     );
   }
 }
+
+// class SickDaysIndicator extends StatelessWidget {
+//   final int sickQty;
+//   final int possibleLooseDays;
+//   const SickDaysIndicator(this.sickQty, this.possibleLooseDays, {super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Center(
+//       child: Padding(
+//         padding: const EdgeInsets.only(
+//           top: 12,
+//           bottom: 12,
+//           right: 16,
+//           left: 16,
+//         ),
+//         child: Stack(
+//           alignment: AlignmentDirectional.center,
+//           children: [
+//             LinearProgressIndicator(
+//               value: sickQty / possibleLooseDays,
+//               color: MyAppColorScheme.warningColor,
+//               backgroundColor: const Color.fromARGB(33, 125, 125, 125),
+//               minHeight: 24,
+//               borderRadius: BorderRadius.circular(8),
+//             ),
+//             Text(
+//                 Localization.of(context)
+//                     .sickDaysFromPossible(sickQty, possibleLooseDays),
+//                 textAlign: TextAlign.center),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+

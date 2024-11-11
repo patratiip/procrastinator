@@ -49,7 +49,7 @@
   "userTypeLoginError": "Your user type is Undefined. Try logging out of the application and logging in again. If this does not work, please contact the IT department of Lutz&Grub Academy.",
   "authenticationUserTypeErrorScreeenText": "Authentication error",
   "sickDaysFromPossible": "Sick {entiesQty} from {possibleLooseDays} days",
-  "loosedFromPossibleDays": "Loosed {loosedQty} from {possibleLooseDays} days",
+  "loosedFromPossibleDays": "Loosed and sick {loosedQty} from {possibleLooseDays} days",
   "youHaveNoOneEntryAdded": "You have no one entry added",
   "groupText": "Group",
   "selectAUserTypeText": "Select a user type",

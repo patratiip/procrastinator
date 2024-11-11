@@ -23,7 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(distance) => "Ты не в школе. Дистанция ${distance} метров";
 
   static String m1(loosedQty, possibleLooseDays) =>
-      "Пропуски ${loosedQty} из ${possibleLooseDays} дней";
+      "Пропуски  и больничные ${loosedQty} из ${possibleLooseDays} дней";
 
   static String m2(entiesQty, possibleLooseDays) =>
       "Больничный ${entiesQty} из ${possibleLooseDays} дней";

@@ -80,7 +80,7 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  //Email validator
+  // Email validator
   bool validateEmail(String value) {
     if (!RegExp(r'^[\w-\.]+@([\w-]+.)+[\w-]{2,4}$').hasMatch(value)) {
       return false;

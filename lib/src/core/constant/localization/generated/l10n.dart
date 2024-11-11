@@ -551,10 +551,10 @@ class Localization {
     );
   }
 
-  /// `Loosed {loosedQty} from {possibleLooseDays} days`
+  /// `Loosed and sick {loosedQty} from {possibleLooseDays} days`
   String loosedFromPossibleDays(Object loosedQty, Object possibleLooseDays) {
     return Intl.message(
-      'Loosed $loosedQty from $possibleLooseDays days',
+      'Loosed and sick $loosedQty from $possibleLooseDays days',
       name: 'loosedFromPossibleDays',
       desc: '',
       args: [loosedQty, possibleLooseDays],

@@ -15,6 +15,7 @@ class CalendarEntryAddingWidget extends StatelessWidget {
           previous.status != CalendarStateStatus.success,
       listener: (context, state) {
         if (state.status == CalendarStateStatus.success) {
+          ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               duration: const Duration(seconds: 5),

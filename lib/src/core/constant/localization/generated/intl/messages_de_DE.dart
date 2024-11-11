@@ -24,7 +24,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Du bist nicht in der Schule. Distance ${distance} meters";
 
   static String m1(loosedQty, possibleLooseDays) =>
-      "Fehl ${loosedQty} von ${possibleLooseDays} Tage";
+      "Fehl und Krank ${loosedQty} von ${possibleLooseDays} Tage";
 
   static String m2(entiesQty, possibleLooseDays) =>
       "Krank ${entiesQty} von ${possibleLooseDays} Tage";

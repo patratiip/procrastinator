@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/firebase_options.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/logic/composition_root.dart';
-import 'package:procrastinator/old_files/service_locator.dart';
 import 'package:procrastinator/src/core/utils/app_bloc_observer.dart';
 import 'package:procrastinator/src/core/utils/refined_logger.dart';
 import 'package:procrastinator/src/features/app/view/procrastinator.dart';
@@ -37,17 +36,16 @@ final class AppRunner {
     Bloc.transformer = bloc_concurrency.sequential();
     const config = Config();
 
-    //Firebase initialization
+    // Firebase initialization
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
 
     Future<void> initializeAndRun() async {
       try {
-        //Dependencies
-        // initGetIt();
 
         final result =
             await CompositionRoot(config, logger).composeAppDependencies();
+
         // Attach this widget to the root of the tree.
         runApp(ProcrastinatorApp(result));
       } catch (e, stackTrace) {

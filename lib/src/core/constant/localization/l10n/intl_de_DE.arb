@@ -49,7 +49,7 @@
   "userTypeLoginError": "Ihr Benutzertyp ist Undefiniert. Versuchen Sie, sich von der Anwendung abzumelden und erneut anzumelden. Sollte dies nicht funktionieren, wenden Sie sich bitte an die IT-Abteilung der Lutz&Grub Academy.",
   "authenticationUserTypeErrorScreeenText": "Authentifizierungsfehler",
   "sickDaysFromPossible": "Krank {entiesQty} von {possibleLooseDays} Tage",
-  "loosedFromPossibleDays": "Fehl {loosedQty} von {possibleLooseDays} Tage",
+  "loosedFromPossibleDays": "Fehl und Krank {loosedQty} von {possibleLooseDays} Tage",
   "youHaveNoOneEntryAdded": "Sie haben keinen einzigen Eintrag hinzugefügt",
   "groupText": "Gruppe",
   "selectAUserTypeText": "Wählen Sie den Benutzertyp",
