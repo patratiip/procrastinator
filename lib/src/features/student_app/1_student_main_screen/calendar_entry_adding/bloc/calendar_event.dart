@@ -52,4 +52,3 @@ final class CalendarLectionsUpdated extends CalendarEvent {
   List<Object?> get props => [lectionsList];
 }
 
-final class CalendarAddEntry extends CalendarEvent {}

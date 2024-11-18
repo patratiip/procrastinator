@@ -3,24 +3,34 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/bloc/calendar_bloc.dart';
-import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/bloc/loosed_entries_bloc.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
 
-/// BUTTON
+/// {@template entry_adding_button}
+/// Widget that shows [EntryAddingButton] in [CalendarEntryAddingWidget]
+///{@endtemplate}
 class EntryAddingButton extends StatelessWidget {
+  /// {@macro entry_adding_button}
   const EntryAddingButton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoosedEntriesBloc, LoosedEntriesState>(
+    return BlocListener<CalendarBloc, CalendarState>(
       listener: (context, state) {
-        if (state is ComparedAllClear) {
-          //TODO add Something to add Event
-          // context.read<CalendarBloc>().add(CalendarNothingToAddEvent());
+        if (state.status == CalendarStateStatus.readyToAdding) {
+          context
+              .read<CalendarEntryAddingButtonBloc>()
+              .add((CalendarButtonIsReadyEvent(state.date!, state.entryType!)));
+        } else {
+          context
+              .read<CalendarEntryAddingButtonBloc>()
+              .add((CalendarButtonDisableButtonEvent()));
         }
       },
-      child: BlocBuilder<CalendarBloc, CalendarState>(
+      child: BlocBuilder<CalendarEntryAddingButtonBloc,
+          CalendarEntryAddingButtonState>(
         builder: (context, state) {
-          if (state.status == CalendarStateStatus.readyToAdding) {
+          // Button is enabled
+          if (state is CalendarEntryAddingButtonEnabled) {
             return SizedBox(
               width: double.infinity,
               height: 60,
@@ -33,9 +43,11 @@ class EntryAddingButton extends StatelessWidget {
                               bottomLeft: Radius.circular(20),
                               bottomRight: Radius.circular(20))))),
                   onPressed: () {
-                    final bloc = BlocProvider.of<CalendarBloc>(context);
+                    final bloc =
+                        BlocProvider.of<CalendarEntryAddingButtonBloc>(context);
 
-                    bloc.add(CalendarAddEntry());
+                    bloc.add(CalendarButtonAddEntryEvent(
+                        state.date, state.entryType));
                   },
                   child: Text(
                     Localization.of(context).addEntryButtonText,
@@ -45,7 +57,9 @@ class EntryAddingButton extends StatelessWidget {
                         ),
                   )),
             );
-          } else if (state.status == CalendarStateStatus.inProgress) {
+
+            // Button is in Progress
+          } else if (state is CalendarEntryAddingButtonInProgress) {
             return SizedBox(
               width: double.infinity,
               height: 60,
@@ -70,7 +84,7 @@ class EntryAddingButton extends StatelessWidget {
               ),
             );
 
-            ////unactive
+            // Button is disabled
           } else {
             return SizedBox(
               width: double.infinity,

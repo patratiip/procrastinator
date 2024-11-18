@@ -18,28 +18,19 @@ class AppsManager extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      builder: ((context, state) {
-        //Student App
-        if (state.user!.userType == UserType.student) {
-          return const StudentAppScope(child: StudentApp());
-
-          //Managemet App
-        } else if (state.user!.userType == UserType.management) {
-          return const ManagementAppScope(child: ManagementApp());
-
-          //Trainer App
-        } else if (state.user!.userType == UserType.trainer) {
-          return const TrainerAppScope(child: TrainerApp());
-
-          //Undefined User type
-        } else if (state.user!.userType == UserType.undefined) {
-          return const _UndefinedUserStatusScreen();
-
-          //Default screen
-        } else {
-          return const _DefaultAppScreen();
-        }
-      }),
+      builder: ((context, state) => switch (state.user!.userType) {
+            // Student App
+            UserType.student => const StudentAppScope(child: StudentApp()),
+            // Managemet App
+            UserType.management =>
+              const ManagementAppScope(child: ManagementApp()),
+            //Trainer App
+            UserType.trainer => const TrainerAppScope(child: TrainerApp()),
+            // Undefined User type
+            UserType.undefined => const _UndefinedUserStatusScreen(),
+            // Default screen
+            UserType.initial => const _DefaultAppScreen()
+          }),
     );
   }
 }

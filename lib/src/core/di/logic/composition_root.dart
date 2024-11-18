@@ -220,7 +220,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
         FirebaseLectionRepositoryFactory().create();
     final firebaseGroupRepository = FirebaseGroupRepositoryFactory(
             currentUser.userType,
-            uid: currentUser.group)
+            groupId: currentUser.group)
         .create();
     final deviceGeolocationRepository =
         DeviceGeolocationRepositoryFactory().create();
@@ -339,11 +339,11 @@ class FirebaseEntryRepositoryFactory extends Factory<FirebaseEntryRepository> {
 /// {@endtemplate}
 class FirebaseGroupRepositoryFactory extends Factory<IGroupRepository> {
   /// {@macro firebase_group_repo_factory}
-  FirebaseGroupRepositoryFactory(this.userType, {this.uid});
+  FirebaseGroupRepositoryFactory(this.userType, {this.groupId});
 
   UserType userType;
 
-  String? uid;
+  String? groupId;
 
   @override
   IGroupRepository create() {
@@ -352,7 +352,7 @@ class FirebaseGroupRepositoryFactory extends Factory<IGroupRepository> {
     } else if (userType == UserType.trainer) {
       return FirebaseTrainerGroupRepository();
     } else {
-      return FirebaseStudentGroupRepository(groupID: uid!);
+      return FirebaseStudentGroupRepository(groupID: groupId!);
     }
   }
 }

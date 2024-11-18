@@ -15,11 +15,9 @@ class LessonCardComponent extends StatefulWidget {
 }
 
 class _LessonCardComponentState extends State<LessonCardComponent> {
-  final dateFormat = DateFormat('dd.MM.yy');
-  // var percent = NumberFormat("##");
-
   @override
   Widget build(BuildContext context) {
+    final dateFormat = DateFormat('dd.MM.yy');
     final entryData = widget.entryData;
     return Container(
       height: 74,
@@ -48,7 +46,7 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        entryData.theme!,
+                        entryData.theme,
                         style: const TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                         maxLines: 1,
@@ -77,14 +75,14 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
             Expanded(
               flex: 2,
               child: Text(
-                /////maxCharacters
-                '${entryData.trainer!.length > 10 ? entryData.trainer!.substring(0, 10) + '...' : entryData.trainer}',
+                '${entryData.trainer.length > 10 ? entryData.trainer.substring(0, 10) + '...' : entryData.trainer}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Text(
-                '${dateFormat.format(entryData.date!)},${entryData.dayOfWeek!.length > 2 ? entryData.dayOfWeek!.substring(0, 2) : entryData.dayOfWeek}'),
+                '${dateFormat.format(entryData.date)},${entryData.dayOfWeek.length > 2 ? entryData.dayOfWeek.substring(0, 2) : entryData.dayOfWeek}'),
+            // IconButton(onPressed: () {}, icon: Icon(Icons.info_outline_rounded))
           ]),
     );
   }

@@ -8,8 +8,8 @@ import 'package:procrastinator/src/features/student_app/1_student_main_screen/ca
 import 'package:table_calendar/table_calendar.dart';
 
 /// CALENDAR
-class CalendarForEntyAddingNewBloc extends StatelessWidget {
-  const CalendarForEntyAddingNewBloc({super.key});
+class CalendarForEntyAddingWidget extends StatelessWidget {
+  const CalendarForEntyAddingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

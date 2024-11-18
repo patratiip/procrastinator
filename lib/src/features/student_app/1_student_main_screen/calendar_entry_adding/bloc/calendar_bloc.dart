@@ -2,12 +2,10 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:entry_repository/entry_repository.dart';
-import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:user_repository/user_repository.dart';
 import 'package:uuid/uuid.dart';
 
 part 'calendar_event.dart';
@@ -17,22 +15,15 @@ part 'validators_calendar_bloc.dart';
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   final IEntryRepositoty _entriesRepository;
   final ILectionRepository _lectionsRepository;
-  final IGeolocationRepository _geolocationRepository;
 
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
-  final SchoolGeoPosition _userSchoolGeoposition;
-
-  CalendarBloc(
-      {required IEntryRepositoty entriesRepository,
-      required ILectionRepository lectionsRepository,
-      required IGeolocationRepository geolocationRepository,
-      required SchoolGeoPosition userSchoolGeoposition})
-      : _entriesRepository = entriesRepository,
+  CalendarBloc({
+    required IEntryRepositoty entriesRepository,
+    required ILectionRepository lectionsRepository,
+  })  : _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,
-        _geolocationRepository = geolocationRepository,
-        _userSchoolGeoposition = userSchoolGeoposition,
         super(CalendarState(
           date: _normalizeDate(DateTime.now()),
           calendarFormat: CalendarFormat.week,
@@ -49,7 +40,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         final CalendarFormatChanged e => _calendarFormatChanged(e, emit),
         final CalendarDateChanged e => _calendarDateChanged(e, emit),
         final CalendarEntryTypeChanged e => _calendarEntryTypeChanged(e, emit),
-        final CalendarAddEntry e => _calendarAddEntry(e, emit),
+   
       },
       transformer: sequential(),
     );
@@ -125,37 +116,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     _isStateValidCheckerAndErrorEmitter(emit: emit);
   }
 
-  /// User submitted choise
-  ///
-  Future<void> _calendarAddEntry(
-      CalendarAddEntry event, Emitter<CalendarState> emit) async {
-    if (state.status != CalendarStateStatus.readyToAdding) return;
-
-    emit(state.copyWith(status: CalendarStateStatus.inProgress));
-
-    Entry entry = Entry(
-        visitID: const Uuid().v4(),
-        date: state.date!,
-        entryType: state.entryType!);
-
-    if (!await _isStudentInSchoolAndErrorEmitter(emit: emit)) {
-      return;
-    }
-
-    // Entry Adding
-    try {
-      _entriesRepository.addEntry(entry);
-      emit(state.copyWith(status: CalendarStateStatus.success));
-    } on Object catch (e, st) {
-      onError(e, st);
-      emit(state.copyWith(
-          value: e,
-          message: CalendarStateMessage.errorOnGeopositionCheck,
-          status: CalendarStateStatus.error));
-      log(e.toString());
-      rethrow;
-    }
-  }
+  
 
   /// Checks if everything is allright or handled an Error State
   bool _isStateValidCheckerAndErrorEmitter(
@@ -205,39 +166,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     return true;
   }
 
-  /// Checks if Student is in the scool
-  /// or handled an Error State with a distance to school
-  Future<bool> _isStudentInSchoolAndErrorEmitter(
-      {required Emitter<CalendarState> emit}) async {
-    if (state.entryType! != EntryType.schoolVisit) return true;
-    try {
-      final userGeoPosition = await _geolocationRepository.determinePosition();
 
-      final distanceToSchool = _geolocationRepository.distanceToSchool(
-          userGeoposition: userGeoPosition,
-          schoolLatitude: _userSchoolGeoposition.latitude,
-          schoolLongtitude: _userSchoolGeoposition.longitude);
-
-      if (distanceToSchool >= 100) {
-        emit(state.copyWith(
-          value: distanceToSchool.toInt(),
-          message: CalendarStateMessage.distanceToSchool,
-          status: CalendarStateStatus.error,
-        ));
-        return false;
-      } else {
-        return true;
-      }
-    } on Object catch (e, st) {
-      onError(e, st);
-      emit(state.copyWith(
-          value: e,
-          message: CalendarStateMessage.errorOnGeopositionCheck,
-          status: CalendarStateStatus.error));
-      log(e.toString());
-      return false;
-    }
-  }
 
   @override
   Future<void> close() {

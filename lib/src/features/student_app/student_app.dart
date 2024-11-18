@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/last_entries_list_widget/last_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/loosed_entries_list_widget.dart';
@@ -32,7 +33,7 @@ class StudentApp extends StatelessWidget {
                       StudentAppScope.depConOf(context, listen: false)
                           .firebaseLectionRepository)),
 
-          // Loosed Lections
+          // Loosed lections
           BlocProvider(
               create: (context) => LoosedEntriesBloc(
                     entriesRepository:
@@ -68,24 +69,35 @@ class StudentApp extends StatelessWidget {
           // Calendar
           BlocProvider(
               create: (context) => CalendarBloc(
-                  entriesRepository:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .firebaseEntryRepository,
-                  lectionsRepository:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .firebaseLectionRepository,
-                  geolocationRepository:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .deviceGeolocationRepository,
-                  userSchoolGeoposition: AppScope.userOf(context, listen: false)
-                      .schoolGeoPosition!)),
+                    entriesRepository:
+                        StudentAppScope.depConOf(context, listen: false)
+                            .firebaseEntryRepository,
+                    lectionsRepository:
+                        StudentAppScope.depConOf(context, listen: false)
+                            .firebaseLectionRepository,
+                  )),
+
+          // User profile bloc
           BlocProvider(
               create: (context) => UserProfileBloc(
                   userRepository:
                       AppScope.depConOf(context, listen: false).userRepository,
                   groupRepository:
                       StudentAppScope.depConOf(context, listen: false)
-                          .firebaseGroupRepository))
+                          .firebaseGroupRepository)),
+
+          // Entry adding button
+          BlocProvider(
+            create: (context) => CalendarEntryAddingButtonBloc(
+                entriesRepository:
+                    StudentAppScope.depConOf(context, listen: false)
+                        .firebaseEntryRepository,
+                geolocationRepository:
+                    StudentAppScope.depConOf(context, listen: false)
+                        .deviceGeolocationRepository,
+                userSchoolGeoposition:
+                    AppScope.userOf(context, listen: false).schoolGeoPosition!),
+          ),
         ],
         child: const StudentAppView(),
       );

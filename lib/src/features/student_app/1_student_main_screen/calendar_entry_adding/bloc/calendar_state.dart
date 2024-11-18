@@ -6,7 +6,7 @@ enum CalendarStateStatus {
   hasType,
   inProgress,
   readyToAdding,
-  success,
+
   error,
   allDone,
 }
@@ -18,8 +18,7 @@ enum CalendarStateMessage {
   schoolOnlyToday,
   enrtyWithThisDateExists,
   noLessonsToday,
-  distanceToSchool,
-  errorOnGeopositionCheck
+
 }
 
 final class CalendarState extends Equatable {

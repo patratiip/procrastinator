@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/student_app/1_student_main_screen/last_entries_list_widget/view/last_entries_list_widget.dart';
-import '../calendar_entry_adding/view/calendar_entry_adding.dart';
-import '../today_lection_widget/view/today_lection_widget.dart';
-import '../loosed_entries_list_widget/view/loosed_entries_list_widget.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/last_entries_list_widget/last_entries_list_widget.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/loosed_entries_list_widget.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/today_lection_widget/today_lection_widget.dart';
 
+/// {@template student_main_screen_widget}
+/// 
+/// {@endtemplate }
 class StudentMainScreen extends StatelessWidget {
+  /// {@macro student_main_screen_widget}
   const StudentMainScreen({super.key});
 
   @override

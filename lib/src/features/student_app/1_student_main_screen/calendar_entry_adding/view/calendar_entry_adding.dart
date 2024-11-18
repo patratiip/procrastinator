@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 
 class CalendarEntryAddingWidget extends StatelessWidget {
@@ -10,11 +11,12 @@ class CalendarEntryAddingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CalendarBloc, CalendarState>(
+    return BlocListener<CalendarEntryAddingButtonBloc,
+        CalendarEntryAddingButtonState>(
       listenWhen: (previous, current) =>
-          previous.status != CalendarStateStatus.success,
+          previous != CalendarEntryAddingButtonSuccess,
       listener: (context, state) {
-        if (state.status == CalendarStateStatus.success) {
+        if (state is CalendarEntryAddingButtonSuccess) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -75,7 +77,7 @@ class CalendarEntryAddingWidget extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CalendarForEntyAddingNewBloc(),
+                  CalendarForEntyAddingWidget(),
                   DropDownEntry(),
                   ErrorMessageCalendarWidget(),
                   SuccesMessageCalendarWidget(),

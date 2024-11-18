@@ -8,13 +8,11 @@ Additionally, the app provides access to class schedules and educational materia
 
 Thanks to its multi-platform nature, the application is available on mobile devices (Android, iOS), tablets, web version, as well as for Windows and macOS.
 
-In future development plans, there’s consideration for adding separate logins for teachers, students, and school administration, which will further enhance the functionality and adaptation of the application to the educational process.
-
 Project Development Plan:
 
     1.	Firestore integration: Connect to Firestore. ✅
     2.	Bloc management: Implement blocs. ✅
-    3.	Architecture improvement: Optimize architecture.  ✅
+    3.  Architecture improvement: Optimize architecture.  ✅
     4.  Architecture. DI. Apps for students, trainers, management
         with they own dependencies scopes.  ✅
     5.  Tests.
