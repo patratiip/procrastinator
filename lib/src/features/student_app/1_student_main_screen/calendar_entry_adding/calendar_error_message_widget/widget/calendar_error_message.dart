@@ -31,7 +31,6 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
                   .read<CalendarErrorMessageBloc>()
                   .add((DisableCalendarErrorMessageEvent()));
             }
-            log(state.toString());
           },
         ),
         BlocListener<CalendarEntryAddingButtonBloc,
@@ -46,10 +45,10 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
               context.read<CalendarErrorMessageBloc>().add(
                   (EnableCalendarErrorMessageEvent(
                       value: state.distance, errorType: state.errorType)));
-            } else {
-              context
-                  .read<CalendarErrorMessageBloc>()
-                  .add((DisableCalendarErrorMessageEvent()));
+              // } else {
+              //   context
+              //       .read<CalendarErrorMessageBloc>()
+              //       .add((DisableCalendarErrorMessageEvent()));
             }
           },
         ),
