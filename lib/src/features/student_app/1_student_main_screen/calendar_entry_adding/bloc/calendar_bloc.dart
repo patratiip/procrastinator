@@ -5,8 +5,8 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lection_repository/lection_repository.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:uuid/uuid.dart';
 
 part 'calendar_event.dart';
 part 'calendar_state.dart';
@@ -40,7 +40,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         final CalendarFormatChanged e => _calendarFormatChanged(e, emit),
         final CalendarDateChanged e => _calendarDateChanged(e, emit),
         final CalendarEntryTypeChanged e => _calendarEntryTypeChanged(e, emit),
-   
       },
       transformer: sequential(),
     );
@@ -72,7 +71,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       CalendarNothingToAddEvent event, Emitter<CalendarState> emit) async {
     await Future<void>.delayed(const Duration(seconds: 2));
     emit(state.copyWith(
-      message: CalendarStateMessage.allEntriesAdded,
       status: CalendarStateStatus.allDone,
     ));
   }
@@ -116,15 +114,13 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     _isStateValidCheckerAndErrorEmitter(emit: emit);
   }
 
-  
-
   /// Checks if everything is allright or handled an Error State
   bool _isStateValidCheckerAndErrorEmitter(
       {required Emitter<CalendarState> emit}) {
     // Future check
     if (!_isDateInTheFuture(state.date!)) {
       emit(state.copyWith(
-        message: CalendarStateMessage.futureError,
+        errorType: ErrorType.futureError,
         status: CalendarStateStatus.error,
       ));
       return false;
@@ -133,7 +129,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     // School and Past check
     if (!_ifTypeIsSchoolDateIsToday(state.entryType, state.date!)) {
       emit(state.copyWith(
-        message: CalendarStateMessage.schoolOnlyToday,
+        errorType: ErrorType.schoolOnlyToday,
         status: CalendarStateStatus.error,
       ));
       return false;
@@ -143,7 +139,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     if (state.entriesList.isNotEmpty &&
         !_entryAtThatDateExist(state.date!, state.entriesList)) {
       emit(state.copyWith(
-        message: CalendarStateMessage.enrtyWithThisDateExists,
+        errorType: ErrorType.enrtyWithThisDateExists,
         status: CalendarStateStatus.error,
       ));
       return false;
@@ -153,7 +149,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
     if (state.lectionsList.isNotEmpty &&
         !_lectionWithTisDateExist(state.date!, state.lectionsList)) {
       emit(state.copyWith(
-        message: CalendarStateMessage.noLessonsToday,
+        errorType: ErrorType.noLessonsToday,
         status: CalendarStateStatus.error,
       ));
       return false;
@@ -165,8 +161,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
             : CalendarStateStatus.hasDate));
     return true;
   }
-
-
 
   @override
   Future<void> close() {

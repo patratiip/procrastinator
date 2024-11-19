@@ -6,9 +6,8 @@ enum CalendarStateStatus {
   hasType,
   inProgress,
   readyToAdding,
-
   error,
-  allDone,
+  allDone
 }
 
 enum CalendarStateMessage {
@@ -17,8 +16,7 @@ enum CalendarStateMessage {
   futureError,
   schoolOnlyToday,
   enrtyWithThisDateExists,
-  noLessonsToday,
-
+  noLessonsToday
 }
 
 final class CalendarState extends Equatable {
@@ -28,7 +26,7 @@ final class CalendarState extends Equatable {
   final List<Entry> entriesList;
   final List<Lection> lectionsList;
   final dynamic value;
-  final CalendarStateMessage message;
+  final ErrorType? errorType;
   final CalendarStateStatus status;
 
   const CalendarState({
@@ -38,7 +36,7 @@ final class CalendarState extends Equatable {
     this.entriesList = const [],
     this.lectionsList = const [],
     this.value,
-    this.message = CalendarStateMessage.empty,
+    this.errorType,
     this.status = CalendarStateStatus.initial,
   });
 
@@ -49,7 +47,7 @@ final class CalendarState extends Equatable {
     List<Entry>? entriesList,
     List<Lection>? lectionsList,
     dynamic value,
-    CalendarStateMessage? message,
+    ErrorType? errorType,
     CalendarStateStatus? status,
   }) {
     return CalendarState(
@@ -59,7 +57,7 @@ final class CalendarState extends Equatable {
       entriesList: entriesList ?? this.entriesList,
       lectionsList: lectionsList ?? this.lectionsList,
       value: value ?? this.value,
-      message: message ?? this.message,
+      errorType: errorType ?? this.errorType,
       status: status ?? this.status,
     );
   }
@@ -72,7 +70,7 @@ final class CalendarState extends Equatable {
         entriesList,
         lectionsList,
         value,
-        message,
+        errorType,
         status,
       ];
 }

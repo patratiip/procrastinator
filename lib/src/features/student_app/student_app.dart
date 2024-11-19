@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/last_entries_list_widget/last_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/loosed_entries_list_widget.dart';
@@ -98,6 +99,9 @@ class StudentApp extends StatelessWidget {
                 userSchoolGeoposition:
                     AppScope.userOf(context, listen: false).schoolGeoPosition!),
           ),
+
+          // Error Widget
+          BlocProvider(create: (context) => CalendarErrorMessageBloc()),
         ],
         child: const StudentAppView(),
       );

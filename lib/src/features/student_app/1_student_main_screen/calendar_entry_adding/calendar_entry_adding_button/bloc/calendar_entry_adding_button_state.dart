@@ -40,17 +40,27 @@ final class CalendarEntryAddingButtonSuccess
 final class CalendarEntryAddingButtonError
     extends CalendarEntryAddingButtonState {
   final Object error;
-  final int? value;
-  final DateTime date;
-  final EntryType entryType;
+  final ErrorType errorType;
 
   const CalendarEntryAddingButtonError(
     this.error,
-    this.value,
-    this.date,
-    this.entryType,
+    this.errorType,
   );
 
   @override
-  List<Object?> get props => [error, value, date, entryType];
+  List<Object> get props => [error, errorType];
+}
+
+final class CalendarEntryAddingButtonDistanceError
+    extends CalendarEntryAddingButtonState {
+  final int distance;
+  final ErrorType errorType;
+
+  const CalendarEntryAddingButtonDistanceError(
+    this.distance,
+    this.errorType,
+  );
+
+  @override
+  List<Object> get props => [distance, errorType];
 }

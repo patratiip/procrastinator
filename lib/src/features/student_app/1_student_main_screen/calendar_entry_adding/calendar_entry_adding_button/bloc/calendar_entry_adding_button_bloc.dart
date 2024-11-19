@@ -1,9 +1,11 @@
 import 'dart:developer';
 
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -15,7 +17,7 @@ class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
   final IEntryRepositoty _entriesRepository;
   final IGeolocationRepository _geolocationRepository;
   final SchoolGeoPosition _userSchoolGeoposition;
-  
+
   CalendarEntryAddingButtonBloc(
       {required IEntryRepositoty entriesRepository,
       required IGeolocationRepository geolocationRepository,
@@ -31,7 +33,8 @@ class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
             _calendarButtonIsReadyEvent(e, emit),
           final CalendarButtonAddEntryEvent e =>
             _calendarButtonAddEntryEvent(e, emit),
-        });
+        },
+      transformer: sequential(),);
   }
 
   Future<void> _calendarButtonDisableButtonEvent(
@@ -65,7 +68,7 @@ class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
       emit(const CalendarEntryAddingButtonSuccess());
     } on Object catch (e, st) {
       onError(e, st);
-      // emit(const CalendarEntryAddingButtonError());
+      // emit(CalendarEntryAddingButtonError(e, ErrorType.somethingWentWrong));
       log(e.toString());
       rethrow;
     }
@@ -86,15 +89,8 @@ class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
           schoolLongtitude: _userSchoolGeoposition.longitude);
 
       if (distanceToSchool >= 100) {
-        // emit(
-
-        //      emit(const CalendarEntryAddingButtonError());
-
-        //   state.copyWith(
-        //   value: distanceToSchool.toInt(),
-        //   message: CalendarStateMessage.distanceToSchool,
-        //   status: CalendarStateStatus.error,
-        // ));
+        emit(CalendarEntryAddingButtonDistanceError(
+            distanceToSchool.toInt(), ErrorType.distanceToSchool));
         return false;
       } else {
         return true;

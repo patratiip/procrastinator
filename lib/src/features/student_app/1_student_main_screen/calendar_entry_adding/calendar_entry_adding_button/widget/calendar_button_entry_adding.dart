@@ -15,6 +15,7 @@ class EntryAddingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CalendarBloc, CalendarState>(
+      // listenWhen: (previous, current) => (previous != current),
       listener: (context, state) {
         if (state.status == CalendarStateStatus.readyToAdding) {
           context
