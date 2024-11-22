@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
@@ -45,50 +43,115 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
               context.read<CalendarErrorMessageBloc>().add(
                   (EnableCalendarErrorMessageEvent(
                       value: state.distance, errorType: state.errorType)));
-              // } else {
-              //   context
-              //       .read<CalendarErrorMessageBloc>()
-              //       .add((DisableCalendarErrorMessageEvent()));
             }
           },
         ),
       ],
       child: BlocBuilder<CalendarErrorMessageBloc, CalendarErrorMessageState>(
-          builder: (context, state) {
-        if (state is CalendarErrorMessageDisabled) {
-          return const SizedBox.shrink();
-        } else {
-          return Container(
-            padding: const EdgeInsets.all(8),
-            width: double.infinity,
-            color: MyAppColorScheme.errorColor,
-            child: Text(
-              switch (state) {
-                CalendarErrorMessageDisabled() => '',
-                CalendarErrorMessageFutureError() =>
-                  Localization.of(context).calendarStateErrorMessage_future,
-                CalendarErrorMessageSchoolOnlyToday() =>
-                  Localization.of(context)
-                      .calendarStateErrorMessage_schoolTypeOnlyToday,
-                CalendarErrorMessageEnrtyWithThisDateExists() =>
-                  Localization.of(context)
-                      .calendarStateErrorMessage_thisDateExists,
-                CalendarErrorMessageNoLessonsToday() => Localization.of(context)
-                    .calendarStateErrorMessage_noLessonsToday,
-                CalendarErrorMessageDistanceToSchool() => Localization.of(
-                        context)
-                    .calendarStateErrorMessage_distanceToSchool(state.distance),
-                // TODO Location settings message
-                CalendarErrorMessageErrorOnGeopositionCheck() => '',
-              },
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: Colors.white,
-                  ),
+        builder: (context, state) => switch (state) {
+          CalendarErrorMessageDisabled() => const SizedBox.shrink(),
+          CalendarErrorMessageFutureError() => _ErrorTextWidget(
+              text: Localization.of(context).calendarStateErrorMessage_future),
+          CalendarErrorMessageSchoolOnlyToday() => _ErrorTextWidget(
+              text: Localization.of(context)
+                  .calendarStateErrorMessage_schoolTypeOnlyToday,
+              child: _ErrorActionButton(
+                  text: Localization.of(context)
+                      .calendarStateErrorMessage_buttonText_youAreForgot)),
+          CalendarErrorMessageEnrtyWithThisDateExists() => _ErrorTextWidget(
+              text: Localization.of(context)
+                  .calendarStateErrorMessage_thisDateExists),
+          CalendarErrorMessageNoLessonsToday() => _ErrorTextWidget(
+              text: Localization.of(context)
+                  .calendarStateErrorMessage_noLessonsToday),
+          CalendarErrorMessageDistanceToSchool() => _ErrorTextWidget(
+              text: Localization.of(context)
+                  .calendarStateErrorMessage_distanceToSchool(state.distance)),
+          // TODO Location settings premission message
+          CalendarErrorMessageErrorOnGeopositionCheck() =>
+            const SizedBox.shrink(),
+        },
+      ),
+    );
+  }
+}
+
+class _ErrorTextWidget extends StatelessWidget {
+  final String text;
+  final Widget? child;
+  const _ErrorTextWidget({super.key, this.child, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8),
+      width: double.infinity,
+      color: MyAppColorScheme.errorColor,
+      child: Column(
+        children: [
+          Text(
+            text,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+          child ?? const SizedBox.shrink(),
+        ],
+      ),
+    );
+  }
+}
+
+class _ErrorActionButton extends StatelessWidget {
+  final String text;
+  const _ErrorActionButton({super.key, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: const ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll(Colors.white)),
+      onPressed: () => showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return _BottomSheetContent();
+        },
+      ),
+      // {
+
+      //   // TODO: Add a bottom sheet with ...
+      //   final date = context.read<CalendarBloc>().state.date!;
+      //   final entryType = context.read<CalendarBloc>().state.entryType!;
+      //   context
+      //       .read<CalendarEntryAddingButtonBloc>()
+      //       .add(CalendarButtonAddEntryEvent(date, entryType));
+      // },
+      child: Text(
+        text,
+        textAlign: TextAlign.center,
+        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+              color: MyAppColorScheme.errorColor,
             ),
-          );
-        }
-      }),
+      ),
+    );
+  }
+}
+
+class _BottomSheetContent extends StatelessWidget {
+  const _BottomSheetContent({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Column(
+          children: [
+            Text(Localization.of(context)
+                .calendarStateErrorMessage_buttonText_youAreForgot)
+          ],
+        ),
+      ),
     );
   }
 }

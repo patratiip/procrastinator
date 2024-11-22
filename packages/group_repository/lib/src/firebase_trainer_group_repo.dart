@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_repository/group_repository.dart';
 
-class FirebaseTrainerGroupRepository implements IGroupRepository {
+class FirebaseTrainerGroupRepository implements ITrainerGroupRepository {
   final _groupCollection =
       FirebaseFirestore.instance.collection('group_flutter');
 
@@ -14,33 +14,8 @@ class FirebaseTrainerGroupRepository implements IGroupRepository {
           .doc(groupID)
           .snapshots()
           .map((group) =>
-              Group.fromEntity(GroupEntity.fromFirestore(group.data()!))).asBroadcastStream();
-          
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> addGroup(Group group) async {
-    try {
-      await _groupCollection
-          .doc(group.groupID)
-          .set(group.toEntity().toFirestore());
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
-  }
-
-  @override
-  Future<void> addStudentToGroup(String groupID, String uid) async {
-    try {
-      await _groupCollection.doc(groupID).update({
-        'students': FieldValue.arrayUnion(
-            [FirebaseFirestore.instance.doc('users_flutter/$uid')]),
-      });
+              Group.fromEntity(GroupEntity.fromFirestore(group.data()!)))
+          .asBroadcastStream();
     } catch (e) {
       log(e.toString());
       rethrow;
@@ -63,6 +38,4 @@ class FirebaseTrainerGroupRepository implements IGroupRepository {
     }
   }
 
-  @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

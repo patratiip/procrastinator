@@ -10,7 +10,7 @@ part 'group_list_event.dart';
 part 'group_list_state.dart';
 
 class GroupListBloc extends Bloc<GroupListEvent, GroupListState> {
-  final IGroupRepository _groupRepository;
+  final IManagementGroupRepository _groupRepository;
   late final StreamSubscription<List<Group>?> _groupListSubscription;
   GroupListBloc({required groupRepository})
       : _groupRepository = groupRepository,

@@ -54,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("2 Weeks"),
         "calendarFormatButtonWeek":
             MessageLookupByLibrary.simpleMessage("Week"),
+        "calendarStateErrorMessage_buttonText_youAreForgot":
+            MessageLookupByLibrary.simpleMessage("Forgot to add an entry?"),
         "calendarStateErrorMessage_distanceToSchool": m0,
         "calendarStateErrorMessage_future":
             MessageLookupByLibrary.simpleMessage("Attention! Future"),
@@ -105,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "passwordTextFieldLabel":
             MessageLookupByLibrary.simpleMessage("Password"),
         "profileAppBarText": MessageLookupByLibrary.simpleMessage("Profile"),
-        "profileEdit": MessageLookupByLibrary.simpleMessage("Edit progile"),
+        "profileEdit": MessageLookupByLibrary.simpleMessage("Edit profile"),
         "registrationButtonText":
             MessageLookupByLibrary.simpleMessage("Register"),
         "schoolEntryType": MessageLookupByLibrary.simpleMessage("School"),

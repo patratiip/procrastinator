@@ -126,15 +126,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       return false;
     }
 
-    // School and Past check
-    if (!_ifTypeIsSchoolDateIsToday(state.entryType, state.date!)) {
-      emit(state.copyWith(
-        errorType: ErrorType.schoolOnlyToday,
-        status: CalendarStateStatus.error,
-      ));
-      return false;
-    }
-
     // Entry exist check
     if (state.entriesList.isNotEmpty &&
         !_entryAtThatDateExist(state.date!, state.entriesList)) {
@@ -150,6 +141,15 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
         !_lectionWithTisDateExist(state.date!, state.lectionsList)) {
       emit(state.copyWith(
         errorType: ErrorType.noLessonsToday,
+        status: CalendarStateStatus.error,
+      ));
+      return false;
+    }
+
+    // School and Past check
+    if (!_ifTypeIsSchoolDateIsToday(state.entryType, state.date!)) {
+      emit(state.copyWith(
+        errorType: ErrorType.schoolOnlyToday,
         status: CalendarStateStatus.error,
       ));
       return false;

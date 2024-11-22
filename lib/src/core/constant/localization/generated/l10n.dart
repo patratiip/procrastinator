@@ -300,10 +300,10 @@ class Localization {
     );
   }
 
-  /// `Edit progile`
+  /// `Edit profile`
   String get profileEdit {
     return Intl.message(
-      'Edit progile',
+      'Edit profile',
       name: 'profileEdit',
       desc: '',
       args: [],
@@ -656,6 +656,16 @@ class Localization {
     return Intl.message(
       'Users',
       name: 'usersAppBarText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Forgot to add an entry?`
+  String get calendarStateErrorMessage_buttonText_youAreForgot {
+    return Intl.message(
+      'Forgot to add an entry?',
+      name: 'calendarStateErrorMessage_buttonText_youAreForgot',
       desc: '',
       args: [],
     );

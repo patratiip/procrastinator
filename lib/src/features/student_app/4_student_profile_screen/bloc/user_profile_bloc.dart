@@ -13,11 +13,11 @@ part 'user_profile_state.dart';
 class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
   final IUserRepository _userRepository;
   late final StreamSubscription<MyUser> _userSubscription;
-  final IGroupRepository _groupRepository;
+  final IStudentGroupRepository _groupRepository;
   late final StreamSubscription<Group> _groupSubscription;
   UserProfileBloc(
       {required IUserRepository userRepository,
-      required IGroupRepository groupRepository})
+      required IStudentGroupRepository groupRepository})
       : _userRepository = userRepository,
         _groupRepository = groupRepository,
         super(const UserProfileState()) {

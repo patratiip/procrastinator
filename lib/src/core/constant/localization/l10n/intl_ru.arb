@@ -59,5 +59,6 @@
   "registrationButtonText": "Зарегистрировать",
   "schoolLocationDropDownText": "Выберите расположение школы",
   "dashboardAppBarText": "Главная",
-  "usersAppBarText": "Пользователи"
+  "usersAppBarText": "Пользователи",
+  "calendarStateErrorMessage_buttonText_youAreForgot": "Забыли добавить запись?"
 }

@@ -45,22 +45,23 @@ class StudentProfilePageWidget extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      UserProfilePageOptionsCardComponent(
+                      UserProfilePageFeatureCardComponent(
                         title: Localization.of(context).profileEdit,
+                        newFeature: true,
                       ),
-                      UserProfilePageOptionsCardComponent(
+                      UserProfilePageFeatureCardComponent(
                         title: Localization.of(context).sickList,
                       ),
-                      UserProfilePageOptionsCardComponent(
+                      UserProfilePageFeatureCardComponent(
                         title: Localization.of(context).looseReport,
                       ),
-                      UserProfilePageOptionsCardComponent(
+                      UserProfilePageFeatureCardComponent(
                         title: Localization.of(context).bugReport,
                       ),
-                      UserProfilePageOptionsCardComponent(
+                      UserProfilePageFeatureCardComponent(
                         title: Localization.of(context).documents,
                       ),
-                      UserProfilePageOptionsCardComponent(
+                      UserProfilePageFeatureCardComponent(
                         title: Localization.of(context).contacts,
                       ),
                       const SizedBox(height: 32),

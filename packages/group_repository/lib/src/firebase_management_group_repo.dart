@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_repository/group_repository.dart';
 
-class FirebaseManagementGroupRepository implements IGroupRepository {
+class FirebaseManagementGroupRepository implements IManagementGroupRepository {
   final _groupCollection =
       FirebaseFirestore.instance.collection('group_flutter');
 
@@ -63,6 +63,4 @@ class FirebaseManagementGroupRepository implements IGroupRepository {
     }
   }
 
-  @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
 }

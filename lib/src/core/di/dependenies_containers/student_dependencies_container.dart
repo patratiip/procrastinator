@@ -28,12 +28,11 @@ base class StudentDependenciesContainer {
   /// [FirebaseLectionRepository] instance, used to manage theme and locale.
   final FirebaseLectionRepository firebaseLectionRepository;
 
-  /// [IGroupRepository] instance, used to manage theme and locale.
-  final IGroupRepository firebaseGroupRepository;
+  /// [IStudentGroupRepository] instance, used to manage theme and locale.
+  final IStudentGroupRepository firebaseGroupRepository;
 
   /// [DeviceGeolocationRepository] instance, used to manage theme and locale.
   final DeviceGeolocationRepository deviceGeolocationRepository;
-
 
   /// [StatisticComputingServise] instance, used to manage theme and locale.
   final StatisticComputingServise statisticComputingServise;

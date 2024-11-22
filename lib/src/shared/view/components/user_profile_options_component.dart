@@ -1,26 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
 
-class UserProfilePageOptionsCardComponent extends StatefulWidget {
+class UserProfilePageFeatureCardComponent extends StatefulWidget {
   final String title;
+  final bool? newFeature;
 
-  UserProfilePageOptionsCardComponent({super.key, required this.title});
+  const UserProfilePageFeatureCardComponent(
+      {super.key, required this.title, this.newFeature});
 
   @override
-  State<UserProfilePageOptionsCardComponent> createState() =>
-      _UserProfilePageOptionsCardComponentState();
+  State<UserProfilePageFeatureCardComponent> createState() =>
+      _UserProfilePageFeatureCardComponentState();
 }
 
-class _UserProfilePageOptionsCardComponentState
-    extends State<UserProfilePageOptionsCardComponent> {
-  var dateFormat = DateFormat('dd.MM.yy');
-
+class _UserProfilePageFeatureCardComponentState
+    extends State<UserProfilePageFeatureCardComponent> {
   void _goGo() {
     // Navigator.of(context).pushNamed(MainNavigationRoutes.profileSecondary);
   }
 
-  // var percent = NumberFormat("##");
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -47,28 +45,29 @@ class _UserProfilePageOptionsCardComponentState
                       flex: 3,
                       child: Text(
                         widget.title,
-                        style: TextStyle(fontSize: 22),
+                        style: const TextStyle(fontSize: 22),
                       )),
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                        width: 44,
-                        height: 44,
-                        decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 137, 232, 135),
-                            border: Border.all(
-                                width: 1, color: MyAppColorScheme.secondary),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: const Stack(
-                            alignment: AlignmentDirectional.center,
-                            children: [
-                              Text(
-                                'new',
-                                style: TextStyle(color: Colors.white),
-                                maxLines: 1,
-                              )
-                            ])),
-                  ),
+                  if (widget.newFeature == true)
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                          width: 44,
+                          height: 44,
+                          decoration: BoxDecoration(
+                              color: const Color.fromARGB(255, 137, 232, 135),
+                              border: Border.all(
+                                  width: 1, color: MyAppColorScheme.secondary),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: const Stack(
+                              alignment: AlignmentDirectional.center,
+                              children: [
+                                Text(
+                                  'new',
+                                  style: TextStyle(color: Colors.white),
+                                  maxLines: 1,
+                                )
+                              ])),
+                    ),
                   const Icon(
                     Icons.chevron_right_rounded,
                     size: 40,

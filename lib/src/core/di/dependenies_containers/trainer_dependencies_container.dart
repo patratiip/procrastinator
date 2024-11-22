@@ -19,8 +19,8 @@ base class TrainerDependenciesContainer {
   /// [FirebaseLectionRepository] instance, used to manage theme and locale.
   final FirebaseLectionRepository firebaseLectionRepository;
 
-  /// [IGroupRepository] instance, used to manage theme and locale.
-  final IGroupRepository firebaseGroupRepository;
+  /// [ITrainerGroupRepository] instance, used to manage theme and locale.
+  final ITrainerGroupRepository firebaseGroupRepository;
 }
 
 /// {@template testing_student_dependencies_container}

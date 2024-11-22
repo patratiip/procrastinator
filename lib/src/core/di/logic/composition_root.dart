@@ -218,10 +218,8 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
         FirebaseEntryRepositoryFactory(currentUser.userId).create();
     final firebaseLectionRepository =
         FirebaseLectionRepositoryFactory().create();
-    final firebaseGroupRepository = FirebaseGroupRepositoryFactory(
-            currentUser.userType,
-            groupId: currentUser.group)
-        .create();
+    final firebaseGroupRepository =
+        FirebaseGroupRepositoryFactory(groupId: currentUser.group).create();
     final deviceGeolocationRepository =
         DeviceGeolocationRepositoryFactory().create();
 
@@ -260,7 +258,7 @@ class TrainerDependenciesFactory extends Factory<TrainerDependenciesContainer> {
     final firebaseLectionRepository =
         FirebaseLectionRepositoryFactory().create();
     final firebaseGroupRepository =
-        FirebaseGroupRepositoryFactory(currentUser.userType).create();
+        FirebaseTrainerGroupRepositoryFactory().create();
 
     return TrainerDependenciesContainer(
       firebaseLectionRepository: firebaseLectionRepository,
@@ -296,7 +294,7 @@ class ManagementDependenciesFactory
     final statisticComputingServise =
         StatisticComputingServiseFactory().create();
     final firebaseGroupRepository =
-        FirebaseGroupRepositoryFactory(currentUser.userType).create();
+        FirebaseManagementGroupRepositoryFactory().create();
 
     return ManagementDependenciesContainer(
       firebaseEntryRepository: firebaseEntryRepository,
@@ -334,26 +332,46 @@ class FirebaseEntryRepositoryFactory extends Factory<FirebaseEntryRepository> {
   }
 }
 
-/// {@template firebase_group_repo_factory}
-/// Factory that creates an instance of [FirebaseManagementGroupRepository].
+/// {@template firebase_student_group_repo_factory}
+/// Factory that creates an instance of [FirebaseStudentGroupRepository].
 /// {@endtemplate}
-class FirebaseGroupRepositoryFactory extends Factory<IGroupRepository> {
-  /// {@macro firebase_group_repo_factory}
-  FirebaseGroupRepositoryFactory(this.userType, {this.groupId});
-
-  UserType userType;
+class FirebaseGroupRepositoryFactory extends Factory<IStudentGroupRepository> {
+  /// {@macro firebase_student_group_repo_factory}
+  FirebaseGroupRepositoryFactory({this.groupId});
 
   String? groupId;
 
   @override
-  IGroupRepository create() {
-    if (userType == UserType.management) {
-      return FirebaseManagementGroupRepository();
-    } else if (userType == UserType.trainer) {
-      return FirebaseTrainerGroupRepository();
-    } else {
-      return FirebaseStudentGroupRepository(groupID: groupId!);
-    }
+  IStudentGroupRepository create() {
+    return FirebaseStudentGroupRepository(groupID: groupId!);
+  }
+}
+
+/// {@template firebase_management_group_repo_factory}
+/// Factory that creates an instance of [FirebaseManagementGroupRepository].
+/// {@endtemplate}
+class FirebaseManagementGroupRepositoryFactory
+    extends Factory<IManagementGroupRepository> {
+  /// {@macro firebase_management_group_repo_factory}
+  FirebaseManagementGroupRepositoryFactory();
+
+  @override
+  IManagementGroupRepository create() {
+    return FirebaseManagementGroupRepository();
+  }
+}
+
+/// {@template firebase_trainer_group_repo_factory}
+/// Factory that creates an instance of [FirebaseTrainerGroupRepository].
+/// {@endtemplate}
+class FirebaseTrainerGroupRepositoryFactory
+    extends Factory<ITrainerGroupRepository> {
+  /// {@macro firebase_trainer_group_repo_factory}
+  FirebaseTrainerGroupRepositoryFactory();
+
+  @override
+  ITrainerGroupRepository create() {
+    return FirebaseTrainerGroupRepository();
   }
 }
 

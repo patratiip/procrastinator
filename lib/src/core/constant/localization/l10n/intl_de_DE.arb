@@ -59,5 +59,6 @@
   "registrationButtonText": "Registrieren",
   "schoolLocationDropDownText": "Wählen Sie den Standort der Schule",
   "dashboardAppBarText": "Dashboard",
-  "usersAppBarText": "Benutzer"
+  "usersAppBarText": "Benutzer",
+  "calendarStateErrorMessage_buttonText_youAreForgot": "Hast du vergessen?"
 }

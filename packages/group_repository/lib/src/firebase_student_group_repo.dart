@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_repository/group_repository.dart';
 
-class FirebaseStudentGroupRepository implements IGroupRepository {
+class FirebaseStudentGroupRepository implements IStudentGroupRepository {
   final String groupID;
   FirebaseStudentGroupRepository({
     required this.groupID,
@@ -44,6 +44,5 @@ class FirebaseStudentGroupRepository implements IGroupRepository {
     }
   }
 
-  @override
-  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+
 }

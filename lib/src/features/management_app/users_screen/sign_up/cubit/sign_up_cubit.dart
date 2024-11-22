@@ -9,7 +9,7 @@ part 'sign_up_state.dart';
 
 class SignUpCubit extends Cubit<SignUpCubitState> {
   final IUserRepository _authenticationRepository;
-  final IGroupRepository _groupRepository;
+  final IManagementGroupRepository _groupRepository;
 
   SignUpCubit(this._authenticationRepository, this._groupRepository)
       : super(const SignUpCubitState());
