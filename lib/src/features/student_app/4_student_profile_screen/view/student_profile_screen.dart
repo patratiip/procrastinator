@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/4_student_profile_screen/student_profile_screen.dart';
@@ -22,7 +22,7 @@ class StudentProfilePageWidget extends StatelessWidget {
               primary: true,
               child: Column(
                 children: [
-                  /////
+                  /// Curent [User] profile image
                   Photo(state.user!.photoURL),
 
                   Padding(
@@ -104,8 +104,8 @@ class Photo extends StatelessWidget {
         clipBehavior: Clip.hardEdge,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AppScope.userOf(context).photoURL != null
-                ? NetworkImage(AppScope.userOf(context).photoURL!)
+            image: userPhoto != null
+                ? NetworkImage(userPhoto!)
                 : const NetworkImage(
                     'https://images.unsplash.com/photo-1589652717406-1c69efaf1ff8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwzfHxkb2clMjBjb21wdXRlcnxlbnwwfHx8fDE3MDY1Mjk2MDF8MA&ixlib=rb-4.0.3&q=80&w=1080'),
             fit: BoxFit.cover,

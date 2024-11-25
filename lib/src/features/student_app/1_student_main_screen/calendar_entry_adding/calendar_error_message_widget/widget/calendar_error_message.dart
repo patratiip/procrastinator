@@ -55,9 +55,10 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
           CalendarErrorMessageSchoolOnlyToday() => _ErrorTextWidget(
               text: Localization.of(context)
                   .calendarStateErrorMessage_schoolTypeOnlyToday,
-              child: _ErrorActionButton(
-                  text: Localization.of(context)
-                      .calendarStateErrorMessage_buttonText_youAreForgot)),
+              // child: _ErrorActionButton(
+              //     text: Localization.of(context)
+              //         .calendarStateErrorMessage_buttonText_youAreForgot),
+            ),
           CalendarErrorMessageEnrtyWithThisDateExists() => _ErrorTextWidget(
               text: Localization.of(context)
                   .calendarStateErrorMessage_thisDateExists),
@@ -103,55 +104,55 @@ class _ErrorTextWidget extends StatelessWidget {
   }
 }
 
-class _ErrorActionButton extends StatelessWidget {
-  final String text;
-  const _ErrorActionButton({super.key, required this.text});
+// class _ErrorActionButton extends StatelessWidget {
+//   final String text;
+//   const _ErrorActionButton({super.key, required this.text});
 
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      style: const ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(Colors.white)),
-      onPressed: () => showModalBottomSheet(
-        context: context,
-        builder: (context) {
-          return _BottomSheetContent();
-        },
-      ),
-      // {
+//   @override
+//   Widget build(BuildContext context) {
+//     return TextButton(
+//       style: const ButtonStyle(
+//           backgroundColor: WidgetStatePropertyAll(Colors.white)),
+//       onPressed: () => showModalBottomSheet(
+//         context: context,
+//         builder: (context) {
+//           return _BottomSheetContent();
+//         },
+//       ),
+//       // {
 
-      //   // TODO: Add a bottom sheet with ...
-      //   final date = context.read<CalendarBloc>().state.date!;
-      //   final entryType = context.read<CalendarBloc>().state.entryType!;
-      //   context
-      //       .read<CalendarEntryAddingButtonBloc>()
-      //       .add(CalendarButtonAddEntryEvent(date, entryType));
-      // },
-      child: Text(
-        text,
-        textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.labelLarge!.copyWith(
-              color: MyAppColorScheme.errorColor,
-            ),
-      ),
-    );
-  }
-}
+//       //   // TODO: Add a bottom sheet with ...
+//       //   final date = context.read<CalendarBloc>().state.date!;
+//       //   final entryType = context.read<CalendarBloc>().state.entryType!;
+//       //   context
+//       //       .read<CalendarEntryAddingButtonBloc>()
+//       //       .add(CalendarButtonAddEntryEvent(date, entryType));
+//       // },
+//       child: Text(
+//         text,
+//         textAlign: TextAlign.center,
+//         style: Theme.of(context).textTheme.labelLarge!.copyWith(
+//               color: MyAppColorScheme.errorColor,
+//             ),
+//       ),
+//     );
+//   }
+// }
 
-class _BottomSheetContent extends StatelessWidget {
-  const _BottomSheetContent({super.key});
+// class _BottomSheetContent extends StatelessWidget {
+//   const _BottomSheetContent({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(
-          children: [
-            Text(Localization.of(context)
-                .calendarStateErrorMessage_buttonText_youAreForgot)
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       child: Center(
+//         child: Column(
+//           children: [
+//             Text(Localization.of(context)
+//                 .calendarStateErrorMessage_buttonText_youAreForgot)
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
