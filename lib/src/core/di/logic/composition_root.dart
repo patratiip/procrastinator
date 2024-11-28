@@ -3,14 +3,17 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/dependenies_containers/app_dependencies_container.dart';
 import 'package:procrastinator/src/core/di/dependenies_containers/management_dependencies_container.dart';
 import 'package:procrastinator/src/core/di/dependenies_containers/student_dependencies_container.dart';
 import 'package:procrastinator/src/core/di/dependenies_containers/trainer_dependencies_container.dart';
-import 'package:procrastinator/src/core/utils/refined_logger.dart';
+import 'package:procrastinator/src/core/utils/logger.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
+import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// {@template composition_root}
@@ -32,7 +35,7 @@ final class CompositionRoot {
   final Config config;
 
   /// Logger used to log information during composition process.
-  final RefinedLogger logger;
+  final Logger logger;
 
   /// Composes dependencies and returns result of composition.
   Future<AppCompositionResult> composeAppDependencies() async {
@@ -58,8 +61,7 @@ final class CompositionRoot {
 
     logger.info('Initializing Student dependencies...');
     // initialize dependencies
-    final dependencies =
-        StudentDependenciesFactory(config, logger, currentUser).create();
+    final dependencies = StudentDependenciesFactory(currentUser).create();
     logger.info('Student dependencies initialized');
 
     stopwatch.stop();
@@ -78,8 +80,7 @@ final class CompositionRoot {
 
     logger.info('Initializing Management dependencies...');
     // initialize dependencies
-    final dependencies =
-        ManagementDependenciesFactory(config, logger, currentUser).create();
+    final dependencies = ManagementDependenciesFactory(currentUser).create();
     logger.info('Management dependencies initialized');
 
     stopwatch.stop();
@@ -97,8 +98,7 @@ final class CompositionRoot {
 
     logger.info('Initializing Trainer dependencies...');
     // initialize dependencies
-    final dependencies =
-        TrainerDependenciesFactory(config, logger, currentUser).create();
+    final dependencies = TrainerDependenciesFactory(currentUser).create();
     logger.info('Trainer dependencies initialized');
 
     stopwatch.stop();
@@ -144,21 +144,21 @@ class AppDependenciesFactory extends AsyncFactory<AppDependenciesContainer> {
   final Config config;
 
   /// Logger used to log information during composition process.
-  final RefinedLogger logger;
+  final Logger logger;
 
   @override
   Future<AppDependenciesContainer> create() async {
+    final packageInfo = await PackageInfo.fromPlatform();
     final errorTrackingManager =
         await ErrorTrackingManagerFactory(config, logger).create();
     final userRepository = FirebaseUserRepositoryFactory().create();
-    // final authenticationbloc =
-    //     AuthenticationBlocFactory(userRepository).create();
 
     return AppDependenciesContainer(
-      userRepository: userRepository,
-      // authenticationbloc: authenticationbloc,
-      errorTrackingManager: errorTrackingManager,
-    );
+        logger: logger,
+        config: config,
+        userRepository: userRepository,
+        errorTrackingManager: errorTrackingManager,
+        packageInfo: packageInfo);
   }
 }
 
@@ -170,30 +170,9 @@ class FirebaseUserRepositoryFactory extends Factory<FirebaseUserRepository> {
 
   @override
   FirebaseUserRepository create() {
-    ///Auth Repo
-    final userRepository = FirebaseUserRepository();
-    return userRepository;
+    return FirebaseUserRepository();
   }
 }
-
-// /// {@template authentication_bloc_factory}
-// /// Factory that creates an instance of [FirebaseUserRepository].
-// /// {@endtemplate}
-// class AuthenticationBlocFactory extends Factory<AuthenticationBloc> {
-//   /// {@macro authentication_bloc_factory}
-//   AuthenticationBlocFactory(this.userRepository);
-
-//   ///Auth Repo
-//   final FirebaseUserRepository userRepository;
-
-//   @override
-//   AuthenticationBloc create() {
-//     ///Auth Bloc
-//     final authBloc =
-//         AuthenticationBloc(authenticationRepository: userRepository);
-//     return authBloc;
-//   }
-// }
 
 //////////////////////////STUDENT APP////////////////////////////////////////
 
@@ -202,14 +181,9 @@ class FirebaseUserRepositoryFactory extends Factory<FirebaseUserRepository> {
 /// {@endtemplate}
 class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
   /// {@macro student_dependencies_factory}
-  StudentDependenciesFactory(this.config, this.logger, this.currentUser);
+  StudentDependenciesFactory(this.currentUser);
 
-  /// Application configuration
-  final Config config;
-
-  /// Logger used to log information during composition process.
-  final RefinedLogger logger;
-
+  /// Current authenticated user
   final MyUser currentUser;
 
   @override
@@ -243,14 +217,9 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
 /// {@endtemplate}
 class TrainerDependenciesFactory extends Factory<TrainerDependenciesContainer> {
   /// {@macro Trainer_dependencies_factory}
-  TrainerDependenciesFactory(this.config, this.logger, this.currentUser);
+  TrainerDependenciesFactory(this.currentUser);
 
-  /// Application configuration
-  final Config config;
-
-  /// Logger used to log information during composition process.
-  final RefinedLogger logger;
-
+  /// Current authenticated user
   final MyUser currentUser;
 
   @override
@@ -275,14 +244,9 @@ class TrainerDependenciesFactory extends Factory<TrainerDependenciesContainer> {
 class ManagementDependenciesFactory
     extends Factory<ManagementDependenciesContainer> {
   /// {@macro management_dependencies_factory}
-  ManagementDependenciesFactory(this.config, this.logger, this.currentUser);
+  ManagementDependenciesFactory(this.currentUser);
 
-  /// Application configuration
-  final Config config;
-
-  /// Logger used to log information during composition process.
-  final RefinedLogger logger;
-
+  /// Current authenticated user
   final MyUser currentUser;
 
   @override
@@ -412,7 +376,7 @@ class ErrorTrackingManagerFactory extends AsyncFactory<ErrorTrackingManager> {
   final Config config;
 
   /// Logger used to log information during composition process.
-  final RefinedLogger logger;
+  final Logger logger;
 
   @override
   Future<ErrorTrackingManager> create() async {

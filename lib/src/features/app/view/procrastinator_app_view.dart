@@ -21,7 +21,7 @@ class ProcrastinatorAppView extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      locale: const Locale('en'),
+      // locale: const Locale('en'),
       supportedLocales: Localization.delegate.supportedLocales,
 
       //THEME

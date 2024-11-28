@@ -1,4 +1,6 @@
-import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
+import 'package:package_info_plus/package_info_plus.dart';
+import 'package:procrastinator/src/core/constant/config.dart';
+import 'package:procrastinator/src/core/utils/logger.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -13,15 +15,27 @@ import 'package:user_repository/user_repository.dart';
 base class AppDependenciesContainer {
   /// {@macro dependencies_container}
   const AppDependenciesContainer({
+    required this.logger,
+    required this.config,
+    required this.packageInfo,
     required this.userRepository,
     required this.errorTrackingManager,
   });
+
+  /// [Logger] instance, used to log messages.
+  final Logger logger;
+
+  /// [Config] instance, contains configuration of the application.
+  final Config config;
 
   /// [IUserRepository] instance, used to manage theme and locale.
   final IUserRepository userRepository;
 
   /// [ErrorTrackingManager] instance, used to report errors.
   final ErrorTrackingManager errorTrackingManager;
+
+  /// [PackageInfo] instance, contains information about the application.
+  final PackageInfo packageInfo;
 }
 
 /// {@template testing_dependencies_container}

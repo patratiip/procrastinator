@@ -12,7 +12,7 @@ import 'package:stack_trace/stack_trace.dart';
 ///
 /// This is a zone-scoped logger, which means that it can be overridden
 /// in nested zones or during tests.
-RefinedLogger get logger => Zone.current[_loggerKey] as RefinedLogger? ?? _logger;
+Logger get logger => Zone.current[_loggerKey] as Logger? ?? _logger;
 
 /// Runs [callback] with the given [logger] instance.
 ///
@@ -22,7 +22,7 @@ RefinedLogger get logger => Zone.current[_loggerKey] as RefinedLogger? ?? _logge
 /// This is useful for testing purposes, where you can pass a mock logger
 /// to the callback.
 void runWithLogger<T>(
-  RefinedLogger logger,
+  Logger logger,
   T Function() callback,
 ) {
   runZoned(
@@ -120,7 +120,7 @@ class LogWrapper {
 }
 
 /// Logger class, that manages the logging of messages
-class DefaultLogger extends RefinedLogger {
+class DefaultLogger extends Logger {
   /// Constructs an instance of [DefaultLogger].
   DefaultLogger([LoggingOptions options = const LoggingOptions()]) {
     _init(options);
@@ -229,7 +229,7 @@ class DefaultLogger extends RefinedLogger {
 }
 
 /// Logger class, that manages the logging of messages
-abstract class RefinedLogger {
+abstract class Logger {
   /// Stream of log messages
   Stream<LogMessage> get logs;
 

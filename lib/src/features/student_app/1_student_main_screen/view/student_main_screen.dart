@@ -5,7 +5,7 @@ import 'package:procrastinator/src/features/student_app/1_student_main_screen/lo
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/today_lection_widget/today_lection_widget.dart';
 
 /// {@template student_main_screen_widget}
-/// 
+/// Widget that shows [StudentMainScreen]
 /// {@endtemplate }
 class StudentMainScreen extends StatelessWidget {
   /// {@macro student_main_screen_widget}

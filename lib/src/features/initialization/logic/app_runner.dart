@@ -8,7 +8,7 @@ import 'package:procrastinator/firebase_options.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/logic/composition_root.dart';
 import 'package:procrastinator/src/core/utils/app_bloc_observer.dart';
-import 'package:procrastinator/src/core/utils/refined_logger.dart';
+import 'package:procrastinator/src/core/utils/logger.dart';
 import 'package:procrastinator/src/features/app/view/procrastinator.dart';
 import 'package:procrastinator/src/features/initialization/widget/initialization_failed_app.dart';
 
@@ -17,6 +17,7 @@ import 'package:procrastinator/src/features/initialization/widget/initialization
 /// {@endtemplate}
 final class AppRunner {
   /// {@macro app_runner}
+
   const AppRunner();
 
   /// Start the initialization and in case of success run application
@@ -42,7 +43,6 @@ final class AppRunner {
 
     Future<void> initializeAndRun() async {
       try {
-
         final result =
             await CompositionRoot(config, logger).composeAppDependencies();
 

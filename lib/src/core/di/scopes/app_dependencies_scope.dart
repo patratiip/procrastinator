@@ -6,51 +6,6 @@ import 'package:procrastinator/src/core/di/dependenies_containers/app_dependenci
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
-// /// {@template dependencies_scope}
-// /// A scope that provides composed [AppDependenciesContainer].
-// ///
-// /// **Testing**:
-// ///
-// /// To use [AppDependenciesScope] in tests, it is needed to wrap the widget with
-// /// [AppDependenciesScope], extend [TestDependenciesContainer] and provide the
-// /// dependencies that are needed for the test.
-// ///
-// /// ```dart
-// /// class AuthDependenciesContainer extends TestDependenciesContainer {
-// ///   // for example, use mocks created by mockito, or pass fake/real implementations
-// ///   // via constructor.
-// ///   @override
-// ///   final MockAuthRepository authRepository = MockAuthRepository();
-// /// }
-// /// ```
-// /// {@endtemplate}
-// class AppDependenciesScope extends InheritedWidget {
-//   /// {@macro dependencies_scope}
-//   const AppDependenciesScope({
-//     required super.child,
-//     required this.dependencies,
-//     super.key,
-//   });
-
-//   /// Container with dependencies.
-//   final AppDependenciesContainer dependencies;
-
-//   /// Get the dependencies from the [context].
-//   static AppDependenciesContainer of(BuildContext context) =>
-//       context.inhOf<AppDependenciesScope>(listen: false).dependencies;
-
-//   @override
-//   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-//     super.debugFillProperties(properties);
-//     properties.add(
-//       DiagnosticsProperty<AppDependenciesContainer>(
-//           'dependencies', dependencies),
-//     );
-//   }
-
-//   @override
-//   bool updateShouldNotify(AppDependenciesScope oldWidget) => false;
-// }
 
 /// {@template AppScope_scope}
 /// AppScopeScope widget.
@@ -132,7 +87,6 @@ class _AppScopeState extends State<AppScope> {
   @override
   void dispose() {
     // Permanent deletion of a state from a tree
-
     super.dispose();
   }
 

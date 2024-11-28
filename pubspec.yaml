@@ -16,7 +16,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  #REPOSITORIES
+  ## REPOSITORIES
   user_repository:
     path: packages/user_repository
 
@@ -37,49 +37,37 @@ dependencies:
 
   cupertino_icons: ^1.0.6
 
-  #assets
+  ## Assets
   spider: ^4.2.2
   flutter_svg: ^2.0.10+1
   font_awesome_flutter: ^10.7.0
 
-  #localization
+  ## Localization
   # intl: ^0.18.1
 
-  # local storage
-  # hive: ^2.2.3
-  # hive_flutter: ^1.1.0
+  ## Local storage
+  shared_preferences: ^2.3.0
   # flutter_secure_storage: ^4.2.1
-  # shared_preferences: ^2.3.0
 
-  # isar_flutter_libs: ^4.0.0-dev.13
-  # path_provider: ^2.1.0
-
-  # firebase
+  ## Firebase
   firebase_core: ^2.30.0
 
-  # auth
+  ## Auth
   # email_validator: ^2.1.17
   # sign_in_with_apple: ^6.1.0
-  # di
-  # get_it: ^8.0.0
 
-  # state
+  ## State
   flutter_bloc: ^8.1.6
   bloc_concurrency: ^0.2.5
-  # provider: ^6.1.2
   equatable: ^2.0.5
 
   ## Utils
   auto_size_text: ^3.0.0
   flutter_launcher_icons: ^0.14.0
   uuid: ^4.4.0
-  # formz: ^0.7.0
-  # flow_builder: ^0.1.0
-  # geopositon
-  # geolocator: ^12.0.0
-  # api
   json_annotation: ^4.8.1
   clock: ^1.1.1
+  package_info_plus: ^8.1.0
 
   ## Logging
   stack_trace: ^1.11.1
