@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
+import 'package:procrastinator/src/shared/view/pages/page_with_error.dart';
 
-class UserProfilePageFeatureCardComponent extends StatefulWidget {
+/// {@template feature_card_component}
+/// Widget that shows [FeatureCardComponent]
+/// {@endtemplate}
+class FeatureCardComponent extends StatelessWidget {
   final String title;
   final bool? newFeature;
+  final Widget? route;
 
-  const UserProfilePageFeatureCardComponent(
-      {super.key, required this.title, this.newFeature});
+  const FeatureCardComponent(
+      {super.key, required this.title, this.newFeature, this.route});
 
-  @override
-  State<UserProfilePageFeatureCardComponent> createState() =>
-      _UserProfilePageFeatureCardComponentState();
-}
-
-class _UserProfilePageFeatureCardComponentState
-    extends State<UserProfilePageFeatureCardComponent> {
-  void _goGo() {
-    // Navigator.of(context).pushNamed(MainNavigationRoutes.profileSecondary);
-  }
+  /// {@macro feature_card_component}
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +24,11 @@ class _UserProfilePageFeatureCardComponentState
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
-          onTap: _goGo,
+          onTap: () {
+            Navigator.of(context).push<void>(MaterialPageRoute<void>(
+              builder: (BuildContext context) => route ?? const PageWithError(),
+            ));
+          },
           child: Container(
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.symmetric(vertical: 8),
@@ -44,10 +44,10 @@ class _UserProfilePageFeatureCardComponentState
                   Expanded(
                       flex: 3,
                       child: Text(
-                        widget.title,
+                        title,
                         style: const TextStyle(fontSize: 22),
                       )),
-                  if (widget.newFeature == true)
+                  if (newFeature == true)
                     Expanded(
                       flex: 1,
                       child: Container(

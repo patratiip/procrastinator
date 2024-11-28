@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
 import 'package:procrastinator/src/core/di/scopes/management_scope.dart';
-import 'package:procrastinator/src/shared/view/components/logout_button.dart';
+import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
 
 class ManagementProfileScreen extends StatelessWidget {
   const ManagementProfileScreen({super.key});

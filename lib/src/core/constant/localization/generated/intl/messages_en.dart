@@ -86,6 +86,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "groupText": MessageLookupByLibrary.simpleMessage("Group"),
         "homeEntryType": MessageLookupByLibrary.simpleMessage("Home"),
         "inSchool": MessageLookupByLibrary.simpleMessage("in School"),
+        "languagesEnglish": MessageLookupByLibrary.simpleMessage("English"),
+        "languagesGerman": MessageLookupByLibrary.simpleMessage("German"),
+        "languagesRussian": MessageLookupByLibrary.simpleMessage("Russian"),
         "lastFiveEntriesWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Last 5 Entries"),
         "lectionsListWidgetHeader":
@@ -101,9 +104,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "loosedFromPossibleDays": m1,
         "managerLabel": MessageLookupByLibrary.simpleMessage("Manager"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "navigationErrorScteenText": MessageLookupByLibrary.simpleMessage(
+            "The screen does not exist. Please go back"),
         "noButtonText": MessageLookupByLibrary.simpleMessage("No"),
         "noLessonsToday":
             MessageLookupByLibrary.simpleMessage("No lections found today"),
+        "page404Header": MessageLookupByLibrary.simpleMessage("Page 404"),
         "passwordTextFieldLabel":
             MessageLookupByLibrary.simpleMessage("Password"),
         "profileAppBarText": MessageLookupByLibrary.simpleMessage("Profile"),
@@ -115,6 +121,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Choose the location of the school"),
         "selectAUserTypeText":
             MessageLookupByLibrary.simpleMessage("Select a user type"),
+        "settingsLabelText": MessageLookupByLibrary.simpleMessage("Settings"),
+        "settingsOptionLanguage":
+            MessageLookupByLibrary.simpleMessage("Language"),
         "sickDaysFromPossible": m2,
         "sickEntryType": MessageLookupByLibrary.simpleMessage("Sick"),
         "sickList": MessageLookupByLibrary.simpleMessage("Sick list"),

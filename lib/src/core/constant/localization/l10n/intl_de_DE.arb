@@ -60,5 +60,12 @@
   "schoolLocationDropDownText": "Wählen Sie den Standort der Schule",
   "dashboardAppBarText": "Dashboard",
   "usersAppBarText": "Benutzer",
-  "calendarStateErrorMessage_buttonText_youAreForgot": "Hast du vergessen?"
+  "calendarStateErrorMessage_buttonText_youAreForgot": "Hast du vergessen?",
+  "settingsLabelText": "Einstellungen",
+  "settingsOptionLanguage": "Sprache",
+  "navigationErrorScteenText": "Der Bildschirm existiert nicht. Bitte zurückgehen",
+  "page404Header": "Seite 404",
+  "languagesEnglish": "Englisch",
+  "languagesGerman": "Deutsch",
+  "languagesRussian": "Russisch"
 }

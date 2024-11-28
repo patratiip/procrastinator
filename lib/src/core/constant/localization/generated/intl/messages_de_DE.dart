@@ -87,6 +87,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "groupText": MessageLookupByLibrary.simpleMessage("Gruppe"),
         "homeEntryType": MessageLookupByLibrary.simpleMessage("Heim"),
         "inSchool": MessageLookupByLibrary.simpleMessage("im Schule"),
+        "languagesEnglish": MessageLookupByLibrary.simpleMessage("Englisch"),
+        "languagesGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
+        "languagesRussian": MessageLookupByLibrary.simpleMessage("Russisch"),
         "lastFiveEntriesWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Letzte 5 Anmeldungen"),
         "lectionsListWidgetHeader":
@@ -102,9 +105,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "loosedFromPossibleDays": m1,
         "managerLabel": MessageLookupByLibrary.simpleMessage("Manager"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "navigationErrorScteenText": MessageLookupByLibrary.simpleMessage(
+            "Der Bildschirm existiert nicht. Bitte zurückgehen"),
         "noButtonText": MessageLookupByLibrary.simpleMessage("No"),
         "noLessonsToday": MessageLookupByLibrary.simpleMessage(
             "Heute gibt es keine Unterrichten"),
+        "page404Header": MessageLookupByLibrary.simpleMessage("Seite 404"),
         "passwordTextFieldLabel":
             MessageLookupByLibrary.simpleMessage("Kennwort"),
         "profileAppBarText": MessageLookupByLibrary.simpleMessage("Profil"),
@@ -117,6 +123,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wählen Sie den Standort der Schule"),
         "selectAUserTypeText":
             MessageLookupByLibrary.simpleMessage("Wählen Sie den Benutzertyp"),
+        "settingsLabelText":
+            MessageLookupByLibrary.simpleMessage("Einstellungen"),
+        "settingsOptionLanguage":
+            MessageLookupByLibrary.simpleMessage("Sprache"),
         "sickDaysFromPossible": m2,
         "sickEntryType": MessageLookupByLibrary.simpleMessage("Krank"),
         "sickList": MessageLookupByLibrary.simpleMessage("Krankmeldung"),

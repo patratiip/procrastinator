@@ -9,7 +9,7 @@ import 'package:procrastinator/src/features/student_app/student_app.dart';
 import 'package:procrastinator/src/core/di/scopes/student_app_scope.dart';
 import 'package:procrastinator/src/features/trainer_app/trainer_app.dart';
 import 'package:procrastinator/src/core/di/scopes/trainer_app_scope.dart';
-import 'package:procrastinator/src/shared/view/components/logout_button.dart';
+import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
 import 'package:user_repository/user_repository.dart';
 
 class AppsManager extends StatelessWidget {

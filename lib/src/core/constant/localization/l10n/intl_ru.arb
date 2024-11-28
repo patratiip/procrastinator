@@ -60,5 +60,12 @@
   "schoolLocationDropDownText": "Выберите расположение школы",
   "dashboardAppBarText": "Главная",
   "usersAppBarText": "Пользователи",
-  "calendarStateErrorMessage_buttonText_youAreForgot": "Забыли добавить запись?"
+  "calendarStateErrorMessage_buttonText_youAreForgot": "Забыли добавить запись?",
+  "settingsLabelText": "Настройки",
+  "settingsOptionLanguage": "Язык",
+  "navigationErrorScteenText": "Экрана не существует. Пожалуйста, вернитесь назад",
+  "page404Header": "Экран 404",
+  "languagesEnglish": "Английский",
+  "languagesGerman": "Немецкий",
+  "languagesRussian": "Русский"
 }

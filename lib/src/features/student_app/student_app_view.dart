@@ -41,30 +41,17 @@ class _StudentAppViewState extends State<StudentAppView> {
 
   @override
   Widget build(BuildContext context) {
-    final appSettings = SettingsScope.settingsOf(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(_appBarText.isEmpty
             ? Localization.of(context).anmeldungAppBarText
             : _appBarText),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          final currentLocale =
-              SettingsScope.settingsOf(context).locale!.languageCode;
-          SettingsScope.blocOf(context).add(AppSettingsEvent.updateAppSettings(
-            appSettings: appSettings.copyWith(
-                locale: currentLocale == 'en'
-                    ? const Locale('de')
-                    : const Locale('en')),
-          ));
-        },
-      ),
       body: <Widget>[
         const StudentMainScreen(),
         const StatisticPageWidget(),
         const KursplanPageWidget(),
-        const StudentProfilePageWidget(),
+        const StudentProfileScreen(),
       ][_currentIndex],
       bottomNavigationBar: NavigationBar(
           onDestinationSelected: _onSelectedTab,

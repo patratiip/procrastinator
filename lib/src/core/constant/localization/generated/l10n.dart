@@ -670,6 +670,76 @@ class Localization {
       args: [],
     );
   }
+
+  /// `Settings`
+  String get settingsLabelText {
+    return Intl.message(
+      'Settings',
+      name: 'settingsLabelText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Language`
+  String get settingsOptionLanguage {
+    return Intl.message(
+      'Language',
+      name: 'settingsOptionLanguage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The screen does not exist. Please go back`
+  String get navigationErrorScteenText {
+    return Intl.message(
+      'The screen does not exist. Please go back',
+      name: 'navigationErrorScteenText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Page 404`
+  String get page404Header {
+    return Intl.message(
+      'Page 404',
+      name: 'page404Header',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get languagesEnglish {
+    return Intl.message(
+      'English',
+      name: 'languagesEnglish',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `German`
+  String get languagesGerman {
+    return Intl.message(
+      'German',
+      name: 'languagesGerman',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Russian`
+  String get languagesRussian {
+    return Intl.message(
+      'Russian',
+      name: 'languagesRussian',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

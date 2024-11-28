@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/features/settings/view/settings_screen.dart';
 import 'package:procrastinator/src/features/student_app/4_student_profile_screen/student_profile_screen.dart';
-import 'package:procrastinator/src/shared/view/components/user_profile_options_component.dart';
-import 'package:procrastinator/src/shared/view/components/logout_button.dart';
+import 'package:procrastinator/src/shared/view/widgets/feature_card_component.dart';
+import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
 
-class StudentProfilePageWidget extends StatelessWidget {
-  const StudentProfilePageWidget({super.key});
+/// {@template student_profile_screen}
+/// Widget that shows [StudentProfileScreen]
+/// {@endtemplate}
+class StudentProfileScreen extends StatelessWidget {
+  const StudentProfileScreen({super.key});
+
+  /// {@macro student_profile_screen}
 
   @override
   Widget build(BuildContext context) {
@@ -45,26 +50,45 @@ class StudentProfilePageWidget extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      UserProfilePageFeatureCardComponent(
-                        title: Localization.of(context).profileEdit,
+                      // // Edit profile
+                      // FeatureCardComponent(
+                      //   title: Localization.of(context).profileEdit,
+                      // ),
+
+                      // Settings
+                      FeatureCardComponent(
+                        title: Localization.of(context).settingsLabelText,
                         newFeature: true,
+                        route: const SettingsScreen(),
                       ),
-                      UserProfilePageFeatureCardComponent(
-                        title: Localization.of(context).sickList,
-                      ),
-                      UserProfilePageFeatureCardComponent(
-                        title: Localization.of(context).looseReport,
-                      ),
-                      UserProfilePageFeatureCardComponent(
-                        title: Localization.of(context).bugReport,
-                      ),
-                      UserProfilePageFeatureCardComponent(
-                        title: Localization.of(context).documents,
-                      ),
-                      UserProfilePageFeatureCardComponent(
-                        title: Localization.of(context).contacts,
-                      ),
+
+                      // // Sick list
+                      // FeatureCardComponent(
+                      //   title: Localization.of(context).sickList,
+                      // ),
+
+                      // //Loose report
+                      // FeatureCardComponent(
+                      //   title: Localization.of(context).looseReport,
+                      // ),
+
+                      // // Bug report
+                      // FeatureCardComponent(
+                      //   title: Localization.of(context).bugReport,
+                      // ),
+
+                      // // Documets
+                      // FeatureCardComponent(
+                      //   title: Localization.of(context).documents,
+                      // ),
+
+                      // // Contacts
+                      // FeatureCardComponent(
+                      //   title: Localization.of(context).contacts,
+                      // ),
                       const SizedBox(height: 32),
+
+                      // LogOut button
                       const LogOutButton(),
                       const SizedBox(height: 16),
                       // _DeleteProfileButton(),

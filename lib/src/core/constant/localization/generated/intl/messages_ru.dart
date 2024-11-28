@@ -83,6 +83,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "groupText": MessageLookupByLibrary.simpleMessage("Группа"),
         "homeEntryType": MessageLookupByLibrary.simpleMessage("Дом"),
         "inSchool": MessageLookupByLibrary.simpleMessage("в школе"),
+        "languagesEnglish": MessageLookupByLibrary.simpleMessage("Английский"),
+        "languagesGerman": MessageLookupByLibrary.simpleMessage("Немецкий"),
+        "languagesRussian": MessageLookupByLibrary.simpleMessage("Русский"),
         "lastFiveEntriesWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Пять последних записей"),
         "lectionsListWidgetHeader":
@@ -99,9 +102,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "loosedFromPossibleDays": m1,
         "managerLabel": MessageLookupByLibrary.simpleMessage("Менеджер"),
         "name": MessageLookupByLibrary.simpleMessage("Имя"),
+        "navigationErrorScteenText": MessageLookupByLibrary.simpleMessage(
+            "Экрана не существует. Пожалуйста, вернитесь назад"),
         "noButtonText": MessageLookupByLibrary.simpleMessage("Нет"),
         "noLessonsToday":
             MessageLookupByLibrary.simpleMessage("Сегодня нет лекций"),
+        "page404Header": MessageLookupByLibrary.simpleMessage("Экран 404"),
         "passwordTextFieldLabel":
             MessageLookupByLibrary.simpleMessage("Пароль"),
         "profileAppBarText": MessageLookupByLibrary.simpleMessage("Профиль"),
@@ -114,6 +120,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Выберите расположение школы"),
         "selectAUserTypeText":
             MessageLookupByLibrary.simpleMessage("Выберите тип пользователя"),
+        "settingsLabelText": MessageLookupByLibrary.simpleMessage("Настройки"),
+        "settingsOptionLanguage": MessageLookupByLibrary.simpleMessage("Язык"),
         "sickDaysFromPossible": m2,
         "sickEntryType": MessageLookupByLibrary.simpleMessage("Болезнь"),
         "sickList": MessageLookupByLibrary.simpleMessage("Больничный"),
