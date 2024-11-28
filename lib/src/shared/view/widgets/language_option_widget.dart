@@ -25,8 +25,8 @@ class LanguageOptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appSettings = SettingsScope.settingsOf(context);
-    final actualLanguage =
-        SettingsScope.settingsOf(context).locale!.languageCode;
+    final actualLanguage = Localizations.localeOf(context).languageCode;
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: Material(

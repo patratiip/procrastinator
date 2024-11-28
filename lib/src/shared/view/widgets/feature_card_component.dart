@@ -7,6 +7,9 @@ import 'package:procrastinator/src/shared/view/pages/page_with_error.dart';
 /// {@endtemplate}
 class FeatureCardComponent extends StatelessWidget {
   final String title;
+
+  //TODO Add date and calculate new or not
+  // final DateTime dateOfAdiing;
   final bool? newFeature;
   final Widget? route;
 
