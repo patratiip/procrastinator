@@ -2,6 +2,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
+import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// {@template dependencies_container}
@@ -19,6 +20,7 @@ base class AppDependenciesContainer {
     required this.config,
     required this.packageInfo,
     required this.userRepository,
+    required this.appSettingsBloc,
     required this.errorTrackingManager,
   });
 
@@ -30,6 +32,9 @@ base class AppDependenciesContainer {
 
   /// [IUserRepository] instance, used to manage theme and locale.
   final IUserRepository userRepository;
+
+  /// [AppSettingsBloc] instance, used to manage theme and locale.
+  final AppSettingsBloc appSettingsBloc;
 
   /// [ErrorTrackingManager] instance, used to report errors.
   final ErrorTrackingManager errorTrackingManager;

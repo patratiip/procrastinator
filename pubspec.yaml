@@ -17,6 +17,10 @@ dependencies:
     sdk: flutter
 
   ## REPOSITORIES
+
+  settings_repository:
+    path: packages/settings_repository
+
   user_repository:
     path: packages/user_repository
 

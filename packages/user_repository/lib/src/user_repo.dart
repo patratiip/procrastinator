@@ -1,8 +1,7 @@
 import 'models/models.dart';
 
-abstract class IUserRepository {
+abstract interface class IUserRepository {
   Stream<MyUser> get user;
-  // Stream<MyUser> get userCollection;
 
   MyUser get currentUser;
 

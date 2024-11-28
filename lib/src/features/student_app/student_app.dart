@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
+import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
@@ -23,81 +23,67 @@ class StudentApp extends StatelessWidget {
           BlocProvider(
             create: (context) => EntriesListBloc(
                 entrysRepository:
-                    StudentAppScope.depConOf(context, listen: false)
-                        .firebaseEntryRepository),
+                    StudentAppScope.depConOf(context).firebaseEntryRepository),
           ),
 
           // Lection plan
           BlocProvider(
               create: (context) => LectionPlanBloc(
-                  lectionsRepository:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .firebaseLectionRepository)),
+                  lectionsRepository: StudentAppScope.depConOf(context)
+                      .firebaseLectionRepository)),
 
           // Loosed lections
           BlocProvider(
               create: (context) => LoosedEntriesBloc(
-                    entriesRepository:
-                        StudentAppScope.depConOf(context, listen: false)
-                            .firebaseEntryRepository,
-                    lectionsRepository:
-                        StudentAppScope.depConOf(context, listen: false)
-                            .firebaseLectionRepository,
+                    entriesRepository: StudentAppScope.depConOf(context)
+                        .firebaseEntryRepository,
+                    lectionsRepository: StudentAppScope.depConOf(context)
+                        .firebaseLectionRepository,
                   )),
 
           // Statistic
           BlocProvider(
               create: (context) => StatisticDiagrammBloc(
-                  AppScope.userOf(context, listen: false).group!,
+                  AppScope.userOf(context).group!,
                   entriesRepository:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .firebaseEntryRepository,
+                      StudentAppScope.depConOf(context).firebaseEntryRepository,
                   groupRepository:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .firebaseGroupRepository,
-                  computingService:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .statisticComputingServise)),
+                      StudentAppScope.depConOf(context).firebaseGroupRepository,
+                  computingService: StudentAppScope.depConOf(context)
+                      .statisticComputingServise)),
 
           // TodayLection
           BlocProvider(
               create: (context) => TodayLectionBloc(
-                  lectionsRepository:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .firebaseLectionRepository)
+                  lectionsRepository: StudentAppScope.depConOf(context)
+                      .firebaseLectionRepository)
                 ..add(LoadTodayLection())),
 
           // Calendar
           BlocProvider(
               create: (context) => CalendarBloc(
-                    entriesRepository:
-                        StudentAppScope.depConOf(context, listen: false)
-                            .firebaseEntryRepository,
-                    lectionsRepository:
-                        StudentAppScope.depConOf(context, listen: false)
-                            .firebaseLectionRepository,
+                    entriesRepository: StudentAppScope.depConOf(context)
+                        .firebaseEntryRepository,
+                    lectionsRepository: StudentAppScope.depConOf(context)
+                        .firebaseLectionRepository,
                   )),
 
           // User profile bloc
           BlocProvider(
               create: (context) => UserProfileBloc(
-                  userRepository:
-                      AppScope.depConOf(context, listen: false).userRepository,
-                  groupRepository:
-                      StudentAppScope.depConOf(context, listen: false)
-                          .firebaseGroupRepository)),
+                  userRepository: AppScope.depConOf(context).userRepository,
+                  groupRepository: StudentAppScope.depConOf(context)
+                      .firebaseGroupRepository)),
 
           // Entry adding button
           BlocProvider(
             create: (context) => CalendarEntryAddingButtonBloc(
                 entriesRepository:
-                    StudentAppScope.depConOf(context, listen: false)
-                        .firebaseEntryRepository,
-                geolocationRepository:
-                    StudentAppScope.depConOf(context, listen: false)
-                        .deviceGeolocationRepository,
+                    StudentAppScope.depConOf(context).firebaseEntryRepository,
+                geolocationRepository: StudentAppScope.depConOf(context)
+                    .deviceGeolocationRepository,
                 userSchoolGeoposition:
-                    AppScope.userOf(context, listen: false).schoolGeoPosition!),
+                    AppScope.userOf(context).schoolGeoPosition!),
           ),
 
           // Error Widget

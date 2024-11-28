@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
+import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
 import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 import '1_student_main_screen/view/student_main_screen.dart';
 import '2_statistic_screen/view/statistic_page.dart';
 import '3_lection_plan_screen/view/lection_plan_page_widget.dart';
@@ -39,11 +41,24 @@ class _StudentAppViewState extends State<StudentAppView> {
 
   @override
   Widget build(BuildContext context) {
+    final appSettings = SettingsScope.settingsOf(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(_appBarText.isEmpty
             ? Localization.of(context).anmeldungAppBarText
             : _appBarText),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          final currentLocale =
+              SettingsScope.settingsOf(context).locale!.languageCode;
+          SettingsScope.blocOf(context).add(AppSettingsEvent.updateAppSettings(
+            appSettings: appSettings.copyWith(
+                locale: currentLocale == 'en'
+                    ? const Locale('de')
+                    : const Locale('en')),
+          ));
+        },
       ),
       body: <Widget>[
         const StudentMainScreen(),

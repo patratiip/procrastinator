@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/di/logic/composition_root.dart';
-import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
+import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
+import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/features/app/view/procrastinator_app_view.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -24,7 +25,9 @@ class ProcrastinatorApp extends StatelessWidget {
           child: AppScope(
             dependencies: result.dependencies,
             //TODO Implement SettingsScope
-            child: const ProcrastinatorAppView(),
+            child: const SettingsScope(
+              child: ProcrastinatorAppView(),
+            ),
           ),
         ),
       );

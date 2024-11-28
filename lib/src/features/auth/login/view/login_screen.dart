@@ -50,14 +50,13 @@ class _HeaderWidget extends StatelessWidget {
             maxWidth: 600,
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
               const SizedBox(
                 height: 25,
                 width: double.infinity,
-
-                // WARNING
               ),
               Container(
                 width: 180,
@@ -69,23 +68,7 @@ class _HeaderWidget extends StatelessWidget {
                   fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(height: 25),
-
-              //
-              const SizedBox(height: 44),
-
-              ////////Turned Off in case of beta version
-
-              // const Row(
-              //   children: [
-              //     Text(
-              //       'Hast du noch kein Profil?',
-              //       style: TextStyle(fontSize: 16),
-              //     ),
-              //     _ChangeSignInModeButton(),
-              //   ],
-              // ),
-              const SizedBox(height: 25),
+              const SizedBox(height: 60),
               const _AuthFormWidget(),
             ],
           ),
@@ -95,24 +78,8 @@ class _HeaderWidget extends StatelessWidget {
   }
 }
 
-///Navigate to Sign In Screen
-// class _ChangeSignInModeButton extends StatelessWidget {
-//   const _ChangeSignInModeButton();
+/// AUTH Form
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextButton(
-//       onPressed: () => Navigator.of(context).push(SignUpScreen.route()),
-//       child: const Text(
-//         'Registrireren',
-//         style: TextStyle(fontSize: 20, color: MyAppColorScheme.primary),
-//       ),
-//     );
-//   }
-// }
-
-//////////////// AUTH Form
-///
 class _AuthFormWidget extends StatelessWidget {
   const _AuthFormWidget();
 
@@ -149,7 +116,7 @@ class _AuthFormWidget extends StatelessWidget {
   }
 }
 
-///EMAIL
+/// EMAIL
 class _EmailTextField extends StatelessWidget {
   _EmailTextField();
 
@@ -221,7 +188,7 @@ class _EmailTextField extends StatelessWidget {
   }
 }
 
-////PASS
+/// PASS
 class _PasswordTextField extends StatefulWidget {
   const _PasswordTextField();
 
@@ -272,7 +239,7 @@ class _PasswordTextFieldState extends State<_PasswordTextField> {
   }
 }
 
-///AuthBUTTON
+/// AuthBUTTON
 class _AuthButtonWidget extends StatelessWidget {
   const _AuthButtonWidget();
 
@@ -325,7 +292,7 @@ class _AuthButtonWidget extends StatelessWidget {
   }
 }
 
-///RESET Pass Button
+/// RESET Pass Button
 class _ResetPasswordButton extends StatelessWidget {
   const _ResetPasswordButton();
 
@@ -352,7 +319,7 @@ class _ResetPasswordButton extends StatelessWidget {
   }
 }
 
-///ERROR Message
+/// ERROR Message
 class _ErrorMessageWidget extends StatelessWidget {
   const _ErrorMessageWidget();
 

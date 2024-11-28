@@ -13,6 +13,7 @@ import 'package:procrastinator/src/core/utils/logger.dart';
 import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
+import 'package:settings_repository/settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -148,17 +149,49 @@ class AppDependenciesFactory extends AsyncFactory<AppDependenciesContainer> {
 
   @override
   Future<AppDependenciesContainer> create() async {
+    final sharedPreferences = SharedPreferencesAsync();
+
     final packageInfo = await PackageInfo.fromPlatform();
     final errorTrackingManager =
         await ErrorTrackingManagerFactory(config, logger).create();
     final userRepository = FirebaseUserRepositoryFactory().create();
 
+    final settingsBloc = await SettingsBlocFactory(sharedPreferences).create();
+
     return AppDependenciesContainer(
         logger: logger,
         config: config,
         userRepository: userRepository,
+        appSettingsBloc: settingsBloc,
         errorTrackingManager: errorTrackingManager,
         packageInfo: packageInfo);
+  }
+}
+
+/// {@template settings_bloc_factory}
+/// Factory that creates an instance of [AppSettingsBloc].
+/// {@endtemplate}
+class SettingsBlocFactory extends AsyncFactory<AppSettingsBloc> {
+  /// {@macro settings_bloc_factory}
+  SettingsBlocFactory(this.sharedPreferences);
+
+  /// Shared preferences instance
+  final SharedPreferencesAsync sharedPreferences;
+
+  @override
+  Future<AppSettingsBloc> create() async {
+    final appSettingsRepository = AppSettingsRepositoryImpl(
+      datasource:
+          AppSettingsDatasourceImpl(sharedPreferences: sharedPreferences),
+    );
+
+    final appSettings = await appSettingsRepository.getAppSettings();
+    final initialState = AppSettingsState.idle(appSettings: appSettings);
+
+    return AppSettingsBloc(
+      appSettingsRepository: appSettingsRepository,
+      initialState: initialState,
+    );
   }
 }
 

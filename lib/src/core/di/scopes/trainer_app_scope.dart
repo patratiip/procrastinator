@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/logic/composition_root.dart';
 import 'package:procrastinator/src/core/di/dependenies_containers/trainer_dependencies_container.dart';
-import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
+import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
 
 /// {@template trainer_app_scope}
@@ -22,7 +22,7 @@ class TrainerAppScope extends StatefulWidget {
   /// Get the [_TrainerAppScopeState] instance.
   static _TrainerAppScopeState of(
     BuildContext context, {
-    bool listen = true,
+    bool listen = false,
   }) {
     final trainerScope = listen
         ? context.dependOnInheritedWidgetOfExactType<_TrainerAppScopeScope>()
@@ -40,8 +40,8 @@ class _TrainerAppScopeState extends State<TrainerAppScope> {
   @override
   void initState() {
     super.initState();
-    final config = AppScope.depConOf(context, listen: false).config;
-    final user = AppScope.userOf(context, listen: false);
+    final config = AppScope.depConOf(context).config;
+    final user = AppScope.userOf(context);
     final result =
         CompositionRoot(config, logger).composeTrainerDependencies(user);
     trainerDependenciesContainer = result.dependencies;

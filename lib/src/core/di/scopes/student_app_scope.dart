@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/logic/composition_root.dart';
 import 'package:procrastinator/src/core/di/dependenies_containers/student_dependencies_container.dart';
-import 'package:procrastinator/src/core/di/scopes/app_dependencies_scope.dart';
+import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
 
 /// {@template student_app_scope}
@@ -22,7 +22,7 @@ class StudentAppScope extends StatefulWidget {
   /// Get the [_StudentAppScopeState] instance.
   static _StudentAppScopeState of(
     BuildContext context, {
-    bool listen = true,
+    bool listen = false,
   }) {
     final studentScope = listen
         ? context.dependOnInheritedWidgetOfExactType<_StudentAppScopeScope>()
@@ -33,7 +33,7 @@ class StudentAppScope extends StatefulWidget {
   /// Get the [StudentDependenciesContainer].
   static StudentDependenciesContainer depConOf(
     BuildContext context, {
-    bool listen = true,
+    bool listen = false,
   }) {
     final studentScope = listen
         ? context.dependOnInheritedWidgetOfExactType<_StudentAppScopeScope>()
@@ -51,8 +51,8 @@ class _StudentAppScopeState extends State<StudentAppScope> {
   @override
   void initState() {
     super.initState();
-    final config = AppScope.depConOf(context, listen: false).config;
-    final user = AppScope.userOf(context, listen: false);
+    final config = AppScope.depConOf(context).config;
+    final user = AppScope.userOf(context);
     final result =
         CompositionRoot(config, logger).composeStudentDependencies(user);
     studentDependenciesContainer = result.dependencies;

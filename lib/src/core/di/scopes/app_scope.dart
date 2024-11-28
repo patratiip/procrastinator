@@ -6,7 +6,6 @@ import 'package:procrastinator/src/core/di/dependenies_containers/app_dependenci
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
-
 /// {@template AppScope_scope}
 /// AppScopeScope widget.
 /// {@endtemplate}
@@ -27,7 +26,7 @@ class AppScope extends StatefulWidget {
   /// Get the [_AppScopeState] instance.
   static _AppScopeState of(
     BuildContext context, {
-    bool listen = true,
+    bool listen = false,
   }) {
     final scope = listen
         ? context.dependOnInheritedWidgetOfExactType<_AppScopeInherited>()
@@ -38,7 +37,7 @@ class AppScope extends StatefulWidget {
   /// Get the [AppDependenciesContainer] instance.
   static AppDependenciesContainer depConOf(
     BuildContext context, {
-    bool listen = true,
+    bool listen = false,
   }) {
     final scope = listen
         ? context.dependOnInheritedWidgetOfExactType<_AppScopeInherited>()
@@ -49,7 +48,7 @@ class AppScope extends StatefulWidget {
   /// Get the [MyUser] instance.
   static MyUser userOf(
     BuildContext context, {
-    bool listen = true,
+    bool listen = false,
   }) {
     final scope = listen
         ? context.dependOnInheritedWidgetOfExactType<_AppScopeInherited>()
