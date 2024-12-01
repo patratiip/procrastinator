@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:settings_repository/src/models/color_scheme_my.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 
 class LogOutButton extends StatelessWidget {

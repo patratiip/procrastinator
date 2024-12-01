@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
+import 'package:procrastinator/src/features/ui_kit/back_appbar_arrow.dart';
 import 'package:procrastinator/src/shared/view/widgets/language_option_widget.dart';
 
 /// {@template language_settings_screen}
@@ -15,12 +16,7 @@ class LanguageSettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(Localization.of(context).settingsOptionLanguage),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: const BackAppbarArrow(),
       ),
       body: SingleChildScrollView(
         padding:

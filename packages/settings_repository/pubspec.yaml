@@ -14,7 +14,6 @@ dependencies:
   ## Storage
   shared_preferences: ^2.3.0
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

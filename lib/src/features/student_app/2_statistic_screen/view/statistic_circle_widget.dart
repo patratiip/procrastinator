@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
-import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
+import 'package:settings_repository/src/models/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/widgets/statistic_progress_diagramm_component.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/bloc/statistic_diagramm_bloc.dart';
 

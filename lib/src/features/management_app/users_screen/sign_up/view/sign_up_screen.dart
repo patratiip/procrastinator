@@ -4,11 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
-import 'package:procrastinator/src/core/styles/styles.dart';
+import 'package:procrastinator/src/core/styles/text_field_theme.dart';
 import 'package:procrastinator/src/features/management_app/main_screen/group_list/group_list.dart';
 import 'package:procrastinator/src/core/di/scopes/management_scope.dart';
 import 'package:procrastinator/src/features/management_app/users_screen/sign_up/sign_up.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
+import 'package:settings_repository/settings_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 class SignUpScreen extends StatelessWidget {

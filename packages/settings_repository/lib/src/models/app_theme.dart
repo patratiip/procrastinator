@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:settings_repository/settings_repository.dart';
 
 /// {@template app_theme}
 /// An immutable class that holds properties needed
@@ -8,17 +9,11 @@ import 'package:flutter/material.dart';
 @immutable
 final class AppTheme with Diagnosticable {
   /// {@macro app_theme}
-  AppTheme({required this.themeMode, required this.seed})
-      : darkTheme = ThemeData(
-          colorSchemeSeed: seed,
-          brightness: Brightness.dark,
-          useMaterial3: true,
-        ),
-        lightTheme = ThemeData(
-          colorSchemeSeed: seed,
-          brightness: Brightness.light,
-          useMaterial3: true,
-        );
+  AppTheme({
+    required this.themeMode,
+    required this.seed,
+  })  : darkTheme = AppThemeData.darkTheme,
+        lightTheme = AppThemeData.lightTheme;
 
   /// The type of theme to use.
   final ThemeMode themeMode;
@@ -35,7 +30,7 @@ final class AppTheme with Diagnosticable {
   /// The default [AppTheme].
   static final defaultTheme = AppTheme(
     themeMode: ThemeMode.system,
-    seed: Colors.blue,
+    seed: MyAppColorScheme.primary,
   );
 
   /// The [ThemeData] for this [AppTheme].

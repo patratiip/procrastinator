@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
-import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
+import 'package:settings_repository/settings_repository.dart';
 
 /// {@template language_option_widget}
 /// Widget that shows [LanguageOptionWidget]

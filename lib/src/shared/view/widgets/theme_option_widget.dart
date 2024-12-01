@@ -1,6 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:settings_repository/settings_repository.dart';
+
 import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
-import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 
 /// {@template theme_option_widget}
@@ -8,14 +10,14 @@ import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart
 /// {@endtemplate}
 class ThemeOptionWidget extends StatelessWidget {
   final String title;
-  final String languageCode;
+  final AppTheme theme;
   final Widget? leadingWidget;
   final bool? newFeature;
 
   const ThemeOptionWidget({
     super.key,
     required this.title,
-    required this.languageCode,
+    required this.theme,
     this.leadingWidget,
     this.newFeature,
   });
@@ -25,7 +27,8 @@ class ThemeOptionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appSettings = SettingsScope.settingsOf(context);
-    final actualLanguage = Localizations.localeOf(context).languageCode;
+    final actualThemeMode =
+        appSettings.appTheme?.themeMode ?? AppTheme.defaultTheme.themeMode;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
@@ -37,7 +40,7 @@ class ThemeOptionWidget extends StatelessWidget {
           onTap: () {
             SettingsScope.blocOf(context)
                 .add(AppSettingsEvent.updateAppSettings(
-              appSettings: appSettings.copyWith(locale: Locale(languageCode)),
+              appSettings: appSettings.copyWith(appTheme: theme),
             ));
           },
           child: Container(
@@ -83,7 +86,7 @@ class ThemeOptionWidget extends StatelessWidget {
                                 )
                               ])),
                     ),
-                  actualLanguage == languageCode
+                  actualThemeMode == theme.themeMode
                       ? const Icon(
                           Icons.done,
                           size: 24,

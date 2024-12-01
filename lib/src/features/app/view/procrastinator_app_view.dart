@@ -4,9 +4,9 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
-import 'package:procrastinator/src/core/styles/theme/theme.dart';
 import 'package:procrastinator/src/features/app/view/apps_manager.dart';
 import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
+import 'package:settings_repository/settings_repository.dart';
 
 class ProcrastinatorAppView extends StatelessWidget {
   const ProcrastinatorAppView({super.key});
@@ -18,29 +18,26 @@ class ProcrastinatorAppView extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Procrastinator',
-      localizationsDelegates: const [
-        Localization.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
+
       // Locale from settins scope
       locale: settings.locale,
+      localizationsDelegates: _localizationsDelegates,
       supportedLocales: Localization.delegate.supportedLocales,
 
-      //THEME
-      theme: MyAppThemeLight.themeLight,
-      darkTheme: MyAppThemeDark.darkTheme,
+      // Theme
+      theme: settings.appTheme?.lightTheme ?? AppTheme.defaultTheme.lightTheme,
+      darkTheme:
+          settings.appTheme?.darkTheme ?? AppTheme.defaultTheme.darkTheme,
       themeMode: settings.appTheme?.themeMode ?? ThemeMode.system,
 
-      //
+      // App
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: ((context, state) {
-          //App Manager
+          // App Manager
           if (state.status == AuthenticationStatus.authenticated) {
             return const AppsManager();
 
-            //Login
+            // Login screen
           } else {
             return const LoginScreen();
           }
@@ -49,3 +46,10 @@ class ProcrastinatorAppView extends StatelessWidget {
     );
   }
 }
+
+const _localizationsDelegates = <LocalizationsDelegate<Object>>[
+  Localization.delegate,
+  GlobalMaterialLocalizations.delegate,
+  GlobalWidgetsLocalizations.delegate,
+  GlobalCupertinoLocalizations.delegate,
+];

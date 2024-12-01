@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/styles/styles.dart';
+import 'package:procrastinator/src/core/styles/text_field_theme.dart';
 import 'package:procrastinator/src/features/auth/login/login.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
+import 'package:settings_repository/settings_repository.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

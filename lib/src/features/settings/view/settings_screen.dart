@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/features/settings/settings.dart';
+import 'package:procrastinator/src/features/ui_kit/back_appbar_arrow.dart';
 import 'package:procrastinator/src/shared/view/widgets/feature_card_component.dart';
 
 /// {@template settings_screen}
@@ -16,12 +17,7 @@ class SettingsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(Localization.of(context).settingsLabelText),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: const BackAppbarArrow(),
       ),
       body: SingleChildScrollView(
         padding:

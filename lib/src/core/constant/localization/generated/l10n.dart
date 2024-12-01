@@ -1,5 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'intl/messages_all.dart';
 
@@ -750,6 +751,36 @@ class Localization {
       args: [],
     );
   }
+
+  /// `Light`
+  String get appThemeTitleLight {
+    return Intl.message(
+      'Light',
+      name: 'appThemeTitleLight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dark`
+  String get appThemeTitleDark {
+    return Intl.message(
+      'Dark',
+      name: 'appThemeTitleDark',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default`
+  String get appThemeTitleDefault {
+    return Intl.message(
+      'Default',
+      name: 'appThemeTitleDefault',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {
@@ -762,6 +793,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {
       Locale.fromSubtags(languageCode: 'ru'),
     ];
   }
+
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);

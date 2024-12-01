@@ -45,6 +45,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Anmeldung"),
         "anmeldungLogInScreenName":
             MessageLookupByLibrary.simpleMessage("Anmeldung"),
+        "appThemeTitleDark": MessageLookupByLibrary.simpleMessage("Dunkel"),
+        "appThemeTitleDefault":
+            MessageLookupByLibrary.simpleMessage("Automatisch"),
+        "appThemeTitleLight": MessageLookupByLibrary.simpleMessage("Licht"),
         "atHomeStatisticWidget":
             MessageLookupByLibrary.simpleMessage("Zuhause"),
         "authenticationUserTypeErrorScreeenText":

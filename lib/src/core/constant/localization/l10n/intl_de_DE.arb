@@ -68,5 +68,8 @@
   "languagesEnglish": "Englisch",
   "languagesGerman": "Deutsch",
   "languagesRussian": "Russisch",
-  "settingsOptionAppTheme": "App Thema"
+  "settingsOptionAppTheme": "App Thema",
+  "appThemeTitleLight": "Licht",
+  "appThemeTitleDark": "Dunkel",
+  "appThemeTitleDefault": "Automatisch"
 }
