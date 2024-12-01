@@ -50,7 +50,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Automatisch"),
         "appThemeTitleLight": MessageLookupByLibrary.simpleMessage("Licht"),
         "atHomeStatisticWidget":
-            MessageLookupByLibrary.simpleMessage("Zuhause"),
+            MessageLookupByLibrary.simpleMessage("zu Hause"),
         "authenticationUserTypeErrorScreeenText":
             MessageLookupByLibrary.simpleMessage("Authentifizierungsfehler"),
         "bugReport": MessageLookupByLibrary.simpleMessage("Bug Report"),
@@ -90,7 +90,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kennwort vergessen?"),
         "groupText": MessageLookupByLibrary.simpleMessage("Gruppe"),
         "homeEntryType": MessageLookupByLibrary.simpleMessage("Heim"),
-        "inSchool": MessageLookupByLibrary.simpleMessage("im Schule"),
+        "inSchool": MessageLookupByLibrary.simpleMessage("in der Schule"),
         "languagesEnglish": MessageLookupByLibrary.simpleMessage("Englisch"),
         "languagesGerman": MessageLookupByLibrary.simpleMessage("Deutsch"),
         "languagesRussian": MessageLookupByLibrary.simpleMessage("Russisch"),
@@ -99,7 +99,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "lectionsListWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Nächste"),
         "lectionsPlanAppBarText":
-            MessageLookupByLibrary.simpleMessage("Kursplan"),
+            MessageLookupByLibrary.simpleMessage("Lektionsplan"),
         "logInButtonName": MessageLookupByLibrary.simpleMessage("Anmelden"),
         "logOutButtonText": MessageLookupByLibrary.simpleMessage("Abmelden"),
         "looseEntryType": MessageLookupByLibrary.simpleMessage("Fehl"),

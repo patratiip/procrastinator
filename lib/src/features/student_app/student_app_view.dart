@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
-import 'package:settings_repository/src/models/color_scheme_my.dart';
-import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
+import 'package:settings_repository/settings_repository.dart';
 import '1_student_main_screen/view/student_main_screen.dart';
 import '2_statistic_screen/view/statistic_page.dart';
 import '3_lection_plan_screen/view/lection_plan_page_widget.dart';
@@ -58,6 +56,7 @@ class _StudentAppViewState extends State<StudentAppView> {
           indicatorColor: Colors.transparent,
           selectedIndex: _currentIndex,
           destinations: const <Widget>[
+            // Main
             NavigationDestination(
               selectedIcon: Icon(
                 Icons.home_rounded,
@@ -66,6 +65,8 @@ class _StudentAppViewState extends State<StudentAppView> {
               icon: Icon(Icons.home_rounded),
               label: '',
             ),
+
+            // Statistic
             NavigationDestination(
               selectedIcon: Icon(
                 Icons.bar_chart_outlined,
@@ -74,6 +75,8 @@ class _StudentAppViewState extends State<StudentAppView> {
               icon: Icon(Icons.bar_chart_outlined),
               label: '',
             ),
+
+            // Lections plan
             NavigationDestination(
               selectedIcon: Icon(
                 Icons.view_list_rounded,
@@ -82,6 +85,8 @@ class _StudentAppViewState extends State<StudentAppView> {
               icon: Icon(Icons.view_list_rounded),
               label: '',
             ),
+
+            // Settings
             NavigationDestination(
               selectedIcon: Icon(
                 Icons.person_rounded,

@@ -1,6 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'intl/messages_all.dart';
 
@@ -793,7 +792,6 @@ class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {
       Locale.fromSubtags(languageCode: 'ru'),
     ];
   }
-
 
   @override
   bool isSupported(Locale locale) => _isSupported(locale);

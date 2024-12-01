@@ -53,7 +53,6 @@ class ThemeOptionWidget extends StatelessWidget {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                // mainAxisSize: MainAxisSize.max,
                 children: [
                   Expanded(
                     flex: 1,
