@@ -740,6 +740,16 @@ class Localization {
       args: [],
     );
   }
+
+  /// `App theme`
+  String get settingsOptionAppTheme {
+    return Intl.message(
+      'App theme',
+      name: 'settingsOptionAppTheme',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

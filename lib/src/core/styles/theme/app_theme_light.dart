@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../color_scheme_my.dart';
+import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 
 abstract class MyAppThemeLight {
   static final themeLight = ThemeData(
@@ -15,8 +14,6 @@ abstract class MyAppThemeLight {
       surface: MyAppColorScheme.primaryBackground,
     ),
 
-// colorScheme: ColorScheme(brightness: Brightness.light, primary: primary, onPrimary: onPrimary, secondary: secondary, onSecondary: onSecondary, error: error, onError: onError, background: background, onBackground: onBackground, surface: surface, onSurface: onSurface)
-
     //App Bar
     appBarTheme: const AppBarTheme(
       // surfaceTintColor: MyAppColorScheme.secondaryBackground,
@@ -29,12 +26,10 @@ abstract class MyAppThemeLight {
         selectedItemColor: MyAppColorScheme.primary,
         unselectedItemColor: MyAppColorScheme.secondaryText),
 
-    /////////OTHER
-    // scaffoldBackgroundColor: MyAppColorScheme.primaryBackground,
-    // primaryColor: MyAppColorScheme.primary,
 
-    ////////BUTTONS
-    ////Elevated Button
+
+    /// BUTTONS
+    // Elevated Button
     elevatedButtonTheme: const ElevatedButtonThemeData(
         style: ButtonStyle(
       shape: MaterialStatePropertyAll(RoundedRectangleBorder(
@@ -54,10 +49,10 @@ abstract class MyAppThemeLight {
       //surfaceTintColor: MaterialStatePropertyAll(MyAppColorScheme.),
     )),
 
-    ////Text Button
-    //
+    /// Text Button
+    
 
-    ////////TEXT
+    /// TEXT
     textTheme: const TextTheme(
       displayLarge: TextStyle(fontSize: 64, fontWeight: FontWeight.w400),
       displayMedium: TextStyle(fontSize: 44, fontWeight: FontWeight.w400),

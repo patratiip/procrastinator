@@ -67,5 +67,6 @@
   "page404Header": "Экран 404",
   "languagesEnglish": "Английский",
   "languagesGerman": "Немецкий",
-  "languagesRussian": "Русский"
+  "languagesRussian": "Русский",
+  "settingsOptionAppTheme": "Оформление"
 }

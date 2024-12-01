@@ -1,30 +1,26 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-
 import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
 import 'package:procrastinator/src/core/styles/styles.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 
-/// {@template language_option_widget}
-/// Widget that shows [LanguageOptionWidget]
+/// {@template theme_option_widget}
+/// Widget that shows [ThemeOptionWidget]
 /// {@endtemplate}
-class LanguageOptionWidget extends StatelessWidget {
+class ThemeOptionWidget extends StatelessWidget {
   final String title;
-  final String subtitle;
   final String languageCode;
   final Widget? leadingWidget;
   final bool? newFeature;
 
-  const LanguageOptionWidget({
+  const ThemeOptionWidget({
     super.key,
     required this.title,
-    required this.subtitle,
     required this.languageCode,
     this.leadingWidget,
     this.newFeature,
   });
 
-  /// {@macro language_option_widget}
+  /// {@macro theme_option_widget}
 
   @override
   Widget build(BuildContext context) {
@@ -56,31 +52,16 @@ class LanguageOptionWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 // mainAxisSize: MainAxisSize.max,
                 children: [
-                  // Country flag
                   Expanded(
                     flex: 1,
                     child: leadingWidget ?? const SizedBox.shrink(),
                   ),
-                  const SizedBox(width: 12),
-
-                  // Language name
                   Expanded(
                       flex: 6,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title,
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            subtitle,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                        ],
+                      child: Text(
+                        title,
+                        style: const TextStyle(fontSize: 22),
                       )),
-
-                  // New or not
                   if (newFeature == true)
                     Expanded(
                       flex: 1,
@@ -102,17 +83,13 @@ class LanguageOptionWidget extends StatelessWidget {
                                 )
                               ])),
                     ),
-                  const SizedBox(width: 12),
-
-                  // Is that actual language
                   actualLanguage == languageCode
                       ? const Icon(
-                          Icons.done_rounded,
-                          size: 32,
+                          Icons.done,
+                          size: 24,
                           color: MyAppColorScheme.primary,
                         )
-                      : const SizedBox.shrink(),
-                  const SizedBox(width: 12),
+                      : const SizedBox.shrink()
                 ]),
           ),
         ),

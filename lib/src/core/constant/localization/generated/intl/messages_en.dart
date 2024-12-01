@@ -122,6 +122,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "selectAUserTypeText":
             MessageLookupByLibrary.simpleMessage("Select a user type"),
         "settingsLabelText": MessageLookupByLibrary.simpleMessage("Settings"),
+        "settingsOptionAppTheme":
+            MessageLookupByLibrary.simpleMessage("App theme"),
         "settingsOptionLanguage":
             MessageLookupByLibrary.simpleMessage("Language"),
         "sickDaysFromPossible": m2,

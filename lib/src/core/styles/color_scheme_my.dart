@@ -16,7 +16,7 @@ abstract class MyAppColorScheme {
   static const primaryBackground = Color(0xFFF2F2F2);
   static const secondaryBackground = Color(0xFFFFFFFF);
 
-  //Reactin Colors
+  //Reaction Colors
   static const errorColor = Color(0xFFf83b46);
   static const warningColor = Color(0xFFec9c4b);
   static const sucsessColor = Color(0xFF6bbd78);

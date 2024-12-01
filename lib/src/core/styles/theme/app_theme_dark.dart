@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:procrastinator/src/core/styles/color_scheme_my.dart';
 
-import '../color_scheme_my.dart';
 
 abstract class MyAppThemeDark {
   static final darkTheme = ThemeData(
@@ -9,19 +9,17 @@ abstract class MyAppThemeDark {
     colorScheme: ColorScheme.fromSeed(
       seedColor: MyAppColorScheme.primary,
       brightness: Brightness.dark,
-      // background: MyAppColorScheme.primaryBackgroundDark,
       secondary: MyAppColorScheme.secondary,
-      // surface: MyAppColorScheme.secondaryBackgroundDark,
       surface: MyAppColorScheme.primaryBackgroundDark,
     ),
-//App Bar
+    // App Bar
     appBarTheme: const AppBarTheme(
       backgroundColor: MyAppColorScheme.primaryBackgroundDark,
       // actionsIconTheme: IconThemeData(color: MyAppColorScheme.primaryTextDark),
       // iconTheme: IconThemeData(color: MyAppColorScheme.primaryTextDark),
     ),
 
-    //BOTTOM Navigation Bar
+    // BOTTOM Navigation Bar
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.shifting,
       // backgroundColor: MyAppColorScheme.secondaryBackgroundDark,

@@ -67,5 +67,6 @@
   "page404Header": "Page 404",
   "languagesEnglish": "English",
   "languagesGerman": "German",
-  "languagesRussian": "Russian"
+  "languagesRussian": "Russian",
+  "settingsOptionAppTheme": "App theme"
 }

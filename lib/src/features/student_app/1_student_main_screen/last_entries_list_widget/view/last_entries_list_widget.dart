@@ -28,16 +28,17 @@ class LastEntriesListWidget extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleMedium,
                           ),
                           ListView.builder(
-                              primary: false,
-                              shrinkWrap: true,
-                              itemCount: state.userVisits.length < 5
-                                  ? state.userVisits.length
-                                  : 5,
-                              itemBuilder: (BuildContext context, int index) {
-                                return EntryCardComponent(
-                                  visitData: state.userVisits[index],
-                                );
-                              })
+                            primary: false,
+                            shrinkWrap: true,
+                            itemCount: state.userVisits.length < 5
+                                ? state.userVisits.length
+                                : 5,
+                            itemBuilder: (BuildContext context, int index) {
+                              return EntryCardComponent(
+                                visitData: state.userVisits[index],
+                              );
+                            },
+                          )
                         ],
                       )))));
         } else if (state is EntriesListLoadingState) {

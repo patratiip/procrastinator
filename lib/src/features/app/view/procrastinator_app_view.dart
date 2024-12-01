@@ -31,6 +31,9 @@ class ProcrastinatorAppView extends StatelessWidget {
       //THEME
       theme: MyAppThemeLight.themeLight,
       darkTheme: MyAppThemeDark.darkTheme,
+      themeMode: settings.appTheme?.themeMode ?? ThemeMode.system,
+
+      //
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: ((context, state) {
           //App Manager
