@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
+import 'package:procrastinator/src/features/settings/di/settings_scope.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 import 'package:settings_repository/settings_repository.dart';
 

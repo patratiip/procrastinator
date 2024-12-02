@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:settings_repository/settings_repository.dart';
 import '1_student_main_screen/view/student_main_screen.dart';
-import '2_statistic_screen/view/statistic_page.dart';
+import '2_statistic_screen/view/statistic_screen.dart';
 import '3_lection_plan_screen/view/lection_plan_page_widget.dart';
 import '4_student_profile_screen/view/student_profile_screen.dart';
 
@@ -47,7 +47,7 @@ class _StudentAppViewState extends State<StudentAppView> {
       ),
       body: <Widget>[
         const StudentMainScreen(),
-        const StatisticPageWidget(),
+        const StatisticScreenWidget(),
         const KursplanPageWidget(),
         const StudentProfileScreen(),
       ][_currentIndex],

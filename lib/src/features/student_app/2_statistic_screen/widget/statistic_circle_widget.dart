@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
+import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:settings_repository/src/models/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/view/widgets/statistic_progress_diagramm_component.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/bloc/statistic_diagramm_bloc.dart';
@@ -41,7 +41,7 @@ class StatisticCircle extends StatelessWidget {
                     ),
                     BlocBuilder<StatisticDiagrammBloc, StatisticDiagrammState>(
                       builder: (context, state) {
-                        if (state is LoadedEntrysCountState) {
+                        if (state is LoadedEntriesCountState) {
                           return IconButton(
 
                               //TODO Add statistic download as CSV feature
@@ -57,7 +57,7 @@ class StatisticCircle extends StatelessWidget {
               ),
               BlocBuilder<StatisticDiagrammBloc, StatisticDiagrammState>(
                 builder: (context, state) {
-                  if (state is LoadedEntrysCountState) {
+                  if (state is LoadedEntriesCountState) {
                     final sickDays = state.sickCount ?? 0;
                     final loosedDays = state.looseCount ?? 0;
                     final possibleLooseDays =
@@ -113,7 +113,7 @@ class StatisticCircle extends StatelessWidget {
                             : const SizedBox.shrink(),
                       ],
                     );
-                  } else if (state is LoadingEntrysCountState) {
+                  } else if (state is LoadingEntriesCountState) {
                     return const Center(
                       child: SizedBox(
                         height: 40,

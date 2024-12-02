@@ -1,7 +1,7 @@
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
-import 'package:procrastinator/src/features/initialization/logic/error_tracking_manager.dart';
+import 'package:procrastinator/src/core/utils/error_tracking_manager/error_tracking_manager.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 

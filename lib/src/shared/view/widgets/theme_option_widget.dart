@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:settings_repository/settings_repository.dart';
 
-import 'package:procrastinator/src/core/di/scopes/settings_scope.dart';
+import 'package:procrastinator/src/features/settings/di/settings_scope.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 
 /// {@template theme_option_widget}
@@ -88,7 +88,7 @@ class ThemeOptionWidget extends StatelessWidget {
                   actualThemeMode == theme.themeMode
                       ? const Icon(
                           Icons.done,
-                          size: 24,
+                          size: 32,
                           color: MyAppColorScheme.primary,
                         )
                       : const SizedBox.shrink()

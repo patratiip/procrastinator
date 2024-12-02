@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
-import 'package:procrastinator/src/core/di/scopes/trainer_app_scope.dart';
+import 'package:procrastinator/src/features/app/di/app_scope.dart';
+import 'package:procrastinator/src/features/trainer_app/di/trainer_app_scope.dart';
 import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
 
 class TrainerApp extends StatelessWidget {

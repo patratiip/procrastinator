@@ -4,9 +4,9 @@ import 'package:settings_repository/settings_repository.dart';
 import 'package:user_repository/user_repository.dart';
 
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/di/scopes/management_scope.dart';
-import 'package:procrastinator/src/core/di/scopes/student_app_scope.dart';
-import 'package:procrastinator/src/core/di/scopes/trainer_app_scope.dart';
+import 'package:procrastinator/src/features/management_app/di/management_scope.dart';
+import 'package:procrastinator/src/features/student_app/di/student_app_scope.dart';
+import 'package:procrastinator/src/features/trainer_app/di/trainer_app_scope.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/features/management_app/management_app.dart';
 import 'package:procrastinator/src/features/student_app/student_app.dart';

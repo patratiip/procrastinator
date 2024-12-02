@@ -7,8 +7,11 @@ sealed class StatisticDiagrammEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadSchoolVisitsCount extends StatisticDiagrammEvent {
-  final List<Entry>? entriesList;
+class EntriesListChanged extends StatisticDiagrammEvent {
+  final List<Entry> entriesList;
 
-  const LoadSchoolVisitsCount(this.entriesList);
+  const EntriesListChanged(this.entriesList);
+
+  @override
+  List<Object> get props => [entriesList];
 }

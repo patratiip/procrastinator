@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:settings_repository/src/models/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
+import 'package:settings_repository/settings_repository.dart';
 
 /// {@template error_message_calendar_widget}
 /// Widget that shows error message in [CalendarEntryAddingWidget]
@@ -18,7 +18,6 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<CalendarBloc, CalendarState>(
-          // listenWhen: (previous, current) => (previous != current),
           listener: (context, state) {
             if (state.status == CalendarStateStatus.error) {
               context.read<CalendarErrorMessageBloc>().add(
@@ -33,7 +32,6 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
         ),
         BlocListener<CalendarEntryAddingButtonBloc,
             CalendarEntryAddingButtonState>(
-          // listenWhen: (previous, current) => (previous != current),
           listener: (context, state) {
             if (state is CalendarEntryAddingButtonError) {
               context.read<CalendarErrorMessageBloc>().add(

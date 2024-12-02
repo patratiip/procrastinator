@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/firebase_options.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
-import 'package:procrastinator/src/core/di/logic/composition_root.dart';
+import 'package:procrastinator/src/core/di/composition_root.dart';
 import 'package:procrastinator/src/core/utils/app_bloc_observer.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
 import 'package:procrastinator/src/features/app/view/procrastinator.dart';

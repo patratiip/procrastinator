@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
+import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
@@ -10,7 +10,7 @@ import 'package:procrastinator/src/features/student_app/1_student_main_screen/to
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/statistic_page.dart';
 import 'package:procrastinator/src/features/student_app/3_lection_plan_screen/lection_plan_page.dart';
 import 'package:procrastinator/src/features/student_app/4_student_profile_screen/student_profile_screen.dart';
-import 'package:procrastinator/src/core/di/scopes/student_app_scope.dart';
+import 'package:procrastinator/src/features/student_app/di/student_app_scope.dart';
 import 'package:procrastinator/src/features/student_app/student_app_view.dart';
 
 class StudentApp extends StatelessWidget {
@@ -52,12 +52,19 @@ class StudentApp extends StatelessWidget {
                   computingService: StudentAppScope.depConOf(context)
                       .statisticComputingServise)),
 
-          // TodayLection
+          // Today lection
           BlocProvider(
               create: (context) => TodayLectionBloc(
                   lectionsRepository: StudentAppScope.depConOf(context)
                       .firebaseLectionRepository)
                 ..add(LoadTodayLection())),
+
+          // User profile
+          BlocProvider(
+              create: (context) => UserProfileBloc(
+                  userRepository: AppScope.depConOf(context).userRepository,
+                  groupRepository: StudentAppScope.depConOf(context)
+                      .firebaseGroupRepository)),
 
           // Calendar
           BlocProvider(
@@ -67,13 +74,6 @@ class StudentApp extends StatelessWidget {
                     lectionsRepository: StudentAppScope.depConOf(context)
                         .firebaseLectionRepository,
                   )),
-
-          // User profile bloc
-          BlocProvider(
-              create: (context) => UserProfileBloc(
-                  userRepository: AppScope.depConOf(context).userRepository,
-                  groupRepository: StudentAppScope.depConOf(context)
-                      .firebaseGroupRepository)),
 
           // Entry adding button
           BlocProvider(

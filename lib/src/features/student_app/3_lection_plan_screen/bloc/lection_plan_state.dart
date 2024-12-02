@@ -12,16 +12,16 @@ final class LectionPlanInitialState extends LectionPlanState {}
 final class LectionPlanLoadingState extends LectionPlanState {}
 
 final class LectionPlanLoadedState extends LectionPlanState {
-  const LectionPlanLoadedState({required this.lectionsList});
   final List<Lection> lectionsList;
+  const LectionPlanLoadedState({required this.lectionsList});
 
   @override
   List<Object> get props => [lectionsList];
 }
 
 final class LectionPlanFailureState extends LectionPlanState {
-  const LectionPlanFailureState({required this.exception});
   final Object exception;
+  const LectionPlanFailureState({required this.exception});
 
   @override
   List<Object> get props => [exception];

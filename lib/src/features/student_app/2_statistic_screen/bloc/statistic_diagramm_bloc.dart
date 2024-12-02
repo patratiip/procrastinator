@@ -30,7 +30,7 @@ class StatisticDiagrammBloc
         super(StatisticDiagrammInitial()) {
     on<StatisticDiagrammEvent>(
       (event, emit) => switch (event) {
-        final LoadSchoolVisitsCount e => _loadSchoolVisitsCount(e, emit),
+        final EntriesListChanged e => _entriesListChanged(e, emit),
       },
       transformer: sequential(),
     );
@@ -39,17 +39,18 @@ class StatisticDiagrammBloc
     _entrysListListener = _entriesRepository.getVisits().listen(
       (entriesList) {
         if (entriesList != null && entriesList.isNotEmpty) {
-          add(LoadSchoolVisitsCount(entriesList));
+          add(EntriesListChanged(entriesList));
         }
       },
       cancelOnError: false,
     );
   }
 
-  Future<void> _loadSchoolVisitsCount(
-      LoadSchoolVisitsCount event, Emitter<StatisticDiagrammState> emit) async {
-    emit(LoadingEntrysCountState());
-    if (event.entriesList!.isNotEmpty) {
+  Future<void> _entriesListChanged(
+      EntriesListChanged event, Emitter<StatisticDiagrammState> emit) async {
+    try {
+      emit(LoadingEntriesCountState());
+
       //TODO add exceptions check
       final totalDaysFromGroup = await _groupRepository
           .getGroupData(studentGroupID)
@@ -58,19 +59,24 @@ class StatisticDiagrammBloc
 
       final entrysList = event.entriesList;
 
-      final schoolVisits =
-          _computingService.computeSchoolVisitsQty(entrysList!);
+      final schoolVisits = _computingService.computeSchoolVisitsQty(entrysList);
       final homeOffice = _computingService.computeHomeOfficeQty(entrysList);
       final krank = _computingService.computeKrankQty(entrysList);
       final fehl = _computingService.computeFehlQty(entrysList);
 
-      emit(LoadedEntrysCountState(
-        totalDays: totalDaysFromGroup,
-        schoolVisitsCount: schoolVisits,
-        homeOfficeCount: homeOffice,
-        sickCount: krank,
-        looseCount: fehl,
-      ));
+      emit(
+        LoadedEntriesCountState(
+          totalDays: totalDaysFromGroup,
+          schoolVisitsCount: schoolVisits,
+          homeOfficeCount: homeOffice,
+          sickCount: krank,
+          looseCount: fehl,
+        ),
+      );
+    } on Object catch (e, st) {
+      onError(e, st);
+      log(e.toString());
+      rethrow;
     }
   }
 

@@ -10,7 +10,6 @@ part 'lection_plan_state.dart';
 
 class LectionPlanBloc extends Bloc<LectionPlanEvent, LectionPlanState> {
   final ILectionRepository _lectionsRepository;
-
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
   LectionPlanBloc({required ILectionRepository lectionsRepository})

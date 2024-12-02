@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:procrastinator/src/core/utils/logger.dart';
-import 'package:procrastinator/src/features/initialization/logic/app_runner.dart';
+import 'package:procrastinator/app_runner.dart';
 
 void main() {
   runZonedGuarded(

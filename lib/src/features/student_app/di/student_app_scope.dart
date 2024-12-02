@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
-import 'package:procrastinator/src/core/di/logic/composition_root.dart';
-import 'package:procrastinator/src/core/di/dependenies_containers/student_dependencies_container.dart';
-import 'package:procrastinator/src/core/di/scopes/app_scope.dart';
+import 'package:procrastinator/src/core/di/composition_root.dart';
+import 'package:procrastinator/src/features/student_app/di/student_dependencies_container.dart';
+import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
 
 /// {@template student_app_scope}
