@@ -26,12 +26,15 @@ class FirebaseLectionRepository implements ILectionRepository {
   }
 
   @override
-  Future<Lection>? getTodayLection() async {
+  Future<Lection?> getTodayLection() async {
     final Timestamp today =
         Timestamp.fromDate(DateTime(_now.year, _now.month, _now.day));
     try {
       final todayQuery =
           await _lectionsCollectionRef.where('date', isEqualTo: today).get();
+
+      // Return null if there is no lecture for today
+      if (todayQuery.docs.isEmpty) return null;
 
       return Lection.fromEntity(
           LectionEntity.fromFirestore(todayQuery.docs.first.data()));

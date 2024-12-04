@@ -1,3 +1,5 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+
 part of 'calendar_bloc.dart';
 
 enum CalendarStateStatus {
@@ -10,16 +12,7 @@ enum CalendarStateStatus {
   allDone
 }
 
-enum CalendarStateMessage {
-  empty,
-  allEntriesAdded,
-  futureError,
-  schoolOnlyToday,
-  enrtyWithThisDateExists,
-  noLessonsToday
-}
-
-final class CalendarState extends Equatable {
+final class CalendarState {
   final DateTime? date;
   final CalendarFormat? calendarFormat;
   final EntryType? entryType;
@@ -62,15 +55,46 @@ final class CalendarState extends Equatable {
     );
   }
 
+  // @override
+  // List<Object?> get props => [
+  //       date,
+  //       calendarFormat,
+  //       entryType,
+  //       entriesList,
+  //       lectionsList,
+  //       value,
+  //       errorType,
+  //       status,
+  //     ];
+
   @override
-  List<Object?> get props => [
-        date,
-        calendarFormat,
-        entryType,
-        entriesList,
-        lectionsList,
-        value,
-        errorType,
-        status,
-      ];
+  bool operator ==(covariant CalendarState other) {
+    if (identical(this, other)) return true;
+
+    return other.date == date &&
+        other.calendarFormat == calendarFormat &&
+        other.entryType == entryType &&
+        listEquals(other.entriesList, entriesList) &&
+        listEquals(other.lectionsList, lectionsList) &&
+        other.value == value &&
+        other.errorType == errorType &&
+        other.status == status;
+  }
+
+  @override
+  int get hashCode {
+    return date.hashCode ^
+        calendarFormat.hashCode ^
+        entryType.hashCode ^
+        entriesList.hashCode ^
+        lectionsList.hashCode ^
+        value.hashCode ^
+        errorType.hashCode ^
+        status.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'CalendarState(date: $date, calendarFormat: $calendarFormat, entryType: $entryType, entriesList: $entriesList, lectionsList: $lectionsList, value: $value, errorType: $errorType, status: $status)';
+  }
 }

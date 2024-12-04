@@ -36,8 +36,7 @@ dependencies:
   geolocation_repository:
     path: packages/geolocation_repository
 
-  form_validation:
-    path: packages/form_validation
+
 
   cupertino_icons: ^1.0.6
 

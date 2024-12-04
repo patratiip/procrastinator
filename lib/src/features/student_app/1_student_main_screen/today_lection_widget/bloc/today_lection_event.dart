@@ -7,4 +7,4 @@ sealed class TodayLectionEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class LoadTodayLection extends TodayLectionEvent {}
+final class LoadTodayLection extends TodayLectionEvent {}

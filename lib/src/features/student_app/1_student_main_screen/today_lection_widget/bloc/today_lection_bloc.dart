@@ -26,6 +26,7 @@ class TodayLectionBloc extends Bloc<TodayLectionEvent, TodayLectionState> {
       LoadTodayLection event, Emitter<TodayLectionState> emit) async {
     try {
       emit(TodayLectionLoading());
+      // TODO: Check no lection found situation. Sometimes exception coming
       final todayLection = await _lectionsRepository.getTodayLection();
       if (todayLection != null) {
         emit(TodayLectionLoaded(todayLection: todayLection));
