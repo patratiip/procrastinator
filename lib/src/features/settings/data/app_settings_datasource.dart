@@ -1,6 +1,9 @@
 import 'dart:ui';
 
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/core/utils/persisted_entry.dart';
+import 'package:procrastinator/src/features/initialization/model/app_theme.dart';
+import 'package:procrastinator/src/features/settings/data/theme_mode_codec.dart';
+import 'package:procrastinator/src/features/settings/model/app_settings.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// {@template app_settings_datasource}

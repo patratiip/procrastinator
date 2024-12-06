@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/features/settings/data/i_settings_repository.dart';
+import 'package:procrastinator/src/features/settings/model/app_settings.dart';
 
 part 'app_settings_event.dart';
 part 'app_settings_state.dart';

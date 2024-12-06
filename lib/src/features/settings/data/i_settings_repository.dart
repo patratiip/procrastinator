@@ -1,4 +1,4 @@
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/features/settings/model/app_settings.dart';
 
 /// {@template app_settings_repository}
 /// [IAppSettingsRepository] sets and gets app settings.

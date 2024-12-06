@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:settings_repository/settings_repository.dart';
 
-import 'package:procrastinator/src/features/settings/di/settings_scope.dart';
+import 'package:procrastinator/src/features/initialization/model/app_theme.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
+import 'package:procrastinator/src/features/settings/di/settings_scope.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template theme_option_widget}
 /// Widget that shows [ThemeOptionWidget]

@@ -18,9 +18,6 @@ dependencies:
 
   ## REPOSITORIES
 
-  settings_repository:
-    path: packages/settings_repository
-
   user_repository:
     path: packages/user_repository
 
@@ -35,8 +32,6 @@ dependencies:
 
   geolocation_repository:
     path: packages/geolocation_repository
-
-
 
   cupertino_icons: ^1.0.6
 

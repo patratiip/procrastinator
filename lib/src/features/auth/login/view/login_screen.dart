@@ -6,7 +6,7 @@ import 'package:procrastinator/src/core/styles/text_field_theme.dart';
 import 'package:procrastinator/src/features/auth/login/login.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});

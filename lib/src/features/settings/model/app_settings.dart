@@ -1,7 +1,7 @@
 import 'dart:ui' show Locale;
 
 import 'package:flutter/foundation.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/features/initialization/model/app_theme.dart';
 
 /// {@template app_settings}
 /// Application settings

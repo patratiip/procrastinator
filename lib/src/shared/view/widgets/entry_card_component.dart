@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:settings_repository/src/models/color_scheme_my.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/last_entries_list_widget/bloc/last_entries_list_bloc.dart';
 
 class EntryCardComponent extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:settings_repository/src/models/color_scheme_my.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template settings_screen}
 /// [AppThemeData] class that holds theme settings

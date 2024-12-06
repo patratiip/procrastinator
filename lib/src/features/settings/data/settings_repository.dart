@@ -1,4 +1,6 @@
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/features/settings/data/app_settings_datasource.dart';
+import 'package:procrastinator/src/features/settings/data/i_settings_repository.dart';
+import 'package:procrastinator/src/features/settings/model/app_settings.dart';
 
 /// {@macro app_settings_repository}
 final class AppSettingsRepositoryImpl implements IAppSettingsRepository {

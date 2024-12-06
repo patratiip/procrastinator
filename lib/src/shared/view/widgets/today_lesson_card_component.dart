@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:lection_repository/lection_repository.dart';
-import 'package:settings_repository/src/models/color_scheme_my.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
 class TodayLessonCardComponent extends StatefulWidget {

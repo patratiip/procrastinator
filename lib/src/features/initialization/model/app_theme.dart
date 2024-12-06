@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
+import 'package:procrastinator/src/ui_kit/theme/app_theme_data.dart';
 
 /// {@template app_theme}
 /// An immutable class that holds properties needed

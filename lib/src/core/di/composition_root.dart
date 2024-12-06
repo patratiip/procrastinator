@@ -4,18 +4,20 @@ import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:lection_repository/lection_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:procrastinator/src/core/constant/config.dart';
-import 'package:procrastinator/src/features/app/di/app_dependencies_container.dart';
-import 'package:procrastinator/src/features/management_app/di/management_dependencies_container.dart';
-import 'package:procrastinator/src/features/student_app/di/student_dependencies_container.dart';
-import 'package:procrastinator/src/features/trainer_app/di/trainer_dependencies_container.dart';
-import 'package:procrastinator/src/core/utils/logger.dart';
-import 'package:procrastinator/src/core/utils/error_tracking_manager/error_tracking_manager.dart';
-import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
-import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
-import 'package:settings_repository/settings_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
+
+import 'package:procrastinator/src/core/constant/config.dart';
+import 'package:procrastinator/src/core/utils/error_tracking_manager/error_tracking_manager.dart';
+import 'package:procrastinator/src/core/utils/logger.dart';
+import 'package:procrastinator/src/features/app/di/app_dependencies_container.dart';
+import 'package:procrastinator/src/features/management_app/di/management_dependencies_container.dart';
+import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
+import 'package:procrastinator/src/features/settings/data/app_settings_datasource.dart';
+import 'package:procrastinator/src/features/settings/data/settings_repository.dart';
+import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
+import 'package:procrastinator/src/features/student_app/di/student_dependencies_container.dart';
+import 'package:procrastinator/src/features/trainer_app/di/trainer_dependencies_container.dart';
 
 /// {@template composition_root}
 /// A place where all dependencies are initialized.

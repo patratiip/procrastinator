@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/settings/settings.dart';
-import 'package:procrastinator/src/features/ui_kit/back_appbar_arrow.dart';
+import 'package:procrastinator/src/features/settings/widget/settings_language_screen.dart';
+import 'package:procrastinator/src/features/settings/widget/settings_theme_screen.dart';
+import 'package:procrastinator/src/ui_kit/widget/back_appbar_arrow.dart';
 import 'package:procrastinator/src/shared/view/widgets/feature_card_component.dart';
 
 /// {@template settings_screen}
@@ -28,13 +29,13 @@ class SettingsScreen extends StatelessWidget {
             // App Language
             FeatureCardComponent(
               title: Localization.of(context).settingsOptionLanguage,
-              route: const LanguageSettingsScreen(),
+              route:  const LanguageSettingsScreen(),
             ),
 
             // App Theme
             FeatureCardComponent(
               title: Localization.of(context).settingsOptionAppTheme,
-              route: const ThemeSettingsScreen(),
+              route:  const ThemeSettingsScreen(),
             ),
           ],
         ),

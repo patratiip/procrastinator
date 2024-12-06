@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/ui_kit/back_appbar_arrow.dart';
+import 'package:procrastinator/src/features/initialization/model/app_theme.dart';
+import 'package:procrastinator/src/ui_kit/widget/back_appbar_arrow.dart';
 import 'package:procrastinator/src/shared/view/widgets/theme_option_widget.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template theme_settings_screen}
 /// Widget that shows [ThemeSettingsScreen]

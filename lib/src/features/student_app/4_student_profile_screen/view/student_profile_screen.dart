@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/settings/view/settings_screen.dart';
+import 'package:procrastinator/src/features/settings/widget/settings_screen.dart';
 import 'package:procrastinator/src/features/student_app/4_student_profile_screen/student_profile_screen.dart';
 import 'package:procrastinator/src/shared/view/widgets/feature_card_component.dart';
 import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template student_profile_screen}
 /// Widget that shows [StudentProfileScreen]

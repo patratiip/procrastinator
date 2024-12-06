@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 abstract class MyThemeTextField {
   static const textFieldInputBorder = OutlineInputBorder(

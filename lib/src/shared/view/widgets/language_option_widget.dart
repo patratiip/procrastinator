@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:procrastinator/src/features/settings/di/settings_scope.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template language_option_widget}
 /// Widget that shows [LanguageOptionWidget]

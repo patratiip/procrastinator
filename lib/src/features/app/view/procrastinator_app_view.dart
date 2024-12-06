@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:settings_repository/settings_repository.dart';
 
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/settings/di/settings_scope.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/features/app/view/apps_manager.dart';
 import 'package:procrastinator/src/features/auth/login/view/login_screen.dart';
+import 'package:procrastinator/src/features/initialization/model/app_theme.dart';
+import 'package:procrastinator/src/features/settings/di/settings_scope.dart';
 
 class ProcrastinatorAppView extends StatelessWidget {
   const ProcrastinatorAppView({super.key});

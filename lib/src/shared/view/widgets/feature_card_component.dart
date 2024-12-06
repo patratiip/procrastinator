@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/shared/view/pages/page_with_error.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template feature_card_component}
 /// Widget that shows [FeatureCardComponent]

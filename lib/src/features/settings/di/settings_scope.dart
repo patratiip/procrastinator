@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
-import 'package:settings_repository/settings_repository.dart';
+import 'package:procrastinator/src/features/settings/model/app_settings.dart';
 
 /// {@template settings_scope}
 /// SettingsScope widget.
