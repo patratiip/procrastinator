@@ -6,22 +6,14 @@ import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
-class TodayLessonCardComponent extends StatefulWidget {
+class LectionCardComponent extends StatelessWidget {
   final Lection entryData;
-  const TodayLessonCardComponent({super.key, required this.entryData});
-
-  @override
-  State<TodayLessonCardComponent> createState() =>
-      _TodayLessonCardComponentState();
-}
-
-class _TodayLessonCardComponentState extends State<TodayLessonCardComponent> {
-  var dateFormat = DateFormat('dd.MM.yy');
-  // var percent = NumberFormat("##");
+  const LectionCardComponent({super.key, required this.entryData});
 
   @override
   Widget build(BuildContext context) {
-    final entryData = widget.entryData;
+    final dateFormat = DateFormat('dd.MM.yy');
+
     return Container(
       height: 74,
       padding: const EdgeInsets.all(12),
@@ -49,8 +41,9 @@ class _TodayLessonCardComponentState extends State<TodayLessonCardComponent> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        entryData.theme!,
+                        entryData.theme,
                         style: const TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
                         maxLines: 1,
                       ),
                     )
@@ -77,14 +70,14 @@ class _TodayLessonCardComponentState extends State<TodayLessonCardComponent> {
             Expanded(
               flex: 2,
               child: Text(
-                /////maxCharacters
-                '${entryData.trainer!.length > 10 ? entryData.trainer!.substring(0, 10) + '...' : entryData.trainer}',
+                '${entryData.trainer.length > 10 ? entryData.trainer.substring(0, 10) + '...' : entryData.trainer}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Text(
-                '${dateFormat.format(entryData.date!)},${entryData.dayOfWeek!.length > 2 ? entryData.dayOfWeek!.substring(0, 2) : entryData.dayOfWeek}'),
+                '${dateFormat.format(entryData.date)},${entryData.dayOfWeek.length > 2 ? entryData.dayOfWeek.substring(0, 2) : entryData.dayOfWeek}'),
+            // IconButton(onPressed: () {}, icon: Icon(Icons.info_outline_rounded))
           ]),
     );
   }

@@ -9,7 +9,7 @@ import 'package:procrastinator/src/features/student_app/di/student_app_scope.dar
 import 'package:procrastinator/src/features/trainer_app/di/trainer_app_scope.dart';
 import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/features/management_app/management_app.dart';
-import 'package:procrastinator/src/features/student_app/student_app.dart';
+import 'package:procrastinator/src/features/student_app/widget/student_app.dart';
 import 'package:procrastinator/src/features/trainer_app/trainer_app.dart';
 import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
 

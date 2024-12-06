@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/shared/view/widgets/lesson_card_component.dart';
-import 'package:procrastinator/src/features/student_app/1_student_main_screen/today_lection_widget/view/today_lection_widget.dart';
-import 'package:procrastinator/src/features/student_app/3_lection_plan_screen/bloc/lection_plan_bloc.dart';
+import 'package:procrastinator/src/features/student_app/lection_plan/widget/lection_widget.dart';
+import 'package:procrastinator/src/features/student_app/lection_plan/widget/today_lection_widget.dart';
+import 'package:procrastinator/src/features/student_app/lection_plan/bloc/lection_plan_bloc/lection_plan_bloc.dart';
 
-class KursplanPageWidget extends StatelessWidget {
-  const KursplanPageWidget({super.key});
+class LectionPlanScreen extends StatelessWidget {
+  const LectionPlanScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class KursplanPageWidget extends StatelessWidget {
                           //itemExtent: 68,
                           itemBuilder: (BuildContext context, int index) {
                             // final lesson = _filteredLessons[index];
-                            return LessonCardComponent(
+                            return LectionCardComponent(
                                 entryData: filteredLections[index]);
                           });
                     } else if (state is LectionPlanLoadingState) {

@@ -6,19 +6,14 @@ import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
-class LessonCardComponent extends StatefulWidget {
-  final Lection entryData;
-  const LessonCardComponent({super.key, required this.entryData});
+class TodayLectionCard extends StatelessWidget {
+  final Lection lection;
+  const TodayLectionCard({super.key, required this.lection});
 
-  @override
-  State<LessonCardComponent> createState() => _LessonCardComponentState();
-}
-
-class _LessonCardComponentState extends State<LessonCardComponent> {
+  // var percent = NumberFormat("##");
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd.MM.yy');
-    final entryData = widget.entryData;
     return Container(
       height: 74,
       padding: const EdgeInsets.all(12),
@@ -46,9 +41,8 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        entryData.theme,
+                        lection.theme,
                         style: const TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center,
                         maxLines: 1,
                       ),
                     )
@@ -75,14 +69,14 @@ class _LessonCardComponentState extends State<LessonCardComponent> {
             Expanded(
               flex: 2,
               child: Text(
-                '${entryData.trainer.length > 10 ? entryData.trainer.substring(0, 10) + '...' : entryData.trainer}',
+                /////maxCharacters
+                '${lection.trainer.length > 10 ? lection.trainer.substring(0, 10) + '...' : lection.trainer}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Text(
-                '${dateFormat.format(entryData.date)},${entryData.dayOfWeek.length > 2 ? entryData.dayOfWeek.substring(0, 2) : entryData.dayOfWeek}'),
-            // IconButton(onPressed: () {}, icon: Icon(Icons.info_outline_rounded))
+                '${dateFormat.format(lection.date)},${lection.dayOfWeek.length > 2 ? lection.dayOfWeek.substring(0, 2) : lection.dayOfWeek}'),
           ]),
     );
   }

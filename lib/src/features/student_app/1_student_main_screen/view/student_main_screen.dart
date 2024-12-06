@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/last_entries_list_widget/last_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_list_widget/loosed_entries_list_widget.dart';
-import 'package:procrastinator/src/features/student_app/1_student_main_screen/today_lection_widget/today_lection_widget.dart';
+import 'package:procrastinator/src/features/student_app/lection_plan/widget/today_lection_widget.dart';
 
 /// {@template student_main_screen_widget}
 /// Widget that shows [StudentMainScreen]

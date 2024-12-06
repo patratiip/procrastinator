@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/shared/view/widgets/no_lessons_component.dart';
-import 'package:procrastinator/src/shared/view/widgets/today_lesson_card_component.dart';
-import 'package:procrastinator/src/features/student_app/1_student_main_screen/today_lection_widget/bloc/today_lection_bloc.dart';
+import 'package:procrastinator/src/features/student_app/lection_plan/widget/no_lection_widget.dart';
+import 'package:procrastinator/src/features/student_app/lection_plan/widget/today_lection_card.dart';
+import 'package:procrastinator/src/features/student_app/lection_plan/bloc/today_lection_bloc/today_lection_bloc.dart';
 
 class TodayLectionWidget extends StatelessWidget {
   const TodayLectionWidget({super.key});
@@ -25,8 +25,8 @@ class TodayLectionWidget extends StatelessWidget {
                       Localization.of(context).todayLectionWidgetHeader,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    TodayLessonCardComponent(
-                      entryData: state.todayLection!,
+                    TodayLectionCard(
+                      lection: state.todayLection!,
                     ),
                   ],
                 ),
@@ -74,7 +74,7 @@ class TodayLectionWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Theme.of(context).cardColor,
                       borderRadius: BorderRadius.circular(12)),
-                  child: const Center(child: NoLessonCardComponent())),
+                  child: const Center(child: NoLectionWidget())),
             ],
           );
         }
