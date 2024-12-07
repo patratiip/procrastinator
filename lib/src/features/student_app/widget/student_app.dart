@@ -5,7 +5,7 @@ import 'package:procrastinator/src/features/student_app/1_student_main_screen/ca
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/last_entries_list_widget/last_entries_list_widget.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/bloc/loosed_entries_bloc/loosed_entries_bloc.dart';
+import 'package:procrastinator/src/features/student_app/1_student_main_screen/loosed_entries_bloc/loosed_entries_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/bloc/today_lection_bloc/today_lection_bloc.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/statistic_page.dart';
 import 'package:procrastinator/src/features/student_app/4_student_profile_screen/student_profile_screen.dart';

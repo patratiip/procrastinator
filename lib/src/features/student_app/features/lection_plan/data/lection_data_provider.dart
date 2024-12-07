@@ -9,8 +9,8 @@ import 'package:procrastinator/src/features/student_app/features/lection_plan/do
 ///
 /// The repository that handles lections
 abstract interface class ILectionDataProvider {
-  Stream<List<Lection>> lectionsStream();
-  Future<Lection?> getTodayLection();
+  Stream<List<LectionEntity>> lectionsStream();
+  Future<LectionEntity?> getTodayLection();
 }
 
 /// {@template i_lection_data_provider.class}
@@ -25,16 +25,14 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
   }) : _collectionRef = collectionRef;
 
   @override
-  Stream<List<Lection>> lectionsStream() {
+  Stream<List<LectionEntity>> lectionsStream() {
     try {
       final lections = _collectionRef
           .orderBy('date', descending: false)
           .snapshots()
           .map((snapshot) => snapshot.docs
-              .map((e) =>
-                  Lection.fromEntity(LectionEntity.fromFirestore(e.data())))
-              .toList())
-          .asBroadcastStream();
+              .map((doc) => LectionEntity.fromFirestore(doc.data()))
+              .toList());
 
       return lections;
     } catch (e) {
@@ -44,7 +42,7 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
   }
 
   @override
-  Future<Lection?> getTodayLection() async {
+  Future<LectionEntity?> getTodayLection() async {
     final now = DateTime.now();
     final Timestamp today =
         Timestamp.fromDate(DateTime(now.year, now.month, now.day));
@@ -55,8 +53,7 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
       // Return null if there is no lections for today
       if (todayQueryResult.docs.isEmpty) return null;
 
-      return Lection.fromEntity(
-          LectionEntity.fromFirestore(todayQueryResult.docs.first.data()));
+      return LectionEntity.fromFirestore(todayQueryResult.docs.first.data());
     } catch (e) {
       log(e.toString());
       rethrow;

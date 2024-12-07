@@ -25,11 +25,17 @@ class LectionRepository implements ILectionRepository {
 
   @override
   Stream<List<Lection>> lectionsStream() {
-    return _lectionDataProvider.lectionsStream();
+    return _lectionDataProvider
+        .lectionsStream()
+        .map((entities) =>
+            entities.map((entity) => Lection.fromEntity(entity)).toList())
+        .asBroadcastStream();
   }
 
   @override
   Future<Lection?> getTodayLection() async {
-    return _lectionDataProvider.getTodayLection();
+    final result = await _lectionDataProvider.getTodayLection();
+    if (result == null) return null;
+    return Lection.fromEntity(result);
   }
 }

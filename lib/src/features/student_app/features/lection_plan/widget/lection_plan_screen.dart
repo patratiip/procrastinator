@@ -20,7 +20,7 @@ class LectionPlanScreen extends StatelessWidget {
           primary: true,
           child: Column(
             children: [
-              //
+              // Actual lection or no lection widget
               const TodayLectionWidget(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -31,7 +31,7 @@ class LectionPlanScreen extends StatelessWidget {
                   ),
                   BlocBuilder<LectionPlanBloc, LectionPlanState>(
                       builder: (context, state) {
-                    if (state is LectionPlanLoadedState) {
+                    if (state.lectionsList.isNotEmpty) {
                       final filteredLections = state.lectionsList
                           .where(
                               (lection) => lection.date.isAfter(DateTime.now()))
@@ -40,13 +40,11 @@ class LectionPlanScreen extends StatelessWidget {
                           primary: false,
                           shrinkWrap: true,
                           itemCount: filteredLections.length,
-                          //itemExtent: 68,
                           itemBuilder: (BuildContext context, int index) {
-                            // final lesson = _filteredLessons[index];
                             return LectionCardComponent(
                                 entryData: filteredLections[index]);
                           });
-                    } else if (state is LectionPlanLoadingState) {
+                    } else if (state.loading) {
                       return const Center(
                           child: SizedBox(
                         height: 40,

@@ -15,10 +15,10 @@ class LectionPlanBloc extends Bloc<LectionPlanEvent, LectionPlanState> {
 
   LectionPlanBloc({required ILectionRepository lectionsRepository})
       : _lectionsRepository = lectionsRepository,
-        super(LectionPlanInitialState()) {
+        super(const _IdleLectionPlanState(lectionsList: [])) {
     on<LectionPlanEvent>(
       (event, emit) => switch (event) {
-        final LectionsListChangedEvent e => _lectionsListChangedEvent(e, emit),
+        final _LectionsListChangedEvent e => _lectionsListChangedEvent(e, emit),
       },
       transformer: sequential(),
     );
@@ -27,7 +27,7 @@ class LectionPlanBloc extends Bloc<LectionPlanEvent, LectionPlanState> {
     _lectionListListener = _lectionsRepository.lectionsStream().listen(
       (lectionsList) {
         if (lectionsList.isNotEmpty) {
-          add(LectionsListChangedEvent(lectionsList));
+          add(_LectionsListChangedEvent(lectionsList: lectionsList));
         }
       },
       cancelOnError: false,
@@ -36,13 +36,13 @@ class LectionPlanBloc extends Bloc<LectionPlanEvent, LectionPlanState> {
 
   /// Lections collection changed
   Future<void> _lectionsListChangedEvent(
-      LectionsListChangedEvent event, Emitter<LectionPlanState> emit) async {
+      _LectionsListChangedEvent event, Emitter<LectionPlanState> emit) async {
     try {
-      emit(LectionPlanLoadingState());
-      emit(LectionPlanLoadedState(lectionsList: event.lectionsList));
+      emit(_LoadingLectionPlanState(lectionsList: state.lectionsList));
+      emit(_LoadedLectionPlanState(lectionsList: event.lectionsList));
     } on Object catch (e, st) {
       onError(e, st);
-      emit(LectionPlanFailureState(exception: e));
+      emit(_ErrorLectionPlanState(lectionsList: event.lectionsList, error: e));
     }
   }
 
