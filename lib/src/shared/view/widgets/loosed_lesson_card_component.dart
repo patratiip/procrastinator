@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:lection_repository/lection_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
 class LoosedLessonCardComponent extends StatelessWidget {
-  final Lection lessonData;
-  const LoosedLessonCardComponent({super.key, required this.lessonData});
+  final Lection lection;
+  const LoosedLessonCardComponent({super.key, required this.lection});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class LoosedLessonCardComponent extends StatelessWidget {
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(
-                      lessonData.theme!,
+                      lection.theme!,
                       style: const TextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                       maxLines: 1,
@@ -70,12 +70,12 @@ class LoosedLessonCardComponent extends StatelessWidget {
                 ),
               ),
             ),
-            Text(dateFormat.format(lessonData.date!)),
+            Text(dateFormat.format(lection.date!)),
             IconButton(
               onPressed: () {
                 final bloc = BlocProvider.of<CalendarBloc>(context);
 
-                bloc.add(CalendarDateChanged(date: lessonData.date!));
+                bloc.add(CalendarDateChanged(date: lection.date!));
               },
               icon: const Icon(
                 Icons.add_rounded,

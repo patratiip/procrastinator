@@ -2,18 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:lection_repository/lection_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 
-class LectionCardComponent extends StatelessWidget {
-  final Lection entryData;
-  const LectionCardComponent({super.key, required this.entryData});
+class TodayLectionCard extends StatelessWidget {
+  final Lection lection;
+  const TodayLectionCard({super.key, required this.lection});
 
+  // var percent = NumberFormat("##");
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd.MM.yy');
-
     return Container(
       height: 74,
       padding: const EdgeInsets.all(12),
@@ -41,9 +41,8 @@ class LectionCardComponent extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        entryData.theme,
+                        lection.theme,
                         style: const TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center,
                         maxLines: 1,
                       ),
                     )
@@ -70,14 +69,14 @@ class LectionCardComponent extends StatelessWidget {
             Expanded(
               flex: 2,
               child: Text(
-                '${entryData.trainer.length > 10 ? entryData.trainer.substring(0, 10) + '...' : entryData.trainer}',
+                /////maxCharacters
+                '${lection.trainer.length > 10 ? lection.trainer.substring(0, 10) + '...' : lection.trainer}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
             Text(
-                '${dateFormat.format(entryData.date)},${entryData.dayOfWeek.length > 2 ? entryData.dayOfWeek.substring(0, 2) : entryData.dayOfWeek}'),
-            // IconButton(onPressed: () {}, icon: Icon(Icons.info_outline_rounded))
+                '${dateFormat.format(lection.date)},${lection.dayOfWeek.length > 2 ? lection.dayOfWeek.substring(0, 2) : lection.dayOfWeek}'),
           ]),
     );
   }

@@ -2,8 +2,8 @@ import 'package:clock/clock.dart';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
-import 'package:lection_repository/lection_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 

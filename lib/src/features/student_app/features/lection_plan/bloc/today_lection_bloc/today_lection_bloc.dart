@@ -3,7 +3,8 @@ import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lection_repository/lection_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection_repository.dart';
 
 part 'today_lection_event.dart';
 part 'today_lection_state.dart';

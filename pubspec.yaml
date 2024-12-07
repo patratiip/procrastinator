@@ -27,9 +27,6 @@ dependencies:
   entry_repository:
     path: packages/entry_repository
 
-  lection_repository:
-    path: packages/lection_repository
-
   geolocation_repository:
     path: packages/geolocation_repository
 

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/lection_plan/widget/no_lection_widget.dart';
-import 'package:procrastinator/src/features/student_app/lection_plan/widget/today_lection_card.dart';
-import 'package:procrastinator/src/features/student_app/lection_plan/bloc/today_lection_bloc/today_lection_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/no_lection_widget.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/today_lection_card.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/bloc/today_lection_bloc/today_lection_bloc.dart';
 
 class TodayLectionWidget extends StatelessWidget {
   const TodayLectionWidget({super.key});

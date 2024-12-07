@@ -5,8 +5,9 @@ import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lection_repository/lection_repository.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 part 'calendar_event.dart';

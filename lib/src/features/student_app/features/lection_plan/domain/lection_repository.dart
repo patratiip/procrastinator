@@ -1,10 +1,17 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:lection_repository/lection_repository.dart';
+import 'package:procrastinator/src/core/constant/firebase_collections_constants.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_entity.dart';
+
+abstract class ILectionRepository {
+  Stream<List<Lection>?> getLections();
+  Future<Lection?> getTodayLection();
+}
 
 class FirebaseLectionRepository implements ILectionRepository {
-  final _lectionsCollectionRef =
-      FirebaseFirestore.instance.collection('kursplan_flutter');
+  final _lectionsCollectionRef = FirebaseFirestore.instance
+      .collection(FirebaseCollectionsConstants.lections);
 
   final _now = DateTime.now();
 

@@ -35,7 +35,7 @@ class LoosedEntriesListWidget extends StatelessWidget {
                           : 3,
                       itemBuilder: (BuildContext context, int index) {
                         return LoosedLessonCardComponent(
-                          lessonData: state.loosedLectionsList[index],
+                          lection: state.loosedLectionsList[index],
                         );
                       }),
                 ],

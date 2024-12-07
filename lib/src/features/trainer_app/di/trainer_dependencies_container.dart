@@ -1,5 +1,5 @@
 import 'package:group_repository/group_repository.dart';
-import 'package:lection_repository/lection_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection_repository.dart';
 
 /// {@template student_dependencies_container}
 /// Composed dependencies from the [CompositionRoot].
