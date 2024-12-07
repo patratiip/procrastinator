@@ -1,53 +1,35 @@
-import 'dart:developer';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:procrastinator/src/core/constant/firebase_collections_constants.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_data_provider.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_entity.dart';
 
+/// Interface for [LectionRepository]
+///
+/// The repository that handles lections
 abstract class ILectionRepository {
-  Stream<List<Lection>?> getLections();
+  /// Getting lections stream
+  Stream<List<Lection>> lectionsStream();
+
+  /// Fetching lection for today or null
   Future<Lection?> getTodayLection();
 }
 
-class FirebaseLectionRepository implements ILectionRepository {
-  final _lectionsCollectionRef = FirebaseFirestore.instance
-      .collection(FirebaseCollectionsConstants.lections);
+/// {@template i_lection_data_provider.class}
+/// Implementation of [ILectionRepository].
+/// {@endtemplate}
+class LectionRepository implements ILectionRepository {
+  final ILectionDataProvider _lectionDataProvider;
 
-  final _now = DateTime.now();
+  ///{@macro i_lection_data_provider}
+  LectionRepository({
+    required ILectionDataProvider lectionDataProvider,
+  }) : _lectionDataProvider = lectionDataProvider;
 
   @override
-  Stream<List<Lection>?> getLections() {
-    try {
-      return _lectionsCollectionRef
-          .orderBy('date', descending: false)
-          .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((e) =>
-                  Lection.fromEntity(LectionEntity.fromFirestore(e.data())))
-              .toList())
-          .asBroadcastStream();
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
+  Stream<List<Lection>> lectionsStream() {
+    return _lectionDataProvider.lectionsStream();
   }
 
   @override
   Future<Lection?> getTodayLection() async {
-    final Timestamp today =
-        Timestamp.fromDate(DateTime(_now.year, _now.month, _now.day));
-    try {
-      final todayQuery =
-          await _lectionsCollectionRef.where('date', isEqualTo: today).get();
-
-      // Return null if there is no lecture for today
-      if (todayQuery.docs.isEmpty) return null;
-
-      return Lection.fromEntity(
-          LectionEntity.fromFirestore(todayQuery.docs.first.data()));
-    } catch (e) {
-      log(e.toString());
-      rethrow;
-    }
+    return _lectionDataProvider.getTodayLection();
   }
 }

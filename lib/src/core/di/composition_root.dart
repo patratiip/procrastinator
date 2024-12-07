@@ -1,13 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:clock/clock.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection_repository.dart';
+import 'package:procrastinator/src/features/initialization/model/environment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
 import 'package:procrastinator/src/core/constant/config.dart';
+import 'package:procrastinator/src/core/constant/firebase_collections_constants.dart';
 import 'package:procrastinator/src/core/utils/error_tracking_manager/error_tracking_manager.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
 import 'package:procrastinator/src/features/app/di/app_dependencies_container.dart';
@@ -17,6 +20,8 @@ import 'package:procrastinator/src/features/settings/data/app_settings_datasourc
 import 'package:procrastinator/src/features/settings/domain/settings_repository.dart';
 import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
 import 'package:procrastinator/src/features/student_app/di/student_dependencies_container.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_data_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection_repository.dart';
 import 'package:procrastinator/src/features/trainer_app/di/trainer_dependencies_container.dart';
 
 /// {@template composition_root}
@@ -64,7 +69,8 @@ final class CompositionRoot {
 
     logger.info('Initializing Student dependencies...');
     // initialize dependencies
-    final dependencies = StudentDependenciesFactory(currentUser).create();
+    final dependencies =
+        StudentDependenciesFactory(config, currentUser).create();
     logger.info('Student dependencies initialized');
 
     stopwatch.stop();
@@ -83,7 +89,8 @@ final class CompositionRoot {
 
     logger.info('Initializing Management dependencies...');
     // initialize dependencies
-    final dependencies = ManagementDependenciesFactory(currentUser).create();
+    final dependencies =
+        ManagementDependenciesFactory(config, currentUser).create();
     logger.info('Management dependencies initialized');
 
     stopwatch.stop();
@@ -101,7 +108,8 @@ final class CompositionRoot {
 
     logger.info('Initializing Trainer dependencies...');
     // initialize dependencies
-    final dependencies = TrainerDependenciesFactory(currentUser).create();
+    final dependencies =
+        TrainerDependenciesFactory(config, currentUser).create();
     logger.info('Trainer dependencies initialized');
 
     stopwatch.stop();
@@ -216,7 +224,10 @@ class FirebaseUserRepositoryFactory extends Factory<FirebaseUserRepository> {
 /// {@endtemplate}
 class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
   /// {@macro student_dependencies_factory}
-  StudentDependenciesFactory(this.currentUser);
+  StudentDependenciesFactory(this.config, this.currentUser);
+
+  /// Application configuration
+  final Config config;
 
   /// Current authenticated user
   final MyUser currentUser;
@@ -225,8 +236,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
   StudentDependenciesContainer create() {
     final firebaseEntryRepository =
         FirebaseEntryRepositoryFactory(currentUser.userId).create();
-    final firebaseLectionRepository =
-        FirebaseLectionRepositoryFactory().create();
+    final firebaseLectionRepository = LectionRepositoryFactory(config).create();
     final firebaseGroupRepository =
         FirebaseGroupRepositoryFactory(groupId: currentUser.group).create();
     final deviceGeolocationRepository =
@@ -252,15 +262,17 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
 /// {@endtemplate}
 class TrainerDependenciesFactory extends Factory<TrainerDependenciesContainer> {
   /// {@macro Trainer_dependencies_factory}
-  TrainerDependenciesFactory(this.currentUser);
+  TrainerDependenciesFactory(this.config, this.currentUser);
+
+  /// Application configuration
+  final Config config;
 
   /// Current authenticated user
   final MyUser currentUser;
 
   @override
   TrainerDependenciesContainer create() {
-    final firebaseLectionRepository =
-        FirebaseLectionRepositoryFactory().create();
+    final firebaseLectionRepository = LectionRepositoryFactory(config).create();
     final firebaseGroupRepository =
         FirebaseTrainerGroupRepositoryFactory().create();
 
@@ -279,7 +291,10 @@ class TrainerDependenciesFactory extends Factory<TrainerDependenciesContainer> {
 class ManagementDependenciesFactory
     extends Factory<ManagementDependenciesContainer> {
   /// {@macro management_dependencies_factory}
-  ManagementDependenciesFactory(this.currentUser);
+  ManagementDependenciesFactory(this.config, this.currentUser);
+
+  /// Application configuration
+  final Config config;
 
   /// Current authenticated user
   final MyUser currentUser;
@@ -288,8 +303,7 @@ class ManagementDependenciesFactory
   ManagementDependenciesContainer create() {
     final firebaseEntryRepository =
         FirebaseEntryRepositoryFactory(currentUser.userId).create();
-    final firebaseLectionRepository =
-        FirebaseLectionRepositoryFactory().create();
+    final firebaseLectionRepository = LectionRepositoryFactory(config).create();
     final statisticComputingServise =
         StatisticComputingServiseFactory().create();
     final firebaseGroupRepository =
@@ -304,16 +318,32 @@ class ManagementDependenciesFactory
   }
 }
 
-/// {@template firebase_lection_repo_factory}
-/// Factory that creates an instance of [FirebaseLectionRepository].
+/// {@template lection_repo_factory}
+/// Factory that creates an instance of [LectionRepository].
 /// {@endtemplate}
-class FirebaseLectionRepositoryFactory
-    extends Factory<FirebaseLectionRepository> {
-  /// {@macro firebase_lection_repo_factory}
+class LectionRepositoryFactory extends Factory<LectionRepository> {
+  /// {@macro lection_repo_factory}
+  LectionRepositoryFactory(this.config);
+
+  /// Application configuration
+  final Config config;
 
   @override
-  FirebaseLectionRepository create() {
-    return FirebaseLectionRepository();
+  LectionRepository create() {
+    String collectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.lections,
+      Environment.staging => StagingFirebaseCollectionsConstants.lections,
+      Environment.prod => ProdFirebaseCollectionsConstants.lections,
+    };
+
+    /// Making [CollectionReference] for [LectionFirebaseDataProviderImpl]
+    ///  depend on app flavour
+    final lectionsCollectionRef =
+        FirebaseFirestore.instance.collection(collectionName);
+
+    return LectionRepository(
+        lectionDataProvider: LectionFirebaseDataProviderImpl(
+            collectionRef: lectionsCollectionRef));
   }
 }
 

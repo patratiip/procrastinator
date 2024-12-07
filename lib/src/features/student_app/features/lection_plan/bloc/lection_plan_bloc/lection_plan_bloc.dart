@@ -24,9 +24,9 @@ class LectionPlanBloc extends Bloc<LectionPlanEvent, LectionPlanState> {
     );
 
     /// Lections list subscription
-    _lectionListListener = _lectionsRepository.getLections().listen(
+    _lectionListListener = _lectionsRepository.lectionsStream().listen(
       (lectionsList) {
-        if (lectionsList != null && lectionsList.isNotEmpty) {
+        if (lectionsList.isNotEmpty) {
           add(LectionsListChangedEvent(lectionsList));
         }
       },

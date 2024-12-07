@@ -23,8 +23,8 @@ base class ManagementDependenciesContainer {
   /// [FirebaseEntryRepository] instance, used to manage theme and locale.
   final FirebaseEntryRepository firebaseEntryRepository;
 
-  /// [FirebaseLectionRepository] instance, used to manage theme and locale.
-  final FirebaseLectionRepository firebaseLectionRepository;
+  /// [LectionRepository] instance, used to manage theme and locale.
+  final LectionRepository firebaseLectionRepository;
 
   /// [StatisticComputingServise] instance, used to manage theme and locale.
   final StatisticComputingServise statisticComputingServise;

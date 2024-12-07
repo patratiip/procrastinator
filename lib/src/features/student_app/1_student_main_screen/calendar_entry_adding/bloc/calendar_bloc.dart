@@ -59,7 +59,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
       cancelOnError: false,
     );
 
-    _lectionListListener = _lectionsRepository.getLections().listen(
+    _lectionListListener = _lectionsRepository.lectionsStream().listen(
       (lectionsList) {
         add(CalendarLectionsUpdated(lectionsList));
       },
