@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 
 class NoLectionWidget extends StatelessWidget {
-  const NoLectionWidget({
-    super.key,
-  });
+  const NoLectionWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

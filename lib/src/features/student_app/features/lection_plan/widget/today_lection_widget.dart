@@ -12,73 +12,74 @@ class TodayLectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TodayLectionBloc, TodayLectionState>(
-      builder: (context, state) {
-        if (state is TodayLectionLoaded) {
-          return SingleChildScrollView(
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      Localization.of(context).todayLectionWidgetHeader,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    TodayLectionCard(
-                      lection: state.todayLection!,
-                    ),
-                  ],
-                ),
+        builder: (context, state) {
+      if (state.lection != null) {
+        return SingleChildScrollView(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Localization.of(context).todayLectionWidgetHeader,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  TodayLectionCard(
+                    lection: state.lection!,
+                  ),
+                ],
               ),
             ),
-          );
-        } else if (state is TodayLectionLoading) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                Localization.of(context).todayLectionWidgetHeader,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Container(
-                  padding: const EdgeInsets.all(12),
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  constraints: const BoxConstraints(maxWidth: 600),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: const Center(
-                    child: SizedBox(
-                      height: 40,
-                      width: 40,
-                      child: CircularProgressIndicator(
-                        color: MyAppColorScheme.primary,
-                      ),
+          ),
+        );
+      } else if (state.isLoading) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              Localization.of(context).todayLectionWidgetHeader,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Container(
+                padding: const EdgeInsets.all(12),
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                constraints: const BoxConstraints(maxWidth: 600),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: BorderRadius.circular(12)),
+                child: const Center(
+                  child: SizedBox(
+                    height: 40,
+                    width: 40,
+                    child: CircularProgressIndicator(
+                      color: MyAppColorScheme.primary,
                     ),
-                  )),
-            ],
-          );
-        } else {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                Localization.of(context).todayLectionWidgetHeader,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              Container(
-                  padding: const EdgeInsets.all(12),
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  constraints: const BoxConstraints(maxWidth: 600),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: const Center(child: NoLectionWidget())),
-            ],
-          );
-        }
-      },
-    );
+                  ),
+                )),
+          ],
+        );
+      } else {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              Localization.of(context).todayLectionWidgetHeader,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            Container(
+                padding: const EdgeInsets.all(12),
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                constraints: const BoxConstraints(maxWidth: 600),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius: BorderRadius.circular(12)),
+                child: const Center(
+                  child: NoLectionWidget(),
+                )),
+          ],
+        );
+      }
+    });
   }
 }

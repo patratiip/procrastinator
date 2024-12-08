@@ -3,7 +3,6 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_entity.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
 
 /// Interface for [LectionFirebaseDataProviderImpl]
 ///
@@ -44,6 +43,7 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
   @override
   Future<LectionEntity?> getTodayLection() async {
     final now = DateTime.now();
+
     final Timestamp today =
         Timestamp.fromDate(DateTime(now.year, now.month, now.day));
     try {

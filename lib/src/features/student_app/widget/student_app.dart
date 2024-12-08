@@ -57,7 +57,7 @@ class StudentApp extends StatelessWidget {
               create: (context) => TodayLectionBloc(
                   lectionsRepository: StudentAppScope.depConOf(context)
                       .firebaseLectionRepository)
-                ..add(LoadTodayLection())),
+                ..add(const TodayLectionEvent.loadLection())),
 
           // User profile
           BlocProvider(

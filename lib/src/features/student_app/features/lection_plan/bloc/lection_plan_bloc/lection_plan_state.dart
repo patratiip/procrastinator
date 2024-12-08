@@ -124,3 +124,5 @@ final class _ErrorLectionPlanState extends LectionPlanState {
   String toString() =>
       'LectionPlanState.error(lectionsList: $lectionsList, error: $error)';
 }
+
+
