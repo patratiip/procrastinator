@@ -25,8 +25,13 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
 
   @override
   Stream<List<LectionEntity>> lectionsStream() {
+    //TODO: When the feature wold be separated, uncommet things below
+    // final now = DateTime.now();
+    // final Timestamp today =
+    //     Timestamp.fromDate(DateTime(now.year, now.month, now.day));
     try {
       final lections = _collectionRef
+          // .where('date', isGreaterThan: today)
           .orderBy('date', descending: false)
           .snapshots()
           .map((snapshot) => snapshot.docs

@@ -32,6 +32,7 @@ class LectionPlanScreen extends StatelessWidget {
                   BlocBuilder<LectionPlanBloc, LectionPlanState>(
                       builder: (context, state) {
                     if (state.lectionsList.isNotEmpty) {
+                      //TODO: When the feature wold be separated, delete [filteredLections]
                       final filteredLections = state.lectionsList
                           .where(
                               (lection) => lection.date.isAfter(DateTime.now()))
