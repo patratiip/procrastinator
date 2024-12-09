@@ -71,5 +71,6 @@
   "settingsOptionAppTheme": "App theme",
   "appThemeTitleLight": "Light",
   "appThemeTitleDark": "Dark",
-  "appThemeTitleDefault": "Default"
+  "appThemeTitleDefault": "Default",
+  "lectionInfoHeader": "Lection information"
 }

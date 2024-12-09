@@ -12,12 +12,13 @@ abstract class AppThemeData {
     useMaterial3: true,
     brightness: Brightness.dark,
     cardColor: MyAppColorScheme.secondaryBackgroundDark,
+
     colorScheme: ColorScheme.fromSeed(
-      seedColor: MyAppColorScheme.primary,
-      brightness: Brightness.dark,
-      secondary: MyAppColorScheme.secondary,
-      surface: MyAppColorScheme.primaryBackgroundDark,
-    ),
+        seedColor: MyAppColorScheme.primary,
+        brightness: Brightness.dark,
+        secondary: MyAppColorScheme.secondary,
+        surface: MyAppColorScheme.primaryBackgroundDark,
+        onSurface: MyAppColorScheme.secondaryTextDark),
 
     // App Bar
     appBarTheme: const AppBarTheme(
@@ -43,84 +44,69 @@ abstract class AppThemeData {
     // Text styles
     textTheme: const TextTheme(
       displayLarge: TextStyle(
-        fontSize: 64,
-        fontWeight: FontWeight.w400,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 64,
+          fontWeight: FontWeight.w400,
+          color: MyAppColorScheme.primaryTextDark),
       displayMedium: TextStyle(
-        fontSize: 44,
-        fontWeight: FontWeight.w400,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 44,
+          fontWeight: FontWeight.w400,
+          color: MyAppColorScheme.primaryTextDark),
       displaySmall: TextStyle(
-        fontSize: 36,
-        fontWeight: FontWeight.w600,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 36,
+          fontWeight: FontWeight.w600,
+          color: MyAppColorScheme.primaryTextDark),
       //
       headlineLarge: TextStyle(
-        fontSize: 32,
-        fontWeight: FontWeight.w600,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 32,
+          fontWeight: FontWeight.w600,
+          color: MyAppColorScheme.primaryTextDark),
       headlineMedium: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w500,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 24,
+          fontWeight: FontWeight.w500,
+          color: MyAppColorScheme.primaryTextDark),
       headlineSmall: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.w400,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 24,
+          fontWeight: FontWeight.w400,
+          color: MyAppColorScheme.primaryTextDark),
       //
       titleLarge: TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.w500,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 22,
+          fontWeight: FontWeight.w500,
+          color: MyAppColorScheme.primaryTextDark),
       titleMedium: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w500,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+          color: MyAppColorScheme.primaryTextDark),
       titleSmall: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: MyAppColorScheme.primaryTextDark),
       //
       labelLarge: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w500,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+          color: MyAppColorScheme.primaryTextDark),
       labelMedium: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w500,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: MyAppColorScheme.primaryTextDark),
       labelSmall: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w500,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 12,
+          fontWeight: FontWeight.w500,
+          color: MyAppColorScheme.primaryTextDark),
       //
       bodyLarge: TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: MyAppColorScheme.primaryTextDark),
       bodyMedium: TextStyle(
-        fontSize: 14,
-        fontWeight: FontWeight.w400,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: MyAppColorScheme.primaryTextDark),
       bodySmall: TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        color: MyAppColorScheme.primaryTextDark,
-      ),
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: MyAppColorScheme.primaryTextDark),
     ),
   );
 
@@ -128,11 +114,11 @@ abstract class AppThemeData {
     useMaterial3: true,
     cardColor: MyAppColorScheme.secondaryBackground,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: MyAppColorScheme.primary,
-      brightness: Brightness.light,
-      secondary: MyAppColorScheme.secondary,
-      surface: MyAppColorScheme.primaryBackground,
-    ),
+        seedColor: MyAppColorScheme.primary,
+        brightness: Brightness.light,
+        secondary: MyAppColorScheme.secondary,
+        surface: MyAppColorScheme.primaryBackground,
+        onSurface: MyAppColorScheme.secondaryText),
 
     // App Bar
     appBarTheme: const AppBarTheme(

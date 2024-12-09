@@ -1,31 +1,42 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
+import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
 
-class LectionCardComponent extends StatelessWidget {
-  final Lection entryData;
-  const LectionCardComponent({super.key, required this.entryData});
+/// {@template lection_widget}
+/// Shows [LectionWidget].
+/// {@endtemplate}
+
+class LectionWidget extends StatelessWidget {
+  final double? height;
+  final Lection lection;
+  final bool tappable;
+  final VoidCallback? onTap;
+
+  /// {@macro lection_widget}
+  const LectionWidget({
+    super.key,
+    required this.lection,
+    this.height,
+    this.tappable = false,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd.MM.yy');
 
-    return Container(
-      height: 74,
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      constraints: const BoxConstraints(maxWidth: 600),
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(12)),
+    return CardWidget(
+      tappable: tappable,
+      onTap: onTap,
+      height: height ?? 80,
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            // Lection theme
             Expanded(
               flex: 3,
               child: Container(
@@ -41,7 +52,7 @@ class LectionCardComponent extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        entryData.theme,
+                        lection.theme,
                         style: const TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                         maxLines: 1,
@@ -49,6 +60,8 @@ class LectionCardComponent extends StatelessWidget {
                     )
                   ])),
             ),
+
+            // Trainer Image
             Expanded(
               flex: 2,
               child: Center(
@@ -67,17 +80,25 @@ class LectionCardComponent extends StatelessWidget {
                 ),
               ),
             ),
+
+            // Trainer name
             Expanded(
               flex: 2,
-              child: Text(
-                '${entryData.trainer.length > 10 ? entryData.trainer.substring(0, 10) + '...' : entryData.trainer}',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  lection.trainer.length > 10
+                      ? '${lection.trainer.substring(0, 10)}...'
+                      : lection.trainer,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
+
+            // Date, day of week
             Text(
-                '${dateFormat.format(entryData.date)},${entryData.dayOfWeek.length > 2 ? entryData.dayOfWeek.substring(0, 2) : entryData.dayOfWeek}'),
-            // IconButton(onPressed: () {}, icon: Icon(Icons.info_outline_rounded))
+                '${dateFormat.format(lection.date)},${lection.dayOfWeek.length > 2 ? lection.dayOfWeek.substring(0, 2) : lection.dayOfWeek}'),
           ]),
     );
   }

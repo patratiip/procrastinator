@@ -2,14 +2,14 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_entity.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection_model.dart';
 
 /// Interface for [LectionFirebaseDataProviderImpl]
 ///
 /// The repository that handles lections
 abstract interface class ILectionDataProvider {
-  Stream<List<LectionEntity>> lectionsStream();
-  Future<LectionEntity?> getTodayLection();
+  Stream<List<LectionModel>> lectionsStream();
+  Future<LectionModel?> getTodayLection();
 }
 
 /// {@template i_lection_data_provider.class}
@@ -24,7 +24,7 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
   }) : _collectionRef = collectionRef;
 
   @override
-  Stream<List<LectionEntity>> lectionsStream() {
+  Stream<List<LectionModel>> lectionsStream() {
     //TODO: When the feature wold be separated, uncommet things below
     // final now = DateTime.now();
     // final Timestamp today =
@@ -35,7 +35,7 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
           .orderBy('date', descending: false)
           .snapshots()
           .map((snapshot) => snapshot.docs
-              .map((doc) => LectionEntity.fromFirestore(doc.data()))
+              .map((doc) => LectionModel.fromFirestore(doc.data()))
               .toList());
 
       return lections;
@@ -46,7 +46,7 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
   }
 
   @override
-  Future<LectionEntity?> getTodayLection() async {
+  Future<LectionModel?> getTodayLection() async {
     final now = DateTime.now();
 
     final Timestamp today =
@@ -58,7 +58,7 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
       // Return null if there is no lections for today
       if (todayQueryResult.docs.isEmpty) return null;
 
-      return LectionEntity.fromFirestore(todayQueryResult.docs.first.data());
+      return LectionModel.fromFirestore(todayQueryResult.docs.first.data());
     } catch (e) {
       log(e.toString());
       rethrow;

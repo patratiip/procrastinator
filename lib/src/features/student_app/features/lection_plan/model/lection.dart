@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_entity.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection_model.dart';
 
 class Lection extends Equatable {
   final String? lectionID;
@@ -17,8 +17,8 @@ class Lection extends Equatable {
     required this.dayOfWeek,
   });
 
-  LectionEntity toEntity() {
-    return LectionEntity(
+  LectionModel toModel() {
+    return LectionModel(
       lectionID: lectionID,
       theme: theme,
       trainer: trainer,
@@ -27,13 +27,13 @@ class Lection extends Equatable {
     );
   }
 
-  static Lection fromEntity(LectionEntity entity) {
+  static Lection fromModel(LectionModel model) {
     return Lection(
-      lectionID: entity.lectionID,
-      theme: entity.theme,
-      trainer: entity.trainer,
-      date: _normalizeDate(entity.date),
-      dayOfWeek: entity.dayOfWeek,
+      lectionID: model.lectionID,
+      theme: model.theme,
+      trainer: model.trainer,
+      date: _normalizeDate(model.date),
+      dayOfWeek: model.dayOfWeek,
     );
   }
 

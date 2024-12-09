@@ -780,6 +780,16 @@ class Localization {
       args: [],
     );
   }
+
+  /// `Lection information`
+  String get lectionInfoHeader {
+    return Intl.message(
+      'Lection information',
+      name: 'lectionInfoHeader',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {

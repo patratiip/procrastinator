@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/1_student_main_screen/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';

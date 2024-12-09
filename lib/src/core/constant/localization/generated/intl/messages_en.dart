@@ -94,6 +94,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "languagesRussian": MessageLookupByLibrary.simpleMessage("Russian"),
         "lastFiveEntriesWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Last 5 Entries"),
+        "lectionInfoHeader":
+            MessageLookupByLibrary.simpleMessage("Lection information"),
         "lectionsListWidgetHeader":
             MessageLookupByLibrary.simpleMessage("Next lections"),
         "lectionsPlanAppBarText":

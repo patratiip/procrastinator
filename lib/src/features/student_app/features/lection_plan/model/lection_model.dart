@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class LectionEntity {
+class LectionModel {
   final String? lectionID;
   final String theme;
   final String trainer;
   final DateTime date;
   final String dayOfWeek;
 
-  const LectionEntity({
+  const LectionModel({
     this.lectionID,
     required this.theme,
     required this.trainer,
@@ -25,8 +25,8 @@ class LectionEntity {
     };
   }
 
-  static LectionEntity fromFirestore(Map<String, dynamic> doc) {
-    return LectionEntity(
+  static LectionModel fromFirestore(Map<String, dynamic> doc) {
+    return LectionModel(
         lectionID: doc['lectionID'],
         theme: doc['teme'],
         trainer: doc['trainer'],

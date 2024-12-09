@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';
 
 part 'lection_plan_event.dart';
 part 'lection_plan_state.dart';

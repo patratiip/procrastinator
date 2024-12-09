@@ -71,5 +71,6 @@
   "settingsOptionAppTheme": "Тема",
   "appThemeTitleLight": "Светлая",
   "appThemeTitleDark": "Тёмная",
-  "appThemeTitleDefault": "Автоматически"
+  "appThemeTitleDefault": "Автоматически",
+  "lectionInfoHeader": "Информация о лекции"
 }

@@ -71,5 +71,6 @@
   "settingsOptionAppTheme": "App Thema",
   "appThemeTitleLight": "Licht",
   "appThemeTitleDark": "Dunkel",
-  "appThemeTitleDefault": "Automatisch"
+  "appThemeTitleDefault": "Automatisch",
+  "lectionInfoHeader": "Informationen zur Vorlesung"
 }

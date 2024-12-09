@@ -1,7 +1,7 @@
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_data_provider.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/domain/lection.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 
-/// Interface for [LectionRepository]
+/// Interface for [LectionRepositoryImpl]
 ///
 /// The repository that handles lections
 abstract class ILectionRepository {
@@ -15,11 +15,11 @@ abstract class ILectionRepository {
 /// {@template i_lection_data_provider.class}
 /// Implementation of [ILectionRepository].
 /// {@endtemplate}
-class LectionRepository implements ILectionRepository {
+class LectionRepositoryImpl implements ILectionRepository {
   final ILectionDataProvider _lectionDataProvider;
 
   ///{@macro i_lection_data_provider}
-  LectionRepository({
+  LectionRepositoryImpl({
     required ILectionDataProvider lectionDataProvider,
   }) : _lectionDataProvider = lectionDataProvider;
 
@@ -28,7 +28,7 @@ class LectionRepository implements ILectionRepository {
     return _lectionDataProvider
         .lectionsStream()
         .map((entities) =>
-            entities.map((entity) => Lection.fromEntity(entity)).toList())
+            entities.map((entity) => Lection.fromModel(entity)).toList())
         .asBroadcastStream();
   }
 
@@ -36,6 +36,6 @@ class LectionRepository implements ILectionRepository {
   Future<Lection?> getTodayLection() async {
     final result = await _lectionDataProvider.getTodayLection();
     if (result == null) return null;
-    return Lection.fromEntity(result);
+    return Lection.fromModel(result);
   }
 }
