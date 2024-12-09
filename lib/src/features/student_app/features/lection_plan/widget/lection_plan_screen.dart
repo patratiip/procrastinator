@@ -13,42 +13,48 @@ class LectionPlanScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SingleChildScrollView(
-          // keyboardDismissBehavior:
-          //     ScrollViewKeyboardDismissBehavior.onDrag,
-          padding: const EdgeInsets.only(right: 16, left: 16, bottom: 44),
-          primary: true,
-          child: Column(
-            children: [
-              // Actual lection or no lection widget
-              const TodayLectionWidget(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        Center(
+          child: Container(
+            constraints: const BoxConstraints(maxWidth: 600),
+            child: SingleChildScrollView(
+              // keyboardDismissBehavior:
+              //     ScrollViewKeyboardDismissBehavior.onDrag,
+              padding: const EdgeInsets.only(right: 16, left: 16, bottom: 44),
+              primary: true,
+              child: Column(
                 children: [
-                  Text(
-                    Localization.of(context).lectionsListWidgetHeader,
-                    style: Theme.of(context).textTheme.titleMedium,
+                  // Actual lection or no lection widget
+                  const TodayLectionWidget(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        Localization.of(context).lectionsListWidgetHeader,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      BlocBuilder<LectionPlanBloc, LectionPlanState>(
+                          builder: (context, state) {
+                        if (state.lectionsList.isNotEmpty) {
+                          return LectionListWidget(
+                              lectionList: state.lectionsList);
+                        } else if (state.loading) {
+                          return const Center(
+                              child: SizedBox(
+                            height: 40,
+                            width: 40,
+                            child: CircularProgressIndicator(
+                              color: MyAppColorScheme.primary,
+                            ),
+                          ));
+                        } else {
+                          return const SizedBox();
+                        }
+                      }),
+                    ],
                   ),
-                  BlocBuilder<LectionPlanBloc, LectionPlanState>(
-                      builder: (context, state) {
-                    if (state.lectionsList.isNotEmpty) {
-                      return LectionListWidget(lectionList: state.lectionsList);
-                    } else if (state.loading) {
-                      return const Center(
-                          child: SizedBox(
-                        height: 40,
-                        width: 40,
-                        child: CircularProgressIndicator(
-                          color: MyAppColorScheme.primary,
-                        ),
-                      ));
-                    } else {
-                      return const SizedBox();
-                    }
-                  }),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ],

@@ -24,20 +24,22 @@ class SettingsScreen extends StatelessWidget {
         padding:
             const EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
         primary: true,
-        child: Column(
-          children: [
-            // App Language
-            FeatureCardComponent(
-              title: Localization.of(context).settingsOptionLanguage,
-              route:  const LanguageSettingsScreen(),
-            ),
+        child: Center(
+          child: Column(
+            children: [
+              // App Language
+              FeatureCardComponent(
+                title: Localization.of(context).settingsOptionLanguage,
+                route: const LanguageSettingsScreen(),
+              ),
 
-            // App Theme
-            FeatureCardComponent(
-              title: Localization.of(context).settingsOptionAppTheme,
-              route:  const ThemeSettingsScreen(),
-            ),
-          ],
+              // App Theme
+              FeatureCardComponent(
+                title: Localization.of(context).settingsOptionAppTheme,
+                route: const ThemeSettingsScreen(),
+              ),
+            ],
+          ),
         ),
       ),
     );

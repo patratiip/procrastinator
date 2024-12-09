@@ -22,41 +22,43 @@ class LanguageSettingsScreen extends StatelessWidget {
         padding:
             const EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
         primary: true,
-        child: Column(
-          children: [
-            // English
-            LanguageOptionWidget(
-              title: Localization.of(context).languagesEnglish,
-              subtitle: 'English',
-              languageCode: 'en',
-              leadingWidget: const Text(
-                '🇬🇧',
-                style: TextStyle(fontSize: 32),
+        child: Center(
+          child: Column(
+            children: [
+              // English
+              LanguageOptionWidget(
+                title: Localization.of(context).languagesEnglish,
+                subtitle: 'English',
+                languageCode: 'en',
+                leadingWidget: const Text(
+                  '🇬🇧',
+                  style: TextStyle(fontSize: 32),
+                ),
               ),
-            ),
 
-            // German
-            LanguageOptionWidget(
-              title: Localization.of(context).languagesGerman,
-              subtitle: 'Deuthsch',
-              languageCode: 'de',
-              leadingWidget: const Text(
-                '🇩🇪',
-                style: TextStyle(fontSize: 32),
+              // German
+              LanguageOptionWidget(
+                title: Localization.of(context).languagesGerman,
+                subtitle: 'Deuthsch',
+                languageCode: 'de',
+                leadingWidget: const Text(
+                  '🇩🇪',
+                  style: TextStyle(fontSize: 32),
+                ),
               ),
-            ),
 
-            // Russian
-            LanguageOptionWidget(
-              title: Localization.of(context).languagesRussian,
-              subtitle: 'Русский',
-              languageCode: 'ru',
-              leadingWidget: const Text(
-                '🇷🇺',
-                style: TextStyle(fontSize: 32),
+              // Russian
+              LanguageOptionWidget(
+                title: Localization.of(context).languagesRussian,
+                subtitle: 'Русский',
+                languageCode: 'ru',
+                leadingWidget: const Text(
+                  '🇷🇺',
+                  style: TextStyle(fontSize: 32),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
