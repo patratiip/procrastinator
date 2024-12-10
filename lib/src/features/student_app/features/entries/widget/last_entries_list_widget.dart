@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/shared/view/widgets/entry_card_component.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/widget/entry_card_component.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/bloc/last_entries_list_bloc/last_entries_list_bloc.dart';
 
 class LastEntriesListWidget extends StatelessWidget {

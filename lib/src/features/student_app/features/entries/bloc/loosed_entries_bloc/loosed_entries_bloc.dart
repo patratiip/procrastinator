@@ -54,7 +54,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
     /// Subscription - Lessons List from Repo
     _lectionListListener = _lectionsRepository.lectionsStream().listen(
       (lectionsList) {
-        if (lectionsList != null && lectionsList.isNotEmpty) {
+        if (lectionsList.isNotEmpty) {
           lectionsListFromStream = lectionsList;
         }
         if (lectionsListFromStream.isNotEmpty &&
