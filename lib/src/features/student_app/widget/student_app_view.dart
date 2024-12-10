@@ -46,7 +46,7 @@ class _StudentAppViewState extends State<StudentAppView> {
             : _appBarText),
       ),
       body: <Widget>[
-        const StudentMainScreen(),
+        StudentMainScreen(),
         const StatisticScreenWidget(),
         const LectionPlanScreen(),
         const StudentProfileScreen(),

@@ -3,27 +3,34 @@ import 'package:procrastinator/src/features/student_app/features/calendar_entry_
 import 'package:procrastinator/src/features/student_app/features/entries/widget/last_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/widget/loosed_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/today_lection_widget.dart';
+import 'package:procrastinator/src/features/student_app/features/student_main_screen/widget/scroll_control_provider.dart';
 
 /// {@template student_main_screen_widget}
 /// Widget that shows [StudentMainScreen]
 /// {@endtemplate }
 class StudentMainScreen extends StatelessWidget {
   /// {@macro student_main_screen_widget}
-  const StudentMainScreen({super.key});
+  StudentMainScreen({super.key});
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      padding: EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
-      primary: true,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          CalendarEntryAddingWidget(),
-          LoosedEntriesListWidget(),
-          TodayLectionWidget(),
-          LastEntriesListWidget(),
-        ],
+    return ScrollControllerProvider(
+      scrollController: _scrollController,
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        padding:
+            const EdgeInsets.only(right: 16, left: 16, top: 24, bottom: 44),
+        primary: false,
+        child: const Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CalendarEntryAddingWidget(),
+            LoosedEntriesListWidget(),
+            TodayLectionWidget(),
+            LastEntriesListWidget(),
+          ],
+        ),
       ),
     );
   }

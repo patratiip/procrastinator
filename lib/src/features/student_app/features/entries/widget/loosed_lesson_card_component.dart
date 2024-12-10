@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
+import 'package:procrastinator/src/features/student_app/features/student_main_screen/widget/scroll_control_provider.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
@@ -75,7 +76,11 @@ class LoosedLessonCardComponent extends StatelessWidget {
               onPressed: () {
                 final bloc = BlocProvider.of<CalendarBloc>(context);
                 bloc.add(CalendarDateChanged(date: lection.date));
-                
+                ScrollControllerProvider.of(context).animateTo(
+                  0.0,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
               },
               icon: const Icon(
                 Icons.add_rounded,

@@ -31,7 +31,6 @@ class EntryWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           children: [
             // Entry type icon
-
             Container(
                 width: 54,
                 height: 54,
@@ -55,8 +54,8 @@ class EntryWidget extends StatelessWidget {
                   EntryType.loosed =>
                     const Icon(Icons.close, color: Colors.white, size: 28),
                 }),
-            // Entry type text
 
+            // Entry type text
             switch (visitData.entryType) {
               EntryType.schoolVisit =>
                 Text(Localization.of(context).schoolEntryType),
@@ -65,11 +64,11 @@ class EntryWidget extends StatelessWidget {
               EntryType.sick => Text(Localization.of(context).sickEntryType),
               EntryType.loosed => Text(Localization.of(context).looseEntryType),
             },
+
             // Entry date
-
             Text(dateFormat.format(visitData.date)),
-            //Delete button
 
+            //Delete button
             IconButton(
                 onPressed: () {
                   //TODO Add confirmation dialog with my design
