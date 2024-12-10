@@ -18,7 +18,7 @@ import 'package:procrastinator/src/features/management_app/di/management_depende
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 import 'package:procrastinator/src/features/settings/data/app_settings_datasource.dart';
 import 'package:procrastinator/src/features/settings/data/settings_repository.dart';
-import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
+import 'package:procrastinator/src/features/student_app/features/statistic/service/statistic_computing_service.dart';
 import 'package:procrastinator/src/features/student_app/di/student_dependencies_container.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_data_provider.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';

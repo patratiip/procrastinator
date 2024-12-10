@@ -104,8 +104,8 @@ class LectionBottomSheetWidget extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      lection.trainer.length > 10
-                          ? '${lection.trainer.substring(0, 10)}...'
+                      lection.trainer.length > 20
+                          ? '${lection.trainer.substring(0, 20)}...'
                           : lection.trainer,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -115,7 +115,7 @@ class LectionBottomSheetWidget extends StatelessWidget {
 
                   // Date, day of week
                   Text(
-                    '${dateFormat.format(lection.date)},${lection.dayOfWeek.length > 2 ? lection.dayOfWeek.substring(0, 2) : lection.dayOfWeek}',
+                    '${dateFormat.format(lection.date)}, ${lection.dayOfWeek.length > 10 ? lection.dayOfWeek.substring(0, 10) : lection.dayOfWeek}',
                     style: Theme.of(context).textTheme.titleSmall,
                   ),
                 ],

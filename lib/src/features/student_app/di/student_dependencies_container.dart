@@ -1,7 +1,7 @@
 import 'package:entry_repository/entry_repository.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
-import 'package:procrastinator/src/features/student_app/2_statistic_screen/service/statistic_computing_service.dart';
+import 'package:procrastinator/src/features/student_app/features/statistic/service/statistic_computing_service.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';
 
 /// {@template student_dependencies_container}

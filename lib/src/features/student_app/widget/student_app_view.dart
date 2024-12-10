@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
+import 'package:procrastinator/src/features/student_app/features/student_profile_screen/widget/student_profile_screen.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/lection_plan_screen.dart';
+import 'package:procrastinator/src/features/student_app/features/statistic/widget/statistic_screen.dart';
+import 'package:procrastinator/src/features/student_app/features/student_main_screen/widget/student_main_screen.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import '../1_student_main_screen/view/student_main_screen.dart';
-import '../2_statistic_screen/view/statistic_screen.dart';
-import '../features/lection_plan/widget/lection_plan_screen.dart';
-import '../4_student_profile_screen/view/student_profile_screen.dart';
 
 class StudentAppView extends StatefulWidget {
   const StudentAppView({
