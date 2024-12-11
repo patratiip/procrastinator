@@ -32,8 +32,8 @@ class EntryWidget extends StatelessWidget {
           children: [
             // Entry type icon
             Container(
-                width: 54,
-                height: 54,
+                width: 60,
+                height: 60,
                 constraints: const BoxConstraints(maxWidth: 600),
                 decoration: BoxDecoration(
                     color: const Color.fromARGB(255, 150, 146, 249),

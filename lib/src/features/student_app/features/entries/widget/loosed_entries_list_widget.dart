@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/features/entries/widget/loosed_lesson_card_component.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/widget/loosed_lection_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/bloc/loosed_entries_bloc/loosed_entries_bloc.dart';
 
 class LoosedEntriesListWidget extends StatelessWidget {
@@ -34,7 +34,7 @@ class LoosedEntriesListWidget extends StatelessWidget {
                           ? state.loosedLectionsList.length
                           : 3,
                       itemBuilder: (BuildContext context, int index) {
-                        return LoosedLessonCardComponent(
+                        return LoosedLectionWidget(
                           lection: state.loosedLectionsList[index],
                         );
                       }),

@@ -1,33 +1,27 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
-import 'package:procrastinator/src/features/student_app/features/student_main_screen/widget/scroll_control_provider.dart';
-import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/entry_adding_calendar.dart';
-import 'package:procrastinator/src/shared/resources/resources.dart';
 
-class LoosedLessonCardComponent extends StatelessWidget {
+import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/entry_adding_calendar.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
+import 'package:procrastinator/src/ui_kit/controllers/scroll_controller_provider.dart';
+import 'package:procrastinator/src/shared/resources/resources.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
+import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
+
+/// {@template loosed_lection_widget}
+///  [LoosedLectionWidget] shows [Lection] without an [Entry] .
+/// {@endtemplate}
+/// {@macro loosed_lection_widget}
+class LoosedLectionWidget extends StatelessWidget {
   final Lection lection;
-  const LoosedLessonCardComponent({super.key, required this.lection});
+  const LoosedLectionWidget({super.key, required this.lection});
 
   @override
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd.MM.yy');
 
-    return Container(
-      ///////ON TAP???///////
-      height: 74,
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      //height: 300,
-
-      constraints: const BoxConstraints(maxWidth: 600),
-      decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
-          borderRadius: BorderRadius.circular(12)),
+    return CardWidget(
       child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,14 +33,14 @@ class LoosedLessonCardComponent extends StatelessWidget {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 255, 189, 124),
+                      color: const Color.fromARGB(255, 255, 189, 124),
                       border: Border.all(
                           width: 1, color: MyAppColorScheme.warningColor),
                       borderRadius: BorderRadius.circular(8)),
                   child:
                       Stack(alignment: AlignmentDirectional.center, children: [
                     Text(
-                      lection.theme!,
+                      lection.theme,
                       style: const TextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                       maxLines: 1,
