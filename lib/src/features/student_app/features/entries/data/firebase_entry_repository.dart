@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
-import 'package:procrastinator/src/features/student_app/features/entries/model/entry_entity.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/model/entry_model.dart';
 
 abstract interface class IEntryRepositoty {
   Stream<List<Entry>?> getVisits();
@@ -27,7 +27,7 @@ class FirebaseEntryRepository implements IEntryRepositoty {
           .snapshots()
           .map((snapshot) => snapshot.docs
               .map((entry) =>
-                  Entry.fromEntity(EntryEntity.fromFirestore(entry.data())))
+                  Entry.fromModel(EntryModel.fromFirestore(entry.data())))
               .toList())
           .asBroadcastStream();
     } catch (e) {
@@ -41,7 +41,7 @@ class FirebaseEntryRepository implements IEntryRepositoty {
     try {
       await _userVisitsCollection
           .doc(entry.visitID)
-          .set(entry.toEntity().toFirestore());
+          .set(entry.toModel().toFirestore());
     } catch (e) {
       log(e.toString());
       rethrow;

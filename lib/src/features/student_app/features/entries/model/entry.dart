@@ -1,60 +1,72 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:equatable/equatable.dart';
-import 'package:procrastinator/src/features/student_app/features/entries/model/entry_entity.dart';
+
+import 'package:procrastinator/src/features/student_app/features/entries/model/entry_model.dart';
+
+/// {@template entry_type_enum}
+/// Determined [EntryType] for [Entry].
+/// Thay can be{ [schoolVisit], [homeOffice], [sick], [loosed] }
+/// {@endtemplate}
 
 enum EntryType { schoolVisit, homeOffice, sick, loosed }
 
-class Entry extends Equatable {
+/// {@macro entry_type_enum}
+
+/// {@template entry_entity}
+/// An [Entry] entity class.
+/// {@endtemplate}
+
+class Entry {
   final String visitID;
   final DateTime date;
   final EntryType entryType;
 
+  /// {@macro entry_entity}
   const Entry({
     required this.visitID,
     required this.date,
     required this.entryType,
   });
 
-  // static final empty = Entry(visitID: '', date: DateTime.now(), entryType: null);
-
-  EntryEntity toEntity() {
-    final EntryEntity entity = EntryEntity(visitID: visitID, date: date);
+  EntryModel toModel() {
+    final EntryModel model = EntryModel(visitID: visitID, date: date);
     if (entryType == EntryType.schoolVisit) {
-      entity.schoolVisit = true;
+      model.schoolVisit = true;
     }
     if (entryType == EntryType.homeOffice) {
-      entity.homeOffice = true;
+      model.homeOffice = true;
     }
     if (entryType == EntryType.sick) {
-      entity.krank = true;
+      model.krank = true;
     }
     if (entryType == EntryType.loosed) {
-      entity.fehl = true;
+      model.fehl = true;
     }
 
-    return entity;
+    return model;
   }
 
-  static Entry fromEntity(EntryEntity entity) {
+  static Entry fromModel(EntryModel model) {
     Entry entry = Entry(
-        visitID: entity.visitID,
-        date: _normalizeDate(entity.date),
+        visitID: model.visitID,
+        date: _normalizeDate(model.date),
         entryType: EntryType.homeOffice);
 
-    if (entity.schoolVisit != null) {
+    if (model.schoolVisit != null) {
       entry = entry.copyWith(entryType: EntryType.schoolVisit);
     }
-    if (entity.krank != null) {
+    if (model.krank != null) {
       entry = entry.copyWith(entryType: EntryType.sick);
     }
-    if (entity.fehl != null) {
+    if (model.fehl != null) {
       entry = entry.copyWith(entryType: EntryType.loosed);
     }
     return entry;
   }
 
-  @override
-  List<Object> get props => [visitID, date, entryType];
+  /// Returns normalized date
+  static DateTime _normalizeDate(DateTime date) {
+    return DateTime(date.year, date.month, date.day);
+  }
 
   Entry copyWith({
     String? visitID,
@@ -68,8 +80,19 @@ class Entry extends Equatable {
     );
   }
 
-  /// Returns normalized date
-  static DateTime _normalizeDate(DateTime date) {
-    return DateTime(date.year, date.month, date.day);
+  @override
+  bool operator ==(covariant Entry other) {
+    if (identical(this, other)) return true;
+
+    return other.visitID == visitID &&
+        other.date == date &&
+        other.entryType == entryType;
   }
+
+  @override
+  int get hashCode => visitID.hashCode ^ date.hashCode ^ entryType.hashCode;
+
+  @override
+  String toString() =>
+      'Entry(visitID: $visitID, date: $date, entryType: $entryType)';
 }
