@@ -1,6 +1,13 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:entry_repository/entry_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/model/entry_entity.dart';
+
+abstract interface class IEntryRepositoty {
+  Stream<List<Entry>?> getVisits();
+  Future<void> addEntry(Entry entry);
+  Future<void> deleteEntry(String visitId);
+}
 
 class FirebaseEntryRepository implements IEntryRepositoty {
   final String currentUser;

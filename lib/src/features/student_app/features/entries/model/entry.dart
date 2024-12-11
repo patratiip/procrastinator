@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:entry_repository/src/entities/entry_entity.dart';
 import 'package:equatable/equatable.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/model/entry_entity.dart';
 
 enum EntryType { schoolVisit, homeOffice, sick, loosed }
 

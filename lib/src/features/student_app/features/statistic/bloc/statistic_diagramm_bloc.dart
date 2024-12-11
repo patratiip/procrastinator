@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:entry_repository/entry_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_repository/group_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/data/firebase_entry_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/statistic/service/statistic_computing_service.dart';
 
 part 'statistic_diagramm_event.dart';

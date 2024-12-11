@@ -1,12 +1,13 @@
-import 'package:entry_repository/entry_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/bloc/last_entries_list_bloc/last_entries_list_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
+import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
 
 /// {@template entry_widget}
@@ -71,7 +72,7 @@ class EntryWidget extends StatelessWidget {
             //Delete button
             IconButton(
                 onPressed: () {
-                  //TODO Add confirmation dialog with my design
+                  //TODO: Create confirmation dialog with my design
                   showCupertinoDialog<void>(
                     context: context,
                     builder: (BuildContext context) => CupertinoAlertDialog(

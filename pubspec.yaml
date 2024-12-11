@@ -24,9 +24,6 @@ dependencies:
   group_repository:
     path: packages/group_repository
 
-  entry_repository:
-    path: packages/entry_repository
-
   geolocation_repository:
     path: packages/geolocation_repository
 

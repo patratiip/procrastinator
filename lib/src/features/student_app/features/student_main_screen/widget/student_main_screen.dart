@@ -3,7 +3,7 @@ import 'package:procrastinator/src/features/student_app/features/calendar_entry_
 import 'package:procrastinator/src/features/student_app/features/entries/widget/last_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/widget/loosed_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/today_lection_widget.dart';
-import 'package:procrastinator/src/ui_kit/controllers/scroll_controller_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/student_main_screen/widget/scroll_controller_provider.dart';
 
 /// {@template student_main_screen_widget}
 /// Widget that shows [StudentMainScreen]

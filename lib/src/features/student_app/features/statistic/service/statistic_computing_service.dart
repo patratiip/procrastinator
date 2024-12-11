@@ -1,4 +1,4 @@
-import 'package:entry_repository/entry_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 
 class StatisticComputingServise {
   int computeSchoolVisitsQty(List<Entry> entries) {

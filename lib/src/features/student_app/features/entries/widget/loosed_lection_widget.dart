@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 
 import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
-import 'package:procrastinator/src/ui_kit/controllers/scroll_controller_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/student_main_screen/widget/scroll_controller_provider.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
