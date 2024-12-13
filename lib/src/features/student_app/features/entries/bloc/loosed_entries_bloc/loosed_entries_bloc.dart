@@ -12,14 +12,14 @@ part 'loosed_entries_event.dart';
 part 'loosed_entries_state.dart';
 
 class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
-  final IEntryRepositoty _entriesRepository;
+  final IEntryRepository _entriesRepository;
   final ILectionRepository _lectionsRepository;
 
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
   LoosedEntriesBloc({
-    required IEntryRepositoty entriesRepository,
+    required IEntryRepository entriesRepository,
     required ILectionRepository lectionsRepository,
   })  : _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,

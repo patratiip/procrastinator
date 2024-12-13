@@ -23,11 +23,11 @@ base class StudentDependenciesContainer {
     required this.statisticComputingServise,
   });
 
-  /// [EntryRepositoryImpl] instance, used to manage theme and locale.
-  final EntryRepositoryImpl entryRepository;
+  /// [IEntryRepository] instance, used to manage theme and locale.
+  final IEntryRepository entryRepository;
 
-  /// [LectionRepositoryImpl] instance, used to manage theme and locale.
-  final LectionRepositoryImpl lectionRepository;
+  /// [ILectionRepository] instance, used to manage theme and locale.
+  final ILectionRepository lectionRepository;
 
   /// [IStudentGroupRepository] instance, used to manage theme and locale.
   final IStudentGroupRepository firebaseGroupRepository;
@@ -37,12 +37,6 @@ base class StudentDependenciesContainer {
 
   /// [StatisticComputingServise] instance, used to manage theme and locale.
   final StatisticComputingServise statisticComputingServise;
-
-  //  FirebaseEntryRepository();
-  //  FirebaseLectionRepository();
-  //  DeviceGeolocationRepository();
-  //  ComparingLectionsAndEntriesService();
-  // StatisticComputingServise();
 }
 
 /// {@template testing_student_dependencies_container}

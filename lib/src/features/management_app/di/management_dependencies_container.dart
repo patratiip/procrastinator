@@ -20,11 +20,11 @@ base class ManagementDependenciesContainer {
     required this.firebaseGroupRepository,
   });
 
-  /// [EntryRepositoryImpl] instance, used to manage theme and locale.
-  final EntryRepositoryImpl firebaseEntryRepository;
+  /// [IEntryRepository] instance, used to manage theme and locale.
+  final IEntryRepository firebaseEntryRepository;
 
-  /// [LectionRepositoryImpl] instance, used to manage theme and locale.
-  final LectionRepositoryImpl firebaseLectionRepository;
+  /// [ILectionRepository] instance, used to manage theme and locale.
+  final ILectionRepository firebaseLectionRepository;
 
   /// [StatisticComputingServise] instance, used to manage theme and locale.
   final StatisticComputingServise statisticComputingServise;

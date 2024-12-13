@@ -4,7 +4,7 @@ import 'package:procrastinator/src/features/student_app/features/entries/model/e
 /// Interface for [EntryRepositoryImpl]
 ///
 /// The repository that working with entries
-abstract interface class IEntryRepositoty {
+abstract interface class IEntryRepository {
   /// Getting entries stream
   Stream<List<Entry>> entriesStream();
 
@@ -16,10 +16,10 @@ abstract interface class IEntryRepositoty {
 }
 
 /// {@template entry_repository_impl}
-/// Implementation of [IEntryRepositoty].
+/// Implementation of [IEntryRepository].
 /// {@endtemplate}
 
-final class EntryRepositoryImpl implements IEntryRepositoty {
+final class EntryRepositoryImpl implements IEntryRepository {
   final IEntryDataProvider _entryDataProvider;
 
   /// {@macro entry_repository_impl}

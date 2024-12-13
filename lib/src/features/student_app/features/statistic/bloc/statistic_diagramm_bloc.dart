@@ -13,7 +13,7 @@ part 'statistic_diagramm_state.dart';
 
 class StatisticDiagrammBloc
     extends Bloc<StatisticDiagrammEvent, StatisticDiagrammState> {
-  final IEntryRepositoty _entriesRepository;
+  final IEntryRepository _entriesRepository;
   final IStudentGroupRepository _groupRepository;
 
   final StatisticComputingServise _computingService;
@@ -22,7 +22,7 @@ class StatisticDiagrammBloc
   final String studentGroupID;
 
   StatisticDiagrammBloc(this.studentGroupID,
-      {required IEntryRepositoty entriesRepository,
+      {required IEntryRepository entriesRepository,
       required IStudentGroupRepository groupRepository,
       required StatisticComputingServise computingService})
       : _entriesRepository = entriesRepository,

@@ -16,14 +16,14 @@ part 'calendar_state.dart';
 part 'validators_calendar_bloc.dart';
 
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
-  final IEntryRepositoty _entriesRepository;
+  final IEntryRepository _entriesRepository;
   final ILectionRepository _lectionsRepository;
 
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
   CalendarBloc({
-    required IEntryRepositoty entriesRepository,
+    required IEntryRepository entriesRepository,
     required ILectionRepository lectionsRepository,
   })  : _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,

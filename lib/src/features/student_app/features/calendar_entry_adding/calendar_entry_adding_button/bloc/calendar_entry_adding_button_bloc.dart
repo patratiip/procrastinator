@@ -15,27 +15,29 @@ part 'calendar_entry_adding_button_state.dart';
 
 class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
     CalendarEntryAddingButtonState> {
-  final IEntryRepositoty _entriesRepository;
+  final IEntryRepository _entriesRepository;
   final IGeolocationRepository _geolocationRepository;
   final SchoolGeoPosition _userSchoolGeoposition;
 
   CalendarEntryAddingButtonBloc(
-      {required IEntryRepositoty entriesRepository,
+      {required IEntryRepository entriesRepository,
       required IGeolocationRepository geolocationRepository,
       required SchoolGeoPosition userSchoolGeoposition})
       : _entriesRepository = entriesRepository,
         _geolocationRepository = geolocationRepository,
         _userSchoolGeoposition = userSchoolGeoposition,
         super(CalendarEntryAddingButtonDisabled()) {
-    on<CalendarEntryAddingButtonEvent>((event, emit) => switch (event) {
-          final CalendarButtonDisableButtonEvent e =>
-            _calendarButtonDisableButtonEvent(e, emit),
-          final CalendarButtonIsReadyEvent e =>
-            _calendarButtonIsReadyEvent(e, emit),
-          final CalendarButtonAddEntryEvent e =>
-            _calendarButtonAddEntryEvent(e, emit),
-        },
-      transformer: sequential(),);
+    on<CalendarEntryAddingButtonEvent>(
+      (event, emit) => switch (event) {
+        final CalendarButtonDisableButtonEvent e =>
+          _calendarButtonDisableButtonEvent(e, emit),
+        final CalendarButtonIsReadyEvent e =>
+          _calendarButtonIsReadyEvent(e, emit),
+        final CalendarButtonAddEntryEvent e =>
+          _calendarButtonAddEntryEvent(e, emit),
+      },
+      transformer: sequential(),
+    );
   }
 
   Future<void> _calendarButtonDisableButtonEvent(

@@ -334,14 +334,15 @@ class LectionRepositoryFactory extends Factory<LectionRepositoryImpl> {
 
   @override
   LectionRepositoryImpl create() {
-    /// Making [CollectionReference] for [LectionFirebaseDataProviderImpl]
-    ///  depend on app flavour
+    /// Getting lections collection name depend on enviroment
     final String collectionName = switch (config.environment) {
       Environment.dev => DevFirebaseCollectionsConstants.lections,
       Environment.staging => StagingFirebaseCollectionsConstants.lections,
       Environment.prod => ProdFirebaseCollectionsConstants.lections,
     };
 
+    /// Making [CollectionReference] for [LectionFirebaseDataProviderImpl]
+    /// depend on app flavour
     final lectionsCollectionRef =
         FirebaseFirestore.instance.collection(collectionName);
 
@@ -366,19 +367,27 @@ class EntryRepositoryFactory extends Factory<EntryRepositoryImpl> {
 
   @override
   EntryRepositoryImpl create() {
-    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
-    ///  depend on app flavour and current user
+    /// Getting users collection name depend on enviroment
+    final String usersCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.users,
+      Environment.staging => StagingFirebaseCollectionsConstants.users,
+      Environment.prod => ProdFirebaseCollectionsConstants.users,
+    };
 
-    final String collectionName = switch (config.environment) {
+    /// Getting entries collection name depend on enviroment
+    final String entriesCollectionName = switch (config.environment) {
       Environment.dev => DevFirebaseCollectionsConstants.userEntries,
       Environment.staging => StagingFirebaseCollectionsConstants.userEntries,
       Environment.prod => ProdFirebaseCollectionsConstants.userEntries,
     };
 
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour and current user
+
     final entriesCollectionRef = FirebaseFirestore.instance
-        .collection(currentUser)
+        .collection(usersCollectionName)
         .doc(currentUser)
-        .collection(collectionName);
+        .collection(entriesCollectionName);
 
     return EntryRepositoryImpl(
         entryDataProvider:

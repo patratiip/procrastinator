@@ -10,7 +10,7 @@ part 'last_entries_list_event.dart';
 part 'last_entries_list_state.dart';
 
 class EntriesListBloc extends Bloc<EntriesListEvent, EntriesListState> {
-  final IEntryRepositoty _entriesRepository;
+  final IEntryRepository _entriesRepository;
   late final StreamSubscription<List<Entry>?> _entrysListListener;
 
   EntriesListBloc({required entrysRepository})
@@ -27,7 +27,7 @@ class EntriesListBloc extends Bloc<EntriesListEvent, EntriesListState> {
     // Users entries collection subscription
     _entrysListListener = _entriesRepository.entriesStream().listen(
       (entrysList) {
-        if (entrysList != null && entrysList.isNotEmpty) {
+        if (entrysList.isNotEmpty) {
           add(EntriesListChangedEvent(entrysList));
         }
       },

@@ -16,8 +16,8 @@ base class TrainerDependenciesContainer {
     required this.firebaseGroupRepository,
   });
 
-  /// [LectionRepositoryImpl] instance, used to manage theme and locale.
-  final LectionRepositoryImpl firebaseLectionRepository;
+  /// [ILectionRepository] instance, used to manage theme and locale.
+  final ILectionRepository firebaseLectionRepository;
 
   /// [ITrainerGroupRepository] instance, used to manage theme and locale.
   final ITrainerGroupRepository firebaseGroupRepository;
