@@ -6,26 +6,29 @@ import 'package:procrastinator/src/features/student_app/features/lection_plan/mo
 
 /// Interface for [LectionFirebaseDataProviderImpl]
 ///
-/// The repository that handles lections
+/// The data provider that handles lections
 abstract interface class ILectionDataProvider {
   Stream<List<LectionModel>> lectionsStream();
   Future<LectionModel?> getTodayLection();
 }
 
-/// {@template i_lection_data_provider.class}
+/// {@template lection_data_provider}
 /// Implementation of [ILectionDataProvider].
 /// {@endtemplate}
 final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
   final CollectionReference<Map<String, dynamic>> _collectionRef;
 
-  ///{@macro i_lection_data_provider}
-  LectionFirebaseDataProviderImpl({
+  /// {@macro lection_data_provider}
+  const LectionFirebaseDataProviderImpl({
     required CollectionReference<Map<String, dynamic>> collectionRef,
   }) : _collectionRef = collectionRef;
 
   @override
   Stream<List<LectionModel>> lectionsStream() {
-    //TODO: When the feature wold be separated, uncommet things below
+    //TODO: When the feature wold be separated
+    //FROM OTHER FEATURES (foe example Calendar,
+    // because this repo handles there lections list)
+    //, uncommet things below
     // final now = DateTime.now();
     // final Timestamp today =
     //     Timestamp.fromDate(DateTime(now.year, now.month, now.day));
@@ -47,6 +50,7 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
 
   @override
   Future<LectionModel?> getTodayLection() async {
+    /// Actual date
     final now = DateTime.now();
 
     final Timestamp today =

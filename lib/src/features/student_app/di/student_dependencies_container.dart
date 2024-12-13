@@ -1,7 +1,7 @@
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
 
-import 'package:procrastinator/src/features/student_app/features/entries/data/firebase_entry_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/statistic/service/statistic_computing_service.dart';
 
@@ -16,18 +16,18 @@ import 'package:procrastinator/src/features/student_app/features/statistic/servi
 base class StudentDependenciesContainer {
   /// {@macro student_dependencies_container}
   const StudentDependenciesContainer({
-    required this.firebaseEntryRepository,
-    required this.firebaseLectionRepository,
+    required this.entryRepository,
+    required this.lectionRepository,
     required this.firebaseGroupRepository,
     required this.deviceGeolocationRepository,
     required this.statisticComputingServise,
   });
 
   /// [EntryRepositoryImpl] instance, used to manage theme and locale.
-  final EntryRepositoryImpl firebaseEntryRepository;
+  final EntryRepositoryImpl entryRepository;
 
   /// [LectionRepositoryImpl] instance, used to manage theme and locale.
-  final LectionRepositoryImpl firebaseLectionRepository;
+  final LectionRepositoryImpl lectionRepository;
 
   /// [IStudentGroupRepository] instance, used to manage theme and locale.
   final IStudentGroupRepository firebaseGroupRepository;

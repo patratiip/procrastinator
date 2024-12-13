@@ -24,22 +24,22 @@ class StudentApp extends StatelessWidget {
           BlocProvider(
             create: (context) => EntriesListBloc(
                 entrysRepository:
-                    StudentAppScope.depConOf(context).firebaseEntryRepository),
+                    StudentAppScope.depConOf(context).entryRepository),
           ),
 
           // Lection plan
           BlocProvider(
               create: (context) => LectionPlanBloc(
-                  lectionsRepository: StudentAppScope.depConOf(context)
-                      .firebaseLectionRepository)),
+                  lectionsRepository:
+                      StudentAppScope.depConOf(context).lectionRepository)),
 
           // Loosed lections
           BlocProvider(
               create: (context) => LoosedEntriesBloc(
-                    entriesRepository: StudentAppScope.depConOf(context)
-                        .firebaseEntryRepository,
-                    lectionsRepository: StudentAppScope.depConOf(context)
-                        .firebaseLectionRepository,
+                    entriesRepository:
+                        StudentAppScope.depConOf(context).entryRepository,
+                    lectionsRepository:
+                        StudentAppScope.depConOf(context).lectionRepository,
                   )),
 
           // Statistic
@@ -47,7 +47,7 @@ class StudentApp extends StatelessWidget {
               create: (context) => StatisticDiagrammBloc(
                   AppScope.userOf(context).group!,
                   entriesRepository:
-                      StudentAppScope.depConOf(context).firebaseEntryRepository,
+                      StudentAppScope.depConOf(context).entryRepository,
                   groupRepository:
                       StudentAppScope.depConOf(context).firebaseGroupRepository,
                   computingService: StudentAppScope.depConOf(context)
@@ -56,8 +56,8 @@ class StudentApp extends StatelessWidget {
           // Today lection
           BlocProvider(
               create: (context) => TodayLectionBloc(
-                  lectionsRepository: StudentAppScope.depConOf(context)
-                      .firebaseLectionRepository)
+                  lectionsRepository:
+                      StudentAppScope.depConOf(context).lectionRepository)
                 ..add(const TodayLectionEvent.loadLection())),
 
           // User profile
@@ -70,17 +70,17 @@ class StudentApp extends StatelessWidget {
           // Calendar
           BlocProvider(
               create: (context) => CalendarBloc(
-                    entriesRepository: StudentAppScope.depConOf(context)
-                        .firebaseEntryRepository,
-                    lectionsRepository: StudentAppScope.depConOf(context)
-                        .firebaseLectionRepository,
+                    entriesRepository:
+                        StudentAppScope.depConOf(context).entryRepository,
+                    lectionsRepository:
+                        StudentAppScope.depConOf(context).lectionRepository,
                   )),
 
           // Entry adding button
           BlocProvider(
             create: (context) => CalendarEntryAddingButtonBloc(
                 entriesRepository:
-                    StudentAppScope.depConOf(context).firebaseEntryRepository,
+                    StudentAppScope.depConOf(context).entryRepository,
                 geolocationRepository: StudentAppScope.depConOf(context)
                     .deviceGeolocationRepository,
                 userSchoolGeoposition:
