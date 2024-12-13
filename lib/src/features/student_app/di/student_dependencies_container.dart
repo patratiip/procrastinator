@@ -23,8 +23,8 @@ base class StudentDependenciesContainer {
     required this.statisticComputingServise,
   });
 
-  /// [FirebaseEntryRepository] instance, used to manage theme and locale.
-  final FirebaseEntryRepository firebaseEntryRepository;
+  /// [EntryRepositoryImpl] instance, used to manage theme and locale.
+  final EntryRepositoryImpl firebaseEntryRepository;
 
   /// [LectionRepositoryImpl] instance, used to manage theme and locale.
   final LectionRepositoryImpl firebaseLectionRepository;

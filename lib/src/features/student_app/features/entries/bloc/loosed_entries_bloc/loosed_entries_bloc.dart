@@ -37,7 +37,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
     List<Lection> lectionsListFromStream = [];
 
     /// Subscription - Entries List from Repo
-    _entrysListListener = _entriesRepository.getVisits().listen(
+    _entrysListListener = _entriesRepository.entriesStream().listen(
       (entriesList) {
         if (entriesList != null && entriesList.isNotEmpty) {
           entriesListFromStream = entriesList;

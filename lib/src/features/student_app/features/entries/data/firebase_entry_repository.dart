@@ -3,16 +3,29 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry_model.dart';
 
+/// Interface for [EntryRepositoryImpl]
+///
+/// The repository that handles entries
 abstract interface class IEntryRepositoty {
-  Stream<List<Entry>?> getVisits();
+  /// Getting entries stream
+  Stream<List<Entry>> entriesStream();
+
+  /// Adding entry to entries collection
   Future<void> addEntry(Entry entry);
+
+  /// Deleting entry from entries collection
   Future<void> deleteEntry(String visitId);
 }
 
-class FirebaseEntryRepository implements IEntryRepositoty {
+/// {@template entry_repository_impl}
+/// Implementation of [IEntryRepositoty].
+/// {@endtemplate}
+
+final class EntryRepositoryImpl implements IEntryRepositoty {
   final String currentUser;
 
-  FirebaseEntryRepository({required this.currentUser});
+  /// {@macro entry_repository_impl}
+  EntryRepositoryImpl({required this.currentUser});
 
   late final _userVisitsCollection = FirebaseFirestore.instance
       .collection('users_flutter')
@@ -20,7 +33,7 @@ class FirebaseEntryRepository implements IEntryRepositoty {
       .collection('userVisits');
 
   @override
-  Stream<List<Entry>?> getVisits() {
+  Stream<List<Entry>> entriesStream() {
     try {
       return _userVisitsCollection
           .orderBy('date', descending: true)

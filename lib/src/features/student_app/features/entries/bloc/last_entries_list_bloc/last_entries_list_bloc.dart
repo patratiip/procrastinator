@@ -25,7 +25,7 @@ class EntriesListBloc extends Bloc<EntriesListEvent, EntriesListState> {
     );
 
     // Users entries collection subscription
-    _entrysListListener = _entriesRepository.getVisits().listen(
+    _entrysListListener = _entriesRepository.entriesStream().listen(
       (entrysList) {
         if (entrysList != null && entrysList.isNotEmpty) {
           add(EntriesListChangedEvent(entrysList));

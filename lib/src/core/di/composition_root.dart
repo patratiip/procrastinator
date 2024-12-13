@@ -348,16 +348,16 @@ class LectionRepositoryFactory extends Factory<LectionRepositoryImpl> {
 }
 
 /// {@template firebase_entry_repo_factory}
-/// Factory that creates an instance of [FirebaseEntryRepository].
+/// Factory that creates an instance of [EntryRepositoryImpl].
 /// {@endtemplate}
-class FirebaseEntryRepositoryFactory extends Factory<FirebaseEntryRepository> {
+class FirebaseEntryRepositoryFactory extends Factory<EntryRepositoryImpl> {
   /// {@macro firebase_entry_repo_factory}
   FirebaseEntryRepositoryFactory(this.currentUser);
   final String currentUser;
 
   @override
-  FirebaseEntryRepository create() {
-    return FirebaseEntryRepository(currentUser: currentUser);
+  EntryRepositoryImpl create() {
+    return EntryRepositoryImpl(currentUser: currentUser);
   }
 }
 

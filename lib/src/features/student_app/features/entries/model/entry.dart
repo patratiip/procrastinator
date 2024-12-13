@@ -29,17 +29,26 @@ class Entry {
 
   EntryModel toModel() {
     final EntryModel model = EntryModel(visitID: visitID, date: date);
-    if (entryType == EntryType.schoolVisit) {
-      model.schoolVisit = true;
-    }
-    if (entryType == EntryType.homeOffice) {
-      model.homeOffice = true;
-    }
-    if (entryType == EntryType.sick) {
-      model.krank = true;
-    }
-    if (entryType == EntryType.loosed) {
-      model.fehl = true;
+
+    switch (entryType) {
+      case EntryType.schoolVisit:
+        {
+          model.schoolVisit = true;
+        }
+      case EntryType.homeOffice:
+        {
+          model.homeOffice = true;
+        }
+
+      case EntryType.sick:
+        {
+          model.krank = true;
+        }
+
+      case EntryType.loosed:
+        {
+          model.fehl = true;
+        }
     }
 
     return model;

@@ -50,7 +50,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
   /// Subscriptons initialization
   void _initializeListeners() {
-    _entrysListListener = _entriesRepository.getVisits().listen(
+    _entrysListListener = _entriesRepository.entriesStream().listen(
       (entriesList) {
         add(CalendarEntriesUpdated(entriesList));
         if (state.status != CalendarStateStatus.initial) {

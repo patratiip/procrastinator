@@ -15,7 +15,7 @@ abstract class ILectionRepository {
 /// {@template i_lection_data_provider.class}
 /// Implementation of [ILectionRepository].
 /// {@endtemplate}
-class LectionRepositoryImpl implements ILectionRepository {
+final class LectionRepositoryImpl implements ILectionRepository {
   final ILectionDataProvider _lectionDataProvider;
 
   ///{@macro i_lection_data_provider}
