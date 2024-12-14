@@ -1,26 +1,51 @@
 part of 'last_entries_list_bloc.dart';
 
-sealed class EntriesListEvent extends Equatable {
+sealed class EntriesListEvent {
   const EntriesListEvent();
 
-  @override
-  List<Object> get props => [];
+  /// The entriesList changed.
+  const factory EntriesListEvent.entriesListChanged(
+      {required List<Entry> entriesList}) = _EntriesListEventChanged;
+
+  /// Delete entry.
+  const factory EntriesListEvent.deleteEntry({required String entryRef}) =
+      _EntriesListEventDelete;
 }
 
-final class EntriesListChangedEvent extends EntriesListEvent {
+final class _EntriesListEventChanged extends EntriesListEvent {
+  /// The changed entries list
   final List<Entry> entriesList;
-
-  const EntriesListChangedEvent(this.entriesList);
+  const _EntriesListEventChanged({required this.entriesList});
 
   @override
-  List<Object> get props => [entriesList];
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is _EntriesListEventChanged &&
+        other.entriesList == entriesList;
+  }
+
+  @override
+  int get hashCode => entriesList.hashCode;
+
+  @override
+  String toString() =>
+      'EntriesListEvent.entriesListChanged(entriesList: $entriesList)';
 }
 
-final class DeleteEntryEvent extends EntriesListEvent {
+final class _EntriesListEventDelete extends EntriesListEvent {
+  /// Entry reference to delete
   final String entryRef;
-
-  const DeleteEntryEvent({required this.entryRef});
+  const _EntriesListEventDelete({required this.entryRef});
 
   @override
-  List<Object> get props => [entryRef];
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is _EntriesListEventDelete && other.entryRef == entryRef;
+  }
+
+  @override
+  int get hashCode => entryRef.hashCode;
+
+  @override
+  String toString() => 'EntriesListEvent.deleteEntry( entryRef: $entryRef)';
 }

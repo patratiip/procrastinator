@@ -22,7 +22,7 @@ class LectionPlanBloc extends Bloc<LectionPlanEvent, LectionPlanState> {
       transformer: sequential(),
     );
 
-    /// Lections list subscription
+    /// Lections plan subscription
     _lectionListListener = _lectionsRepository.lectionsStream().listen(
       (lectionsList) {
         if (lectionsList.isNotEmpty) {

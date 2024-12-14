@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
@@ -9,58 +8,64 @@ import 'package:procrastinator/src/features/student_app/features/entries/model/e
 part 'last_entries_list_event.dart';
 part 'last_entries_list_state.dart';
 
-class EntriesListBloc extends Bloc<EntriesListEvent, EntriesListState> {
+class EntriesListBloc extends Bloc<EntriesListEvent, LastEntriesListState> {
   final IEntryRepository _entriesRepository;
-  late final StreamSubscription<List<Entry>?> _entrysListListener;
+  late final StreamSubscription<List<Entry>?> _entriesListListener;
 
   EntriesListBloc({required entrysRepository})
       : _entriesRepository = entrysRepository,
-        super(EntriesListInitial()) {
+        super(const _IdleLastEntriesListState(entriesList: [])) {
     on<EntriesListEvent>(
       (event, emit) => switch (event) {
-        final EntriesListChangedEvent e => _entriesListChangedEvent(e, emit),
-        final DeleteEntryEvent e => _deleteEntryEvent(e, emit)
+        final _EntriesListEventChanged e => _entriesListEventChanged(e, emit),
+        final _EntriesListEventDelete e => _entriesListEventDelete(e, emit)
       },
       transformer: sequential(),
     );
 
-    // Users entries collection subscription
-    _entrysListListener = _entriesRepository.entriesStream().listen(
-      (entrysList) {
-        if (entrysList.isNotEmpty) {
-          add(EntriesListChangedEvent(entrysList));
+    // User entries collection subscription
+    _entriesListListener = _entriesRepository.entriesStream().listen(
+      (entriesList) {
+        if (entriesList.isNotEmpty) {
+          add(_EntriesListEventChanged(entriesList: entriesList));
         }
       },
       cancelOnError: false,
     );
   }
 
-  Future<void> _entriesListChangedEvent(
-      EntriesListChangedEvent event, Emitter<EntriesListState> emit) async {
+  /// User entries list changed
+  Future<void> _entriesListEventChanged(_EntriesListEventChanged event,
+      Emitter<LastEntriesListState> emit) async {
     try {
-      emit(EntriesListLoadingState());
-      emit(EntriesListLoadedState(userVisits: event.entriesList));
+      emit(_LoadingLastEntriesListState(entriesList: state.entriesList));
+      emit(_LoadedLastEntriesListState(entriesList: event.entriesList));
     } on Object catch (e, st) {
       onError(e, st);
-      emit(EntriesListFailure(exception: e));
+      emit(
+          _ErrorLastEntriesListState(entriesList: event.entriesList, error: e));
+    } finally {
+      emit(_IdleLastEntriesListState(entriesList: state.entriesList));
     }
   }
 
-  Future<void> _deleteEntryEvent(
-      DeleteEntryEvent event, Emitter<EntriesListState> emit) async {
+  /// Deleting entry
+  Future<void> _entriesListEventDelete(
+      _EntriesListEventDelete event, Emitter<LastEntriesListState> emit) async {
     try {
-      emit(EntriesListLoadingState());
+      emit(_LoadingLastEntriesListState(entriesList: state.entriesList));
       _entriesRepository.deleteEntry(event.entryRef);
     } on Object catch (e, st) {
       onError(e, st);
-      emit(EntriesListFailure(exception: e));
+      emit(_ErrorLastEntriesListState(
+          entryRef: event.entryRef, entriesList: state.entriesList, error: e));
     }
   }
 
   @override
   Future<void> close() {
-    _entrysListListener.cancel();
-    log('Entries subscription was cancelled');
+    _entriesListListener.cancel();
+    log('Entries collection subscription was cancelled');
     return super.close();
   }
 }

@@ -10,7 +10,7 @@ class LastEntriesListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EntriesListBloc, EntriesListState>(
+    return BlocBuilder<EntriesListBloc, LastEntriesListState>(
       builder: (context, state) {
         if (state is EntriesListLoadedState) {
           return Center(
