@@ -9,13 +9,13 @@ import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
 
-/// {@template loosed_lection_widget}
-///  [LoosedLectionWidget] shows [Lection] without an [Entry] .
+/// {@template loosed_entry_widget}
+///  [LoosedEntryWidget] shows [Lection] without an [Entry] .
 /// {@endtemplate}
-/// {@macro loosed_lection_widget}
-class LoosedLectionWidget extends StatelessWidget {
+/// {@macro loosed_entry_widget}
+class LoosedEntryWidget extends StatelessWidget {
   final Lection lection;
-  const LoosedLectionWidget({super.key, required this.lection});
+  const LoosedEntryWidget({super.key, required this.lection});
 
   @override
   Widget build(BuildContext context) {
