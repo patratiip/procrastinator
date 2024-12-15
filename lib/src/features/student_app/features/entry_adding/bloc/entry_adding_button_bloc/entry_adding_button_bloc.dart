@@ -5,8 +5,8 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_error_message_bloc/entry_adding_error_message_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -15,15 +15,15 @@ part 'entry_adding_button_state.dart';
 
 class EntryAddingButtonBloc
     extends Bloc<EntryAddingButtonEvent, EntryAddingButtonState> {
-  final IEntryRepository _entriesRepository;
+  final IEntryAddingRepository _entryAddingRepository;
   final IGeolocationRepository _geolocationRepository;
   final SchoolGeoPosition _userSchoolGeoposition;
 
   EntryAddingButtonBloc(
-      {required IEntryRepository entriesRepository,
+      {required IEntryAddingRepository entryAddingRepository,
       required IGeolocationRepository geolocationRepository,
       required SchoolGeoPosition userSchoolGeoposition})
-      : _entriesRepository = entriesRepository,
+      : _entryAddingRepository = entryAddingRepository,
         _geolocationRepository = geolocationRepository,
         _userSchoolGeoposition = userSchoolGeoposition,
         super(CalendarEntryAddingButtonDisabled()) {
@@ -67,7 +67,7 @@ class EntryAddingButtonBloc
       }
 
       // Entry Adding
-      _entriesRepository.addEntry(entry);
+      _entryAddingRepository.addEntry(entry);
       emit(const CalendarEntryAddingButtonSuccess());
     } on Object catch (e, st) {
       onError(e, st);

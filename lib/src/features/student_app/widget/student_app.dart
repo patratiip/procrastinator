@@ -70,17 +70,15 @@ class StudentApp extends StatelessWidget {
           // Calendar
           BlocProvider(
               create: (context) => CalendarEntryAddingBloc(
-                    entriesRepository:
-                        StudentAppScope.depConOf(context).entryRepository,
-                    lectionsRepository:
-                        StudentAppScope.depConOf(context).lectionRepository,
+                    entryAddingRepository:
+                        StudentAppScope.depConOf(context).entryAddingRepository,
                   )),
 
           // Entry adding button
           BlocProvider(
             create: (context) => EntryAddingButtonBloc(
-                entriesRepository:
-                    StudentAppScope.depConOf(context).entryRepository,
+                entryAddingRepository:
+                    StudentAppScope.depConOf(context).entryAddingRepository,
                 geolocationRepository: StudentAppScope.depConOf(context)
                     .deviceGeolocationRepository,
                 userSchoolGeoposition:

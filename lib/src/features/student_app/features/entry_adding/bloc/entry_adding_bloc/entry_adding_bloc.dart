@@ -5,12 +5,11 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_error_message_bloc/entry_adding_error_message_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 
 part 'entry_adding_event.dart';
@@ -19,17 +18,14 @@ part 'validators_calendar_bloc.dart';
 
 class CalendarEntryAddingBloc
     extends Bloc<CalendarEntryAddingEvent, CalendarEntryAddingState> {
-  final IEntryRepository _entriesRepository;
-  final ILectionRepository _lectionsRepository;
+  final IEntryAddingRepository _entryAddingRepository;
 
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
   CalendarEntryAddingBloc({
-    required IEntryRepository entriesRepository,
-    required ILectionRepository lectionsRepository,
-  })  : _entriesRepository = entriesRepository,
-        _lectionsRepository = lectionsRepository,
+    required IEntryAddingRepository entryAddingRepository,
+  })  : _entryAddingRepository = entryAddingRepository,
         super(CalendarEntryAddingState(
           date: _normalizeDate(DateTime.now()),
           calendarFormat: CalendarFormat.week,
@@ -53,7 +49,7 @@ class CalendarEntryAddingBloc
 
   /// Subscriptons initialization
   void _initializeListeners() {
-    _entrysListListener = _entriesRepository.entriesStream().listen(
+    _entrysListListener = _entryAddingRepository.entriesStream().listen(
       (entriesList) {
         add(CalendarEntriesUpdated(entriesList));
         if (state.status != CalendarStateStatus.initial) {
@@ -63,7 +59,7 @@ class CalendarEntryAddingBloc
       cancelOnError: false,
     );
 
-    _lectionListListener = _lectionsRepository.lectionsStream().listen(
+    _lectionListListener = _entryAddingRepository.lectionsStream().listen(
       (lectionsList) {
         add(CalendarLectionsUpdated(lectionsList));
       },
