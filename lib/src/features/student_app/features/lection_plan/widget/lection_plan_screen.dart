@@ -5,6 +5,7 @@ import 'package:procrastinator/src/features/student_app/features/lection_plan/wi
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/today_lection_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/bloc/lection_plan_bloc/lection_plan_bloc.dart';
+import 'package:procrastinator/src/ui_kit/widget/my_circular_progress.dart';
 
 class LectionPlanScreen extends StatelessWidget {
   const LectionPlanScreen({super.key});
@@ -38,14 +39,7 @@ class LectionPlanScreen extends StatelessWidget {
                           return LectionListWidget(
                               lectionList: state.lectionsList);
                         } else if (state.loading) {
-                          return const Center(
-                              child: SizedBox(
-                            height: 40,
-                            width: 40,
-                            child: CircularProgressIndicator(
-                              color: MyAppColorScheme.primary,
-                            ),
-                          ));
+                          return const MyCircularProgress(size: 40);
                         } else {
                           return const SizedBox();
                         }

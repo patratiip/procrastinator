@@ -15,10 +15,10 @@ import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
 /// {@endtemplate}
 
 class EntryWidget extends StatelessWidget {
-  final Entry visitData;
+  final Entry entryData;
 
   /// {@macro entry_widget}
-  const EntryWidget({super.key, required this.visitData});
+  const EntryWidget({super.key, required this.entryData});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class EntryWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12)),
                 child:
                     // Icons
-                    switch (visitData.entryType) {
+                    switch (entryData.entryType) {
                   EntryType.schoolVisit => const Icon(
                       FontAwesomeIcons.schoolFlag,
                       color: Colors.white,
@@ -57,7 +57,7 @@ class EntryWidget extends StatelessWidget {
                 }),
 
             // Entry type text
-            switch (visitData.entryType) {
+            switch (entryData.entryType) {
               EntryType.schoolVisit =>
                 Text(Localization.of(context).schoolEntryType),
               EntryType.homeOffice =>
@@ -67,7 +67,7 @@ class EntryWidget extends StatelessWidget {
             },
 
             // Entry date
-            Text(dateFormat.format(visitData.date)),
+            Text(dateFormat.format(entryData.date)),
 
             //Delete button
             IconButton(
@@ -91,8 +91,8 @@ class EntryWidget extends StatelessWidget {
                         CupertinoDialogAction(
                           isDestructiveAction: true,
                           onPressed: () {
-                            block.add(
-                                DeleteEntryEvent(entryRef: visitData.visitID));
+                            block.add(EntriesListEvent.deleteEntry(
+                                entryRef: entryData.visitID));
                             Navigator.pop(context);
                           },
                           child: Text(Localization.of(context).yesButtonText),

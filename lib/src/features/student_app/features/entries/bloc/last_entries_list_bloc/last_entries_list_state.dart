@@ -31,13 +31,13 @@ sealed class LastEntriesListState {
       };
 
   /// Check if state is loading.
-  bool get isLoading => switch (this) {
+  bool get loading => switch (this) {
         _LoadingLastEntriesListState _ => true,
         _ => false,
       };
 
   /// Check if state is loaded.
-  bool get isLoaded => switch (this) {
+  bool get loaded => switch (this) {
         _LoadedLastEntriesListState _ => true,
         _ => false,
       };
