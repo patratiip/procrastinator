@@ -2,6 +2,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection_model.dart';
 
+//TODO: drop Equtable
 class Lection extends Equatable {
   final String? lectionID;
   final String theme;

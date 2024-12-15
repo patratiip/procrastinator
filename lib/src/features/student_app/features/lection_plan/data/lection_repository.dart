@@ -12,13 +12,13 @@ abstract class ILectionRepository {
   Future<Lection?> getTodayLection();
 }
 
-/// {@template i_lection_data_provider.class}
+/// {@template lection_repository_impl}
 /// Implementation of [ILectionRepository].
 /// {@endtemplate}
 final class LectionRepositoryImpl implements ILectionRepository {
   final ILectionDataProvider _lectionDataProvider;
 
-  /// {@macro i_lection_data_provider}
+  /// {@macro lection_repository_impl}
   LectionRepositoryImpl({
     required ILectionDataProvider lectionDataProvider,
   }) : _lectionDataProvider = lectionDataProvider;

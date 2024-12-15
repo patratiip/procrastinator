@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/calendar_entry_adding_bloc/calendar_entry_adding_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 /// {@template calendar_entry_adding_widget}

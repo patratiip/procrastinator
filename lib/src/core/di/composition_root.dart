@@ -7,6 +7,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'package:procrastinator/src/features/initialization/model/environment.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/data/firebase_entry_data_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_data_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -238,6 +240,8 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
     final entryRepository =
         EntryRepositoryFactory(currentUser.userId, config).create();
     final lectionRepository = LectionRepositoryFactory(config).create();
+    final entryAddingRepository =
+        EntryAddingRepositoryFactory(currentUser.userId, config).create();
     final firebaseGroupRepository =
         FirebaseGroupRepositoryFactory(groupId: currentUser.group).create();
     final deviceGeolocationRepository =
@@ -249,6 +253,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
     return StudentDependenciesContainer(
       entryRepository: entryRepository,
       lectionRepository: lectionRepository,
+      entryAddingRepository: entryAddingRepository,
       firebaseGroupRepository: firebaseGroupRepository,
       deviceGeolocationRepository: deviceGeolocationRepository,
       statisticComputingServise: statisticComputingServise,
@@ -395,6 +400,63 @@ class EntryRepositoryFactory extends Factory<EntryRepositoryImpl> {
   }
 }
 
+/// {@template firebase_entry_adding_repo_factory}
+/// Factory that creates an instance of [EntryAddingRepositoryImpl].
+/// {@endtemplate}
+class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
+  /// {@macro firebase_entry_adding_repo_factory}
+  EntryAddingRepositoryFactory(this.currentUser, this.config);
+
+  /// Current user collection reference
+  final String currentUser;
+
+  /// Application configuration
+  final Config config;
+
+  @override
+  EntryAddingRepositoryImpl create() {
+    /// Getting lections collection name depend on enviroment
+    final String collectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.lections,
+      Environment.staging => StagingFirebaseCollectionsConstants.lections,
+      Environment.prod => ProdFirebaseCollectionsConstants.lections,
+    };
+
+    /// Getting users collection name depend on enviroment
+    final String usersCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.users,
+      Environment.staging => StagingFirebaseCollectionsConstants.users,
+      Environment.prod => ProdFirebaseCollectionsConstants.users,
+    };
+
+    /// Getting entries collection name depend on enviroment
+    final String entriesCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.userEntries,
+      Environment.staging => StagingFirebaseCollectionsConstants.userEntries,
+      Environment.prod => ProdFirebaseCollectionsConstants.userEntries,
+    };
+
+    /// Making [CollectionReference] for [LectionFirebaseDataProviderImpl]
+    /// depend on app flavour
+    final lectionsCollectionRef =
+        FirebaseFirestore.instance.collection(collectionName);
+
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour and current user
+
+    final entriesCollectionRef = FirebaseFirestore.instance
+        .collection(usersCollectionName)
+        .doc(currentUser)
+        .collection(entriesCollectionName);
+
+    return EntryAddingRepositoryImpl(
+        entryAddingDataProvider: EntryAddingFirebaseDataProviderImpl(
+      lectionsCollectionRef: lectionsCollectionRef,
+      entriesCollectionRef: entriesCollectionRef,
+    ));
+  }
+}
+
 /// {@template firebase_student_group_repo_factory}
 /// Factory that creates an instance of [FirebaseStudentGroupRepository].
 /// {@endtemplate}
@@ -492,32 +554,6 @@ class ErrorTrackingManagerFactory extends AsyncFactory<ErrorTrackingManager> {
     return errorTrackingManager;
   }
 }
-
-// /// {@template settings_bloc_factory}
-// /// Factory that creates an instance of [AppSettingsBloc].
-// /// {@endtemplate}
-// class SettingsBlocFactory extends AsyncFactory<AppSettingsBloc> {
-//   /// {@macro settings_bloc_factory}
-//   SettingsBlocFactory(this.sharedPreferences);
-
-//   /// Shared preferences instance
-//   final SharedPreferencesAsync sharedPreferences;
-
-//   @override
-//   Future<AppSettingsBloc> create() async {
-//     final appSettingsRepository = AppSettingsRepositoryImpl(
-//       datasource: AppSettingsDatasourceImpl(sharedPreferences: sharedPreferences),
-//     );
-
-//     final appSettings = await appSettingsRepository.getAppSettings();
-//     final initialState = AppSettingsState.idle(appSettings: appSettings);
-
-//     return AppSettingsBloc(
-//       appSettingsRepository: appSettingsRepository,
-//       initialState: initialState,
-//     );
-//   }
-// }
 
 /// {@template composition_result}
 /// Result of composition

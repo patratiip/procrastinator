@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/calendar_entry_adding_bloc/calendar_entry_adding_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 
 /// {@template entry_type_dropdown}

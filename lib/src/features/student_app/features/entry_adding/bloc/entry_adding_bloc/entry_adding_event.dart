@@ -1,4 +1,4 @@
-part of 'calendar_entry_adding_bloc.dart';
+part of 'entry_adding_bloc.dart';
 
 sealed class CalendarEntryAddingEvent extends Equatable {
   const CalendarEntryAddingEvent();

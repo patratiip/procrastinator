@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/calendar_entry_adding_bloc/calendar_entry_adding_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/features/student_app/features/student_main_screen/widget/scroll_controller_provider.dart';

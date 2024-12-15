@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:procrastinator/src/features/app/di/app_scope.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/calendar_entry_adding_bloc/calendar_entry_adding_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/student_profile_screen/bloc/user_profile_bloc.dart';
 import 'package:procrastinator/src/features/student_app/di/student_app_scope.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_button_bloc/entry_adding_button_bloc.dart';

@@ -1,4 +1,4 @@
-part of 'calendar_entry_adding_bloc.dart';
+part of 'entry_adding_bloc.dart';
 
 /// Returns normalized date
 DateTime _normalizeDate(DateTime date) {

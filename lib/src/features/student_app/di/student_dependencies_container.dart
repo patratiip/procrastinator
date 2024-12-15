@@ -2,6 +2,7 @@ import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
 
 import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/statistic/service/statistic_computing_service.dart';
 
@@ -18,6 +19,7 @@ base class StudentDependenciesContainer {
   const StudentDependenciesContainer({
     required this.entryRepository,
     required this.lectionRepository,
+    required this.entryAddingRepository,
     required this.firebaseGroupRepository,
     required this.deviceGeolocationRepository,
     required this.statisticComputingServise,
@@ -28,6 +30,9 @@ base class StudentDependenciesContainer {
 
   /// [ILectionRepository] instance, used to manage theme and locale.
   final ILectionRepository lectionRepository;
+
+  /// [IEntryAddingRepository] instance, used to manage theme and locale.
+  final IEntryAddingRepository entryAddingRepository;
 
   /// [IStudentGroupRepository] instance, used to manage theme and locale.
   final IStudentGroupRepository firebaseGroupRepository;
