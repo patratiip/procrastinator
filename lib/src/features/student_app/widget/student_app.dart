@@ -2,11 +2,11 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:procrastinator/src/features/app/di/app_scope.dart';
+import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_bloc/calendar_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/student_profile_screen/bloc/user_profile_bloc.dart';
 import 'package:procrastinator/src/features/student_app/di/student_app_scope.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/entry_adding_calendar.dart';
+import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_button_bloc/calendar_entry_adding_button_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_error_message_widget_bloc/calendar_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/bloc/last_entries_list_bloc/last_entries_list_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/loosed_entries/bloc/loosed_entries_bloc/loosed_entries_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/bloc/lection_plan_bloc/lection_plan_bloc.dart';

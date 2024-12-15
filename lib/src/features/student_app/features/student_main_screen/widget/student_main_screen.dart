@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/entry_adding_calendar.dart';
+import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/widget/calendar_entry_adding_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/widget/last_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/loosed_entries/widget/loosed_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/today_lection_widget.dart';

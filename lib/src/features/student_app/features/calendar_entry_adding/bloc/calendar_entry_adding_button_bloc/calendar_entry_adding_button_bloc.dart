@@ -4,7 +4,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/calendar_error_message_widget/bloc/calendar_error_message_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_error_message_widget_bloc/calendar_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:user_repository/user_repository.dart';

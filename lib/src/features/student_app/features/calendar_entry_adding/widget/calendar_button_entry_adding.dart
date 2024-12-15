@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/calendar_entry_adding_button/bloc/calendar_entry_adding_button_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_bloc/calendar_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_button_bloc/calendar_entry_adding_button_bloc.dart';
 
 /// {@template entry_adding_button}
 /// Widget that shows [EntryAddingButton] in [CalendarEntryAddingWidget]
