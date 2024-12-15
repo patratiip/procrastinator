@@ -1,7 +1,7 @@
-part of 'calendar_bloc.dart';
+part of 'calendar_entry_adding_bloc.dart';
 
-sealed class CalendarEvent extends Equatable {
-  const CalendarEvent();
+sealed class CalendarEntryAddingEvent extends Equatable {
+  const CalendarEntryAddingEvent();
 
   @override
   List<Object?> get props => [];
@@ -9,32 +9,32 @@ sealed class CalendarEvent extends Equatable {
 
 // final class CalendarSubscriptionsRequested extends CalendarEvent {}
 
-final class CalendarNothingToAddEvent extends CalendarEvent {}
+final class CalendarNothingToAddEvent extends CalendarEntryAddingEvent {}
 
 // final class CalendarSomethingToAddEvent extends CalendarEvent {}
 
-final class CalendarDateChanged extends CalendarEvent {
+final class CalendarDateChanged extends CalendarEntryAddingEvent {
   const CalendarDateChanged({required this.date});
   final DateTime date;
   @override
   List<Object> get props => [date];
 }
 
-final class CalendarEntryTypeChanged extends CalendarEvent {
+final class CalendarEntryTypeChanged extends CalendarEntryAddingEvent {
   const CalendarEntryTypeChanged({required this.entryType});
   final EntryType entryType;
   @override
   List<Object> get props => [entryType];
 }
 
-final class CalendarFormatChanged extends CalendarEvent {
+final class CalendarFormatChanged extends CalendarEntryAddingEvent {
   const CalendarFormatChanged({required this.calendarFormat});
   final CalendarFormat calendarFormat;
   @override
   List<Object> get props => [calendarFormat];
 }
 
-final class CalendarEntriesUpdated extends CalendarEvent {
+final class CalendarEntriesUpdated extends CalendarEntryAddingEvent {
   final List<Entry>? entriesList;
 
   const CalendarEntriesUpdated(this.entriesList);
@@ -43,7 +43,7 @@ final class CalendarEntriesUpdated extends CalendarEvent {
   List<Object?> get props => [entriesList];
 }
 
-final class CalendarLectionsUpdated extends CalendarEvent {
+final class CalendarLectionsUpdated extends CalendarEntryAddingEvent {
   final List<Lection>? lectionsList;
 
   const CalendarLectionsUpdated(this.lectionsList);
@@ -51,4 +51,3 @@ final class CalendarLectionsUpdated extends CalendarEvent {
   @override
   List<Object?> get props => [lectionsList];
 }
-

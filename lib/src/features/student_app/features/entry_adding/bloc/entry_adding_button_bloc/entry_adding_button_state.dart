@@ -1,17 +1,15 @@
-part of 'calendar_entry_adding_button_bloc.dart';
+part of 'entry_adding_button_bloc.dart';
 
-sealed class CalendarEntryAddingButtonState extends Equatable {
-  const CalendarEntryAddingButtonState();
+sealed class EntryAddingButtonState extends Equatable {
+  const EntryAddingButtonState();
 
   @override
   List<Object?> get props => [];
 }
 
-final class CalendarEntryAddingButtonDisabled
-    extends CalendarEntryAddingButtonState {}
+final class CalendarEntryAddingButtonDisabled extends EntryAddingButtonState {}
 
-final class CalendarEntryAddingButtonEnabled
-    extends CalendarEntryAddingButtonState {
+final class CalendarEntryAddingButtonEnabled extends EntryAddingButtonState {
   final DateTime date;
   final EntryType entryType;
 
@@ -21,8 +19,7 @@ final class CalendarEntryAddingButtonEnabled
   List<Object> get props => [date, entryType];
 }
 
-final class CalendarEntryAddingButtonInProgress
-    extends CalendarEntryAddingButtonState {
+final class CalendarEntryAddingButtonInProgress extends EntryAddingButtonState {
   final DateTime date;
   final EntryType entryType;
 
@@ -32,13 +29,11 @@ final class CalendarEntryAddingButtonInProgress
   List<Object> get props => [date, entryType];
 }
 
-final class CalendarEntryAddingButtonSuccess
-    extends CalendarEntryAddingButtonState {
+final class CalendarEntryAddingButtonSuccess extends EntryAddingButtonState {
   const CalendarEntryAddingButtonSuccess();
 }
 
-final class CalendarEntryAddingButtonError
-    extends CalendarEntryAddingButtonState {
+final class CalendarEntryAddingButtonError extends EntryAddingButtonState {
   final Object error;
   final ErrorType errorType;
 
@@ -52,7 +47,7 @@ final class CalendarEntryAddingButtonError
 }
 
 final class CalendarEntryAddingButtonDistanceError
-    extends CalendarEntryAddingButtonState {
+    extends EntryAddingButtonState {
   final int distance;
   final ErrorType errorType;
 

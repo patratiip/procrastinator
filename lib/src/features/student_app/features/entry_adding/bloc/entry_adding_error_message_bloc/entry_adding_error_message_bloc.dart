@@ -2,13 +2,13 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 
-part 'calendar_error_message_event.dart';
-part 'calendar_error_message_state.dart';
+part 'entry_adding_error_message_event.dart';
+part 'entry_adding_error_message_state.dart';
 
-class CalendarErrorMessageBloc
-    extends Bloc<CalendarErrorMessageEvent, CalendarErrorMessageState> {
-  CalendarErrorMessageBloc() : super(CalendarErrorMessageDisabled()) {
-    on<CalendarErrorMessageEvent>(
+class EntryAddingErrorMessageBloc
+    extends Bloc<EntryAddingErrorMessageEvent, EntryAddingErrorMessageState> {
+  EntryAddingErrorMessageBloc() : super(CalendarErrorMessageDisabled()) {
+    on<EntryAddingErrorMessageEvent>(
       (event, emit) => switch (event) {
         final EnableCalendarErrorMessageEvent e =>
           _enableCalendarErrorMessageEvent(e, emit),
@@ -21,7 +21,7 @@ class CalendarErrorMessageBloc
 
   Future<void> _enableCalendarErrorMessageEvent(
       EnableCalendarErrorMessageEvent event,
-      Emitter<CalendarErrorMessageState> emit) async {
+      Emitter<EntryAddingErrorMessageState> emit) async {
     switch (event.errorType) {
       case ErrorType.futureError:
         emit(CalendarErrorMessageFutureError());
@@ -40,7 +40,7 @@ class CalendarErrorMessageBloc
 
   Future<void> _disableCalendarErrorMessageEvent(
       DisableCalendarErrorMessageEvent event,
-      Emitter<CalendarErrorMessageState> emit) async {
+      Emitter<EntryAddingErrorMessageState> emit) async {
     emit(CalendarErrorMessageDisabled());
   }
 }

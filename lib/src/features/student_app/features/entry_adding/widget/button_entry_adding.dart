@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_bloc/calendar_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_button_bloc/calendar_entry_adding_button_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/calendar_entry_adding_bloc/calendar_entry_adding_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_button_bloc/entry_adding_button_bloc.dart';
 
 /// {@template entry_adding_button}
 /// Widget that shows [EntryAddingButton] in [CalendarEntryAddingWidget]
@@ -14,21 +14,20 @@ class EntryAddingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<CalendarBloc, CalendarState>(
+    return BlocListener<CalendarEntryAddingBloc, CalendarEntryAddingState>(
       // listenWhen: (previous, current) => (previous != current),
       listener: (context, state) {
         if (state.status == CalendarStateStatus.readyToAdding) {
           context
-              .read<CalendarEntryAddingButtonBloc>()
+              .read<EntryAddingButtonBloc>()
               .add((CalendarButtonIsReadyEvent(state.date!, state.entryType!)));
         } else {
           context
-              .read<CalendarEntryAddingButtonBloc>()
+              .read<EntryAddingButtonBloc>()
               .add((CalendarButtonDisableButtonEvent()));
         }
       },
-      child: BlocBuilder<CalendarEntryAddingButtonBloc,
-          CalendarEntryAddingButtonState>(
+      child: BlocBuilder<EntryAddingButtonBloc, EntryAddingButtonState>(
         builder: (context, state) {
           // Button is enabled
           if (state is CalendarEntryAddingButtonEnabled) {
@@ -45,7 +44,7 @@ class EntryAddingButton extends StatelessWidget {
                               bottomRight: Radius.circular(20))))),
                   onPressed: () {
                     final bloc =
-                        BlocProvider.of<CalendarEntryAddingButtonBloc>(context);
+                        BlocProvider.of<EntryAddingButtonBloc>(context);
 
                     bloc.add(CalendarButtonAddEntryEvent(
                         state.date, state.entryType));

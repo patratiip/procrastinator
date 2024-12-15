@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/calendar_entry_adding_bloc/calendar_entry_adding_bloc.dart';
 
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/entry_adding_calendar.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/features/student_app/features/student_main_screen/widget/scroll_controller_provider.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
@@ -68,7 +68,7 @@ class LoosedEntryWidget extends StatelessWidget {
             Text(dateFormat.format(lection.date)),
             IconButton(
               onPressed: () {
-                final bloc = BlocProvider.of<CalendarBloc>(context);
+                final bloc = BlocProvider.of<CalendarEntryAddingBloc>(context);
                 bloc.add(CalendarDateChanged(date: lection.date));
                 ScrollControllerProvider.of(context).animateTo(
                   0.0,

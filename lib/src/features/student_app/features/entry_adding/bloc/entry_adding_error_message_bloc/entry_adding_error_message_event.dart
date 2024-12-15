@@ -1,4 +1,4 @@
-part of 'calendar_error_message_bloc.dart';
+part of 'entry_adding_error_message_bloc.dart';
 
 enum ErrorType {
   futureError,
@@ -9,14 +9,15 @@ enum ErrorType {
   errorOnGeopositionCheck,
 }
 
-sealed class CalendarErrorMessageEvent extends Equatable {
-  const CalendarErrorMessageEvent();
+sealed class EntryAddingErrorMessageEvent extends Equatable {
+  const EntryAddingErrorMessageEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-final class EnableCalendarErrorMessageEvent extends CalendarErrorMessageEvent {
+final class EnableCalendarErrorMessageEvent
+    extends EntryAddingErrorMessageEvent {
   final ErrorType errorType;
   final int? value;
 
@@ -26,4 +27,4 @@ final class EnableCalendarErrorMessageEvent extends CalendarErrorMessageEvent {
 }
 
 final class DisableCalendarErrorMessageEvent
-    extends CalendarErrorMessageEvent {}
+    extends EntryAddingErrorMessageEvent {}

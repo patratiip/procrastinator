@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-part of 'calendar_bloc.dart';
+part of 'calendar_entry_adding_bloc.dart';
 
 enum CalendarStateStatus {
   initial,
@@ -12,7 +12,7 @@ enum CalendarStateStatus {
   allDone
 }
 
-final class CalendarState {
+final class CalendarEntryAddingState {
   final DateTime? date;
   final CalendarFormat? calendarFormat;
   final EntryType? entryType;
@@ -22,7 +22,7 @@ final class CalendarState {
   final ErrorType? errorType;
   final CalendarStateStatus status;
 
-  const CalendarState({
+  const CalendarEntryAddingState({
     this.date,
     this.calendarFormat,
     this.entryType,
@@ -33,7 +33,7 @@ final class CalendarState {
     this.status = CalendarStateStatus.initial,
   });
 
-  CalendarState copyWith({
+  CalendarEntryAddingState copyWith({
     DateTime? date,
     CalendarFormat? calendarFormat,
     EntryType? entryType,
@@ -43,7 +43,7 @@ final class CalendarState {
     ErrorType? errorType,
     CalendarStateStatus? status,
   }) {
-    return CalendarState(
+    return CalendarEntryAddingState(
       date: date ?? this.date,
       calendarFormat: calendarFormat ?? this.calendarFormat,
       entryType: entryType ?? this.entryType,
@@ -68,7 +68,7 @@ final class CalendarState {
   //     ];
 
   @override
-  bool operator ==(covariant CalendarState other) {
+  bool operator ==(covariant CalendarEntryAddingState other) {
     if (identical(this, other)) return true;
 
     return other.date == date &&

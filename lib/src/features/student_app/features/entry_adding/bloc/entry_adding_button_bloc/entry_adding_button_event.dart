@@ -1,16 +1,15 @@
-part of 'calendar_entry_adding_button_bloc.dart';
+part of 'entry_adding_button_bloc.dart';
 
-sealed class CalendarEntryAddingButtonEvent extends Equatable {
-  const CalendarEntryAddingButtonEvent();
+sealed class EntryAddingButtonEvent extends Equatable {
+  const EntryAddingButtonEvent();
 
   @override
   List<Object> get props => [];
 }
 
-final class CalendarButtonDisableButtonEvent
-    extends CalendarEntryAddingButtonEvent {}
+final class CalendarButtonDisableButtonEvent extends EntryAddingButtonEvent {}
 
-final class CalendarButtonIsReadyEvent extends CalendarEntryAddingButtonEvent {
+final class CalendarButtonIsReadyEvent extends EntryAddingButtonEvent {
   final DateTime date;
   final EntryType entryType;
 
@@ -20,7 +19,7 @@ final class CalendarButtonIsReadyEvent extends CalendarEntryAddingButtonEvent {
   List<Object> get props => [date, entryType];
 }
 
-final class CalendarButtonAddEntryEvent extends CalendarEntryAddingButtonEvent {
+final class CalendarButtonAddEntryEvent extends EntryAddingButtonEvent {
   final DateTime date;
   final EntryType entryType;
 

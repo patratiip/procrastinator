@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_bloc/calendar_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_button_bloc/calendar_entry_adding_button_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_error_message_widget_bloc/calendar_error_message_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/calendar_entry_adding_bloc/calendar_entry_adding_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_button_bloc/entry_adding_button_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_error_message_bloc/entry_adding_error_message_bloc.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template error_message_calendar_widget}
@@ -17,35 +17,35 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<CalendarBloc, CalendarState>(
+        BlocListener<CalendarEntryAddingBloc, CalendarEntryAddingState>(
           listener: (context, state) {
             if (state.status == CalendarStateStatus.error) {
-              context.read<CalendarErrorMessageBloc>().add(
+              context.read<EntryAddingErrorMessageBloc>().add(
                   (EnableCalendarErrorMessageEvent(
                       errorType: state.errorType!)));
             } else {
               context
-                  .read<CalendarErrorMessageBloc>()
+                  .read<EntryAddingErrorMessageBloc>()
                   .add((DisableCalendarErrorMessageEvent()));
             }
           },
         ),
-        BlocListener<CalendarEntryAddingButtonBloc,
-            CalendarEntryAddingButtonState>(
+        BlocListener<EntryAddingButtonBloc, EntryAddingButtonState>(
           listener: (context, state) {
             if (state is CalendarEntryAddingButtonError) {
-              context.read<CalendarErrorMessageBloc>().add(
+              context.read<EntryAddingErrorMessageBloc>().add(
                   (EnableCalendarErrorMessageEvent(
                       errorType: state.errorType)));
             } else if (state is CalendarEntryAddingButtonDistanceError) {
-              context.read<CalendarErrorMessageBloc>().add(
+              context.read<EntryAddingErrorMessageBloc>().add(
                   (EnableCalendarErrorMessageEvent(
                       value: state.distance, errorType: state.errorType)));
             }
           },
         ),
       ],
-      child: BlocBuilder<CalendarErrorMessageBloc, CalendarErrorMessageState>(
+      child: BlocBuilder<EntryAddingErrorMessageBloc,
+          EntryAddingErrorMessageState>(
         builder: (context, state) => switch (state) {
           CalendarErrorMessageDisabled() => const SizedBox.shrink(),
           CalendarErrorMessageFutureError() => _ErrorTextWidget(

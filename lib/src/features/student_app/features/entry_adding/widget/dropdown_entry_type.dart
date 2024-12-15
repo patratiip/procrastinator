@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_entry_adding_bloc/calendar_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/calendar_entry_adding_bloc/calendar_entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 
-/// DROP
-class DropDownEntry extends StatelessWidget {
-  const DropDownEntry({super.key});
+/// {@template entry_type_dropdown}
+/// Widget that shows [EntryTypeDropdownWidget].
+/// {@endtemplate}
+class EntryTypeDropdownWidget extends StatelessWidget {
+  /// {@macro entry_type_dropdown}
+  const EntryTypeDropdownWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +61,7 @@ class DropDownEntry extends StatelessWidget {
                 const RoundedRectangleBorder(),
                 0.1))),
         onSelected: (entryType) {
-          final bloc = BlocProvider.of<CalendarBloc>(context);
+          final bloc = BlocProvider.of<CalendarEntryAddingBloc>(context);
 
           bloc.add(CalendarEntryTypeChanged(entryType: entryType));
         },

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/widget/calendar_entry_adding_widget.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/widget_entry_adding.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/widget/last_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/loosed_entries/widget/loosed_entries_list_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/today_lection_widget.dart';
@@ -25,7 +25,7 @@ class StudentMainScreen extends StatelessWidget {
         child: const Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CalendarEntryAddingWidget(),
+            EntryAddingWidget(),
             LoosedEntriesListWidget(),
             TodayLectionWidget(),
             LastEntriesListWidget(),

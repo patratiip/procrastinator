@@ -4,22 +4,22 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_error_message_widget_bloc/calendar_error_message_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_error_message_bloc/entry_adding_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:uuid/uuid.dart';
 
-part 'calendar_entry_adding_button_event.dart';
-part 'calendar_entry_adding_button_state.dart';
+part 'entry_adding_button_event.dart';
+part 'entry_adding_button_state.dart';
 
-class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
-    CalendarEntryAddingButtonState> {
+class EntryAddingButtonBloc
+    extends Bloc<EntryAddingButtonEvent, EntryAddingButtonState> {
   final IEntryRepository _entriesRepository;
   final IGeolocationRepository _geolocationRepository;
   final SchoolGeoPosition _userSchoolGeoposition;
 
-  CalendarEntryAddingButtonBloc(
+  EntryAddingButtonBloc(
       {required IEntryRepository entriesRepository,
       required IGeolocationRepository geolocationRepository,
       required SchoolGeoPosition userSchoolGeoposition})
@@ -27,7 +27,7 @@ class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
         _geolocationRepository = geolocationRepository,
         _userSchoolGeoposition = userSchoolGeoposition,
         super(CalendarEntryAddingButtonDisabled()) {
-    on<CalendarEntryAddingButtonEvent>(
+    on<EntryAddingButtonEvent>(
       (event, emit) => switch (event) {
         final CalendarButtonDisableButtonEvent e =>
           _calendarButtonDisableButtonEvent(e, emit),
@@ -42,17 +42,17 @@ class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
 
   Future<void> _calendarButtonDisableButtonEvent(
       CalendarButtonDisableButtonEvent event,
-      Emitter<CalendarEntryAddingButtonState> emit) async {
+      Emitter<EntryAddingButtonState> emit) async {
     emit(CalendarEntryAddingButtonDisabled());
   }
 
   Future<void> _calendarButtonIsReadyEvent(CalendarButtonIsReadyEvent event,
-      Emitter<CalendarEntryAddingButtonState> emit) async {
+      Emitter<EntryAddingButtonState> emit) async {
     emit(CalendarEntryAddingButtonEnabled(event.date, event.entryType));
   }
 
   Future<void> _calendarButtonAddEntryEvent(CalendarButtonAddEntryEvent event,
-      Emitter<CalendarEntryAddingButtonState> emit) async {
+      Emitter<EntryAddingButtonState> emit) async {
     try {
       emit(CalendarEntryAddingButtonInProgress(event.date, event.entryType));
 
@@ -81,7 +81,7 @@ class CalendarEntryAddingButtonBloc extends Bloc<CalendarEntryAddingButtonEvent,
   /// or handled an Error State with a distance to school
   Future<bool> _isStudentInSchoolAndErrorEmitter(
       {required EntryType entryType,
-      required Emitter<CalendarEntryAddingButtonState> emit}) async {
+      required Emitter<EntryAddingButtonState> emit}) async {
     if (entryType != EntryType.schoolVisit) return true;
     try {
       final userGeoPosition = await _geolocationRepository.determinePosition();

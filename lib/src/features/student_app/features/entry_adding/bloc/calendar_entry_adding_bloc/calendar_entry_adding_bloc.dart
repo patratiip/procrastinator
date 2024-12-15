@@ -4,36 +4,37 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/calendar_entry_adding/bloc/calendar_error_message_widget_bloc/calendar_error_message_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_error_message_bloc/entry_adding_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-part 'calendar_event.dart';
-part 'calendar_state.dart';
+part 'calendar_entry_adding_event.dart';
+part 'calendar_entry_adding_state.dart';
 part 'validators_calendar_bloc.dart';
 
-class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
+class CalendarEntryAddingBloc
+    extends Bloc<CalendarEntryAddingEvent, CalendarEntryAddingState> {
   final IEntryRepository _entriesRepository;
   final ILectionRepository _lectionsRepository;
 
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
-  CalendarBloc({
+  CalendarEntryAddingBloc({
     required IEntryRepository entriesRepository,
     required ILectionRepository lectionsRepository,
   })  : _entriesRepository = entriesRepository,
         _lectionsRepository = lectionsRepository,
-        super(CalendarState(
+        super(CalendarEntryAddingState(
           date: _normalizeDate(DateTime.now()),
           calendarFormat: CalendarFormat.week,
         )) {
     _initializeListeners();
 
-    on<CalendarEvent>(
+    on<CalendarEntryAddingEvent>(
       (event, emit) => switch (event) {
         final CalendarNothingToAddEvent e =>
           _calendarNothingToAddEvent(e, emit),
@@ -70,8 +71,8 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
   /// Nothing to add
   ///
-  Future<void> _calendarNothingToAddEvent(
-      CalendarNothingToAddEvent event, Emitter<CalendarState> emit) async {
+  Future<void> _calendarNothingToAddEvent(CalendarNothingToAddEvent event,
+      Emitter<CalendarEntryAddingState> emit) async {
     await Future<void>.delayed(const Duration(seconds: 2));
     emit(state.copyWith(
       status: CalendarStateStatus.allDone,
@@ -80,29 +81,29 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
   /// User changed calendar format
   ///
-  Future<void> _calendarFormatChanged(
-      CalendarFormatChanged event, Emitter<CalendarState> emit) async {
+  Future<void> _calendarFormatChanged(CalendarFormatChanged event,
+      Emitter<CalendarEntryAddingState> emit) async {
     emit(state.copyWith(calendarFormat: event.calendarFormat));
   }
 
   /// Got new Entries list
   ///
-  Future<void> _calendarEntriesUpdated(
-      CalendarEntriesUpdated event, Emitter<CalendarState> emit) async {
+  Future<void> _calendarEntriesUpdated(CalendarEntriesUpdated event,
+      Emitter<CalendarEntryAddingState> emit) async {
     emit(state.copyWith(entriesList: event.entriesList));
   }
 
   /// Got new Entries list
   ///
-  Future<void> _calendarLectionsUpdated(
-      CalendarLectionsUpdated event, Emitter<CalendarState> emit) async {
+  Future<void> _calendarLectionsUpdated(CalendarLectionsUpdated event,
+      Emitter<CalendarEntryAddingState> emit) async {
     emit(state.copyWith(lectionsList: event.lectionsList));
   }
 
   /// User changed date
   ///
   Future<void> _calendarDateChanged(
-      CalendarDateChanged event, Emitter<CalendarState> emit) async {
+      CalendarDateChanged event, Emitter<CalendarEntryAddingState> emit) async {
     emit(state.copyWith(date: _normalizeDate(event.date)));
 
     _isStateValidCheckerAndErrorEmitter(emit: emit);
@@ -110,8 +111,8 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
   /// User changed type of entry
   ///
-  Future<void> _calendarEntryTypeChanged(
-      CalendarEntryTypeChanged event, Emitter<CalendarState> emit) async {
+  Future<void> _calendarEntryTypeChanged(CalendarEntryTypeChanged event,
+      Emitter<CalendarEntryAddingState> emit) async {
     emit(state.copyWith(entryType: event.entryType));
 
     _isStateValidCheckerAndErrorEmitter(emit: emit);
@@ -119,7 +120,7 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
 
   /// Checks if everything is allright or handled an Error State
   bool _isStateValidCheckerAndErrorEmitter(
-      {required Emitter<CalendarState> emit}) {
+      {required Emitter<CalendarEntryAddingState> emit}) {
     // Future check
     if (!_isDateInTheFuture(state.date!)) {
       emit(state.copyWith(
