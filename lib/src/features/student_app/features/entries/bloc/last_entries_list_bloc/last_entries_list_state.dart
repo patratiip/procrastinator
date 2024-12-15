@@ -56,7 +56,7 @@ final class _IdleLastEntriesListState extends LastEntriesListState {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is _IdleLastEntriesListState &&
-        other.entriesList == entriesList;
+        listEquals(other.entriesList, entriesList);
   }
 
   @override
@@ -73,7 +73,7 @@ final class _LoadingLastEntriesListState extends LastEntriesListState {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is _LoadingLastEntriesListState &&
-        other.entriesList == entriesList;
+        listEquals(other.entriesList, entriesList);
   }
 
   @override
@@ -91,7 +91,7 @@ final class _LoadedLastEntriesListState extends LastEntriesListState {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is _LoadedLastEntriesListState &&
-        other.entriesList == entriesList;
+        listEquals(other.entriesList, entriesList);
   }
 
   @override
@@ -118,7 +118,7 @@ class _ErrorLastEntriesListState extends LastEntriesListState {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     return other is _ErrorLastEntriesListState &&
-        other.entriesList == entriesList &&
+        listEquals(other.entriesList, entriesList) &&
         other.entryRef == entryRef &&
         other.error == error;
   }

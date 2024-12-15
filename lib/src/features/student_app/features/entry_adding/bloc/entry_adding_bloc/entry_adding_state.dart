@@ -55,18 +55,6 @@ final class CalendarEntryAddingState {
     );
   }
 
-  // @override
-  // List<Object?> get props => [
-  //       date,
-  //       calendarFormat,
-  //       entryType,
-  //       entriesList,
-  //       lectionsList,
-  //       value,
-  //       errorType,
-  //       status,
-  //     ];
-
   @override
   bool operator ==(covariant CalendarEntryAddingState other) {
     if (identical(this, other)) return true;

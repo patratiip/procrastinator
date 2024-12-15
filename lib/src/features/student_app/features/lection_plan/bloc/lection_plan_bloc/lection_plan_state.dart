@@ -73,7 +73,7 @@ final class _LoadingLectionPlanState extends LectionPlanState {
     if (identical(this, other)) return true;
 
     return other is _LoadingLectionPlanState &&
-        other.lectionsList == lectionsList;
+        listEquals(other.lectionsList, lectionsList);
   }
 
   @override
@@ -91,7 +91,7 @@ final class _LoadedLectionPlanState extends LectionPlanState {
     if (identical(this, other)) return true;
 
     return other is _LoadedLectionPlanState &&
-        other.lectionsList == lectionsList;
+        listEquals(other.lectionsList, lectionsList);
   }
 
   @override
@@ -113,7 +113,7 @@ final class _ErrorLectionPlanState extends LectionPlanState {
     if (identical(this, other)) return true;
 
     return other is _ErrorLectionPlanState &&
-        other.lectionsList == lectionsList &&
+        listEquals(other.lectionsList, lectionsList) &&
         other.error == error;
   }
 
