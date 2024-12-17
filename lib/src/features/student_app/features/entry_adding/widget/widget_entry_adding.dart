@@ -8,7 +8,6 @@ import 'package:procrastinator/src/features/student_app/features/entry_adding/wi
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/button_entry_adding.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/error_message_entry_adding.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/calendar_entry_adding.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/succes_message_entry_adding.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template entry_adding_widget}
@@ -88,7 +87,7 @@ class EntryAddingWidget extends StatelessWidget {
                   CalendarEntyAddingWidget(),
                   EntryTypeDropdownWidget(),
                   ErrorMessageCalendarWidget(),
-                  SuccesMessageEntryAddingWidget(),
+                  // SuccesMessageEntryAddingWidget(),
                   EntryAddingButton(),
                 ],
               ),

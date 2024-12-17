@@ -69,7 +69,7 @@ class StudentApp extends StatelessWidget {
 
           // Calendar
           BlocProvider(
-              create: (context) => CalendarEntryAddingBloc(
+              create: (context) => EntryAddingBloc(
                     entryAddingRepository:
                         StudentAppScope.depConOf(context).entryAddingRepository,
                   )),

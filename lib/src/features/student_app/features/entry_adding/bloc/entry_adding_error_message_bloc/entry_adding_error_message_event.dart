@@ -1,13 +1,6 @@
 part of 'entry_adding_error_message_bloc.dart';
 
-enum ErrorType {
-  futureError,
-  schoolOnlyToday,
-  enrtyWithThisDateExists,
-  noLessonsToday,
-  distanceToSchool,
-  errorOnGeopositionCheck,
-}
+
 
 sealed class EntryAddingErrorMessageEvent extends Equatable {
   const EntryAddingErrorMessageEvent();
@@ -18,7 +11,7 @@ sealed class EntryAddingErrorMessageEvent extends Equatable {
 
 final class EnableCalendarErrorMessageEvent
     extends EntryAddingErrorMessageEvent {
-  final ErrorType errorType;
+  final StateInvalidityType errorType;
   final int? value;
 
   const EnableCalendarErrorMessageEvent({this.value, required this.errorType});

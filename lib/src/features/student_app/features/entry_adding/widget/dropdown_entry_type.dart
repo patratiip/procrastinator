@@ -61,9 +61,9 @@ class EntryTypeDropdownWidget extends StatelessWidget {
                 const RoundedRectangleBorder(),
                 0.1))),
         onSelected: (entryType) {
-          final bloc = BlocProvider.of<CalendarEntryAddingBloc>(context);
+          final bloc = BlocProvider.of<EntryAddingBloc>(context);
 
-          bloc.add(CalendarEntryTypeChanged(entryType: entryType));
+          bloc.add(EntryAddingEvent.stateDataChanged(entryType: entryType));
         },
       ),
     );

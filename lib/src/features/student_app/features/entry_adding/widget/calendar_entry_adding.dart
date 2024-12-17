@@ -18,9 +18,9 @@ class CalendarEntyAddingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     initializeDateFormatting('de_DE', null);
     initializeDateFormatting('ru', null);
-    return BlocBuilder<CalendarEntryAddingBloc, CalendarEntryAddingState>(
+    return BlocBuilder<EntryAddingBloc, EntryAddingState>(
       builder: (context, state) {
-        final bloc = BlocProvider.of<CalendarEntryAddingBloc>(context);
+        final bloc = BlocProvider.of<EntryAddingBloc>(context);
         var formatOfCalendar = state.calendarFormat;
         var today = state.date;
         return TableCalendar(
@@ -116,22 +116,22 @@ class CalendarEntyAddingWidget extends StatelessWidget {
 
           onFormatChanged: (format) {
             if (formatOfCalendar == CalendarFormat.week) {
-              bloc.add(const CalendarFormatChanged(
+              bloc.add(const EntryAddingEvent.stateDataChanged(
                   calendarFormat: CalendarFormat.month));
             } else if (formatOfCalendar == CalendarFormat.month) {
-              bloc.add(const CalendarFormatChanged(
+              bloc.add(const EntryAddingEvent.stateDataChanged(
                   calendarFormat: CalendarFormat.twoWeeks));
             } else if (formatOfCalendar == CalendarFormat.twoWeeks) {
-              bloc.add(const CalendarFormatChanged(
+              bloc.add(const EntryAddingEvent.stateDataChanged(
                   calendarFormat: CalendarFormat.week));
             }
           },
-          calendarFormat: formatOfCalendar!,
+          calendarFormat: formatOfCalendar,
           startingDayOfWeek: StartingDayOfWeek.monday,
 
           //Set Bloc State.date
           onDaySelected: (DateTime day, DateTime focusedDay) {
-            bloc.add(CalendarDateChanged(date: day));
+            bloc.add(EntryAddingEvent.stateDataChanged(date: day));
           },
         );
       },

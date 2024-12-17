@@ -35,7 +35,7 @@ final class CalendarEntryAddingButtonSuccess extends EntryAddingButtonState {
 
 final class CalendarEntryAddingButtonError extends EntryAddingButtonState {
   final Object error;
-  final ErrorType errorType;
+  final StateInvalidityType errorType;
 
   const CalendarEntryAddingButtonError(
     this.error,
@@ -49,7 +49,7 @@ final class CalendarEntryAddingButtonError extends EntryAddingButtonState {
 final class CalendarEntryAddingButtonDistanceError
     extends EntryAddingButtonState {
   final int distance;
-  final ErrorType errorType;
+  final StateInvalidityType errorType;
 
   const CalendarEntryAddingButtonDistanceError(
     this.distance,

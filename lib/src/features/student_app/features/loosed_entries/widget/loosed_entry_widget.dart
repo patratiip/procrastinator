@@ -68,8 +68,8 @@ class LoosedEntryWidget extends StatelessWidget {
             Text(dateFormat.format(lection.date)),
             IconButton(
               onPressed: () {
-                final bloc = BlocProvider.of<CalendarEntryAddingBloc>(context);
-                bloc.add(CalendarDateChanged(date: lection.date));
+                final bloc = BlocProvider.of<EntryAddingBloc>(context);
+                bloc.add(EntryAddingEvent.stateDataChanged(date: lection.date));
                 ScrollControllerProvider.of(context).animateTo(
                   0.0,
                   duration: const Duration(milliseconds: 300),

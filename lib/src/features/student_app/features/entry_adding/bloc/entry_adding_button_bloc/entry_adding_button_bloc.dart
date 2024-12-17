@@ -4,7 +4,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocation_repository/geolocation_repository.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_error_message_bloc/entry_adding_error_message_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:user_repository/user_repository.dart';
@@ -93,7 +93,7 @@ class EntryAddingButtonBloc
 
       if (distanceToSchool >= 100) {
         emit(CalendarEntryAddingButtonDistanceError(
-            distanceToSchool.toInt(), ErrorType.distanceToSchool));
+            distanceToSchool.toInt(), StateInvalidityType.distanceToSchool));
         return false;
       } else {
         return true;

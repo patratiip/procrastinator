@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 
 part 'entry_adding_error_message_event.dart';
 part 'entry_adding_error_message_state.dart';
@@ -23,17 +24,17 @@ class EntryAddingErrorMessageBloc
       EnableCalendarErrorMessageEvent event,
       Emitter<EntryAddingErrorMessageState> emit) async {
     switch (event.errorType) {
-      case ErrorType.futureError:
+      case StateInvalidityType.futureError:
         emit(CalendarErrorMessageFutureError());
-      case ErrorType.schoolOnlyToday:
+      case StateInvalidityType.schoolOnlyToday:
         emit(CalendarErrorMessageSchoolOnlyToday());
-      case ErrorType.enrtyWithThisDateExists:
+      case StateInvalidityType.enrtyWithThisDateExists:
         emit(CalendarErrorMessageEnrtyWithThisDateExists());
-      case ErrorType.noLessonsToday:
+      case StateInvalidityType.noLessonsToday:
         emit(CalendarErrorMessageNoLessonsToday());
-      case ErrorType.distanceToSchool:
+      case StateInvalidityType.distanceToSchool:
         emit(CalendarErrorMessageDistanceToSchool(distance: event.value!));
-      case ErrorType.errorOnGeopositionCheck:
+      case StateInvalidityType.errorOnGeopositionCheck:
         emit(CalendarErrorMessageErrorOnGeopositionCheck());
     }
   }

@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/lection_bottom_sheet_widget.dart';

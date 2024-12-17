@@ -17,12 +17,13 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<CalendarEntryAddingBloc, CalendarEntryAddingState>(
+        BlocListener<EntryAddingBloc, EntryAddingState>(
           listener: (context, state) {
-            if (state.status == CalendarStateStatus.error) {
+            if (state.invalid) {
               context.read<EntryAddingErrorMessageBloc>().add(
                   (EnableCalendarErrorMessageEvent(
-                      errorType: state.errorType!)));
+                      errorType:
+                          state.validationResponse!.stateInvalidityType!)));
             } else {
               context
                   .read<EntryAddingErrorMessageBloc>()
