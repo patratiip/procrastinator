@@ -1,29 +1,29 @@
-import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:geolocator/geolocator.dart';
 
-class DeviceGeolocationRepository implements IGeolocationRepository {
-  //
-  @override
-  Future<bool> isGeolocationServiceEnabled() async {
-    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    return serviceEnabled;
-  }
+/// Interface for [EntryAddingGeolocationDataProviderImpl]
+///
+/// The data provider that handles actual geolocation
+abstract interface class IEntryAddingGeolocationDataProvider {
+  /// Determines actual user position
+  Future<Position> determinePosition();
 
-  //
-  @override
-  Future<LocationPermission> checkGeoPositionPermission() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    return permission;
-  }
+  /// Calculating distance from user to school
+  double distanceToSchool(
+      {required Position userGeoposition,
+      required double schoolLatitude,
+      required double schoolLongtitude});
+}
 
-  //
-  @override
-  Future<LocationPermission> requestGeoPositionPermission() async {
-    LocationPermission permission = await Geolocator.requestPermission();
-    return permission;
-  }
+/// {@template entry_adding_geolocation_data_provider}
+/// Implementation of [IEntryAddingGeolocationDataProvider].
+/// {@endtemplate}
 
-  //Get current position
+final class EntryAddingGeolocationDataProviderImpl
+    implements IEntryAddingGeolocationDataProvider {
+  /// {@macro entry_adding_geolocation_data_provider}
+  EntryAddingGeolocationDataProviderImpl();
+
+  //Get current user position
   @override
   Future<Position> determinePosition() async {
     bool serviceEnabled;

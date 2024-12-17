@@ -24,9 +24,6 @@ dependencies:
   group_repository:
     path: packages/group_repository
 
-  geolocation_repository:
-    path: packages/geolocation_repository
-
   cupertino_icons: ^1.0.6
 
   ## Assets
@@ -78,6 +75,9 @@ dependencies:
   rive_animated_icon: ^2.0.0
   lottie: ^3.1.2
   cached_network_image: ^3.4.0
+
+  # Device
+  geolocator: ^12.0.0
 
   intl: ^0.19.0
 

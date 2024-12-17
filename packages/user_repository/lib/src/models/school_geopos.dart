@@ -4,7 +4,7 @@ class SchoolGeoPosition {
   final double latitude;
   final double longitude;
 
-  SchoolGeoPosition({required this.latitude, required this.longitude});
+  const SchoolGeoPosition({required this.latitude, required this.longitude});
 
   static SchoolGeoPosition fromFirebase(GeoPoint geoPoint) {
     return SchoolGeoPosition(

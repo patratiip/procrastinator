@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
@@ -16,15 +15,12 @@ part 'entry_adding_button_state.dart';
 class EntryAddingButtonBloc
     extends Bloc<EntryAddingButtonEvent, EntryAddingButtonState> {
   final IEntryAddingRepository _entryAddingRepository;
-  final IGeolocationRepository _geolocationRepository;
   final SchoolGeoPosition _userSchoolGeoposition;
 
   EntryAddingButtonBloc(
       {required IEntryAddingRepository entryAddingRepository,
-      required IGeolocationRepository geolocationRepository,
       required SchoolGeoPosition userSchoolGeoposition})
       : _entryAddingRepository = entryAddingRepository,
-        _geolocationRepository = geolocationRepository,
         _userSchoolGeoposition = userSchoolGeoposition,
         super(CalendarEntryAddingButtonDisabled()) {
     on<EntryAddingButtonEvent>(
@@ -84,9 +80,10 @@ class EntryAddingButtonBloc
       required Emitter<EntryAddingButtonState> emit}) async {
     if (entryType != EntryType.schoolVisit) return true;
     try {
-      final userGeoPosition = await _geolocationRepository.determinePosition();
+      //TODO: Handle situation, when user denied acces to device geolocation services
+      final userGeoPosition = await _entryAddingRepository.determinePosition();
 
-      final distanceToSchool = _geolocationRepository.distanceToSchool(
+      final distanceToSchool = _entryAddingRepository.distanceToSchool(
           userGeoposition: userGeoPosition,
           schoolLatitude: _userSchoolGeoposition.latitude,
           schoolLongtitude: _userSchoolGeoposition.longitude);

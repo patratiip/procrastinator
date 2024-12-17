@@ -8,7 +8,7 @@ import 'package:procrastinator/src/features/student_app/features/lection_plan/mo
 /// Interface for [EntryAddingFirebaseDataProviderImpl]
 ///
 /// The data provider that handles entries and lections to compare and adding entry
-abstract interface class IEntryAddingDataProvider {
+abstract interface class IEntryAddingFirebaseDataProvider {
   /// Getting lections stream
   Stream<List<LectionModel>> lectionsStream();
 
@@ -17,14 +17,16 @@ abstract interface class IEntryAddingDataProvider {
 
   /// Adding entry to entries collection
   Future<void> addEntry(Entry entry);
+//TODO
+  /// Get User geoposition
 }
 
 /// {@template entry_adding_firebase_data_provider}
-/// Implementation of [IEntryAddingDataProvider].
+/// Implementation of [IEntryAddingFirebaseDataProvider].
 /// {@endtemplate}
 
 final class EntryAddingFirebaseDataProviderImpl
-    implements IEntryAddingDataProvider {
+    implements IEntryAddingFirebaseDataProvider {
   final CollectionReference<Map<String, dynamic>> _lectionsCollectionRef;
   final CollectionReference<Map<String, dynamic>> _entriesCollectionRef;
 

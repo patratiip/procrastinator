@@ -54,6 +54,7 @@ class _StudentAppViewState extends State<StudentAppView> {
       bottomNavigationBar: NavigationBar(
           onDestinationSelected: _onSelectedTab,
           indicatorColor: Colors.transparent,
+          // height: 55,
           selectedIndex: _currentIndex,
           destinations: const <Widget>[
             // Main

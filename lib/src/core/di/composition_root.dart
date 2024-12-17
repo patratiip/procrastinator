@@ -1,14 +1,9 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:procrastinator/src/features/initialization/model/environment.dart';
-import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
-import 'package:procrastinator/src/features/student_app/features/entries/data/firebase_entry_data_provider.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_data_provider.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
+import 'package:procrastinator/src/core/constant/mocked_geoposition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -17,14 +12,20 @@ import 'package:procrastinator/src/core/constant/firebase_collections_constants.
 import 'package:procrastinator/src/core/utils/error_tracking_manager/error_tracking_manager.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
 import 'package:procrastinator/src/features/app/di/app_dependencies_container.dart';
+import 'package:procrastinator/src/features/initialization/model/environment.dart';
 import 'package:procrastinator/src/features/management_app/di/management_dependencies_container.dart';
 import 'package:procrastinator/src/features/settings/bloc/app_settings_bloc.dart';
 import 'package:procrastinator/src/features/settings/data/app_settings_datasource.dart';
 import 'package:procrastinator/src/features/settings/data/settings_repository.dart';
-import 'package:procrastinator/src/features/student_app/features/statistic/service/statistic_computing_service.dart';
 import 'package:procrastinator/src/features/student_app/di/student_dependencies_container.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/entries/data/firebase_entry_data_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_firebase_data_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_geolocation_data_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/firebase_lection_data_provider.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/statistic/service/statistic_computing_service.dart';
 import 'package:procrastinator/src/features/trainer_app/di/trainer_dependencies_container.dart';
 
 /// {@template composition_root}
@@ -244,8 +245,6 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
         EntryAddingRepositoryFactory(currentUser.userId, config).create();
     final firebaseGroupRepository =
         FirebaseGroupRepositoryFactory(groupId: currentUser.group).create();
-    final deviceGeolocationRepository =
-        DeviceGeolocationRepositoryFactory().create();
 
     final statisticComputingServise =
         StatisticComputingServiseFactory().create();
@@ -255,7 +254,6 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
       lectionRepository: lectionRepository,
       entryAddingRepository: entryAddingRepository,
       firebaseGroupRepository: firebaseGroupRepository,
-      deviceGeolocationRepository: deviceGeolocationRepository,
       statisticComputingServise: statisticComputingServise,
     );
   }
@@ -449,11 +447,26 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
         .doc(currentUser)
         .collection(entriesCollectionName);
 
-    return EntryAddingRepositoryImpl(
-        entryAddingDataProvider: EntryAddingFirebaseDataProviderImpl(
+    final entryAddingFirebaseDataProvider = EntryAddingFirebaseDataProviderImpl(
       lectionsCollectionRef: lectionsCollectionRef,
       entriesCollectionRef: entriesCollectionRef,
-    ));
+    );
+
+    //TODO: Fake geoposition...
+    // /// Getting lections collection name depend on enviroment
+    // final SchoolGeoPosition mocked_geoposition = switch (config.environment) {
+    //   Environment.dev => MockedGeopositionConstants.nuernberg,
+    //   Environment.staging => MockedGeopositionConstants.karlsruhe,
+    //   Environment.prod => MockedGeopositionConstants.stutgard,
+    // };
+
+    final entryAddingGeolocationDataProvider =
+        EntryAddingGeolocationDataProviderImpl();
+
+    return EntryAddingRepositoryImpl(
+      entryAddingFirebaseDataProvider: entryAddingFirebaseDataProvider,
+      entryAddingGeolocationDataProvider: entryAddingGeolocationDataProvider,
+    );
   }
 }
 
@@ -497,19 +510,6 @@ class FirebaseTrainerGroupRepositoryFactory
   @override
   ITrainerGroupRepository create() {
     return FirebaseTrainerGroupRepository();
-  }
-}
-
-/// {@template device_geolocation_repo_factory}
-/// Factory that creates an instance of [DeviceGeolocationRepository].
-/// {@endtemplate}
-class DeviceGeolocationRepositoryFactory
-    extends Factory<DeviceGeolocationRepository> {
-  /// {@macro fdevice_geolocation_repo_factory}
-
-  @override
-  DeviceGeolocationRepository create() {
-    return DeviceGeolocationRepository();
   }
 }
 

@@ -79,8 +79,6 @@ class StudentApp extends StatelessWidget {
             create: (context) => EntryAddingButtonBloc(
                 entryAddingRepository:
                     StudentAppScope.depConOf(context).entryAddingRepository,
-                geolocationRepository: StudentAppScope.depConOf(context)
-                    .deviceGeolocationRepository,
                 userSchoolGeoposition:
                     AppScope.userOf(context).schoolGeoPosition!),
           ),

@@ -1,4 +1,3 @@
-import 'package:geolocation_repository/geolocation_repository.dart';
 import 'package:group_repository/group_repository.dart';
 
 import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
@@ -21,7 +20,6 @@ base class StudentDependenciesContainer {
     required this.lectionRepository,
     required this.entryAddingRepository,
     required this.firebaseGroupRepository,
-    required this.deviceGeolocationRepository,
     required this.statisticComputingServise,
   });
 
@@ -36,9 +34,6 @@ base class StudentDependenciesContainer {
 
   /// [IStudentGroupRepository] instance, used to manage theme and locale.
   final IStudentGroupRepository firebaseGroupRepository;
-
-  /// [DeviceGeolocationRepository] instance, used to manage theme and locale.
-  final DeviceGeolocationRepository deviceGeolocationRepository;
 
   /// [StatisticComputingServise] instance, used to manage theme and locale.
   final StatisticComputingServise statisticComputingServise;

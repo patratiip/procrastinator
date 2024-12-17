@@ -33,9 +33,6 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
 
     on<EntryAddingEvent>(
       (event, emit) => switch (event) {
-        // TODO: Add logic to push a AllComplete state. Maybe with LoosedEntries feature
-        //TODO add a timing in that user can change calendar formats
-
         final _StateDataChangedEntryAddingEvent e =>
           _stateDataChangedEntryAddingEvent(e, emit),
       },
@@ -48,11 +45,6 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
     _entrysListListener = _entryAddingRepository.entriesStream().listen(
       (entriesList) {
         add(_StateDataChangedEntryAddingEvent(entriesList: entriesList));
-
-        //TODO: Work on that feature
-        // if (state.status != CalendarStateStatus.initial) {
-        //   add(CalendarDateChanged(date: state.date!));
-        // }
       },
       cancelOnError: false,
     );
@@ -111,6 +103,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
       ));
     }
 
+    //TODO: Add that method
     // /// Nothing to add
     // ///
     // Future<void> _calendarNothingToAddEvent(CalendarNothingToAddEvent event,
