@@ -30,7 +30,8 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
           calendarFormat: CalendarFormat.week,
           entriesList: [],
           lectionsList: [],
-          validationResponse: null,
+          validationResponse: EntryAddingValidationResponse(
+              stateInvalidityType: StateInvalidityType.noEntryType),
         )) {
     _initializeListeners();
 

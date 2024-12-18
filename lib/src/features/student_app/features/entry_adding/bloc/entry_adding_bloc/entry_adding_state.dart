@@ -84,7 +84,7 @@ sealed class EntryAddingState {
   }) = _ErrorEntryAddingState;
 
   /// Check if state is is an Valid state.
-  bool get isValid => _isNewStateValid(actualState: this) == null;
+  bool get isValid => validationResponse == null;
 
   /// Check if state is initial.
   bool get initial => switch (this) {

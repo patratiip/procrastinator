@@ -15,9 +15,7 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EntryAddingBloc, EntryAddingState>(
         builder: (context, state) {
-      if (state.validationResponse != null &&
-          state.validationResponse!.stateInvalidityType !=
-              StateInvalidityType.noEntryType) {
+      if (!state.isValid) {
         return Container(
           child: switch (state.validationResponse!.stateInvalidityType) {
             StateInvalidityType.noEntryType => const SizedBox.shrink(),
