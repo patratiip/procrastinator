@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/lection_bottom_sheet_widget.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/lection_bottom_sheet_content.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/lection_widget.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/bloc/today_lection_bloc/today_lection_bloc.dart';
+import 'package:procrastinator/src/ui_kit/widget/bottom_sheet_widget.dart';
 import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
 import 'package:procrastinator/src/ui_kit/widget/my_circular_progress.dart';
 
@@ -38,7 +39,9 @@ class TodayLectionWidget extends StatelessWidget {
                   onTap: () => showModalBottomSheet(
                     context: context,
                     builder: (context) {
-                      return LectionBottomSheetWidget(lection: state.lection!);
+                      return BottomSheetWidget(
+                          child: LectionBottomSheetContent(
+                              lection: state.lection!));
                     },
                   ),
                   lection: state.lection!,

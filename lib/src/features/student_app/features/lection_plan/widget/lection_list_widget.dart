@@ -3,8 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
-import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/lection_bottom_sheet_widget.dart';
+import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/lection_bottom_sheet_content.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/widget/lection_widget.dart';
+import 'package:procrastinator/src/ui_kit/widget/bottom_sheet_widget.dart';
 
 /// {@template lection_list_widget}
 /// Shows [LectionListWidget].
@@ -30,8 +31,10 @@ class LectionListWidget extends StatelessWidget {
             onTap: () => showModalBottomSheet(
               context: context,
               builder: (context) {
-                return LectionBottomSheetWidget(
-                    lection: filteredLections[index]);
+                return BottomSheetWidget(
+                  child: LectionBottomSheetContent(
+                      lection: filteredLections[index]),
+                );
               },
             ),
             lection: filteredLections[index],

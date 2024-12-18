@@ -60,7 +60,7 @@
   "schoolLocationDropDownText": "Choose the location of the school",
   "dashboardAppBarText": "Dashboard",
   "usersAppBarText": "Users",
-  "calendarStateErrorMessage_buttonText_youAreForgot": "Forgot to add an entry?",
+  "calendarStateErrorMessage_buttonText_youAreForgot": "I forgot",
   "settingsLabelText": "Settings",
   "settingsOptionLanguage": "Language",
   "navigationErrorScteenText": "The screen does not exist. Please go back",

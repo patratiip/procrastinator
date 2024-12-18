@@ -60,7 +60,7 @@
   "schoolLocationDropDownText": "Выберите расположение школы",
   "dashboardAppBarText": "Главная",
   "usersAppBarText": "Пользователи",
-  "calendarStateErrorMessage_buttonText_youAreForgot": "Забыли добавить запись?",
+  "calendarStateErrorMessage_buttonText_youAreForgot": "Я забыл",
   "settingsLabelText": "Настройки",
   "settingsOptionLanguage": "Язык",
   "navigationErrorScteenText": "Экрана не существует. Пожалуйста, вернитесь назад",

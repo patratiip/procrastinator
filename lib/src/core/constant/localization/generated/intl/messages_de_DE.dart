@@ -60,7 +60,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "calendarFormatButtonWeek":
             MessageLookupByLibrary.simpleMessage("Woche"),
         "calendarStateErrorMessage_buttonText_youAreForgot":
-            MessageLookupByLibrary.simpleMessage("Hast du vergessen?"),
+            MessageLookupByLibrary.simpleMessage("Ich habe vergessen"),
         "calendarStateErrorMessage_distanceToSchool": m0,
         "calendarStateErrorMessage_future":
             MessageLookupByLibrary.simpleMessage("Achtung! Zukunft"),

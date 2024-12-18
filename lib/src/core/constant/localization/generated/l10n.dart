@@ -661,10 +661,10 @@ class Localization {
     );
   }
 
-  /// `Forgot to add an entry?`
+  /// `I forgot`
   String get calendarStateErrorMessage_buttonText_youAreForgot {
     return Intl.message(
-      'Forgot to add an entry?',
+      'I forgot',
       name: 'calendarStateErrorMessage_buttonText_youAreForgot',
       desc: '',
       args: [],
