@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry_model.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection_model.dart';
+import 'package:user_repository/user_repository.dart';
 
 /// Interface for [EntryAddingFirebaseDataProviderImpl]
 ///
@@ -17,8 +18,8 @@ abstract interface class IEntryAddingFirebaseDataProvider {
 
   /// Adding entry to entries collection
   Future<void> addEntry(Entry entry);
-//TODO
-  /// Get User geoposition
+
+ 
 }
 
 /// {@template entry_adding_firebase_data_provider}
@@ -27,14 +28,17 @@ abstract interface class IEntryAddingFirebaseDataProvider {
 
 final class EntryAddingFirebaseDataProviderImpl
     implements IEntryAddingFirebaseDataProvider {
+ 
   final CollectionReference<Map<String, dynamic>> _lectionsCollectionRef;
   final CollectionReference<Map<String, dynamic>> _entriesCollectionRef;
 
   /// {@macro entry_adding_firebase_data_provider}
   EntryAddingFirebaseDataProviderImpl({
+    
     required CollectionReference<Map<String, dynamic>> lectionsCollectionRef,
     required CollectionReference<Map<String, dynamic>> entriesCollectionRef,
-  })  : _lectionsCollectionRef = lectionsCollectionRef,
+  })  : 
+        _lectionsCollectionRef = lectionsCollectionRef,
         _entriesCollectionRef = entriesCollectionRef;
 
   @override
@@ -90,4 +94,6 @@ final class EntryAddingFirebaseDataProviderImpl
       rethrow;
     }
   }
+
+  
 }

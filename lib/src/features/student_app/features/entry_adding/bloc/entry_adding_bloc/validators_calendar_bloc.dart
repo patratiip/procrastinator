@@ -1,37 +1,44 @@
 part of 'entry_adding_bloc.dart';
 
 /// Checks if everything is allright or handled an Error State
-EntryAddingValidationResponse _isNewStateValid(
+EntryAddingValidationResponse? _isNewStateValid(
     {required EntryAddingState actualState}) {
-  final EntryAddingValidationResponse validationResponse =
-      EntryAddingValidationResponse(isValid: false);
+  //TODO: Add validation for situations:
+  // state have no entryType, lections list is empty
+
   // Future check
   if (!_isDateInTheFuture(actualState.date)) {
-    return validationResponse.copyWith(
+    return EntryAddingValidationResponse(
         stateInvalidityType: StateInvalidityType.futureError);
   }
 
   // Entry exist check
   if (actualState.entriesList.isNotEmpty &&
       !_entryAtThatDateExist(actualState.date, actualState.entriesList)) {
-    return validationResponse.copyWith(
+    return EntryAddingValidationResponse(
         stateInvalidityType: StateInvalidityType.enrtyWithThisDateExists);
   }
 
   // Lection at that date exists check
   if (actualState.lectionsList.isNotEmpty &&
       !_lectionWithTisDateExist(actualState.date, actualState.lectionsList)) {
-    return validationResponse.copyWith(
+    return EntryAddingValidationResponse(
         stateInvalidityType: StateInvalidityType.noLessonsToday);
   }
 
   // School and Past check
   if (!_ifTypeIsSchoolDateIsToday(actualState.entryType, actualState.date)) {
-    return validationResponse.copyWith(
+    return EntryAddingValidationResponse(
         stateInvalidityType: StateInvalidityType.schoolOnlyToday);
   }
 
-  return validationResponse.copyWith(isValid: true);
+  // State entryType is null
+  if (actualState.entryType == null) {
+    return EntryAddingValidationResponse(
+        stateInvalidityType: StateInvalidityType.noEntryType);
+  }
+
+  return null;
 }
 
 /// Returns normalized date

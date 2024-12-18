@@ -2,7 +2,7 @@
 import 'dart:developer';
 
 import 'package:equatable/equatable.dart';
-import 'package:user_repository/src/models/school_geopos.dart';
+import 'package:user_repository/src/models/school_geoposition.dart';
 import 'package:user_repository/user_repository.dart';
 
 enum UserType { initial, undefined, student, management, trainer }
@@ -13,7 +13,7 @@ class MyUser extends Equatable {
   final UserType userType;
   final String? name;
   final String? photoURL;
-  final SchoolGeoPosition? schoolGeoPosition;
+  final SchoolGeoPosition schoolGeoPosition;
   final String? group;
 
   const MyUser({
@@ -22,7 +22,7 @@ class MyUser extends Equatable {
     required this.userType,
     this.name,
     this.photoURL,
-    this.schoolGeoPosition,
+    required this.schoolGeoPosition,
     this.group,
   });
 
@@ -30,6 +30,7 @@ class MyUser extends Equatable {
     userId: '',
     email: '',
     userType: UserType.initial,
+    schoolGeoPosition: SchoolGeoPosition(latitude: 0, longitude: 0),
   );
 
   /// Convenience getter to determine whether the current user is empty.
@@ -54,8 +55,11 @@ class MyUser extends Equatable {
       default:
         null;
     }
-    MyUserEntity entity =
-        MyUserEntity(userId: userId, email: email, userType: _userType);
+    MyUserEntity entity = MyUserEntity(
+        userId: userId,
+        email: email,
+        userType: _userType,
+        schoolGeoPosition: schoolGeoPosition);
 
     if (name != null) {
       entity.name = name;
@@ -63,13 +67,11 @@ class MyUser extends Equatable {
     if (photoURL != null) {
       entity.photoURL = photoURL;
     }
-    if (schoolGeoPosition != null) {
-      entity.schoolGeoPosition = schoolGeoPosition;
-    }
+
     if (group != null) {
       entity.group = group;
     }
-log(entity.toString());
+    log(entity.toString());
     return entity;
   }
 
@@ -90,8 +92,11 @@ log(entity.toString());
         UserType.undefined;
     }
 
-    MyUser user =
-        MyUser(userId: entity.userId, email: entity.email, userType: _userType);
+    MyUser user = MyUser(
+        userId: entity.userId,
+        email: entity.email,
+        userType: _userType,
+        schoolGeoPosition: entity.schoolGeoPosition);
 
     if (entity.name != null) {
       user = user.copyWith(name: entity.name);
@@ -99,9 +104,7 @@ log(entity.toString());
     if (entity.photoURL != null) {
       user = user.copyWith(photoURL: entity.photoURL);
     }
-    if (entity.schoolGeoPosition != null) {
-      user = user.copyWith(schoolGeoPosition: entity.schoolGeoPosition);
-    }
+
     if (entity.group != null) {
       user = user.copyWith(group: entity.group);
     }

@@ -5,8 +5,6 @@ import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/student_profile_screen/bloc/user_profile_bloc.dart';
 import 'package:procrastinator/src/features/student_app/di/student_app_scope.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_button_bloc/entry_adding_button_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_error_message_bloc/entry_adding_error_message_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/bloc/last_entries_list_bloc/last_entries_list_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/loosed_entries/bloc/loosed_entries_bloc/loosed_entries_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/bloc/lection_plan_bloc/lection_plan_bloc.dart';
@@ -74,17 +72,7 @@ class StudentApp extends StatelessWidget {
                         StudentAppScope.depConOf(context).entryAddingRepository,
                   )),
 
-          // Entry adding button
-          BlocProvider(
-            create: (context) => EntryAddingButtonBloc(
-                entryAddingRepository:
-                    StudentAppScope.depConOf(context).entryAddingRepository,
-                userSchoolGeoposition:
-                    AppScope.userOf(context).schoolGeoPosition!),
-          ),
-
-          // Error Widget
-          BlocProvider(create: (context) => EntryAddingErrorMessageBloc()),
+      
         ],
         child: const StudentAppView(),
       );

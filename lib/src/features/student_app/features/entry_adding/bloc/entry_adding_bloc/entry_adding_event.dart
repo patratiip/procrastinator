@@ -24,6 +24,15 @@ sealed class EntryAddingEvent {
     List<Entry>? entriesList,
     List<Lection>? lectionsList,
   }) = _StateDataChangedEntryAddingEvent;
+
+  /// The date changed.
+  const factory EntryAddingEvent.add({
+    DateTime? date,
+    EntryType? entryType,
+    CalendarFormat? calendarFormat,
+    List<Entry>? entriesList,
+    List<Lection>? lectionsList,
+  }) = _AddEntryAddingEvent;
 }
 
 final class _StateDataChangedEntryAddingEvent extends EntryAddingEvent {
@@ -60,7 +69,39 @@ final class _StateDataChangedEntryAddingEvent extends EntryAddingEvent {
       'EntryAddingEvent.stateDataChanged(date: $date, entryType: $entryType, calendarFormat: $calendarFormat, entriesList: $entriesList, lectionsList: $lectionsList)';
 }
 
+final class _AddEntryAddingEvent extends EntryAddingEvent {
+  const _AddEntryAddingEvent({
+    super.date,
+    super.entryType,
+    super.calendarFormat,
+    super.entriesList,
+    super.lectionsList,
+  });
 
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is _StateDataChangedEntryAddingEvent &&
+        other.date == date &&
+        other.entryType == entryType &&
+        other.calendarFormat == calendarFormat &&
+        listEquals(other.entriesList, entriesList) &&
+        listEquals(other.lectionsList, lectionsList);
+  }
+
+  @override
+  int get hashCode => Object.hash(
+        date,
+        entryType,
+        calendarFormat,
+        entriesList,
+        lectionsList,
+      );
+
+  @override
+  String toString() =>
+      'EntryAddingEvent.stateDataChanged(date: $date, entryType: $entryType, calendarFormat: $calendarFormat, entriesList: $entriesList, lectionsList: $lectionsList)';
+}
 
 
 

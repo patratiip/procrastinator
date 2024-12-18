@@ -242,7 +242,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
         EntryRepositoryFactory(currentUser.userId, config).create();
     final lectionRepository = LectionRepositoryFactory(config).create();
     final entryAddingRepository =
-        EntryAddingRepositoryFactory(currentUser.userId, config).create();
+        EntryAddingRepositoryFactory(currentUser, config).create();
     final firebaseGroupRepository =
         FirebaseGroupRepositoryFactory(groupId: currentUser.group).create();
 
@@ -406,7 +406,7 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
   EntryAddingRepositoryFactory(this.currentUser, this.config);
 
   /// Current user collection reference
-  final String currentUser;
+  final MyUser currentUser;
 
   /// Application configuration
   final Config config;
@@ -434,7 +434,12 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
       Environment.prod => ProdFirebaseCollectionsConstants.userEntries,
     };
 
-    /// Making [CollectionReference] for [LectionFirebaseDataProviderImpl]
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour and current user
+
+    final userSchoolGeoposition = currentUser.schoolGeoPosition;
+
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
     /// depend on app flavour
     final lectionsCollectionRef =
         FirebaseFirestore.instance.collection(collectionName);
@@ -444,7 +449,7 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
 
     final entriesCollectionRef = FirebaseFirestore.instance
         .collection(usersCollectionName)
-        .doc(currentUser)
+        .doc(currentUser.userId)
         .collection(entriesCollectionName);
 
     final entryAddingFirebaseDataProvider = EntryAddingFirebaseDataProviderImpl(
@@ -466,6 +471,7 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
     return EntryAddingRepositoryImpl(
       entryAddingFirebaseDataProvider: entryAddingFirebaseDataProvider,
       entryAddingGeolocationDataProvider: entryAddingGeolocationDataProvider,
+      userSchoolGeoposition: userSchoolGeoposition,
     );
   }
 }

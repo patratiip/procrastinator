@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_button_bloc/entry_adding_button_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_error_message_bloc/entry_adding_error_message_bloc.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template error_message_calendar_widget}
@@ -15,64 +13,44 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<EntryAddingBloc, EntryAddingState>(
-          listener: (context, state) {
-            if (state.invalid) {
-              context.read<EntryAddingErrorMessageBloc>().add(
-                  (EnableCalendarErrorMessageEvent(
-                      errorType:
-                          state.validationResponse!.stateInvalidityType!)));
-            } else {
-              context
-                  .read<EntryAddingErrorMessageBloc>()
-                  .add((DisableCalendarErrorMessageEvent()));
-            }
+    return BlocBuilder<EntryAddingBloc, EntryAddingState>(
+        builder: (context, state) {
+      if (state.validationResponse != null &&
+          state.validationResponse!.stateInvalidityType !=
+              StateInvalidityType.noEntryType) {
+        return Container(
+          child: switch (state.validationResponse!.stateInvalidityType) {
+            StateInvalidityType.noEntryType => const SizedBox.shrink(),
+            StateInvalidityType.futureError => _ErrorTextWidget(
+                text:
+                    Localization.of(context).calendarStateErrorMessage_future),
+            StateInvalidityType.schoolOnlyToday => _ErrorTextWidget(
+                text: Localization.of(context)
+                    .calendarStateErrorMessage_schoolTypeOnlyToday,
+                // child: _ErrorActionButton(
+                //     text: Localization.of(context)
+                //         .calendarStateErrorMessage_buttonText_youAreForgot),
+              ),
+            StateInvalidityType.enrtyWithThisDateExists => _ErrorTextWidget(
+                text: Localization.of(context)
+                    .calendarStateErrorMessage_thisDateExists),
+            StateInvalidityType.noLessonsToday => _ErrorTextWidget(
+                text: Localization.of(context)
+                    .calendarStateErrorMessage_noLessonsToday),
+            StateInvalidityType.distanceToSchool => _ErrorTextWidget(
+                text: Localization.of(context)
+                    .calendarStateErrorMessage_distanceToSchool(
+                        state.validationResponse!.value)),
+            StateInvalidityType.errorOnGeopositionCheck =>
+              const _ErrorTextWidget(text: ''),
+            StateInvalidityType.unexpectedError =>
+              const _ErrorTextWidget(text: 'Unexpected Error'),
           },
-        ),
-        BlocListener<EntryAddingButtonBloc, EntryAddingButtonState>(
-          listener: (context, state) {
-            if (state is CalendarEntryAddingButtonError) {
-              context.read<EntryAddingErrorMessageBloc>().add(
-                  (EnableCalendarErrorMessageEvent(
-                      errorType: state.errorType)));
-            } else if (state is CalendarEntryAddingButtonDistanceError) {
-              context.read<EntryAddingErrorMessageBloc>().add(
-                  (EnableCalendarErrorMessageEvent(
-                      value: state.distance, errorType: state.errorType)));
-            }
-          },
-        ),
-      ],
-      child: BlocBuilder<EntryAddingErrorMessageBloc,
-          EntryAddingErrorMessageState>(
-        builder: (context, state) => switch (state) {
-          CalendarErrorMessageDisabled() => const SizedBox.shrink(),
-          CalendarErrorMessageFutureError() => _ErrorTextWidget(
-              text: Localization.of(context).calendarStateErrorMessage_future),
-          CalendarErrorMessageSchoolOnlyToday() => _ErrorTextWidget(
-              text: Localization.of(context)
-                  .calendarStateErrorMessage_schoolTypeOnlyToday,
-              // child: _ErrorActionButton(
-              //     text: Localization.of(context)
-              //         .calendarStateErrorMessage_buttonText_youAreForgot),
-            ),
-          CalendarErrorMessageEnrtyWithThisDateExists() => _ErrorTextWidget(
-              text: Localization.of(context)
-                  .calendarStateErrorMessage_thisDateExists),
-          CalendarErrorMessageNoLessonsToday() => _ErrorTextWidget(
-              text: Localization.of(context)
-                  .calendarStateErrorMessage_noLessonsToday),
-          CalendarErrorMessageDistanceToSchool() => _ErrorTextWidget(
-              text: Localization.of(context)
-                  .calendarStateErrorMessage_distanceToSchool(state.distance)),
-          // TODO Location settings premission message
-          CalendarErrorMessageErrorOnGeopositionCheck() =>
-            const SizedBox.shrink(),
-        },
-      ),
-    );
+        );
+      } else {
+        return const SizedBox.shrink();
+      }
+    });
   }
 }
 

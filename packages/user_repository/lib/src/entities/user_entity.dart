@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:user_repository/src/models/school_geopos.dart';
+import 'package:user_repository/src/models/school_geoposition.dart';
 
 class MyUserEntity {
   String userId;
@@ -7,7 +7,7 @@ class MyUserEntity {
   String userType;
   String? name;
   String? photoURL;
-  SchoolGeoPosition? schoolGeoPosition;
+  SchoolGeoPosition schoolGeoPosition;
   String? group;
 
   MyUserEntity({
@@ -16,7 +16,7 @@ class MyUserEntity {
     required this.userType,
     this.name,
     this.photoURL,
-    this.schoolGeoPosition,
+    required this.schoolGeoPosition,
     this.group,
   });
 
@@ -25,10 +25,9 @@ class MyUserEntity {
       'uid': userId,
       'email': email,
       'userType': userType,
+      'schoolGeoPosition': SchoolGeoPosition.toFirebase(schoolGeoPosition),
       if (name != null) 'name': name,
       if (photoURL != null) 'photoURL': photoURL,
-      if (schoolGeoPosition != null)
-        'schoolGeoPosition': SchoolGeoPosition.toFirebase(schoolGeoPosition!),
       if (group != null)
         'group': FirebaseFirestore.instance.doc('group_flutter/$group'),
     };
@@ -41,9 +40,8 @@ class MyUserEntity {
       userType: doc['userType'],
       name: doc['name'],
       photoURL: doc['photoURL'],
-      schoolGeoPosition: doc['schoolGeoPosition'] != null
-          ? SchoolGeoPosition.fromFirebase(doc['schoolGeoPosition'] as GeoPoint)
-          : null,
+      schoolGeoPosition:
+          SchoolGeoPosition.fromFirebase(doc['schoolGeoPosition'] as GeoPoint),
       group:
           doc['group'] != null ? (doc['group'] as DocumentReference).id : null,
     );

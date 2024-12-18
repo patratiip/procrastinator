@@ -3,6 +3,7 @@ import 'package:procrastinator/src/features/student_app/features/entries/model/e
 import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_firebase_data_provider.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_geolocation_data_provider.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
+import 'package:user_repository/user_repository.dart';
 
 /// Interface for [EntryAddingRepositoryImpl]
 ///
@@ -29,6 +30,9 @@ abstract class IEntryAddingRepository {
       {required Position userGeoposition,
       required double schoolLatitude,
       required double schoolLongtitude});
+
+  /// Get User geoposition
+  Future<SchoolGeoPosition> getUserSchoolPosition();
 }
 
 /// {@template entry_adding_repository_impl}
@@ -37,15 +41,19 @@ abstract class IEntryAddingRepository {
 final class EntryAddingRepositoryImpl implements IEntryAddingRepository {
   final IEntryAddingFirebaseDataProvider _entryAddingFirebaseDataProvider;
   final IEntryAddingGeolocationDataProvider _entryAddingGeolocationDataProvider;
+  final SchoolGeoPosition _userSchoolGeoposition;
 
   /// {@macro entry_adding_repository_impl}
-  EntryAddingRepositoryImpl({
-    required IEntryAddingFirebaseDataProvider entryAddingFirebaseDataProvider,
-    required IEntryAddingGeolocationDataProvider
-        entryAddingGeolocationDataProvider,
-  })  : _entryAddingFirebaseDataProvider = entryAddingFirebaseDataProvider,
+  EntryAddingRepositoryImpl(
+      {required IEntryAddingFirebaseDataProvider
+          entryAddingFirebaseDataProvider,
+      required IEntryAddingGeolocationDataProvider
+          entryAddingGeolocationDataProvider,
+      required SchoolGeoPosition userSchoolGeoposition})
+      : _entryAddingFirebaseDataProvider = entryAddingFirebaseDataProvider,
         _entryAddingGeolocationDataProvider =
-            entryAddingGeolocationDataProvider;
+            entryAddingGeolocationDataProvider,
+        _userSchoolGeoposition = userSchoolGeoposition;
 
   @override
   Stream<List<Lection>> lectionsStream() {
@@ -87,5 +95,10 @@ final class EntryAddingRepositoryImpl implements IEntryAddingRepository {
       schoolLatitude: schoolLatitude,
       schoolLongtitude: schoolLongtitude,
     );
+  }
+
+  @override
+  Future<SchoolGeoPosition> getUserSchoolPosition() async {
+    return _userSchoolGeoposition;
   }
 }

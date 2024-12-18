@@ -167,6 +167,7 @@ extension on firebase_auth.User {
       userType: UserType.initial,
       name: displayName,
       photoURL: photoURL,
+      schoolGeoPosition: const SchoolGeoPosition(latitude: 0, longitude: 0),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_button_bloc/entry_adding_button_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/dropdown_entry_type.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/button_entry_adding.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/error_message_entry_adding.dart';
@@ -19,11 +19,10 @@ class EntryAddingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<EntryAddingButtonBloc, EntryAddingButtonState>(
-      listenWhen: (previous, current) =>
-          previous != CalendarEntryAddingButtonSuccess,
+    return BlocListener<EntryAddingBloc, EntryAddingState>(
+      listenWhen: (previous, current) => !previous.succes,
       listener: (context, state) {
-        if (state is CalendarEntryAddingButtonSuccess) {
+        if (state.succes) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

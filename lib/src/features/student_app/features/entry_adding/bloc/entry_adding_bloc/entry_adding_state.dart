@@ -3,33 +3,26 @@
 part of 'entry_adding_bloc.dart';
 
 class EntryAddingValidationResponse {
-  final bool isValid;
-  final StateInvalidityType? stateInvalidityType;
+  final StateInvalidityType stateInvalidityType;
   final dynamic value;
 
   EntryAddingValidationResponse(
-      {required this.isValid, this.stateInvalidityType, this.value});
+      {required this.stateInvalidityType, this.value});
 
-  EntryAddingValidationResponse copyWith({
-    bool? isValid,
-    StateInvalidityType? stateInvalidityType,
-    dynamic value,
-  }) {
-    return EntryAddingValidationResponse(
-      isValid: isValid ?? this.isValid,
-      stateInvalidityType: stateInvalidityType ?? this.stateInvalidityType,
-      value: value ?? this.value,
-    );
-  }
+  @override
+  String toString() =>
+      'EntryAddingValidationResponse(stateInvalidityType: $stateInvalidityType, value: $value)';
 }
 
 enum StateInvalidityType {
+  noEntryType,
   futureError,
   schoolOnlyToday,
   enrtyWithThisDateExists,
   noLessonsToday,
   distanceToSchool,
   errorOnGeopositionCheck,
+  unexpectedError,
 }
 
 sealed class EntryAddingState {
@@ -43,58 +36,55 @@ sealed class EntryAddingState {
 
   const EntryAddingState(
       {required this.calendarFormat,
-      this.entryType,
+      required this.entryType,
       required this.entriesList,
       required this.lectionsList,
       required this.date,
-      this.validationResponse});
+      required this.validationResponse});
 
   /// The date is initial.
   const factory EntryAddingState.initial({
     required DateTime date,
-    EntryType? entryType,
+    required EntryType? entryType,
     required CalendarFormat calendarFormat,
     required List<Entry> entriesList,
     required List<Lection> lectionsList,
+    required EntryAddingValidationResponse? validationResponse,
   }) = _InitialEntryAddingState;
 
   /// The date is validating.
   const factory EntryAddingState.validating({
     required DateTime date,
-    EntryType? entryType,
+    required EntryType? entryType,
     required CalendarFormat calendarFormat,
     required List<Entry> entriesList,
     required List<Lection> lectionsList,
+    required EntryAddingValidationResponse? validationResponse,
   }) = _ValidatingEntryAddingState;
 
-  /// The date is valid.
-  const factory EntryAddingState.valid({
+  /// The date is succes.
+  const factory EntryAddingState.succes({
     required DateTime date,
     required EntryType entryType,
     required CalendarFormat calendarFormat,
     required List<Entry> entriesList,
     required List<Lection> lectionsList,
-  }) = _ValidEntryAddingState;
-
-  /// The date is invalid.
-  const factory EntryAddingState.invalid({
-    required DateTime date,
-    EntryType? entryType,
-    required CalendarFormat calendarFormat,
-    required List<Entry> entriesList,
-    required List<Lection> lectionsList,
-    required EntryAddingValidationResponse validationResponse,
-  }) = _InvalidEntryAddingState;
+    required EntryAddingValidationResponse? validationResponse,
+  }) = _SuccesEntryAddingState;
 
   /// The date has an error.
   const factory EntryAddingState.error({
     required Object error,
     required DateTime date,
-    EntryType? entryType,
+    required EntryType? entryType,
     required CalendarFormat calendarFormat,
     required List<Entry> entriesList,
     required List<Lection> lectionsList,
+    required EntryAddingValidationResponse validationResponse,
   }) = _ErrorEntryAddingState;
+
+  /// Check if state is is an Valid state.
+  bool get isValid => _isNewStateValid(actualState: this) == null;
 
   /// Check if state is initial.
   bool get initial => switch (this) {
@@ -108,15 +98,9 @@ sealed class EntryAddingState {
         _ => false,
       };
 
-  /// Check if state is valid.
-  bool get valid => switch (this) {
-        _ValidEntryAddingState _ => true,
-        _ => false,
-      };
-
-  /// Check if state is invalid.
-  bool get invalid => switch (this) {
-        _InvalidEntryAddingState _ => true,
+  /// Check if state is succes.
+  bool get succes => switch (this) {
+        _SuccesEntryAddingState _ => true,
         _ => false,
       };
 
@@ -134,6 +118,7 @@ final class _InitialEntryAddingState extends EntryAddingState {
     required super.calendarFormat,
     required super.entriesList,
     required super.lectionsList,
+    required super.validationResponse,
   });
 
   @override
@@ -164,10 +149,11 @@ final class _InitialEntryAddingState extends EntryAddingState {
 final class _ValidatingEntryAddingState extends EntryAddingState {
   const _ValidatingEntryAddingState({
     required super.date,
-    super.entryType,
+    required super.entryType,
     required super.calendarFormat,
     required super.entriesList,
     required super.lectionsList,
+    required super.validationResponse,
   });
 
   @override
@@ -195,19 +181,20 @@ final class _ValidatingEntryAddingState extends EntryAddingState {
       'EntryAddingState.validating(date: $date, entryType: $entryType, calendarFormat: $calendarFormat, entriesList: $entriesList, lectionsList: $lectionsList)';
 }
 
-final class _ValidEntryAddingState extends EntryAddingState {
-  const _ValidEntryAddingState({
+final class _SuccesEntryAddingState extends EntryAddingState {
+  const _SuccesEntryAddingState({
     required super.date,
     required super.entryType,
     required super.calendarFormat,
     required super.entriesList,
     required super.lectionsList,
+    required super.validationResponse,
   });
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is _ValidEntryAddingState &&
+    return other is _SuccesEntryAddingState &&
         other.date == date &&
         other.entryType == entryType &&
         other.calendarFormat == calendarFormat &&
@@ -229,45 +216,6 @@ final class _ValidEntryAddingState extends EntryAddingState {
       'EntryAddingState.valid(date: $date, entryType: $entryType, calendarFormat: $calendarFormat, entriesList: $entriesList, lectionsList: $lectionsList)';
 }
 
-final class _InvalidEntryAddingState extends EntryAddingState {
-  final EntryAddingValidationResponse validationResponse;
-
-  const _InvalidEntryAddingState({
-    required this.validationResponse,
-    required super.date,
-    super.entryType,
-    required super.calendarFormat,
-    required super.entriesList,
-    required super.lectionsList,
-  });
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is _InvalidEntryAddingState &&
-        other.validationResponse == validationResponse &&
-        other.date == date &&
-        other.entryType == entryType &&
-        other.calendarFormat == calendarFormat &&
-        listEquals(other.entriesList, entriesList) &&
-        listEquals(other.lectionsList, lectionsList);
-  }
-
-  @override
-  int get hashCode => Object.hash(
-        validationResponse,
-        date,
-        entryType,
-        calendarFormat,
-        entriesList,
-        lectionsList,
-      );
-
-  @override
-  String toString() =>
-      'EntryAddingState.invalid(stateInvalidityType: $validationResponse, date: $date, entryType: $entryType, calendarFormat: $calendarFormat, entriesList: $entriesList, lectionsList: $lectionsList)';
-}
-
 final class _ErrorEntryAddingState extends EntryAddingState {
   /// The error.
   final Object error;
@@ -275,10 +223,11 @@ final class _ErrorEntryAddingState extends EntryAddingState {
   const _ErrorEntryAddingState({
     required this.error,
     required super.date,
-    super.entryType,
+    required super.entryType,
     required super.calendarFormat,
     required super.entriesList,
     required super.lectionsList,
+    required super.validationResponse,
   });
 
   @override
