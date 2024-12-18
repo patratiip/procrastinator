@@ -6,7 +6,7 @@ import 'package:procrastinator/src/core/constant/localization/generated/l10n.dar
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/dropdown_entry_type.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/button_entry_adding.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/error_message_entry_adding.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/message_entry_adding.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/calendar_entry_adding.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
@@ -20,9 +20,9 @@ class EntryAddingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<EntryAddingBloc, EntryAddingState>(
-      listenWhen: (previous, current) => !previous.succes,
+      listenWhen: (previous, current) => !previous.success,
       listener: (context, state) {
-        if (state.succes) {
+        if (state.success) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -65,16 +65,12 @@ class EntryAddingWidget extends StatelessWidget {
             ),
           );
         }
-        // if (state.status == CalendarStateStatus.error) {
-        //   ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        // }
       },
       child: Center(
         child: Padding(
           padding: const EdgeInsets.only(bottom: 24),
           child: Container(
             constraints: const BoxConstraints(maxWidth: 600),
-            // height: 400,
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(20),
@@ -85,8 +81,7 @@ class EntryAddingWidget extends StatelessWidget {
                 children: [
                   CalendarEntyAddingWidget(),
                   EntryTypeDropdownWidget(),
-                  ErrorMessageCalendarWidget(),
-                  // SuccesMessageEntryAddingWidget(),
+                  MessageCalendarWidget(),
                   EntryAddingButton(),
                 ],
               ),

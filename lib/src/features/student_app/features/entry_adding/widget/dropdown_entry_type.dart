@@ -13,6 +13,7 @@ class EntryTypeDropdownWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /// Aviable [EntryType]'s
     final List<DropdownMenuEntry> dropDownCalendarOptions = [
       DropdownMenuEntry(
           label: Localization.of(context).schoolEntryType,
@@ -28,42 +29,53 @@ class EntryTypeDropdownWidget extends StatelessWidget {
     ];
     return Container(
       margin: const EdgeInsets.only(top: 12, bottom: 22, left: 8, right: 8),
+      child: BlocBuilder<EntryAddingBloc, EntryAddingState>(
+        builder: (context, state) {
+          final selectedItem = state.entryType != null
+              ? dropDownCalendarOptions
+                  .where((element) => element.value == state.entryType)
+                  .first
+                  .value
+              : null;
+          return DropdownMenu(
+            enableSearch: false,
+            expandedInsets: EdgeInsets.zero,
+            hintText: Localization.of(context).entryTypeDropdownHintText,
+            textStyle: Theme.of(context).textTheme.titleMedium,
 
-      // width: double.infinity,
-      child: DropdownMenu(
-        enableSearch: false,
-        expandedInsets: EdgeInsets.zero,
-        // width: double.infinity,
-        hintText: Localization.of(context).entryTypeDropdownHintText,
-        dropdownMenuEntries: dropDownCalendarOptions,
-        textStyle: Theme.of(context).textTheme.titleMedium,
-        // controller: ,
+            // Entries
+            dropdownMenuEntries: dropDownCalendarOptions,
+            initialSelection: selectedItem,
 
-        ///INPUT
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          filled: true,
-          fillColor: Theme.of(context).colorScheme.surface,
-        ),
+            // Input decoration
+            inputDecorationTheme: InputDecorationTheme(
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              filled: true,
+              fillColor: Theme.of(context).colorScheme.surface,
+            ),
 
-        ///MENU
-        menuStyle: MenuStyle(
-            backgroundColor:
-                WidgetStatePropertyAll(Theme.of(context).colorScheme.surface),
-            surfaceTintColor: const WidgetStatePropertyAll(Colors.transparent),
-            shadowColor: const WidgetStatePropertyAll(Colors.transparent),
-            // side: MaterialStatePropertyAll(BorderSide()),
-            shape: WidgetStatePropertyAll(OutlinedBorder.lerp(
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                const RoundedRectangleBorder(),
-                0.1))),
-        onSelected: (entryType) {
-          final bloc = BlocProvider.of<EntryAddingBloc>(context);
+            // Menu style
+            menuStyle: MenuStyle(
+                backgroundColor: WidgetStatePropertyAll(
+                    Theme.of(context).colorScheme.surface),
+                surfaceTintColor:
+                    const WidgetStatePropertyAll(Colors.transparent),
+                shadowColor: const WidgetStatePropertyAll(Colors.transparent),
+                shape: WidgetStatePropertyAll(OutlinedBorder.lerp(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    const RoundedRectangleBorder(),
+                    0.1))),
 
-          bloc.add(EntryAddingEvent.stateDataChanged(entryType: entryType));
+            // Sending [entryType] to bloc
+            onSelected: (entryType) {
+              final bloc = BlocProvider.of<EntryAddingBloc>(context);
+              bloc.add(EntryAddingEvent.stateDataChanged(entryType: entryType));
+            },
+          );
         },
       ),
     );

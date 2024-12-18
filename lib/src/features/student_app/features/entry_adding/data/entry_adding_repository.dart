@@ -81,7 +81,7 @@ final class EntryAddingRepositoryImpl implements IEntryAddingRepository {
   }
 
   @override
-  Future<Position> determinePosition() {
+  Future<Position> determinePosition() async {
     return _entryAddingGeolocationDataProvider.determinePosition();
   }
 

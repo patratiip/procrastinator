@@ -24,14 +24,14 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
   EntryAddingBloc({
     required IEntryAddingRepository entryAddingRepository,
   })  : _entryAddingRepository = entryAddingRepository,
-        super(_InitialEntryAddingState(
+        super(_IdleEntryAddingState(
           date: _normalizeDate(DateTime.now()),
           entryType: null,
           calendarFormat: CalendarFormat.week,
           entriesList: [],
           lectionsList: [],
           validationResponse: EntryAddingValidationResponse(
-              stateInvalidityType: StateInvalidityType.noEntryType),
+              stateValidityType: StateValidityType.noEntryType),
         )) {
     _initializeListeners();
 
@@ -78,9 +78,8 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
       ));
 
       final validationResponse = _isNewStateValid(actualState: state);
-      log(validationResponse.toString());
 
-      emit(_InitialEntryAddingState(
+      emit(_IdleEntryAddingState(
         date: state.date,
         entryType: state.entryType,
         calendarFormat: state.calendarFormat,
@@ -148,7 +147,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         validationResponse: state.validationResponse,
       ));
     } finally {
-      emit(_InitialEntryAddingState(
+      emit(_IdleEntryAddingState(
         date: state.date,
         entryType: state.entryType,
         calendarFormat: state.calendarFormat,
@@ -178,7 +177,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
 
       if (distanceToSchool >= 100) {
         return EntryAddingValidationResponse(
-            stateInvalidityType: StateInvalidityType.distanceToSchool,
+            stateValidityType: StateValidityType.distanceToSchool,
             value: distanceToSchool.toInt());
       } else {
         return null;
@@ -187,7 +186,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
       onError(e, st);
       log(e.toString());
       return EntryAddingValidationResponse(
-          stateInvalidityType: StateInvalidityType.unexpectedError, value: e);
+          stateValidityType: StateValidityType.unexpectedError, value: e);
     }
   }
 

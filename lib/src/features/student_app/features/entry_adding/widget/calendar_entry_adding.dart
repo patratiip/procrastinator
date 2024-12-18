@@ -17,24 +17,19 @@ class CalendarEntyAddingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initializeDateFormatting('de_DE', null);
-    initializeDateFormatting('ru', null);
+    initializeDateFormatting('ru_RU', null);
     return BlocBuilder<EntryAddingBloc, EntryAddingState>(
       builder: (context, state) {
         final bloc = BlocProvider.of<EntryAddingBloc>(context);
-        var formatOfCalendar = state.calendarFormat;
-        var today = state.date;
+        final formatOfCalendar = state.calendarFormat;
+        final today = state.date;
         return TableCalendar(
           availableGestures: AvailableGestures.horizontalSwipe,
-
           rowHeight: 66,
 
-          ///HEADER Style
+          // Header Style
           headerStyle: HeaderStyle(
-            // leftChevronVisible: false,
-            // rightChevronVisible: false,
-
             headerPadding: const EdgeInsets.symmetric(vertical: 8.0),
-
             leftChevronIcon: const Icon(
               Icons.chevron_left_rounded,
               size: 34,
@@ -45,67 +40,56 @@ class CalendarEntyAddingWidget extends StatelessWidget {
               size: 34,
               color: Colors.grey,
             ),
-
-            rightChevronMargin: const EdgeInsets.symmetric(horizontal: 0),
-            leftChevronMargin: const EdgeInsets.symmetric(horizontal: 0),
             leftChevronPadding:
                 const EdgeInsets.only(top: 12, bottom: 12, right: 12),
             rightChevronPadding:
                 const EdgeInsets.only(top: 12, bottom: 12, left: 12),
 
-            //Button
+            // Calendar format button
             formatButtonDecoration: BoxDecoration(
-              // border: Border.fromBorderSide(BorderSide(color: MyAppColorScheme.primary)),
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               color: Theme.of(context).colorScheme.surface,
             ),
-
             titleTextFormatter: (date, locale) =>
                 DateFormat.yMMMM(locale).format(date),
             titleTextStyle: Theme.of(context).textTheme.titleMedium!,
             formatButtonTextStyle: Theme.of(context).textTheme.bodyLarge!,
           ),
 
+          // Calendar style
           calendarStyle: const CalendarStyle(
             markerSize: 44,
-
             defaultTextStyle: TextStyle(fontSize: 18),
-
-            //TODAY Style
-
+            // Today style
             markerSizeScale: 2,
             todayTextStyle:
                 TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
             todayDecoration: BoxDecoration(
-                color: Color.fromARGB(255, 202, 200, 255),
+                color: Color.fromARGB(255, 162, 159, 255),
                 shape: BoxShape.circle),
-
-            //SELECTED Style
+            // Selected day style
             selectedTextStyle: TextStyle(
-                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w600),
+                color: Colors.white, fontSize: 24, fontWeight: FontWeight.w700),
             selectedDecoration: BoxDecoration(
                 color: MyAppColorScheme.primary, shape: BoxShape.circle),
           ),
-          // daysOfWeekHeight: 24,
-          // pageJumpingEnabled: true,
+
+          // Animations
           formatAnimationCurve: Curves.easeInOut,
           formatAnimationDuration: const Duration(milliseconds: 300),
 
+          // Day of week
           daysOfWeekStyle: DaysOfWeekStyle(
             dowTextFormatter: (date, locale) =>
                 DateFormat.E(locale).format(date).substring(0, 2),
           ),
-          // weekendDays: [DateTime.saturday, DateTime.sunday],
-          focusedDay: today!,
+          focusedDay: today,
           firstDay: DateTime(1900),
           lastDay: DateTime(3000),
           //
           selectedDayPredicate: (day) => isSameDay(day, today),
-
-          locale: Localizations.localeOf(context).languageCode
-          // 'de_DE'
-          ,
-
+          locale: Localizations.localeOf(context).languageCode,
+          // Available calendar formats
           availableCalendarFormats: {
             CalendarFormat.month: Localization.of(context).calendarFormatButton,
             CalendarFormat.twoWeeks:
@@ -113,17 +97,18 @@ class CalendarEntyAddingWidget extends StatelessWidget {
             CalendarFormat.week:
                 Localization.of(context).calendarFormatButtonWeek
           },
-
+          // Changing calendar format
           onFormatChanged: (format) {
-            if (formatOfCalendar == CalendarFormat.week) {
-              bloc.add(const EntryAddingEvent.stateDataChanged(
-                  calendarFormat: CalendarFormat.month));
-            } else if (formatOfCalendar == CalendarFormat.month) {
-              bloc.add(const EntryAddingEvent.stateDataChanged(
-                  calendarFormat: CalendarFormat.twoWeeks));
-            } else if (formatOfCalendar == CalendarFormat.twoWeeks) {
-              bloc.add(const EntryAddingEvent.stateDataChanged(
-                  calendarFormat: CalendarFormat.week));
+            switch (formatOfCalendar) {
+              case CalendarFormat.week:
+                bloc.add(const EntryAddingEvent.stateDataChanged(
+                    calendarFormat: CalendarFormat.month));
+              case CalendarFormat.month:
+                bloc.add(const EntryAddingEvent.stateDataChanged(
+                    calendarFormat: CalendarFormat.twoWeeks));
+              case CalendarFormat.twoWeeks:
+                bloc.add(const EntryAddingEvent.stateDataChanged(
+                    calendarFormat: CalendarFormat.week));
             }
           },
           calendarFormat: formatOfCalendar,

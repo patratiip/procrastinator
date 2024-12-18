@@ -5,11 +5,11 @@ import 'package:procrastinator/src/features/student_app/features/entry_adding/bl
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template error_message_calendar_widget}
-/// Widget that shows error message in [CalendarEntryAddingWidget]
+/// Widget that shows message in [CalendarEntryAddingWidget] if it's needed
 /// {@endtemplate}
-class ErrorMessageCalendarWidget extends StatelessWidget {
+class MessageCalendarWidget extends StatelessWidget {
   /// {@macro error_message_calendar_widget}
-  const ErrorMessageCalendarWidget({super.key});
+  const MessageCalendarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,32 +17,35 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
         builder: (context, state) {
       if (!state.isValid) {
         return Container(
-          child: switch (state.validationResponse!.stateInvalidityType) {
-            StateInvalidityType.noEntryType => const SizedBox.shrink(),
-            StateInvalidityType.futureError => _ErrorTextWidget(
+          child: switch (state.validationResponse!.stateValidityType) {
+            StateValidityType.noEntryType => const SizedBox.shrink(),
+            StateValidityType.futureError => _ValidityStateTextWidget(
                 text:
                     Localization.of(context).calendarStateErrorMessage_future),
-            StateInvalidityType.schoolOnlyToday => _ErrorTextWidget(
+            StateValidityType.schoolOnlyToday => _ValidityStateTextWidget(
                 text: Localization.of(context)
                     .calendarStateErrorMessage_schoolTypeOnlyToday,
                 // child: _ErrorActionButton(
                 //     text: Localization.of(context)
                 //         .calendarStateErrorMessage_buttonText_youAreForgot),
               ),
-            StateInvalidityType.enrtyWithThisDateExists => _ErrorTextWidget(
-                text: Localization.of(context)
-                    .calendarStateErrorMessage_thisDateExists),
-            StateInvalidityType.noLessonsToday => _ErrorTextWidget(
+            StateValidityType.enrtyWithThisDateExists =>
+              _ValidityStateTextWidget(
+                  text: Localization.of(context)
+                      .calendarStateErrorMessage_thisDateExists),
+            StateValidityType.noLessonsToday => _ValidityStateTextWidget(
                 text: Localization.of(context)
                     .calendarStateErrorMessage_noLessonsToday),
-            StateInvalidityType.distanceToSchool => _ErrorTextWidget(
+            StateValidityType.distanceToSchool => _ValidityStateTextWidget(
                 text: Localization.of(context)
                     .calendarStateErrorMessage_distanceToSchool(
                         state.validationResponse!.value)),
-            StateInvalidityType.errorOnGeopositionCheck =>
-              const _ErrorTextWidget(text: ''),
-            StateInvalidityType.unexpectedError =>
-              const _ErrorTextWidget(text: 'Unexpected Error'),
+
+            //TODO: handle cases down
+            StateValidityType.errorOnGeopositionCheck =>
+              const _ValidityStateTextWidget(text: ''),
+            StateValidityType.unexpectedError =>
+              const _ValidityStateTextWidget(text: 'Unexpected Error'),
           },
         );
       } else {
@@ -52,17 +55,29 @@ class ErrorMessageCalendarWidget extends StatelessWidget {
   }
 }
 
-class _ErrorTextWidget extends StatelessWidget {
+/// {@template _error_text_widget}
+/// [_ValidityStateTextWidget] shows a invalidity message from [EntryAddingBloc].
+/// {@endtemplate}
+/// {@macro _error_text_widget}
+class _ValidityStateTextWidget extends StatelessWidget {
+  final bool isSuccess;
   final String text;
   final Widget? child;
-  const _ErrorTextWidget({super.key, this.child, required this.text});
+  const _ValidityStateTextWidget({
+    super.key,
+    this.child,
+    required this.text,
+    this.isSuccess = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       width: double.infinity,
-      color: MyAppColorScheme.errorColor,
+      color: isSuccess
+          ? MyAppColorScheme.sucsessColor
+          : MyAppColorScheme.errorColor,
       child: Column(
         children: [
           Text(
