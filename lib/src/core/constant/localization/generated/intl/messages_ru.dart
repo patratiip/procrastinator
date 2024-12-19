@@ -72,6 +72,7 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Запись с этой датой уже существует"),
         "contacts": MessageLookupByLibrary.simpleMessage("Контакты"),
         "dashboardAppBarText": MessageLookupByLibrary.simpleMessage("Главная"),
+        "dateText": MessageLookupByLibrary.simpleMessage("Дата"),
         "deleteEntryDialogHeader":
             MessageLookupByLibrary.simpleMessage("Удалить запись"),
         "deleteEntryShureTextDialog": MessageLookupByLibrary.simpleMessage(
@@ -119,13 +120,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "profileAppBarText": MessageLookupByLibrary.simpleMessage("Профиль"),
         "profileEdit":
             MessageLookupByLibrary.simpleMessage("Редактировать профиль"),
+        "reasonTextFieldLabel": MessageLookupByLibrary.simpleMessage("Причина"),
         "registrationButtonText":
             MessageLookupByLibrary.simpleMessage("Зарегистрировать"),
+        "requestSendedButtonText":
+            MessageLookupByLibrary.simpleMessage("Запрос отправлен"),
+        "schoolAttendanceRequest":
+            MessageLookupByLibrary.simpleMessage("Запрос о посещении школы"),
         "schoolEntryType": MessageLookupByLibrary.simpleMessage("Школа"),
         "schoolLocationDropDownText":
             MessageLookupByLibrary.simpleMessage("Выберите расположение школы"),
         "selectAUserTypeText":
             MessageLookupByLibrary.simpleMessage("Выберите тип пользователя"),
+        "sendRequestButtonText":
+            MessageLookupByLibrary.simpleMessage("Отправить запрос"),
         "settingsLabelText": MessageLookupByLibrary.simpleMessage("Настройки"),
         "settingsOptionAppTheme": MessageLookupByLibrary.simpleMessage("Тема"),
         "settingsOptionLanguage": MessageLookupByLibrary.simpleMessage("Язык"),

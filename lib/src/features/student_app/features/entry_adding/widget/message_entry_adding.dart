@@ -107,8 +107,11 @@ class _ErrorActionButton extends StatelessWidget {
           backgroundColor: WidgetStatePropertyAll(Colors.white)),
       onPressed: () => showModalBottomSheet(
         context: context,
-        builder: (_) => BottomSheetWidget(
-            child: ForgottenEntryBottomSheetContent(parentContext: context)),
+        isScrollControlled: true,
+        builder: (_) => SafeArea(
+          child: BottomSheetWidget(
+              child: ForgottenEntryBottomSheetContent(parentContext: context)),
+        ),
       ),
       child: Text(
         text,

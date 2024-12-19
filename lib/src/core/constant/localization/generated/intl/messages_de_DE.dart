@@ -75,6 +75,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "contacts": MessageLookupByLibrary.simpleMessage("Kontakten"),
         "dashboardAppBarText":
             MessageLookupByLibrary.simpleMessage("Dashboard"),
+        "dateText": MessageLookupByLibrary.simpleMessage("Datum"),
         "deleteEntryDialogHeader":
             MessageLookupByLibrary.simpleMessage("Anmeldung löschen"),
         "deleteEntryShureTextDialog": MessageLookupByLibrary.simpleMessage(
@@ -122,13 +123,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "profileAppBarText": MessageLookupByLibrary.simpleMessage("Profil"),
         "profileEdit":
             MessageLookupByLibrary.simpleMessage("Profile bearbeiten"),
+        "reasonTextFieldLabel": MessageLookupByLibrary.simpleMessage("Grund"),
         "registrationButtonText":
             MessageLookupByLibrary.simpleMessage("Registrieren"),
+        "requestSendedButtonText":
+            MessageLookupByLibrary.simpleMessage("Anfrage gesendet"),
+        "schoolAttendanceRequest":
+            MessageLookupByLibrary.simpleMessage("Antrag auf Schulbesuch"),
         "schoolEntryType": MessageLookupByLibrary.simpleMessage("Schule"),
         "schoolLocationDropDownText": MessageLookupByLibrary.simpleMessage(
             "Wählen Sie den Standort der Schule"),
         "selectAUserTypeText":
             MessageLookupByLibrary.simpleMessage("Wählen Sie den Benutzertyp"),
+        "sendRequestButtonText":
+            MessageLookupByLibrary.simpleMessage("Anfrage senden"),
         "settingsLabelText":
             MessageLookupByLibrary.simpleMessage("Einstellungen"),
         "settingsOptionAppTheme":

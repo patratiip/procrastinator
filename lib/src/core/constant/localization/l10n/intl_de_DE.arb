@@ -72,5 +72,10 @@
   "appThemeTitleLight": "Licht",
   "appThemeTitleDark": "Dunkel",
   "appThemeTitleDefault": "Automatisch",
-  "lectionInfoHeader": "Informationen zur Vorlesung"
+  "lectionInfoHeader": "Informationen zur Vorlesung",
+  "schoolAttendanceRequest": "Antrag auf Schulbesuch",
+  "dateText": "Datum",
+  "reasonTextFieldLabel": "Grund",
+  "sendRequestButtonText": "Anfrage senden",
+  "requestSendedButtonText": "Anfrage gesendet"
 }

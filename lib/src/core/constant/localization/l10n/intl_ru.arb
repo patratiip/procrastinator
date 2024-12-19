@@ -72,5 +72,10 @@
   "appThemeTitleLight": "Светлая",
   "appThemeTitleDark": "Тёмная",
   "appThemeTitleDefault": "Автоматически",
-  "lectionInfoHeader": "Информация о лекции"
+  "lectionInfoHeader": "Информация о лекции",
+  "schoolAttendanceRequest": "Запрос о посещении школы",
+  "dateText": "Дата",
+  "reasonTextFieldLabel": "Причина",
+  "sendRequestButtonText": "Отправить запрос",
+  "requestSendedButtonText": "Запрос отправлен"
 }

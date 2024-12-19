@@ -72,5 +72,10 @@
   "appThemeTitleLight": "Light",
   "appThemeTitleDark": "Dark",
   "appThemeTitleDefault": "Default",
-  "lectionInfoHeader": "Lection information"
+  "lectionInfoHeader": "Lection information",
+  "schoolAttendanceRequest": "School attendance request",
+  "dateText": "Date",
+  "reasonTextFieldLabel": "Reason",
+  "sendRequestButtonText": "Send request",
+  "requestSendedButtonText": "Request sended"
 }

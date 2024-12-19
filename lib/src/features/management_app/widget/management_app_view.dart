@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/features/management_app/main_screen/management_main_screen.dart';
-import 'package:procrastinator/src/features/management_app/management_profile_screen/management_profile_screen.dart';
-import 'package:procrastinator/src/features/management_app/users_screen/view/users_screen.dart';
+import 'package:procrastinator/src/features/management_app/feature/main_screen/management_main_screen.dart';
+import 'package:procrastinator/src/features/management_app/feature/management_profile_screen/management_profile_screen.dart';
+import 'package:procrastinator/src/features/management_app/feature/users_screen/view/users_screen.dart';
 
 class ManagementAppView extends StatefulWidget {
   const ManagementAppView({super.key});

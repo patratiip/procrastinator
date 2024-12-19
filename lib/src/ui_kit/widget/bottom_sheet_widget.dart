@@ -26,56 +26,61 @@ class BottomSheetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // height: height ?? 400,
-      constraints: const BoxConstraints(maxWidth: 600),
-      padding: padding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: SingleChildScrollView(
+        child: Container(
+          constraints: const BoxConstraints(maxWidth: 600),
+          padding: padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              // Placeholder
-              const SizedBox(height: 26, width: 26),
-              // Swiper
-              closable
-                  ? const SizedBox(height: 5, width: 60)
-                  : Container(
-                      height: 5,
-                      width: 60,
-                      margin: const EdgeInsets.only(bottom: 16),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).colorScheme.onSurface,
-                          borderRadius: BorderRadius.circular(8)),
-                    ),
-              // Closer
-              closable
-                  ? GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: Container(
-                        height: 26,
-                        width: 26,
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).colorScheme.onSurface,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Icon(
-                          Icons.close_rounded,
-                          color: Theme.of(context).cardColor,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  // Placeholder
+                  const SizedBox(height: 26, width: 26),
+                  // Swiper
+                  closable
+                      ? const SizedBox(height: 5, width: 60)
+                      : Container(
+                          height: 5,
+                          width: 60,
+                          margin: const EdgeInsets.only(bottom: 16),
+                          decoration: BoxDecoration(
+                              color: Theme.of(context).colorScheme.onTertiary,
+                              borderRadius: BorderRadius.circular(8)),
                         ),
-                      ),
-                    )
-                  : const SizedBox(height: 26, width: 26),
+                  // Closer
+                  closable
+                      ? GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Container(
+                            height: 26,
+                            width: 26,
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.onTertiary,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Icon(
+                              Icons.close_rounded,
+                              color: Theme.of(context).cardColor,
+                            ),
+                          ),
+                        )
+                      : const SizedBox(height: 26, width: 26),
+                ],
+              ),
+
+              // Content
+              child,
             ],
           ),
-
-          // Content
-          child,
-        ],
+        ),
       ),
     );
   }

@@ -1,11 +1,14 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/features/settings/widget/settings_screen.dart';
 import 'package:procrastinator/src/features/student_app/features/student_profile_screen/bloc/user_profile_bloc.dart';
 import 'package:procrastinator/src/shared/view/widgets/feature_card_component.dart';
 import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
+import 'package:procrastinator/src/ui_kit/widget/user_image_widget.dart';
 
 /// {@template student_profile_screen}
 /// Widget that shows [StudentProfileScreen]
@@ -28,7 +31,10 @@ class StudentProfileScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Curent [User] profile image
-                  Photo(state.user!.photoURL),
+                  UserImageWidget(
+                    userImageUrl: state.user!.photoURL,
+                    size: 160,
+                  ),
 
                   Padding(
                     padding: const EdgeInsets.only(
@@ -115,31 +121,7 @@ class StudentProfileScreen extends StatelessWidget {
   }
 }
 
-class Photo extends StatelessWidget {
-  final String? userPhoto;
-  const Photo(this.userPhoto, {super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        height: 160,
-        width: 160,
-        clipBehavior: Clip.hardEdge,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: userPhoto != null
-                ? NetworkImage(userPhoto!)
-                : const NetworkImage(
-                    'https://images.unsplash.com/photo-1589652717406-1c69efaf1ff8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NTYyMDF8MHwxfHNlYXJjaHwzfHxkb2clMjBjb21wdXRlcnxlbnwwfHx8fDE3MDY1Mjk2MDF8MA&ixlib=rb-4.0.3&q=80&w=1080'),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: const BorderRadius.all(Radius.circular(32)),
-        ),
-      ),
-    );
-  }
-}
 
 // class UserPhotoWidget extends StatelessWidget {
 //   final String? userPhoto;

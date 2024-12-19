@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:group_repository/group_repository.dart';
-import 'package:procrastinator/src/features/management_app/main_screen/group_list/group_list.dart';
+import 'package:procrastinator/src/features/management_app/feature/main_screen/group_list/group_list.dart';
 import 'package:user_repository/user_repository.dart';
 
 class ManagementMainScreen extends StatelessWidget {

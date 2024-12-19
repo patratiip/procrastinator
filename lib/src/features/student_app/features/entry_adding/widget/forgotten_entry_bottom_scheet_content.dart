@@ -10,6 +10,7 @@ import 'package:procrastinator/src/features/student_app/features/entry_adding/bl
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/forgotten_entry_cubit/forgotten_entry_cubit.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/my_circular_progress.dart';
+import 'package:procrastinator/src/ui_kit/widget/user_image_widget.dart';
 
 class ForgottenEntryBottomSheetContent extends StatelessWidget {
   final BuildContext parentContext;
@@ -44,15 +45,20 @@ class ForgottenEntryBottomSheetContent extends StatelessWidget {
           builder: (context, state) {
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              // mainAxisSize: MainAxisSize.max,
               children: [
                 // Header
                 Text(
-                  'School attendance request',
+                  Localization.of(context).schoolAttendanceRequest,
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 32),
                 // Content
+                // User image
+                UserImageWidget(
+                  userImageUrl: user.photoURL,
+                  size: 80,
+                ),
+                const SizedBox(height: 16),
                 // User
                 Text(
                   user.name ?? 'User Name',
@@ -60,15 +66,15 @@ class ForgottenEntryBottomSheetContent extends StatelessWidget {
                 ),
                 // Date
                 Text(
-                  'Date: ${dateFormat.format(state.date)}',
+                  '${Localization.of(context).dateText}: ${dateFormat.format(state.date)}',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
 
-                const SizedBox(height: 22),
+                const SizedBox(height: 16),
                 // TextField
-                _CommentTextField(),
-                const SizedBox(height: 22),
-                SizedBox(
+                const _CommentTextField(),
+                const SizedBox(height: 16),
+                const SizedBox(
                   width: double.infinity,
                   height: 60,
                   child: _SendForgottenEntryRequestButton(),
@@ -95,7 +101,7 @@ class _SendForgottenEntryRequestButton extends StatelessWidget {
             state.reason.isNotEmpty) {
           return ElevatedButton(
             child: Text(
-              'Send request',
+              Localization.of(context).sendRequestButtonText,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Colors.white,
                   ),
@@ -130,7 +136,7 @@ class _SendForgottenEntryRequestButton extends StatelessWidget {
                       color: Colors.white,
                       animateIcon: AnimateIcons.cloud),
                 ),
-                Text('Request sended',
+                Text(Localization.of(context).requestSendedButtonText,
                     style: Theme.of(context)
                         .textTheme
                         .labelLarge!
@@ -140,15 +146,15 @@ class _SendForgottenEntryRequestButton extends StatelessWidget {
           );
         } else {
           return ElevatedButton(
+            style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.grey)),
+            onPressed: () {},
             child: Text(
-              'Send request',
+              Localization.of(context).sendRequestButtonText,
               style: Theme.of(context).textTheme.titleLarge!.copyWith(
                     color: Colors.white,
                   ),
             ),
-            style: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(Colors.grey)),
-            onPressed: () {},
           );
         }
       },
@@ -158,48 +164,44 @@ class _SendForgottenEntryRequestButton extends StatelessWidget {
 
 /// Comment text field
 class _CommentTextField extends StatelessWidget {
-  _CommentTextField();
+  const _CommentTextField();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ForgottenEntryCubit, ForgottenEntryState>(
-      // buildWhen: (previous, current) => previous.reason != current.reason,
       builder: (context, state) {
-        return TextFormField(
-          // key: const Key('loginForm_emailInput_textField'),
-          onChanged: (reason) =>
-              context.read<ForgottenEntryCubit>().reasonChanged(reason),
-          // focusNode: nodeEmail,
-          autofocus: false,
-          // autofillHints: const [AutofillHints.username],
+        return ConstrainedBox(
+          constraints: const BoxConstraints(maxHeight: 100),
+          child: TextFormField(
+            // key: const Key('loginForm_emailInput_textField'),
+            onChanged: (reason) =>
+                context.read<ForgottenEntryCubit>().reasonChanged(reason),
+            autofocus: false,
+            minLines: 1,
+            maxLines: null,
+            maxLength: 300,
 
-          //FORMATORS
-          inputFormatters: const [
-            //allowing ---- !!!Look info about Regular Expressions!!!
-            //FilteringTextInputFormatter.allow(RegExp(r'[/d]+'))
-          ],
+            //KEYBOARD properties
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.done,
 
-          //KEYBOARD properties
-          keyboardType: TextInputType.multiline,
-          textInputAction: TextInputAction.done,
-          // keyboardAppearance: Brightness.dark,
+            //CURSOR
+            cursorColor: MyAppColorScheme.primary,
 
-          //CURSOR
-          cursorColor: MyAppColorScheme.primary,
-
-          // CORRECTIONS
-          autocorrect: false,
-          enableSuggestions: false,
-          textCapitalization: TextCapitalization.none,
-          decoration: const InputDecoration(
-            focusedBorder: MyThemeTextField.focusedBorder,
-            focusedErrorBorder: MyThemeTextField.errorBorder,
-            errorBorder: MyThemeTextField.errorBorder,
-            contentPadding: EdgeInsets.all(14),
-            border: MyThemeTextField.textFieldInputBorder,
-            label: Text(
-              'Reason',
-              style: TextStyle(fontSize: 16, color: Colors.grey),
+            // CORRECTIONS
+            autocorrect: false,
+            enableSuggestions: false,
+            textCapitalization: TextCapitalization.none,
+            decoration: InputDecoration(
+              focusedBorder: MyThemeTextField.focusedBorder,
+              focusedErrorBorder: MyThemeTextField.errorBorder,
+              errorBorder: MyThemeTextField.errorBorder,
+              contentPadding: const EdgeInsets.all(14),
+              border: MyThemeTextField.textFieldInputBorder,
+              label: Text(
+                Localization.of(context).reasonTextFieldLabel,
+                style: const TextStyle(fontSize: 16, color: Colors.grey),
+              ),
             ),
           ),
         );

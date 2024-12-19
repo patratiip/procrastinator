@@ -790,6 +790,56 @@ class Localization {
       args: [],
     );
   }
+
+  /// `School attendance request`
+  String get schoolAttendanceRequest {
+    return Intl.message(
+      'School attendance request',
+      name: 'schoolAttendanceRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get dateText {
+    return Intl.message(
+      'Date',
+      name: 'dateText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reason`
+  String get reasonTextFieldLabel {
+    return Intl.message(
+      'Reason',
+      name: 'reasonTextFieldLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send request`
+  String get sendRequestButtonText {
+    return Intl.message(
+      'Send request',
+      name: 'sendRequestButtonText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request sended`
+  String get requestSendedButtonText {
+    return Intl.message(
+      'Request sended',
+      name: 'requestSendedButtonText',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localization> {
