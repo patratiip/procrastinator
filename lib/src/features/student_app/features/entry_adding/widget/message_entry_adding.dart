@@ -102,7 +102,7 @@ class _ErrorActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return ElevatedButton(
       style: const ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(Colors.white)),
       onPressed: () => showModalBottomSheet(

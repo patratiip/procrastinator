@@ -10,7 +10,8 @@ import 'package:procrastinator/src/features/student_app/features/student_main_sc
 /// {@endtemplate }
 class StudentMainScreen extends StatelessWidget {
   /// {@macro student_main_screen_widget}
-  StudentMainScreen({super.key});
+   StudentMainScreen({super.key});
+
   final ScrollController _scrollController = ScrollController();
 
   @override

@@ -1,5 +1,7 @@
+import 'package:animated_icon/animated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/text_field_theme.dart';
 import 'package:procrastinator/src/features/app/di/app_scope.dart';
@@ -7,6 +9,7 @@ import 'package:procrastinator/src/features/student_app/di/student_app_scope.dar
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/forgotten_entry_cubit/forgotten_entry_cubit.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
+import 'package:procrastinator/src/ui_kit/widget/my_circular_progress.dart';
 
 class ForgottenEntryBottomSheetContent extends StatelessWidget {
   final BuildContext parentContext;
@@ -15,6 +18,7 @@ class ForgottenEntryBottomSheetContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dateFormat = DateFormat('dd.MM.yy');
     final bloc = BlocProvider.of<EntryAddingBloc>(parentContext);
     final entryAddingRepository =
         StudentAppScope.depConOf(parentContext).entryAddingRepository;
@@ -28,52 +32,126 @@ class ForgottenEntryBottomSheetContent extends StatelessWidget {
       create: (context) => ForgottenEntryCubit(
           entryAddingRepository: entryAddingRepository,
           initialState: forgottenState),
-      child: BlocBuilder<ForgottenEntryCubit, ForgottenEntryState>(
-        builder: (context, state) {
-          return Column(
-            children: [
-              // Header
-              Text(
-                'School attendance request',
-                style: Theme.of(context).textTheme.titleLarge,
-              ),
-              const SizedBox(height: 32),
-              // Content
-              // Date
-              Text(
-                state.date.toString(),
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-
-              // User
-              Text(
-                user.name ?? 'User Name',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 22),
-              // TextField
-              _CommentTextField(),
-              const SizedBox(height: 22),
-              SizedBox(
-                width: double.infinity,
-                height: 60,
-                child: ElevatedButton(
-                  child: Text(
-                    'Send request',
-                    style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                          color: Colors.white,
-                        ),
-                  ),
-                  onPressed: () {
-                    final cubit = context.read<ForgottenEntryCubit>();
-                    cubit.sendForgottenEntryRequest();
-                  },
-                ),
-              )
-            ],
-          );
+      child: BlocListener<ForgottenEntryCubit, ForgottenEntryState>(
+        listener: (context, state) {
+          if (state.status == ForgottenEntryStateStatus.success) {
+            Future<void>.delayed(const Duration(seconds: 3), () {
+              Navigator.pop(context);
+            });
+          }
         },
+        child: BlocBuilder<ForgottenEntryCubit, ForgottenEntryState>(
+          builder: (context, state) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisSize: MainAxisSize.max,
+              children: [
+                // Header
+                Text(
+                  'School attendance request',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: 32),
+                // Content
+                // User
+                Text(
+                  user.name ?? 'User Name',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                // Date
+                Text(
+                  'Date: ${dateFormat.format(state.date)}',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+
+                const SizedBox(height: 22),
+                // TextField
+                _CommentTextField(),
+                const SizedBox(height: 22),
+                SizedBox(
+                  width: double.infinity,
+                  height: 60,
+                  child: _SendForgottenEntryRequestButton(),
+                )
+              ],
+            );
+          },
+        ),
       ),
+    );
+  }
+}
+
+class _SendForgottenEntryRequestButton extends StatelessWidget {
+  const _SendForgottenEntryRequestButton({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ForgottenEntryCubit, ForgottenEntryState>(
+      builder: (context, state) {
+        if (state.status == ForgottenEntryStateStatus.idle &&
+            state.reason.isNotEmpty) {
+          return ElevatedButton(
+            child: Text(
+              'Send request',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+            onPressed: () {
+              final cubit = context.read<ForgottenEntryCubit>();
+              cubit.sendForgottenEntryRequest();
+            },
+          );
+        } else if (state.status == ForgottenEntryStateStatus.inProgress) {
+          return ElevatedButton(
+            child: const MyCircularProgress(size: 20, color: Colors.white),
+            onPressed: () {},
+          );
+        } else if (state.status == ForgottenEntryStateStatus.success) {
+          return ElevatedButton(
+            style: const ButtonStyle(
+                backgroundColor:
+                    WidgetStatePropertyAll(MyAppColorScheme.sucsessColor)),
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 12),
+                  child: AnimateIcon(
+                      key: UniqueKey(),
+                      onTap: () {},
+                      iconType: IconType.continueAnimation,
+                      height: 28,
+                      width: 28,
+                      color: Colors.white,
+                      animateIcon: AnimateIcons.cloud),
+                ),
+                Text('Request sended',
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelLarge!
+                        .copyWith(color: Colors.white)),
+              ],
+            ),
+          );
+        } else {
+          return ElevatedButton(
+            child: Text(
+              'Send request',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Colors.white,
+                  ),
+            ),
+            style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.grey)),
+            onPressed: () {},
+          );
+        }
+      },
     );
   }
 }
@@ -93,7 +171,7 @@ class _CommentTextField extends StatelessWidget {
               context.read<ForgottenEntryCubit>().reasonChanged(reason),
           // focusNode: nodeEmail,
           autofocus: false,
-          autofillHints: const [AutofillHints.username],
+          // autofillHints: const [AutofillHints.username],
 
           //FORMATORS
           inputFormatters: const [
@@ -102,8 +180,8 @@ class _CommentTextField extends StatelessWidget {
           ],
 
           //KEYBOARD properties
-          keyboardType: TextInputType.emailAddress,
-          textInputAction: TextInputAction.next,
+          keyboardType: TextInputType.multiline,
+          textInputAction: TextInputAction.done,
           // keyboardAppearance: Brightness.dark,
 
           //CURSOR
@@ -113,91 +191,19 @@ class _CommentTextField extends StatelessWidget {
           autocorrect: false,
           enableSuggestions: false,
           textCapitalization: TextCapitalization.none,
-          decoration: InputDecoration(
-            // helperText: 'paste',
-            // helperMaxLines: 1,
-
-            // suffixIcon: (state.email.toString().isNotEmpty)
-            //     ? InkWell(
-            //         onTap: () {
-            //           context.read<LoginCubit>().emailClear();
-            //           controllerEmail.clear();
-            //         },
-            //         child: const Icon(
-            //           Icons.clear,
-            //           color: MyAppColorScheme.secondaryText,
-            //           size: 16,
-            //         ),
-            //       )
-            //     : null,
+          decoration: const InputDecoration(
             focusedBorder: MyThemeTextField.focusedBorder,
             focusedErrorBorder: MyThemeTextField.errorBorder,
             errorBorder: MyThemeTextField.errorBorder,
-            contentPadding: const EdgeInsets.all(14),
+            contentPadding: EdgeInsets.all(14),
             border: MyThemeTextField.textFieldInputBorder,
             label: Text(
               'Reason',
-              style: const TextStyle(fontSize: 16, color: Colors.grey),
+              style: TextStyle(fontSize: 16, color: Colors.grey),
             ),
-            // helperText: '',
-            // errorText: state.emailIsValid == false ? '' : null,
           ),
         );
       },
     );
   }
 }
-
-
-// /// AuthBUTTON
-// class _AuthButtonWidget extends StatelessWidget {
-//   const _AuthButtonWidget();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<LoginCubit, LoginState>(
-//       builder: (context, state) {
-//         if (state.email.isNotEmpty &&
-//             state.password.isNotEmpty &&
-//             state.status != LoginStatus.failure) {
-//           return ElevatedButton(
-//             onPressed: () {
-//               context.read<LoginCubit>().logInWithCredentials();
-//             },
-//             // state.isValid
-//             //     ? () =>
-//             //     context.read<LoginCubit>().logInWithCredentials()
-//             //     : null,
-//             child: Text(
-//               Localization.of(context).logInButtonName,
-//               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-//                     color: Colors.white,
-//                     //fontWeight: FontWeight.w500
-//                   ),
-//             ),
-//           );
-//         } else if (state.status == LoginStatus.inProgress) {
-//           return ElevatedButton(
-//             onPressed: () {},
-//             child: const CircularProgressIndicator(
-//               color: Colors.white,
-//             ),
-//           );
-//         } else {
-//           return ElevatedButton(
-//             onPressed: () {},
-//             style: const ButtonStyle(
-//                 backgroundColor: WidgetStatePropertyAll(Colors.grey)),
-//             child: Text(
-//               Localization.of(context).logInButtonName,
-//               style: Theme.of(context).textTheme.titleLarge!.copyWith(
-//                     color: Colors.white,
-//                     //fontWeight: FontWeight.w500
-//                   ),
-//             ),
-//           );
-//         }
-//       },
-//     );
-//   }
-// }

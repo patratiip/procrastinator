@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// {@template bottom_sheet_widget}
@@ -8,51 +7,75 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 
 class BottomSheetWidget extends StatelessWidget {
-  final double? height;
   final Widget child;
+  final double? height;
+  final EdgeInsets padding;
+  final double cornerRadius;
+  final bool closable;
 
   /// {@macro bottom_sheet_widget}
   const BottomSheetWidget({
     super.key,
     required this.child,
+    this.padding =
+        const EdgeInsets.only(top: 12, left: 16, right: 16, bottom: 44),
+    this.cornerRadius = 20.0,
     this.height,
+    this.closable = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
+      // height: height ?? 400,
       constraints: const BoxConstraints(maxWidth: 600),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 12,
-            left: 16,
-            right: 16,
-            bottom: 44,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+      padding: padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.max,
             children: [
-              Column(
-                children: [
-                  // Swiper
-                  Container(
-                    height: 5,
-                    width: 60,
-                    margin: const EdgeInsets.only(bottom: 16),
-                    decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.onSurface,
-                        borderRadius: BorderRadius.circular(8)),
-                  ),
-                ],
-              ),
-
-              // Content
-              child,
+              // Placeholder
+              const SizedBox(height: 26, width: 26),
+              // Swiper
+              closable
+                  ? const SizedBox(height: 5, width: 60)
+                  : Container(
+                      height: 5,
+                      width: 60,
+                      margin: const EdgeInsets.only(bottom: 16),
+                      decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.onSurface,
+                          borderRadius: BorderRadius.circular(8)),
+                    ),
+              // Closer
+              closable
+                  ? GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        height: 26,
+                        width: 26,
+                        margin: const EdgeInsets.only(bottom: 16),
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.onSurface,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Icon(
+                          Icons.close_rounded,
+                          color: Theme.of(context).cardColor,
+                        ),
+                      ),
+                    )
+                  : const SizedBox(height: 26, width: 26),
             ],
           ),
-        ),
+
+          // Content
+          child,
+        ],
       ),
     );
   }

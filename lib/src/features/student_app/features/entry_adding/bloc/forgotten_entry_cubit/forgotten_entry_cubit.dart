@@ -25,7 +25,10 @@ class ForgottenEntryCubit extends Cubit<ForgottenEntryState> {
     emit(state.copyWith(reason: value));
   }
 
+  /// User want to send request
   Future<void> sendForgottenEntryRequest() async {
+    emit(state.copyWith(status: ForgottenEntryStateStatus.inProgress));
+
     // TODO: Add a full state verification
     if (state.reason.isEmpty) {
       emit(state.copyWith(
@@ -35,7 +38,8 @@ class ForgottenEntryCubit extends Cubit<ForgottenEntryState> {
       return;
     }
 
-    ForgottenRequestStudent request = ForgottenRequestStudent(
+    // Creating request entity
+    final request = ForgottenRequestStudent(
       requestId: const Uuid().v4(),
       createdAt: DateTime.now(),
       date: state.date,
