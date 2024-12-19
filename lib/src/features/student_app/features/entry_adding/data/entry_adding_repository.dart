@@ -2,6 +2,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_firebase_data_provider.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_geolocation_data_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/model/forgotten_request.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -19,6 +20,9 @@ abstract class IEntryAddingRepository {
 
   /// Adding entry to entries collection
   Future<void> addEntry(Entry entry);
+
+  /// Adding entry to entries collection
+  Future<void> addForgottenEntryRequest(ForgottenRequestStudent request);
 
   // Gelocation Data Provider
 
@@ -75,9 +79,16 @@ final class EntryAddingRepositoryImpl implements IEntryAddingRepository {
         .asBroadcastStream();
   }
 
+  /// Adding [Entry] to UserVisits collection
   @override
   Future<void> addEntry(Entry entry) async {
     await _entryAddingFirebaseDataProvider.addEntry(entry);
+  }
+
+  /// Adding [ForgottenRequestStudent] to Forgotten requests collection
+  @override
+  Future<void> addForgottenEntryRequest(ForgottenRequestStudent request) async {
+    await _entryAddingFirebaseDataProvider.addForgottenEntryRequest(request);
   }
 
   @override

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/widget/forgotten_entry_bottom_scheet_content.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
+import 'package:procrastinator/src/ui_kit/widget/bottom_sheet_widget.dart';
 
 /// {@template error_message_calendar_widget}
 /// Widget that shows message in [CalendarEntryAddingWidget] if it's needed
@@ -19,33 +21,32 @@ class MessageCalendarWidget extends StatelessWidget {
         return Container(
           child: switch (state.validationResponse!.stateValidityType) {
             StateValidityType.noEntryType => const SizedBox.shrink(),
-            StateValidityType.futureError => _ValidityStateTextWidget(
+            StateValidityType.futureError => _ValidityStateWidget(
                 text:
                     Localization.of(context).calendarStateErrorMessage_future),
-            StateValidityType.schoolOnlyToday => _ValidityStateTextWidget(
+            StateValidityType.schoolOnlyToday => _ValidityStateWidget(
                 text: Localization.of(context)
                     .calendarStateErrorMessage_schoolTypeOnlyToday,
-                child: _ErrorActionButton(
+                actionButton: _ErrorActionButton(
                     text: Localization.of(context)
                         .calendarStateErrorMessage_buttonText_youAreForgot),
               ),
-            StateValidityType.enrtyWithThisDateExists =>
-              _ValidityStateTextWidget(
-                  text: Localization.of(context)
-                      .calendarStateErrorMessage_thisDateExists),
-            StateValidityType.noLessonsToday => _ValidityStateTextWidget(
+            StateValidityType.enrtyWithThisDateExists => _ValidityStateWidget(
+                text: Localization.of(context)
+                    .calendarStateErrorMessage_thisDateExists),
+            StateValidityType.noLessonsToday => _ValidityStateWidget(
                 text: Localization.of(context)
                     .calendarStateErrorMessage_noLessonsToday),
-            StateValidityType.distanceToSchool => _ValidityStateTextWidget(
+            StateValidityType.distanceToSchool => _ValidityStateWidget(
                 text: Localization.of(context)
                     .calendarStateErrorMessage_distanceToSchool(
                         state.validationResponse!.value)),
 
             //TODO: handle cases down
             StateValidityType.errorOnGeopositionCheck =>
-              const _ValidityStateTextWidget(text: ''),
+              const _ValidityStateWidget(text: ''),
             StateValidityType.unexpectedError =>
-              const _ValidityStateTextWidget(text: 'Unexpected Error'),
+              const _ValidityStateWidget(text: 'Unexpected Error'),
           },
         );
       } else {
@@ -55,18 +56,18 @@ class MessageCalendarWidget extends StatelessWidget {
   }
 }
 
-/// {@template _error_text_widget}
-/// [_ValidityStateTextWidget] shows a invalidity message from [EntryAddingBloc].
+/// {@template _validity_state_widget}
+/// [_ValidityStateWidget] shows a invalidity message from [EntryAddingBloc].
 /// {@endtemplate}
-/// {@macro _error_text_widget}
-class _ValidityStateTextWidget extends StatelessWidget {
+/// {@macro _validity_state_widget}
+class _ValidityStateWidget extends StatelessWidget {
   final bool isSuccess;
   final String text;
-  final Widget? child;
+  final Widget? actionButton;
 
-  const _ValidityStateTextWidget({
+  const _ValidityStateWidget({
     super.key,
-    this.child,
+    this.actionButton,
     required this.text,
     this.isSuccess = false,
   });
@@ -88,7 +89,7 @@ class _ValidityStateTextWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
           ),
-          child ?? const SizedBox.shrink(),
+          actionButton ?? const SizedBox.shrink(),
         ],
       ),
     );
@@ -106,43 +107,15 @@ class _ErrorActionButton extends StatelessWidget {
           backgroundColor: WidgetStatePropertyAll(Colors.white)),
       onPressed: () => showModalBottomSheet(
         context: context,
-        builder: (context) {
-          return _BottomSheetContent();
-        },
+        builder: (_) => BottomSheetWidget(
+            child: ForgottenEntryBottomSheetContent(parentContext: context)),
       ),
-      // {
-
-      //   // TODO: Add a bottom sheet with ...
-      //   final date = context.read<CalendarBloc>().state.date!;
-      //   final entryType = context.read<CalendarBloc>().state.entryType!;
-      //   context
-      //       .read<CalendarEntryAddingButtonBloc>()
-      //       .add(CalendarButtonAddEntryEvent(date, entryType));
-      // },
       child: Text(
         text,
         textAlign: TextAlign.center,
         style: Theme.of(context).textTheme.labelLarge!.copyWith(
               color: MyAppColorScheme.errorColor,
             ),
-      ),
-    );
-  }
-}
-
-class _BottomSheetContent extends StatelessWidget {
-  const _BottomSheetContent({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Column(
-          children: [
-            Text(Localization.of(context)
-                .calendarStateErrorMessage_buttonText_youAreForgot)
-          ],
-        ),
       ),
     );
   }

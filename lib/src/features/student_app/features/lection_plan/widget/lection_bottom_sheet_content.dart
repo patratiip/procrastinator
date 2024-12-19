@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
@@ -25,6 +26,12 @@ class LectionBottomSheetContent extends StatelessWidget {
     return // Content
         Column(
       children: [
+        // Header
+        Text(
+          Localization.of(context).lectionInfoHeader,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 32),
         // Lection theme
         Container(
             width: 200,

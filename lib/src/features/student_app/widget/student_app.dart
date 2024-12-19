@@ -65,7 +65,7 @@ class StudentApp extends StatelessWidget {
                   groupRepository: StudentAppScope.depConOf(context)
                       .firebaseGroupRepository)),
 
-          // Calendar
+          // Entry adding
           BlocProvider(
               create: (context) => EntryAddingBloc(
                     entryAddingRepository:

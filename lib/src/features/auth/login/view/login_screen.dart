@@ -3,9 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/text_field_theme.dart';
+import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:procrastinator/src/features/auth/login/login.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
-import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -27,8 +27,8 @@ class LoginScreen extends StatelessWidget {
         body: SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           child: BlocProvider(
-            create: (context) => LoginCubit(
-                context.read<AuthenticationBloc>().authenticationRepository),
+            create: (context) =>
+                LoginCubit(AppScope.depConOf(context).userRepository),
             child: const _HeaderWidget(),
           ),
         ));
@@ -250,7 +250,7 @@ class _AuthButtonWidget extends StatelessWidget {
       builder: (context, state) {
         if (state.email.isNotEmpty &&
             state.password.isNotEmpty &&
-            state.status != LoginStatus.failure) {
+            state.status != LoginStatus.error) {
           return ElevatedButton(
             onPressed: () {
               context.read<LoginCubit>().logInWithCredentials();
@@ -327,8 +327,7 @@ class _ErrorMessageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginCubit, LoginState>(builder: (context, state) {
-      if (state.status == LoginStatus.failure &&
-          state.errorMessage!.isNotEmpty) {
+      if (state.status == LoginStatus.error && state.errorMessage!.isNotEmpty) {
         return Padding(
           padding: const EdgeInsets.only(bottom: 20),
           child: SelectableText(

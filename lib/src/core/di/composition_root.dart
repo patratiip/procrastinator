@@ -414,7 +414,7 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
   @override
   EntryAddingRepositoryImpl create() {
     /// Getting lections collection name depend on enviroment
-    final String collectionName = switch (config.environment) {
+    final String lectionsCollectionName = switch (config.environment) {
       Environment.dev => DevFirebaseCollectionsConstants.lections,
       Environment.staging => StagingFirebaseCollectionsConstants.lections,
       Environment.prod => ProdFirebaseCollectionsConstants.lections,
@@ -434,27 +434,44 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
       Environment.prod => ProdFirebaseCollectionsConstants.userEntries,
     };
 
-    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
-    /// depend on app flavour and current user
+    /// Getting forgotten entries collection name depend on enviroment
+    final String forgottenEntriesCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.forgottenRequest,
+      Environment.staging =>
+        StagingFirebaseCollectionsConstants.forgottenRequest,
+      Environment.prod => ProdFirebaseCollectionsConstants.forgottenRequest,
+    };
 
+    /// User school geoposition
     final userSchoolGeoposition = currentUser.schoolGeoPosition;
 
     /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
     /// depend on app flavour
     final lectionsCollectionRef =
-        FirebaseFirestore.instance.collection(collectionName);
+        FirebaseFirestore.instance.collection(lectionsCollectionName);
 
     /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
     /// depend on app flavour and current user
-
     final entriesCollectionRef = FirebaseFirestore.instance
         .collection(usersCollectionName)
         .doc(currentUser.userId)
         .collection(entriesCollectionName);
 
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour
+    final forgottenEntriesCollectionRef =
+        FirebaseFirestore.instance.collection(forgottenEntriesCollectionName);
+
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour and current user
+    final userCollectionRef =
+        FirebaseFirestore.instance.collection(usersCollectionName);
+
     final entryAddingFirebaseDataProvider = EntryAddingFirebaseDataProviderImpl(
       lectionsCollectionRef: lectionsCollectionRef,
       entriesCollectionRef: entriesCollectionRef,
+      forgottenEntriesCollectionRef: forgottenEntriesCollectionRef,
+      userCollectionRef: userCollectionRef,
     );
 
     //TODO: Fake geoposition...

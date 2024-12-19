@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 
 /// {@template bottom_sheet_widget}
 /// Shows basic [BottomSheetWidget] with [child] in BottomScheet.
@@ -33,7 +32,6 @@ class BottomSheetWidget extends StatelessWidget {
             bottom: 44,
           ),
           child: Column(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Column(
@@ -47,15 +45,8 @@ class BottomSheetWidget extends StatelessWidget {
                         color: Theme.of(context).colorScheme.onSurface,
                         borderRadius: BorderRadius.circular(8)),
                   ),
-
-                  // Header
-                  Text(
-                    Localization.of(context).lectionInfoHeader,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
                 ],
               ),
-              const SizedBox(height: 32),
 
               // Content
               child,

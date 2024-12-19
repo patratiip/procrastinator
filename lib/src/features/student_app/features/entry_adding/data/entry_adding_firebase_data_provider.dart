@@ -3,8 +3,8 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/model/entry_model.dart';
+import 'package:procrastinator/src/features/student_app/features/entry_adding/model/forgotten_request.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/model/lection_model.dart';
-import 'package:user_repository/user_repository.dart';
 
 /// Interface for [EntryAddingFirebaseDataProviderImpl]
 ///
@@ -19,7 +19,8 @@ abstract interface class IEntryAddingFirebaseDataProvider {
   /// Adding entry to entries collection
   Future<void> addEntry(Entry entry);
 
- 
+  /// Adding entry to entries collection
+  Future<void> addForgottenEntryRequest(ForgottenRequestStudent request);
 }
 
 /// {@template entry_adding_firebase_data_provider}
@@ -28,18 +29,25 @@ abstract interface class IEntryAddingFirebaseDataProvider {
 
 final class EntryAddingFirebaseDataProviderImpl
     implements IEntryAddingFirebaseDataProvider {
- 
   final CollectionReference<Map<String, dynamic>> _lectionsCollectionRef;
   final CollectionReference<Map<String, dynamic>> _entriesCollectionRef;
+  final CollectionReference<Map<String, dynamic>>
+      _forgottenEntriesCollectionRef;
+
+  // TODO: Add method to write [ForgottenRequestStudent.requestId] in user doc
+  final CollectionReference<Map<String, dynamic>> _userCollectionRef;
 
   /// {@macro entry_adding_firebase_data_provider}
   EntryAddingFirebaseDataProviderImpl({
-    
     required CollectionReference<Map<String, dynamic>> lectionsCollectionRef,
     required CollectionReference<Map<String, dynamic>> entriesCollectionRef,
-  })  : 
-        _lectionsCollectionRef = lectionsCollectionRef,
-        _entriesCollectionRef = entriesCollectionRef;
+    required CollectionReference<Map<String, dynamic>>
+        forgottenEntriesCollectionRef,
+    required CollectionReference<Map<String, dynamic>> userCollectionRef,
+  })  : _lectionsCollectionRef = lectionsCollectionRef,
+        _entriesCollectionRef = entriesCollectionRef,
+        _forgottenEntriesCollectionRef = forgottenEntriesCollectionRef,
+        _userCollectionRef = userCollectionRef;
 
   @override
   Stream<List<LectionModel>> lectionsStream() {
@@ -95,5 +103,18 @@ final class EntryAddingFirebaseDataProviderImpl
     }
   }
 
-  
+  @override
+  Future<void> addForgottenEntryRequest(ForgottenRequestStudent request) async {
+    // Converting Model to Data for Firebase
+    final requestData = request.toModel().toFirestore();
+
+    try {
+      await _forgottenEntriesCollectionRef
+          .doc(request.requestId)
+          .set(requestData);
+    } catch (e) {
+      log(e.toString());
+      rethrow;
+    }
+  }
 }

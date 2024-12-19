@@ -11,7 +11,7 @@ class LoginCubit extends Cubit<LoginState> {
   ///emailChanged
   void emailChanged(String value) {
     emit(state.copyWith(
-        errorMessage: null, emailIsValid: null, status: LoginStatus.initial));
+        errorMessage: null, emailIsValid: null, status: LoginStatus.idle));
 
     emit(state.copyWith(email: value));
   }
@@ -24,12 +24,12 @@ class LoginCubit extends Cubit<LoginState> {
         email: '',
         errorMessage: null,
         emailIsValid: null,
-        status: LoginStatus.initial));
+        status: LoginStatus.idle));
   }
 
   ///passChanged
   void passwordChanged(String value) {
-    emit(state.copyWith(errorMessage: null, status: LoginStatus.initial));
+    emit(state.copyWith(errorMessage: null, status: LoginStatus.idle));
     emit(state.copyWith(password: value));
   }
 
@@ -41,10 +41,10 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(
           errorMessage: 'Please enter a valid email',
           emailIsValid: false,
-          status: LoginStatus.failure));
+          status: LoginStatus.error));
     } else {
       await _authenticationRepository.onPasswordReseting(email: state.email);
-      emit(state.copyWith(password: '', status: LoginStatus.initial));
+      emit(state.copyWith(password: '', status: LoginStatus.idle));
     }
   }
 
@@ -57,7 +57,7 @@ class LoginCubit extends Cubit<LoginState> {
       emit(state.copyWith(
           errorMessage: 'Please enter a valid email',
           emailIsValid: false,
-          status: LoginStatus.failure));
+          status: LoginStatus.error));
       return;
     }
 
@@ -72,7 +72,7 @@ class LoginCubit extends Cubit<LoginState> {
       emit(
         state.copyWith(
           errorMessage: e.message,
-          status: LoginStatus.failure,
+          status: LoginStatus.error,
         ),
       );
       // } catch (_) {

@@ -3,6 +3,7 @@ abstract class ProdFirebaseCollectionsConstants {
   static const userEntries = 'userVisits';
   static const lections = 'kursplan_flutter';
   static const groups = 'group_flutter';
+  static const forgottenRequest = 'forgottenRequest_flutter';
 }
 
 // TODO: Change collections names to add a mock collections for testing
@@ -11,6 +12,7 @@ abstract class DevFirebaseCollectionsConstants {
   static const userEntries = 'userVisits';
   static const lections = 'kursplan_flutter';
   static const groups = 'group_flutter';
+  static const forgottenRequest = 'forgottenRequest_flutter';
 }
 
 abstract class StagingFirebaseCollectionsConstants {
@@ -18,4 +20,5 @@ abstract class StagingFirebaseCollectionsConstants {
   static const userEntries = 'userVisits';
   static const lections = 'kursplan_flutter';
   static const groups = 'group_flutter';
+  static const forgottenRequest = 'forgottenRequest_flutter';
 }

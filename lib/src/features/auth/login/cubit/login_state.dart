@@ -1,10 +1,10 @@
 part of 'login_cubit.dart';
 
 enum LoginStatus {
-  initial,
+  idle,
   inProgress,
   success,
-  failure,
+  error,
 }
 
 final class LoginState extends Equatable {
@@ -12,13 +12,12 @@ final class LoginState extends Equatable {
   final String password;
   final LoginStatus status;
   final bool? emailIsValid;
-
   final String? errorMessage;
 
   const LoginState({
     this.email = '',
     this.password = '',
-    this.status = LoginStatus.initial,
+    this.status = LoginStatus.idle,
     this.emailIsValid,
     this.errorMessage,
   });
