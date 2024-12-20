@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/features/management_app/feature/users_screen/sign_up/sign_up.dart';
+import 'package:procrastinator/src/features/auth/sign_up/widget/sign_up_screen.dart';
 
 class UsersScreen extends StatelessWidget {
   const UsersScreen({super.key});

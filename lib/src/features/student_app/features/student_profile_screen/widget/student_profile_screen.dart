@@ -75,7 +75,7 @@ class StudentProfileScreen extends StatelessWidget {
                       FeatureCardComponent(
                         title: Localization.of(context).looseReport,
                         newFeature: true,
-                        route: const SettingsScreen(),
+                        // route: const SettingsScreen(),
                       ),
 
                       // // Bug report

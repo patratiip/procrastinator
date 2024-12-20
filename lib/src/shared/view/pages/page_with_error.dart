@@ -19,10 +19,12 @@ class PageWithError extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
           children: [
             Center(
-              child: Text(Localization.of(context).navigationErrorScteenText),
-            ),
+                child:
+                    Text(Localization.of(context).navigationErrorScteenText)),
           ],
         ),
       ),

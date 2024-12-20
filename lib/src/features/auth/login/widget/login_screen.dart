@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/core/styles/text_field_theme.dart';
 import 'package:procrastinator/src/features/app/di/app_scope.dart';
-import 'package:procrastinator/src/features/auth/login/login.dart';
+import 'package:procrastinator/src/features/auth/login/cubit/login_cubit.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
@@ -250,7 +250,7 @@ class _AuthButtonWidget extends StatelessWidget {
       builder: (context, state) {
         if (state.email.isNotEmpty &&
             state.password.isNotEmpty &&
-            state.status != LoginStatus.error) {
+            state.status == LoginStatus.idle) {
           return ElevatedButton(
             onPressed: () {
               context.read<LoginCubit>().logInWithCredentials();

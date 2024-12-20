@@ -7,7 +7,7 @@ import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:procrastinator/src/core/styles/text_field_theme.dart';
 import 'package:procrastinator/src/features/management_app/feature/main_screen/group_list/group_list.dart';
 import 'package:procrastinator/src/features/management_app/di/management_scope.dart';
-import 'package:procrastinator/src/features/management_app/feature/users_screen/sign_up/sign_up.dart';
+import 'package:procrastinator/src/features/auth/sign_up/cubit/sign_up_cubit.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:user_repository/user_repository.dart';
@@ -31,10 +31,8 @@ class SignUpScreen extends StatelessWidget {
         body: SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       child: BlocProvider(
-        create: (_) => SignUpCubit(
-            AppScope.depConOf(context).userRepository,
-            ManagementAppScope.depOf(context, listen: false)
-                .firebaseGroupRepository),
+        create: (_) => SignUpCubit(AppScope.depConOf(context).userRepository,
+            ManagementAppScope.depOf(context).firebaseGroupRepository),
         child: const _HeaderWidget(),
       ),
     ));
