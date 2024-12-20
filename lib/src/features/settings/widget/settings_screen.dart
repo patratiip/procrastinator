@@ -3,7 +3,7 @@ import 'package:procrastinator/src/core/constant/localization/generated/l10n.dar
 import 'package:procrastinator/src/features/settings/widget/settings_language_screen.dart';
 import 'package:procrastinator/src/features/settings/widget/settings_theme_screen.dart';
 import 'package:procrastinator/src/ui_kit/widget/back_appbar_arrow.dart';
-import 'package:procrastinator/src/shared/view/widgets/feature_card_component.dart';
+import 'package:procrastinator/src/ui_kit/widget/feature_card_component.dart';
 
 /// {@template settings_screen}
 /// Widget that shows [SettingsScreen]

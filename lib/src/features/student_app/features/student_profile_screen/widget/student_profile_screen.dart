@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/features/settings/widget/settings_screen.dart';
 import 'package:procrastinator/src/features/student_app/features/student_profile_screen/bloc/user_profile_bloc.dart';
-import 'package:procrastinator/src/shared/view/widgets/feature_card_component.dart';
+import 'package:procrastinator/src/ui_kit/widget/feature_card_component.dart';
 import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/user_image_widget.dart';
@@ -14,9 +14,8 @@ import 'package:procrastinator/src/ui_kit/widget/user_image_widget.dart';
 /// Widget that shows [StudentProfileScreen]
 /// {@endtemplate}
 class StudentProfileScreen extends StatelessWidget {
-  const StudentProfileScreen({super.key});
-
   /// {@macro student_profile_screen}
+  const StudentProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +63,6 @@ class StudentProfileScreen extends StatelessWidget {
                       // Settings
                       FeatureCardComponent(
                         title: Localization.of(context).settingsLabelText,
-                        newFeature: true,
                         route: const SettingsScreen(),
                       ),
 
@@ -73,10 +71,12 @@ class StudentProfileScreen extends StatelessWidget {
                       //   title: Localization.of(context).sickList,
                       // ),
 
-                      // //Loose report
-                      // FeatureCardComponent(
-                      //   title: Localization.of(context).looseReport,
-                      // ),
+                      //Loose report
+                      FeatureCardComponent(
+                        title: Localization.of(context).looseReport,
+                        newFeature: true,
+                        route: const SettingsScreen(),
+                      ),
 
                       // // Bug report
                       // FeatureCardComponent(

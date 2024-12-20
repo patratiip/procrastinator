@@ -15,6 +15,7 @@ class LanguageOptionWidget extends StatelessWidget {
   final Widget? leadingWidget;
   final bool? newFeature;
 
+  /// {@macro language_option_widget}
   const LanguageOptionWidget({
     super.key,
     required this.title,
@@ -71,11 +72,11 @@ class LanguageOptionWidget extends StatelessWidget {
                         children: [
                           Text(
                             title,
-                            style: const TextStyle(fontSize: 18),
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Text(
                             subtitle,
-                            style: const TextStyle(fontSize: 14),
+                            style: Theme.of(context).textTheme.labelMedium,
                           ),
                         ],
                       )),
@@ -92,12 +93,15 @@ class LanguageOptionWidget extends StatelessWidget {
                               border: Border.all(
                                   width: 1, color: MyAppColorScheme.secondary),
                               borderRadius: BorderRadius.circular(8)),
-                          child: const Stack(
+                          child: Stack(
                               alignment: AlignmentDirectional.center,
                               children: [
                                 Text(
                                   'new',
-                                  style: TextStyle(color: Colors.white),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(color: Colors.white),
                                   maxLines: 1,
                                 )
                               ])),

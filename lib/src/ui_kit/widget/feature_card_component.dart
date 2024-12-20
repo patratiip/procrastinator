@@ -10,13 +10,16 @@ class FeatureCardComponent extends StatelessWidget {
 
   //TODO Add date and calculate new or not
   // final DateTime dateOfAdiing;
-  final bool? newFeature;
+  final bool newFeature;
   final Widget? route;
 
-  const FeatureCardComponent(
-      {super.key, required this.title, this.newFeature, this.route});
-
   /// {@macro feature_card_component}
+  const FeatureCardComponent({
+    super.key,
+    required this.title,
+    this.newFeature = false,
+    this.route,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,28 +51,33 @@ class FeatureCardComponent extends StatelessWidget {
                       flex: 3,
                       child: Text(
                         title,
-                        style: const TextStyle(fontSize: 22),
+                        style: Theme.of(context).textTheme.titleLarge,
                       )),
                   if (newFeature == true)
                     Expanded(
                       flex: 1,
                       child: Container(
-                          width: 44,
-                          height: 44,
-                          decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 137, 232, 135),
-                              border: Border.all(
-                                  width: 1, color: MyAppColorScheme.secondary),
-                              borderRadius: BorderRadius.circular(8)),
-                          child: const Stack(
-                              alignment: AlignmentDirectional.center,
-                              children: [
-                                Text(
-                                  'new',
-                                  style: TextStyle(color: Colors.white),
-                                  maxLines: 1,
-                                )
-                              ])),
+                        width: 44,
+                        height: 44,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 137, 232, 135),
+                            border: Border.all(
+                                width: 1, color: MyAppColorScheme.secondary),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Stack(
+                          alignment: AlignmentDirectional.center,
+                          children: [
+                            Text(
+                              'new',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(color: Colors.white),
+                              maxLines: 1,
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                   const Icon(
                     Icons.chevron_right_rounded,

@@ -15,6 +15,7 @@ class ThemeOptionWidget extends StatelessWidget {
   final Widget? leadingWidget;
   final bool? newFeature;
 
+  /// {@macro theme_option_widget}
   const ThemeOptionWidget({
     super.key,
     required this.title,
@@ -63,7 +64,7 @@ class ThemeOptionWidget extends StatelessWidget {
                       flex: 6,
                       child: Text(
                         title,
-                        style: const TextStyle(fontSize: 22),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       )),
                   if (newFeature == true)
                     Expanded(
@@ -76,12 +77,15 @@ class ThemeOptionWidget extends StatelessWidget {
                               border: Border.all(
                                   width: 1, color: MyAppColorScheme.secondary),
                               borderRadius: BorderRadius.circular(8)),
-                          child: const Stack(
+                          child: Stack(
                               alignment: AlignmentDirectional.center,
                               children: [
                                 Text(
                                   'new',
-                                  style: TextStyle(color: Colors.white),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .copyWith(color: Colors.white),
                                   maxLines: 1,
                                 )
                               ])),
