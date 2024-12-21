@@ -1,19 +1,19 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/model/forgotten_request.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/data/forgotten_entry_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/model/forgotten_request.dart';
 import 'package:uuid/uuid.dart';
 
 part 'forgotten_entry_state.dart';
 
 class ForgottenEntryCubit extends Cubit<ForgottenEntryState> {
-  final IEntryAddingRepository _entryAddingRepository;
+  final IForgottenEntryRepository _forgottenEntryRepository;
 
   ForgottenEntryCubit({
-    required IEntryAddingRepository entryAddingRepository,
+    required IForgottenEntryRepository forgottenEntryRepository,
     required ForgottenEntryState initialState,
-  })  : _entryAddingRepository = entryAddingRepository,
+  })  : _forgottenEntryRepository = forgottenEntryRepository,
         super(initialState);
 
   /// Reason changed
@@ -49,7 +49,7 @@ class ForgottenEntryCubit extends Cubit<ForgottenEntryState> {
     );
 
     try {
-      _entryAddingRepository.addForgottenEntryRequest(request);
+      _forgottenEntryRepository.addRequest(request);
 
       emit(state.copyWith(status: ForgottenEntryStateStatus.success));
     } on Object catch (error, stackTrace) {

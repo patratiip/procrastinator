@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/bloc/forgotten_entry_bloc/forgotten_entries_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/student_profile_screen/bloc/user_profile_bloc.dart';
 import 'package:procrastinator/src/features/student_app/di/student_app_scope.dart';
 import 'package:procrastinator/src/features/student_app/features/entries/bloc/last_entries_list_bloc/last_entries_list_bloc.dart';
@@ -72,7 +73,13 @@ class StudentApp extends StatelessWidget {
                         StudentAppScope.depConOf(context).entryAddingRepository,
                   )),
 
-      
+          // Forgotten entries requests
+          BlocProvider(
+              create: (context) => ForgottenEntriesBloc(
+                    forgottenEntriesRepository:
+                        StudentAppScope.depConOf(context)
+                            .forgottenEntryRepository,
+                  )),
         ],
         child: const StudentAppView(),
       );

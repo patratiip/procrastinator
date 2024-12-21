@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:procrastinator/src/features/student_app/features/entry_adding/model/forgotten_request_model.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/model/forgotten_request_model.dart';
 
 class ForgottenRequestStudent {
   final String requestId;
@@ -60,24 +60,23 @@ class ForgottenRequestStudent {
   @override
   bool operator ==(covariant ForgottenRequestStudent other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.requestId == requestId &&
-      other.createdAt == createdAt &&
-      other.date == date &&
-      other.userId == userId &&
-      other.reason == reason &&
-      other.approved == approved;
+
+    return other.requestId == requestId &&
+        other.createdAt == createdAt &&
+        other.date == date &&
+        other.userId == userId &&
+        other.reason == reason &&
+        other.approved == approved;
   }
 
   @override
   int get hashCode {
     return requestId.hashCode ^
-      createdAt.hashCode ^
-      date.hashCode ^
-      userId.hashCode ^
-      reason.hashCode ^
-      approved.hashCode;
+        createdAt.hashCode ^
+        date.hashCode ^
+        userId.hashCode ^
+        reason.hashCode ^
+        approved.hashCode;
   }
 
   @override

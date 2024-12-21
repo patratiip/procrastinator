@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:procrastinator/src/features/student_app/features/entry_adding/model/forgotten_request.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/model/forgotten_request.dart';
 
 class ForgottenRequestStudentModel {
   final String requestId;
@@ -20,22 +21,22 @@ class ForgottenRequestStudentModel {
   Map<String, dynamic> toFirestore() {
     return {
       'requestId': requestId,
-      'createdAt': createdAt,
-      'date': date,
+      'createdAt': Timestamp.fromDate(createdAt),
+      'date': Timestamp.fromDate(date),
       'userId': userId,
       'reason': reason,
       'approved': approved,
     };
   }
 
-  static ForgottenRequestStudent fromFirestore(Map<String, dynamic> doc) {
-    return ForgottenRequestStudent(
+  static ForgottenRequestStudentModel fromFirestore(Map<String, dynamic> doc) {
+    return ForgottenRequestStudentModel(
       requestId: doc['requestId'],
-      createdAt: doc['createdAt'],
-      date: doc['date'],
+      createdAt: (doc['createdAt'] as Timestamp).toDate(),
+      date: (doc['date'] as Timestamp).toDate(),
       userId: doc['userId'],
       reason: doc['reason'],
-      approved: doc['approved'] ,
+      approved: doc['approved'],
     );
   }
 }

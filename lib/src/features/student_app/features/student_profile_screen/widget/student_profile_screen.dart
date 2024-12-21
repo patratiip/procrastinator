@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/features/settings/widget/settings_screen.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/widget/forgotten_entries_screen.dart';
 import 'package:procrastinator/src/features/student_app/features/student_profile_screen/bloc/user_profile_bloc.dart';
 import 'package:procrastinator/src/ui_kit/widget/feature_card_component.dart';
 import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
@@ -75,7 +76,8 @@ class StudentProfileScreen extends StatelessWidget {
                       FeatureCardComponent(
                         title: Localization.of(context).looseReport,
                         newFeature: true,
-                        // route: const SettingsScreen(),
+                        route: ForgottenEntriesRequestScreen(
+                            parentContext: context),
                       ),
 
                       // // Bug report

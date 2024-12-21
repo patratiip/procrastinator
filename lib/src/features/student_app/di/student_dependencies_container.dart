@@ -2,13 +2,14 @@ import 'package:group_repository/group_repository.dart';
 
 import 'package:procrastinator/src/features/student_app/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/data/entry_adding_repository.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/data/forgotten_entry_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/lection_plan/data/lection_repository.dart';
 import 'package:procrastinator/src/features/student_app/features/statistic/service/statistic_computing_service.dart';
 
 /// {@template student_dependencies_container}
 /// Composed dependencies from the [CompositionRoot].
 ///
-/// This class contains all the dependencies that are required for the application
+/// This class contains all the dependencies that are required for student application
 /// to work.
 ///
 /// {@macro composition_process}
@@ -19,23 +20,27 @@ base class StudentDependenciesContainer {
     required this.entryRepository,
     required this.lectionRepository,
     required this.entryAddingRepository,
+    required this.forgottenEntryRepository,
     required this.firebaseGroupRepository,
     required this.statisticComputingServise,
   });
 
-  /// [IEntryRepository] instance, used to manage theme and locale.
+  /// [IEntryRepository] instance, used to manage entries.
   final IEntryRepository entryRepository;
 
-  /// [ILectionRepository] instance, used to manage theme and locale.
+  /// [ILectionRepository] instance, used to manage lections.
   final ILectionRepository lectionRepository;
 
-  /// [IEntryAddingRepository] instance, used to manage theme and locale.
+  /// [IEntryAddingRepository] instance, used to manage entry adding process.
   final IEntryAddingRepository entryAddingRepository;
 
-  /// [IStudentGroupRepository] instance, used to manage theme and locale.
+  /// [IForgottenEntryRepository] instance, used to manage forgotten entries requests.
+  final IForgottenEntryRepository forgottenEntryRepository;
+
+  /// [IStudentGroupRepository] instance, used to manage student group.
   final IStudentGroupRepository firebaseGroupRepository;
 
-  /// [StatisticComputingServise] instance, used to manage theme and locale.
+  /// [StatisticComputingServise] instance, used to manage attendance statistic.
   final StatisticComputingServise statisticComputingServise;
 }
 

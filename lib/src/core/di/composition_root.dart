@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:procrastinator/src/core/constant/mocked_geoposition.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/data/firebase_forgotten_entry_data_provider.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/data/forgotten_entry_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_repository/user_repository.dart';
 
@@ -243,6 +245,8 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
     final lectionRepository = LectionRepositoryFactory(config).create();
     final entryAddingRepository =
         EntryAddingRepositoryFactory(currentUser, config).create();
+    final forgottenEntryRepository =
+        ForgottenEntryRepositoryFactory(currentUser, config).create();
     final firebaseGroupRepository =
         FirebaseGroupRepositoryFactory(groupId: currentUser.group).create();
 
@@ -253,6 +257,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
       entryRepository: entryRepository,
       lectionRepository: lectionRepository,
       entryAddingRepository: entryAddingRepository,
+      forgottenEntryRepository: forgottenEntryRepository,
       firebaseGroupRepository: firebaseGroupRepository,
       statisticComputingServise: statisticComputingServise,
     );
@@ -434,14 +439,6 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
       Environment.prod => ProdFirebaseCollectionsConstants.userEntries,
     };
 
-    /// Getting forgotten entries collection name depend on enviroment
-    final String forgottenEntriesCollectionName = switch (config.environment) {
-      Environment.dev => DevFirebaseCollectionsConstants.forgottenRequest,
-      Environment.staging =>
-        StagingFirebaseCollectionsConstants.forgottenRequest,
-      Environment.prod => ProdFirebaseCollectionsConstants.forgottenRequest,
-    };
-
     /// User school geoposition
     final userSchoolGeoposition = currentUser.schoolGeoPosition;
 
@@ -457,21 +454,9 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
         .doc(currentUser.userId)
         .collection(entriesCollectionName);
 
-    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
-    /// depend on app flavour
-    final forgottenEntriesCollectionRef =
-        FirebaseFirestore.instance.collection(forgottenEntriesCollectionName);
-
-    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
-    /// depend on app flavour and current user
-    final userCollectionRef =
-        FirebaseFirestore.instance.collection(usersCollectionName);
-
     final entryAddingFirebaseDataProvider = EntryAddingFirebaseDataProviderImpl(
       lectionsCollectionRef: lectionsCollectionRef,
       entriesCollectionRef: entriesCollectionRef,
-      forgottenEntriesCollectionRef: forgottenEntriesCollectionRef,
-      userCollectionRef: userCollectionRef,
     );
 
     //TODO: Fake geoposition...
@@ -489,6 +474,60 @@ class EntryAddingRepositoryFactory extends Factory<EntryAddingRepositoryImpl> {
       entryAddingFirebaseDataProvider: entryAddingFirebaseDataProvider,
       entryAddingGeolocationDataProvider: entryAddingGeolocationDataProvider,
       userSchoolGeoposition: userSchoolGeoposition,
+    );
+  }
+}
+
+/// {@template firebase_entry_adding_repo_factory}
+/// Factory that creates an instance of [ForgottenEntryRepositoryImpl].
+/// {@endtemplate}
+class ForgottenEntryRepositoryFactory
+    extends Factory<ForgottenEntryRepositoryImpl> {
+  /// {@macro firebase_entry_adding_repo_factory}
+  ForgottenEntryRepositoryFactory(this.currentUser, this.config);
+
+  /// Current user collection reference
+  final MyUser currentUser;
+
+  /// Application configuration
+  final Config config;
+
+  @override
+  ForgottenEntryRepositoryImpl create() {
+    /// Getting forgotten entries collection name depend on enviroment
+    final String forgottenEntriesCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.forgottenRequest,
+      Environment.staging =>
+        StagingFirebaseCollectionsConstants.forgottenRequest,
+      Environment.prod => ProdFirebaseCollectionsConstants.forgottenRequest,
+    };
+
+    /// Getting users collection name depend on enviroment
+    final String usersCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.users,
+      Environment.staging => StagingFirebaseCollectionsConstants.users,
+      Environment.prod => ProdFirebaseCollectionsConstants.users,
+    };
+
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour and current user
+    final userCollectionRef =
+        FirebaseFirestore.instance.collection(usersCollectionName);
+
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour
+    final forgottenEntriesCollectionRef =
+        FirebaseFirestore.instance.collection(forgottenEntriesCollectionName);
+
+    final forgottenEntryFirebaseDataProvider =
+        ForgottenEntryFirebaseDataProviderImpl(
+      collectionRef: forgottenEntriesCollectionRef,
+      userCollectionRef: userCollectionRef,
+      userId: currentUser.userId,
+    );
+
+    return ForgottenEntryRepositoryImpl(
+      requestDataProvider: forgottenEntryFirebaseDataProvider,
     );
   }
 }

@@ -7,7 +7,7 @@ import 'package:procrastinator/src/core/styles/text_field_theme.dart';
 import 'package:procrastinator/src/features/app/di/app_scope.dart';
 import 'package:procrastinator/src/features/student_app/di/student_app_scope.dart';
 import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
-import 'package:procrastinator/src/features/student_app/features/entry_adding/bloc/forgotten_entry_cubit/forgotten_entry_cubit.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/bloc/forgotten_entry_cubit/forgotten_entry_cubit.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/my_circular_progress.dart';
 import 'package:procrastinator/src/ui_kit/widget/user_image_widget.dart';
@@ -21,8 +21,8 @@ class ForgottenEntryBottomSheetContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final dateFormat = DateFormat('dd.MM.yy');
     final bloc = BlocProvider.of<EntryAddingBloc>(parentContext);
-    final entryAddingRepository =
-        StudentAppScope.depConOf(parentContext).entryAddingRepository;
+    final forgottenEntryRepository =
+        StudentAppScope.depConOf(parentContext).forgottenEntryRepository;
     final user = AppScope.userOf(parentContext);
     final forgottenState = ForgottenEntryState(
       date: bloc.state.date,
@@ -31,7 +31,7 @@ class ForgottenEntryBottomSheetContent extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => ForgottenEntryCubit(
-          entryAddingRepository: entryAddingRepository,
+          forgottenEntryRepository: forgottenEntryRepository,
           initialState: forgottenState),
       child: BlocListener<ForgottenEntryCubit, ForgottenEntryState>(
         listener: (context, state) {
