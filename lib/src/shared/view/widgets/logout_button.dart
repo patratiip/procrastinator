@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/features/app/bloc/authentication_bloc.dart';
+import 'package:procrastinator/src/platform/app/bloc/authentication_bloc.dart';
 
 class LogOutButton extends StatelessWidget {
   const LogOutButton({super.key});

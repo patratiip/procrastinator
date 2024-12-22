@@ -1,4 +1,4 @@
-import 'package:procrastinator/src/features/initialization/model/environment.dart';
+import 'package:procrastinator/src/platform/initialization/model/environment.dart';
 
 /// Application configuration
 class Config {

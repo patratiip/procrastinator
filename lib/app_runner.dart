@@ -9,8 +9,8 @@ import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/composition_root.dart';
 import 'package:procrastinator/src/core/utils/app_bloc_observer.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
-import 'package:procrastinator/src/features/app/view/procrastinator.dart';
-import 'package:procrastinator/src/features/initialization/widget/initialization_failed_app.dart';
+import 'package:procrastinator/src/platform/app/view/procrastinator.dart';
+import 'package:procrastinator/src/platform/initialization/widget/initialization_failed_app.dart';
 
 /// {@template app_runner}
 /// A class which is responsible for initialization and running the app.
