@@ -33,10 +33,11 @@ class ForgottenEntriesBloc
     _forgottenEntriesListListener =
         _forgottenEntriesRepository.requestsStream().listen(
       (requestsList) {
-        if (requestsList.isNotEmpty) {
-          add(_ForgottenEntriesListEventChanged(
-              forgottenEntriesList: requestsList));
-        }
+        // if (requestsList.isNotEmpty) {
+
+        add(_ForgottenEntriesListEventChanged(
+            forgottenEntriesList: requestsList));
+        // }
       },
       cancelOnError: false,
     );

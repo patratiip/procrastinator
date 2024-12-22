@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
+import 'package:procrastinator/src/features/student_app/features/forgotten_entries/bloc/forgotten_entry_bloc/forgotten_entries_bloc.dart';
 import 'package:procrastinator/src/features/student_app/features/forgotten_entries/model/forgotten_request.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/shared/resources/resources.dart';
@@ -26,6 +30,7 @@ class ForgottenEntryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final block = BlocProvider.of<ForgottenEntriesBloc>(context);
     final dateFormat = DateFormat('dd.MM.yy');
 
     return CardWidget(
@@ -110,6 +115,41 @@ class ForgottenEntryWidget extends StatelessWidget {
 
             // Date
             Text(dateFormat.format(request.date)),
+
+            //Delete button
+            IconButton(
+                onPressed: () {
+                  //TODO: Create confirmation dialog with my design
+                  showCupertinoDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) => CupertinoAlertDialog(
+                      title: Text(
+                          Localization.of(context).deleteEntryDialogHeader),
+                      content: Text(
+                          Localization.of(context).deleteEntryShureTextDialog),
+                      actions: <CupertinoDialogAction>[
+                        CupertinoDialogAction(
+                          isDefaultAction: true,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(Localization.of(context).noButtonText),
+                        ),
+                        CupertinoDialogAction(
+                          isDestructiveAction: true,
+                          onPressed: () {
+                            block.add(ForgottenEntriesEvent.deleteEntry(
+                                requestRef: request.requestId));
+                            Navigator.pop(context);
+                          },
+                          child: Text(Localization.of(context).yesButtonText),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.delete_outline_outlined,
+                    color: Colors.red)),
           ]),
     );
   }

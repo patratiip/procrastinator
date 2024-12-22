@@ -32,7 +32,7 @@ class FeatureCardComponent extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           onTap: () {
             Navigator.of(context).push<void>(MaterialPageRoute<void>(
-              builder: (BuildContext context) => route ?? const PageWithError(),
+              builder: (BuildContext _) => route ?? const PageWithError(),
             ));
           },
           child: Container(
