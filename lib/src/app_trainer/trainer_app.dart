@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/platform/app/di/app_scope.dart';
 import 'package:procrastinator/src/app_trainer/di/trainer_app_scope.dart';
-import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
+import 'package:procrastinator/src/ui_kit/widget/logout_button.dart';
 
 class TrainerApp extends StatelessWidget {
   const TrainerApp({super.key});

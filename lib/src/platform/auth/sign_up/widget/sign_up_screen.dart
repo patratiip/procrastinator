@@ -8,7 +8,7 @@ import 'package:procrastinator/src/core/styles/text_field_theme.dart';
 import 'package:procrastinator/src/app_management/feature/main_screen/group_list/group_list.dart';
 import 'package:procrastinator/src/app_management/di/management_scope.dart';
 import 'package:procrastinator/src/platform/auth/sign_up/cubit/sign_up_cubit.dart';
-import 'package:procrastinator/src/shared/resources/resources.dart';
+import 'package:procrastinator/assets/resources.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:user_repository/user_repository.dart';
 

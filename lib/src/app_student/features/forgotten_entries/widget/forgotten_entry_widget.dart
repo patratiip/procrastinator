@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
+
+import 'package:procrastinator/assets/resources.dart';
 import 'package:procrastinator/src/app_student/features/forgotten_entries/bloc/forgotten_entry_bloc/forgotten_entries_bloc.dart';
 import 'package:procrastinator/src/app_student/features/forgotten_entries/model/forgotten_request.dart';
+import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/shared/resources/resources.dart';
 import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
 
 /// {@template forgotten_entry_request_widget}

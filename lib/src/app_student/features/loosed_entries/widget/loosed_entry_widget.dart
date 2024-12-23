@@ -5,7 +5,7 @@ import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_
 
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/app_student/features/student_main_screen/widget/scroll_controller_provider.dart';
-import 'package:procrastinator/src/shared/resources/resources.dart';
+import 'package:procrastinator/assets/resources.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/card_widget.dart';
 

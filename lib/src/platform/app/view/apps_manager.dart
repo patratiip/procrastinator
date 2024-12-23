@@ -11,7 +11,7 @@ import 'package:procrastinator/src/platform/app/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/app_management/widget/management_app.dart';
 import 'package:procrastinator/src/app_student/widget/student_app.dart';
 import 'package:procrastinator/src/app_trainer/trainer_app.dart';
-import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
+import 'package:procrastinator/src/ui_kit/widget/logout_button.dart';
 
 class AppsManager extends StatelessWidget {
   const AppsManager({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:procrastinator/src/shared/view/pages/page_with_error.dart';
+import 'package:procrastinator/src/ui_kit/screens/screen_with_error.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template feature_card_component}
@@ -32,7 +32,7 @@ class FeatureCardComponent extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           onTap: () {
             Navigator.of(context).push<void>(MaterialPageRoute<void>(
-              builder: (BuildContext _) => route ?? const PageWithError(),
+              builder: (BuildContext _) => route ?? const ScreenWithError(),
             ));
           },
           child: Container(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 
-class PageWithError extends StatelessWidget {
-  const PageWithError({super.key});
+class ScreenWithError extends StatelessWidget {
+  const ScreenWithError({super.key});
 
   @override
   Widget build(BuildContext context) {

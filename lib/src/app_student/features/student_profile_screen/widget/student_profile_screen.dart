@@ -8,7 +8,7 @@ import 'package:procrastinator/src/app_student/features/forgotten_entries/bloc/f
 import 'package:procrastinator/src/app_student/features/forgotten_entries/widget/forgotten_entries_screen.dart';
 import 'package:procrastinator/src/app_student/features/student_profile_screen/bloc/user_profile_bloc.dart';
 import 'package:procrastinator/src/ui_kit/widget/feature_card_component.dart';
-import 'package:procrastinator/src/shared/view/widgets/logout_button.dart';
+import 'package:procrastinator/src/ui_kit/widget/logout_button.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/user_image_widget.dart';
 

@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/platform/app/di/app_scope.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/shared/view/widgets/statistic_progress_diagramm_component.dart';
+import 'package:procrastinator/src/ui_kit/widget/statistic_progress_diagramm_component.dart';
 import 'package:procrastinator/src/app_student/features/statistic/bloc/statistic_diagramm_bloc.dart';
 
 class StatisticCircle extends StatelessWidget {
