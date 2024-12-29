@@ -25,14 +25,8 @@ sealed class EntryAddingEvent {
     List<Lection>? lectionsList,
   }) = _StateDataChangedEntryAddingEvent;
 
-  /// The date changed.
-  const factory EntryAddingEvent.add({
-    DateTime? date,
-    EntryType? entryType,
-    CalendarFormat? calendarFormat,
-    List<Entry>? entriesList,
-    List<Lection>? lectionsList,
-  }) = _AddEntryAddingEvent;
+  /// User want to add an Entry
+  const factory EntryAddingEvent.add() = _AddEntryAddingEvent;
 }
 
 final class _StateDataChangedEntryAddingEvent extends EntryAddingEvent {
@@ -70,90 +64,17 @@ final class _StateDataChangedEntryAddingEvent extends EntryAddingEvent {
 }
 
 final class _AddEntryAddingEvent extends EntryAddingEvent {
-  const _AddEntryAddingEvent({
-    super.date,
-    super.entryType,
-    super.calendarFormat,
-    super.entriesList,
-    super.lectionsList,
-  });
+  const _AddEntryAddingEvent();
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is _StateDataChangedEntryAddingEvent &&
-        other.date == date &&
-        other.entryType == entryType &&
-        other.calendarFormat == calendarFormat &&
-        listEquals(other.entriesList, entriesList) &&
-        listEquals(other.lectionsList, lectionsList);
+    return other is _StateDataChangedEntryAddingEvent;
   }
 
   @override
-  int get hashCode => Object.hash(
-        date,
-        entryType,
-        calendarFormat,
-        entriesList,
-        lectionsList,
-      );
+  int get hashCode;
 
   @override
-  String toString() =>
-      'EntryAddingEvent.stateDataChanged(date: $date, entryType: $entryType, calendarFormat: $calendarFormat, entriesList: $entriesList, lectionsList: $lectionsList)';
+  String toString() => 'EntryAddingEvent.add()';
 }
-
-
-
-// sealed class CalendarEntryAddingEvent extends Equatable {
-//   const CalendarEntryAddingEvent();
-
-//   @override
-//   List<Object?> get props => [];
-// }
-
-// // final class CalendarSubscriptionsRequested extends CalendarEvent {}
-
-// // final class CalendarNothingToAddEvent extends CalendarEntryAddingEvent {}
-
-// // final class CalendarSomethingToAddEvent extends CalendarEvent {}
-
-// final class CalendarDateChanged extends CalendarEntryAddingEvent {
-//   const CalendarDateChanged({required this.date});
-//   final DateTime date;
-//   @override
-//   List<Object> get props => [date];
-// }
-
-// final class CalendarEntryTypeChanged extends CalendarEntryAddingEvent {
-//   const CalendarEntryTypeChanged({required this.entryType});
-//   final EntryType entryType;
-//   @override
-//   List<Object> get props => [entryType];
-// }
-
-// final class CalendarFormatChanged extends CalendarEntryAddingEvent {
-//   const CalendarFormatChanged({required this.calendarFormat});
-//   final CalendarFormat calendarFormat;
-//   @override
-//   List<Object> get props => [calendarFormat];
-// }
-
-// final class CalendarEntriesUpdated extends CalendarEntryAddingEvent {
-//   final List<Entry>? entriesList;
-
-//   const CalendarEntriesUpdated(this.entriesList);
-
-//   @override
-//   List<Object?> get props => [entriesList];
-// }
-
-// final class CalendarLectionsUpdated extends CalendarEntryAddingEvent {
-//   final List<Lection>? lectionsList;
-
-//   const CalendarLectionsUpdated(this.lectionsList);
-
-//   @override
-//   List<Object?> get props => [lectionsList];
-// }
-

@@ -13,7 +13,6 @@ abstract interface class ILoosedEntriesFirebaseDataProvider {
 
   /// Getting entries stream
   Stream<List<EntryModel>> entriesStream();
-
  
 }
 

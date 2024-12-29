@@ -112,17 +112,19 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         calendarFormat: state.calendarFormat,
         entriesList: state.entriesList,
         lectionsList: state.lectionsList,
-        validationResponse: state.validationResponse,
+        validationResponse:
+            await _isStudentInSchool(entryType: state.entryType!),
       ));
+
+      log(state.toString());
+      if (state.validationResponse != null) {
+        return;
+      }
 
       final Entry entry = Entry(
           visitID: const Uuid().v4(),
           date: state.date,
           entryType: state.entryType!);
-
-      if (await _isStudentInSchool(entryType: state.entryType!) != null) {
-        return;
-      }
 
       // Entry Adding
       _entryAddingRepository.addEntry(entry);
@@ -132,8 +134,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         calendarFormat: state.calendarFormat,
         entriesList: state.entriesList,
         lectionsList: state.lectionsList,
-        validationResponse:
-            await _isStudentInSchool(entryType: state.entryType!),
+        validationResponse: state.validationResponse,
       ));
     } on Object catch (e, st) {
       onError(e, st);
@@ -153,8 +154,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         calendarFormat: state.calendarFormat,
         entriesList: state.entriesList,
         lectionsList: state.lectionsList,
-        validationResponse:
-            await _isStudentInSchool(entryType: state.entryType!),
+        validationResponse: state.validationResponse,
       ));
     }
   }

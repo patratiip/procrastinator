@@ -4,6 +4,7 @@ import 'package:procrastinator/src/app_student/features/entries/data/entry_repos
 import 'package:procrastinator/src/app_student/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:procrastinator/src/app_student/features/forgotten_entries/data/forgotten_entry_repository.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/data/lection_repository.dart';
+import 'package:procrastinator/src/app_student/features/loosed_entries/data/loosed_entries_repository.dart';
 import 'package:procrastinator/src/app_student/features/statistic/service/statistic_computing_service.dart';
 
 /// {@template student_dependencies_container}
@@ -21,6 +22,7 @@ base class StudentDependenciesContainer {
     required this.lectionRepository,
     required this.entryAddingRepository,
     required this.forgottenEntryRepository,
+    required this.loosedEntriesRepository,
     required this.firebaseGroupRepository,
     required this.statisticComputingServise,
   });
@@ -36,6 +38,9 @@ base class StudentDependenciesContainer {
 
   /// [IForgottenEntryRepository] instance, used to manage forgotten entries requests.
   final IForgottenEntryRepository forgottenEntryRepository;
+
+  /// [ILoosedEntriesRepository] instance, used to manage loosed entries.
+  final ILoosedEntriesRepository loosedEntriesRepository;
 
   /// [IStudentGroupRepository] instance, used to manage student group.
   final IStudentGroupRepository firebaseGroupRepository;

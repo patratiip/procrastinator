@@ -1,6 +1,6 @@
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
-import 'package:procrastinator/src/app_student/features/entry_adding/data/entry_adding_firebase_data_provider.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection.dart';
+import 'package:procrastinator/src/app_student/features/loosed_entries/data/loosed_entries_firebase_data_provider.dart';
 
 /// Interface for [LoosedEntriesRepositoryImpl]
 ///
@@ -13,26 +13,29 @@ abstract class ILoosedEntriesRepository {
   /// Getting entries stream
   Stream<List<Entry>> entriesStream();
 
-  /// Adding entry to entries collection
-  Future<void> addEntry(Entry entry);
+  /// Compairing [Entry] and [Lection] lists do define loosed entries
+  List<Lection> comareLectionsAndEntries(
+    List<Lection> lectionList,
+    List<Entry> entryList,
+  );
 }
 
 /// {@template loosed_entries_repository_impl}
 /// Implementation of [ILoosedEntriesRepository].
 /// {@endtemplate}
 final class LoosedEntriesRepositoryImpl implements ILoosedEntriesRepository {
-  final IEntryAddingFirebaseDataProvider _entryAddingFirebaseDataProvider;
+  final ILoosedEntriesFirebaseDataProvider _loosedEntriesFirebaseDataProvider;
 
   /// {@macro loosed_entries_repository_impl}
   LoosedEntriesRepositoryImpl(
-      {required IEntryAddingFirebaseDataProvider
-          entryAddingFirebaseDataProvider})
-      : _entryAddingFirebaseDataProvider = entryAddingFirebaseDataProvider;
+      {required ILoosedEntriesFirebaseDataProvider
+          loosedEntriesFirebaseDataProvider})
+      : _loosedEntriesFirebaseDataProvider = loosedEntriesFirebaseDataProvider;
 
   @override
   Stream<List<Lection>> lectionsStream() {
     /// Convert [LectionModel]'s stream to an [Lection] stream
-    return _entryAddingFirebaseDataProvider
+    return _loosedEntriesFirebaseDataProvider
         .lectionsStream()
         .map((entities) =>
             entities.map((entity) => Lection.fromModel(entity)).toList())
@@ -42,16 +45,36 @@ final class LoosedEntriesRepositoryImpl implements ILoosedEntriesRepository {
   @override
   Stream<List<Entry>> entriesStream() {
     /// Convert [EntryModel]'s stream to an [Entry]'s stream
-    return _entryAddingFirebaseDataProvider
+    return _loosedEntriesFirebaseDataProvider
         .entriesStream()
         .map((entities) =>
             entities.map((entity) => Entry.fromModel(entity)).toList())
         .asBroadcastStream();
   }
 
-  /// Adding [Entry] to UserVisits collection
   @override
-  Future<void> addEntry(Entry entry) async {
-    await _entryAddingFirebaseDataProvider.addEntry(entry);
+  List<Lection> comareLectionsAndEntries(
+      List<Lection> lectionList, List<Entry> entryList) {
+    final filteredLectionsList = lectionList
+        .where((lection) => lection.date.isBefore(DateTime.now()))
+        .toList();
+
+    final List<Lection> loosedLectionsList = [];
+
+    if (filteredLectionsList.isNotEmpty) {
+      for (final lection in filteredLectionsList) {
+        bool found = false;
+        for (final visit in entryList) {
+          if (visit.date == lection.date) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          loosedLectionsList.add(lection);
+        }
+      }
+    }
+    return loosedLectionsList;
   }
 }

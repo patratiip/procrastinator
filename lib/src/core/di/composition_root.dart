@@ -3,6 +3,8 @@ import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:procrastinator/src/app_student/features/loosed_entries/data/loosed_entries_firebase_data_provider.dart';
+import 'package:procrastinator/src/app_student/features/loosed_entries/data/loosed_entries_repository.dart';
 import 'package:procrastinator/src/core/constant/mocked_geoposition.dart';
 import 'package:procrastinator/src/app_student/features/forgotten_entries/data/firebase_forgotten_entry_data_provider.dart';
 import 'package:procrastinator/src/app_student/features/forgotten_entries/data/forgotten_entry_repository.dart';
@@ -247,6 +249,8 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
         EntryAddingRepositoryFactory(currentUser, config).create();
     final forgottenEntryRepository =
         ForgottenEntryRepositoryFactory(currentUser, config).create();
+    final loosedEntriesRepository =
+        LoosedEntriesRepositoryFactory(currentUser, config).create();
     final firebaseGroupRepository =
         FirebaseGroupRepositoryFactory(groupId: currentUser.group).create();
 
@@ -258,6 +262,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
       lectionRepository: lectionRepository,
       entryAddingRepository: entryAddingRepository,
       forgottenEntryRepository: forgottenEntryRepository,
+      loosedEntriesRepository: loosedEntriesRepository,
       firebaseGroupRepository: firebaseGroupRepository,
       statisticComputingServise: statisticComputingServise,
     );
@@ -528,6 +533,67 @@ class ForgottenEntryRepositoryFactory
 
     return ForgottenEntryRepositoryImpl(
       requestDataProvider: forgottenEntryFirebaseDataProvider,
+    );
+  }
+}
+
+/// {@template firebase_entry_adding_repo_factory}
+/// Factory that creates an instance of [LoosedEntriesRepositoryImpl].
+/// {@endtemplate}
+class LoosedEntriesRepositoryFactory
+    extends Factory<LoosedEntriesRepositoryImpl> {
+  /// {@macro firebase_entry_adding_repo_factory}
+  LoosedEntriesRepositoryFactory(this.currentUser, this.config);
+
+  /// Current user collection reference
+  final MyUser currentUser;
+
+  /// Application configuration
+  final Config config;
+
+  @override
+  LoosedEntriesRepositoryImpl create() {
+    /// Getting lections collection name depend on enviroment
+    final String lectionsCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.lections,
+      Environment.staging => StagingFirebaseCollectionsConstants.lections,
+      Environment.prod => ProdFirebaseCollectionsConstants.lections,
+    };
+
+    /// Getting users collection name depend on enviroment
+    final String usersCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.users,
+      Environment.staging => StagingFirebaseCollectionsConstants.users,
+      Environment.prod => ProdFirebaseCollectionsConstants.users,
+    };
+
+    /// Getting entries collection name depend on enviroment
+    final String entriesCollectionName = switch (config.environment) {
+      Environment.dev => DevFirebaseCollectionsConstants.userEntries,
+      Environment.staging => StagingFirebaseCollectionsConstants.userEntries,
+      Environment.prod => ProdFirebaseCollectionsConstants.userEntries,
+    };
+
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour
+    final lectionsCollectionRef =
+        FirebaseFirestore.instance.collection(lectionsCollectionName);
+
+    /// Making [CollectionReference] for [EntryFirebaseDataProviderImpl]
+    /// depend on app flavour and current user
+    final entriesCollectionRef = FirebaseFirestore.instance
+        .collection(usersCollectionName)
+        .doc(currentUser.userId)
+        .collection(entriesCollectionName);
+
+    final loosedEntriesFirebaseDataProvider =
+        LoosedEntriesFirebaseDataProviderImpl(
+      lectionsCollectionRef: lectionsCollectionRef,
+      entriesCollectionRef: entriesCollectionRef,
+    );
+
+    return LoosedEntriesRepositoryImpl(
+      loosedEntriesFirebaseDataProvider: loosedEntriesFirebaseDataProvider,
     );
   }
 }

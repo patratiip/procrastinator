@@ -3,26 +3,22 @@ import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:procrastinator/src/app_student/features/entries/data/entry_repository.dart';
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection.dart';
-import 'package:procrastinator/src/app_student/features/lection_plan/data/lection_repository.dart';
+import 'package:procrastinator/src/app_student/features/loosed_entries/data/loosed_entries_repository.dart';
 
 part 'loosed_entries_event.dart';
 part 'loosed_entries_state.dart';
 
 class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
-  final IEntryRepository _entriesRepository;
-  final ILectionRepository _lectionsRepository;
+  final ILoosedEntriesRepository _loosedEntriesRepository;
 
   late final StreamSubscription<List<Entry>?> _entrysListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
   LoosedEntriesBloc({
-    required IEntryRepository entriesRepository,
-    required ILectionRepository lectionsRepository,
-  })  : _entriesRepository = entriesRepository,
-        _lectionsRepository = lectionsRepository,
+    required ILoosedEntriesRepository loosedEntriesRepository,
+  })  : _loosedEntriesRepository = loosedEntriesRepository,
         super(const LoosedEntrysInitial()) {
     //
     on<LoosedEntriesEvent>(
@@ -37,7 +33,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
     List<Lection> lectionsListFromStream = [];
 
     /// Subscription - Entries List from Repo
-    _entrysListListener = _entriesRepository.entriesStream().listen(
+    _entrysListListener = _loosedEntriesRepository.entriesStream().listen(
       (entriesList) {
         if (entriesList.isNotEmpty) {
           entriesListFromStream = entriesList;
@@ -53,7 +49,7 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
     );
 
     /// Subscription - Lessons List from Repo
-    _lectionListListener = _lectionsRepository.lectionsStream().listen(
+    _lectionListListener = _loosedEntriesRepository.lectionsStream().listen(
       (lectionsList) {
         if (lectionsList.isNotEmpty) {
           lectionsListFromStream = lectionsList;

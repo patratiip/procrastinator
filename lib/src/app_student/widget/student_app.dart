@@ -35,10 +35,8 @@ class StudentApp extends StatelessWidget {
           // Loosed lections
           BlocProvider(
               create: (context) => LoosedEntriesBloc(
-                    entriesRepository:
-                        StudentAppScope.depConOf(context).entryRepository,
-                    lectionsRepository:
-                        StudentAppScope.depConOf(context).lectionRepository,
+                    loosedEntriesRepository: StudentAppScope.depConOf(context)
+                        .loosedEntriesRepository,
                   )),
 
           // Statistic
