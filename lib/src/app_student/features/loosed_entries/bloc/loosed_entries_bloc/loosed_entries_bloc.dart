@@ -71,41 +71,14 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
       Emitter<LoosedEntriesState> emit) async {
     emit(const CompairingEntrysState());
 
-    final loosedLections =
-        _comareLectionsAndEntries(event.lectionsList, event.entriesList);
+    final loosedLections = _loosedEntriesRepository.comareLectionsAndEntries(
+        event.lectionsList, event.entriesList);
 
     if (loosedLections.isNotEmpty) {
       emit(ComparedEntrysState(loosedLectionsList: loosedLections));
     } else {
       emit(const ComparedAllClear());
     }
-  }
-
-  List<Lection> _comareLectionsAndEntries(
-    List<Lection> lectionList,
-    List<Entry> entryList,
-  ) {
-    final filteredLectionsList = lectionList
-        .where((lection) => lection.date.isBefore(DateTime.now()))
-        .toList();
-
-    final List<Lection> loosedLectionsList = [];
-
-    if (filteredLectionsList.isNotEmpty) {
-      for (final lection in filteredLectionsList) {
-        bool found = false;
-        for (final visit in entryList) {
-          if (visit.date == lection.date) {
-            found = true;
-            break;
-          }
-        }
-        if (!found) {
-          loosedLectionsList.add(lection);
-        }
-      }
-    }
-    return loosedLectionsList;
   }
 
   @override

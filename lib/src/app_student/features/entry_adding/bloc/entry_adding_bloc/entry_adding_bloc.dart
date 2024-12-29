@@ -116,7 +116,6 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
             await _isStudentInSchool(entryType: state.entryType!),
       ));
 
-      log(state.toString());
       if (state.validationResponse != null) {
         return;
       }
