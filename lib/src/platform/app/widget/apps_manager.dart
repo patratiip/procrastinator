@@ -7,7 +7,7 @@ import 'package:procrastinator/src/core/constant/localization/generated/l10n.dar
 import 'package:procrastinator/src/app_management/di/management_scope.dart';
 import 'package:procrastinator/src/app_student/di/student_app_scope.dart';
 import 'package:procrastinator/src/app_trainer/di/trainer_app_scope.dart';
-import 'package:procrastinator/src/platform/app/bloc/authentication_bloc.dart';
+import 'package:procrastinator/src/platform/auth/bloc/authentication_bloc.dart';
 import 'package:procrastinator/src/app_management/widget/management_app.dart';
 import 'package:procrastinator/src/app_student/widget/student_app.dart';
 import 'package:procrastinator/src/app_trainer/trainer_app.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/platform/app/di/app_dependencies_container.dart';
-import 'package:procrastinator/src/platform/app/bloc/authentication_bloc.dart';
+import 'package:procrastinator/src/platform/auth/bloc/authentication_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
 /// {@template AppScope_scope}

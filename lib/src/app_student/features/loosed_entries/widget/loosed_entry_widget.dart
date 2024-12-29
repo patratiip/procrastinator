@@ -82,42 +82,6 @@ class LoosedEntryWidget extends StatelessWidget {
                 color: MyAppColorScheme.primary,
               ),
             )
-            // IconButton(
-            //   onPressed: () {
-            //     print('${lessonData.theme} Entry Added');
-
-            //     showCupertinoModalBottomSheet(
-            //         context: context,
-            //         builder: (BuildContext context) {
-            //           return Container(
-            //             decoration:
-            //                 BoxDecoration(color: Theme.of(context).cardColor),
-            //             height: 300,
-            //             child: Center(
-            //               child: Column(
-            //                 mainAxisAlignment: MainAxisAlignment.center,
-            //                 children: [
-            //                   Text(
-            //                     dateFormat.format(lessonData.date!),
-            //                     style: Theme.of(context).textTheme.displayLarge,
-            //                   ),
-            //                   ElevatedButton(
-            //                       onPressed: () {
-            //                         Navigator.pop(context);
-            //                       },
-            //                       child: const Text('Close!'))
-            //                 ],
-            //               ),
-            //             ),
-            //           );
-            //         });
-            //   },
-            //   icon: const Icon(
-            //     Icons.add_rounded,
-            //     size: 32,
-            //     color: MyAppColorScheme.primary,
-            //   ),
-            // ),
           ]),
     );
   }

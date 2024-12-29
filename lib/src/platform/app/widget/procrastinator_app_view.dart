@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/platform/app/bloc/authentication_bloc.dart';
-import 'package:procrastinator/src/platform/app/view/apps_manager.dart';
+import 'package:procrastinator/src/platform/auth/bloc/authentication_bloc.dart';
+import 'package:procrastinator/src/platform/app/widget/apps_manager.dart';
 import 'package:procrastinator/src/platform/auth/login/widget/login_screen.dart';
 import 'package:procrastinator/src/platform/initialization/model/app_theme.dart';
 import 'package:procrastinator/src/platform/settings/di/settings_scope.dart';

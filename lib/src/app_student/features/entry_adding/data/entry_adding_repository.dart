@@ -10,7 +10,6 @@ import 'package:user_repository/user_repository.dart';
 /// The repository that adding entries
 abstract class IEntryAddingRepository {
   // Firebase Data Provider
-
   /// Getting lections stream
   Stream<List<Lection>> lectionsStream();
 
@@ -21,7 +20,6 @@ abstract class IEntryAddingRepository {
   Future<void> addEntry(Entry entry);
 
   // Gelocation Data Provider
-
   /// Determines actual user position
   Future<Position> determinePosition();
 

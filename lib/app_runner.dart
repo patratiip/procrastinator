@@ -9,7 +9,7 @@ import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/composition_root.dart';
 import 'package:procrastinator/src/core/utils/app_bloc_observer.dart';
 import 'package:procrastinator/src/core/utils/logger.dart';
-import 'package:procrastinator/src/platform/app/view/procrastinator.dart';
+import 'package:procrastinator/src/platform/app/widget/procrastinator.dart';
 import 'package:procrastinator/src/platform/initialization/widget/initialization_failed_app.dart';
 
 /// {@template app_runner}
@@ -48,6 +48,7 @@ final class AppRunner {
 
         // Attach this widget to the root of the tree.
         runApp(ProcrastinatorApp(result));
+        //
       } catch (e, stackTrace) {
         logger.error('Initialization failed', error: e, stackTrace: stackTrace);
         runApp(
