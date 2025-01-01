@@ -1,20 +1,43 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'loosed_entries_bloc.dart';
 
-sealed class LoosedEntriesEvent extends Equatable {
-  const LoosedEntriesEvent();
+sealed class LoosedEntriesEvent {
+  /// The lectionsList
+  final List<Lection>? lectionsList;
 
-  @override
-  List<Object> get props => [];
+  /// The entriesList
+  final List<Entry>? entriesList;
+
+  const LoosedEntriesEvent({
+     this.lectionsList,
+     this.entriesList,
+  });
+
+  /// The lectionsList changed.
+  const factory LoosedEntriesEvent.lectionsListChanged({
+     List<Lection> lectionsList,
+     List<Entry> entriesList,
+  }) = _LoosedEntriesEventChanged;
 }
 
-final class ComairingLectionsAndVisitsEvent extends LoosedEntriesEvent {
-  final List<Lection> lectionsList;
-  final List<Entry> entriesList;
-
-  const ComairingLectionsAndVisitsEvent(
-      {required this.lectionsList, required this.entriesList});
+final class _LoosedEntriesEventChanged extends LoosedEntriesEvent {
+  const _LoosedEntriesEventChanged({
+     super.lectionsList,
+     super.entriesList,
+  });
 
   @override
-  List<Object> get props => [lectionsList, entriesList];
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is _LoosedEntriesEventChanged &&
+        listEquals(other.entriesList, entriesList) &&
+        listEquals(other.lectionsList, lectionsList);
+  }
+
+  @override
+  int get hashCode => Object.hash(entriesList, lectionsList);
+
+  @override
+  String toString() =>
+      'LoosedEntriesEvent.lectionsListChanged( entriesList: $entriesList, lectionsList: $lectionsList)';
 }

@@ -14,7 +14,7 @@ abstract class ILoosedEntriesRepository {
   Stream<List<Entry>> entriesStream();
 
   /// Compairing [Entry] and [Lection] lists do define loosed entries
-  List<Lection> comareLectionsAndEntries(
+  Future<List<Lection>> comareLectionsAndEntries(
     List<Lection> lectionList,
     List<Entry> entryList,
   );
@@ -53,8 +53,8 @@ final class LoosedEntriesRepositoryImpl implements ILoosedEntriesRepository {
   }
 
   @override
-  List<Lection> comareLectionsAndEntries(
-      List<Lection> lectionList, List<Entry> entryList) {
+  Future<List<Lection>> comareLectionsAndEntries(
+      List<Lection> lectionList, List<Entry> entryList) async {
     final filteredLectionsList = lectionList
         .where((lection) => lection.date.isBefore(DateTime.now()))
         .toList();

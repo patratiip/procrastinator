@@ -74,10 +74,8 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         calendarFormat: event.calendarFormat ?? state.calendarFormat,
         entriesList: event.entriesList ?? state.entriesList,
         lectionsList: event.lectionsList ?? state.lectionsList,
-        validationResponse: null,
+        validationResponse: _isNewStateValid(actualState: state),
       ));
-
-      final validationResponse = _isNewStateValid(actualState: state);
 
       emit(_IdleEntryAddingState(
         date: state.date,
@@ -85,12 +83,21 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         calendarFormat: state.calendarFormat,
         entriesList: state.entriesList,
         lectionsList: state.lectionsList,
-        validationResponse: validationResponse,
+        validationResponse: state.validationResponse,
       ));
-    } on Object catch (e, st) {
-      onError(e, st);
+    } on Object catch (error, stackTrace) {
+      onError(error, stackTrace);
       emit(_ErrorEntryAddingState(
-        error: e,
+        error: error,
+        date: state.date,
+        entryType: state.entryType,
+        calendarFormat: state.calendarFormat,
+        entriesList: state.entriesList,
+        lectionsList: state.lectionsList,
+        validationResponse: state.validationResponse,
+      ));
+    } finally {
+      emit(_IdleEntryAddingState(
         date: state.date,
         entryType: state.entryType,
         calendarFormat: state.calendarFormat,
@@ -135,10 +142,10 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         lectionsList: state.lectionsList,
         validationResponse: state.validationResponse,
       ));
-    } on Object catch (e, st) {
-      onError(e, st);
+    } on Object catch (error, stackTrace) {
+      onError(error, stackTrace);
       emit(_ErrorEntryAddingState(
-        error: e,
+        error: error,
         date: state.date,
         entryType: state.entryType,
         calendarFormat: state.calendarFormat,
@@ -181,11 +188,11 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
       } else {
         return null;
       }
-    } on Object catch (e, st) {
-      onError(e, st);
-      log(e.toString());
+    } on Object catch (error, stackTrace) {
+      onError(error, stackTrace);
+      log(error.toString());
       return EntryAddingValidationResponse(
-          stateValidityType: StateValidityType.unexpectedError, value: e);
+          stateValidityType: StateValidityType.unexpectedError, value: error);
     }
   }
 

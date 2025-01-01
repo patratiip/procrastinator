@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
-import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection.dart';
@@ -19,31 +19,23 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
   LoosedEntriesBloc({
     required ILoosedEntriesRepository loosedEntriesRepository,
   })  : _loosedEntriesRepository = loosedEntriesRepository,
-        super(const LoosedEntrysInitial()) {
-    //
+        super(const _IdleLoosedEntriesState(
+          lectionsWithoutEntryList: [],
+          entriesList: [],
+          lectionsList: [],
+        )) {
     on<LoosedEntriesEvent>(
       (event, emit) => switch (event) {
-        final ComairingLectionsAndVisitsEvent e =>
-          _comairingLectionsAndVisitsEvent(e, emit),
+        final _LoosedEntriesEventChanged e =>
+          _loosedEntriesEventChanged(e, emit),
       },
       transformer: sequential(),
     );
 
-    List<Entry> entriesListFromStream = [];
-    List<Lection> lectionsListFromStream = [];
-
     /// Subscription - Entries List from Repo
     _entrysListListener = _loosedEntriesRepository.entriesStream().listen(
       (entriesList) {
-        if (entriesList.isNotEmpty) {
-          entriesListFromStream = entriesList;
-        }
-        if (entriesListFromStream.isNotEmpty &&
-            lectionsListFromStream.isNotEmpty) {
-          add(ComairingLectionsAndVisitsEvent(
-              entriesList: entriesListFromStream,
-              lectionsList: lectionsListFromStream));
-        }
+        add(_LoosedEntriesEventChanged(entriesList: entriesList));
       },
       cancelOnError: false,
     );
@@ -51,33 +43,43 @@ class LoosedEntriesBloc extends Bloc<LoosedEntriesEvent, LoosedEntriesState> {
     /// Subscription - Lessons List from Repo
     _lectionListListener = _loosedEntriesRepository.lectionsStream().listen(
       (lectionsList) {
-        if (lectionsList.isNotEmpty) {
-          lectionsListFromStream = lectionsList;
-        }
-        if (lectionsListFromStream.isNotEmpty &&
-            entriesListFromStream.isNotEmpty) {
-          add(ComairingLectionsAndVisitsEvent(
-            entriesList: entriesListFromStream,
-            lectionsList: lectionsListFromStream,
-          ));
-        }
+        add(_LoosedEntriesEventChanged(lectionsList: lectionsList));
       },
       cancelOnError: false,
     );
   }
 
-  Future<void> _comairingLectionsAndVisitsEvent(
-      ComairingLectionsAndVisitsEvent event,
+  /// [Lection] or [Entry] stream heve some changes
+  Future<void> _loosedEntriesEventChanged(_LoosedEntriesEventChanged event,
       Emitter<LoosedEntriesState> emit) async {
-    emit(const CompairingEntrysState());
+    try {
+      emit(_CompairingLoosedEntriesState(
+        entriesList: event.entriesList ?? state.entriesList,
+        lectionsList: event.lectionsList ?? state.lectionsList,
+        lectionsWithoutEntryList: state.lectionsWithoutEntryList,
+      ));
+      final loosedLections = await _loosedEntriesRepository
+          .comareLectionsAndEntries(state.lectionsList, state.entriesList);
 
-    final loosedLections = _loosedEntriesRepository.comareLectionsAndEntries(
-        event.lectionsList, event.entriesList);
-
-    if (loosedLections.isNotEmpty) {
-      emit(ComparedEntrysState(loosedLectionsList: loosedLections));
-    } else {
-      emit(const ComparedAllClear());
+      emit(_ComparedLoosedEntriesState(
+        entriesList: state.entriesList,
+        lectionsList: state.lectionsList,
+        lectionsWithoutEntryList: loosedLections,
+      ));
+    } on Object catch (error, stackTrace) {
+      onError(error, stackTrace);
+      emit(_ErrorLoosedEntriesState(
+        error: error,
+        entriesList: state.entriesList,
+        lectionsList: state.lectionsList,
+        lectionsWithoutEntryList: state.lectionsWithoutEntryList,
+      ));
+    } finally {
+      emit(_IdleLoosedEntriesState(
+        entriesList: state.entriesList,
+        lectionsList: state.lectionsList,
+        lectionsWithoutEntryList: state.lectionsWithoutEntryList,
+      ));
     }
   }
 
