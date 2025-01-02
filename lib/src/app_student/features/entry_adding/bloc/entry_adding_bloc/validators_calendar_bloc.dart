@@ -41,10 +41,7 @@ EntryAddingValidationResponse? _isNewStateValid(
   return null;
 }
 
-/// Returns normalized date
-DateTime _normalizeDate(DateTime date) {
-  return DateTime(date.year, date.month, date.day);
-}
+
 
 /// Checking if entry at that date already exist in [entriesList]
 bool _entryAtThatDateExist(DateTime date, List<Entry> entriesList) {
@@ -58,13 +55,13 @@ bool _lectionWithTisDateExist(DateTime date, List<Lection> lectionsList) {
 
 /// Checking if actual [state.date] is in a future
 bool _isDateInTheFuture(DateTime date) {
-  final today = _normalizeDate(DateTime.now());
+  final today = dateNormalizer(DateTime.now());
   return !date.isAfter(today);
 }
 
 /// Checking if actual [state.date] is today when user choosed [EntryType.schoolVisit]
 bool _ifTypeIsSchoolDateIsToday(EntryType? type, DateTime date) {
-  final today = _normalizeDate(DateTime.now());
+  final today = dateNormalizer(DateTime.now());
 
   if (type == EntryType.schoolVisit && !date.isAtSameMomentAs(today)) {
     return false;

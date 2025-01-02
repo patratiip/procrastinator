@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:procrastinator/src/app_student/features/entries/model/entry_model.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection_model.dart';
+import 'package:procrastinator/src/core/utils/little_helpers.dart';
 
 /// Interface for [LoosedEntriesFirebaseDataProviderImpl]
 ///
@@ -13,7 +14,6 @@ abstract interface class ILoosedEntriesFirebaseDataProvider {
 
   /// Getting entries stream
   Stream<List<EntryModel>> entriesStream();
- 
 }
 
 /// {@template loosed_entries_firebase_data_provider}
@@ -34,16 +34,11 @@ final class LoosedEntriesFirebaseDataProviderImpl
 
   @override
   Stream<List<LectionModel>> lectionsStream() {
-    //TODO: When the feature wold be separated
-    //FROM OTHER FEATURES (foe example Calendar,
-    // because this repo handles there lections list)
-    //, uncommet things below
-    // final now = DateTime.now();
-    // final Timestamp today =
-    //     Timestamp.fromDate(DateTime(now.year, now.month, now.day));
+    final today = Timestamp.fromDate(dateNormalizer(DateTime.now()));
+
     try {
       final lections = _lectionsCollectionRef
-          // .where('date', isGreaterThan: today)
+          .where('date', isLessThanOrEqualTo: today)
           .orderBy('date', descending: false)
           .snapshots()
           .map((snapshot) => snapshot.docs
@@ -72,6 +67,4 @@ final class LoosedEntriesFirebaseDataProviderImpl
       rethrow;
     }
   }
-
-
 }

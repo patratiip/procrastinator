@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:procrastinator/src/app_student/features/entries/model/entry_model.dart';
+import 'package:procrastinator/src/core/utils/little_helpers.dart';
 
 /// {@template entry_type_enum}
 /// Determined [EntryType] for [Entry].
 /// Thay can be{ [schoolVisit], [homeOffice], [sick], [loosed] }
 /// {@endtemplate}
-
 enum EntryType { schoolVisit, homeOffice, sick, loosed }
 
 /// {@macro entry_type_enum}
@@ -14,7 +14,6 @@ enum EntryType { schoolVisit, homeOffice, sick, loosed }
 /// {@template entry_entity}
 /// An [Entry] entity class.
 /// {@endtemplate}
-
 class Entry {
   final String visitID;
   final DateTime date;
@@ -57,7 +56,7 @@ class Entry {
   static Entry fromModel(EntryModel model) {
     Entry entry = Entry(
         visitID: model.visitID,
-        date: _normalizeDate(model.date),
+        date: dateNormalizer(model.date),
         entryType: EntryType.homeOffice);
 
     if (model.schoolVisit != null) {
@@ -70,11 +69,6 @@ class Entry {
       entry = entry.copyWith(entryType: EntryType.loosed);
     }
     return entry;
-  }
-
-  /// Returns normalized date
-  static DateTime _normalizeDate(DateTime date) {
-    return DateTime(date.year, date.month, date.day);
   }
 
   Entry copyWith({

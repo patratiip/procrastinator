@@ -17,14 +17,10 @@ class LectionListWidget extends StatelessWidget {
   const LectionListWidget({super.key, required this.lectionList});
   @override
   Widget build(BuildContext context) {
-    //TODO: When the feature wold be separated, delete [filteredLections]
-    final filteredLections = lectionList
-        .where((lection) => lection.date.isAfter(DateTime.now()))
-        .toList();
     return ListView.builder(
         primary: false,
         shrinkWrap: true,
-        itemCount: filteredLections.length,
+        itemCount: lectionList.length,
         itemBuilder: (BuildContext context, int index) {
           return LectionWidget(
             tappable: true,
@@ -32,12 +28,11 @@ class LectionListWidget extends StatelessWidget {
               context: context,
               builder: (context) {
                 return BottomSheetWidget(
-                  child: LectionBottomSheetContent(
-                      lection: filteredLections[index]),
+                  child: LectionBottomSheetContent(lection: lectionList[index]),
                 );
               },
             ),
-            lection: filteredLections[index],
+            lection: lectionList[index],
           );
         });
   }

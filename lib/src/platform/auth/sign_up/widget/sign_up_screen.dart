@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/platform/app/di/app_scope.dart';
-import 'package:procrastinator/src/core/styles/text_field_theme.dart';
+import 'package:procrastinator/src/ui_kit/styles/text_field_theme.dart';
 import 'package:procrastinator/src/app_management/feature/main_screen/group_list/group_list.dart';
 import 'package:procrastinator/src/app_management/di/management_scope.dart';
 import 'package:procrastinator/src/platform/auth/sign_up/cubit/sign_up_cubit.dart';

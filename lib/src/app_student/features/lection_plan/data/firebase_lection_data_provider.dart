@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection_model.dart';
+import 'package:procrastinator/src/core/utils/little_helpers.dart';
 
 /// Interface for [LectionFirebaseDataProviderImpl]
 ///
@@ -25,16 +26,10 @@ final class LectionFirebaseDataProviderImpl implements ILectionDataProvider {
 
   @override
   Stream<List<LectionModel>> lectionsStream() {
-    //TODO: When the feature wold be separated
-    //FROM OTHER FEATURES (foe example Calendar,
-    // because this repo handles there lections list)
-    //, uncommet things below
-    // final now = DateTime.now();
-    // final Timestamp today =
-    //     Timestamp.fromDate(DateTime(now.year, now.month, now.day));
+final today = Timestamp.fromDate(dateNormalizer(DateTime.now()));
     try {
       final lections = _collectionRef
-          // .where('date', isGreaterThan: today)
+          .where('date', isGreaterThan: today)
           .orderBy('date', descending: false)
           .snapshots()
           .map((snapshot) => snapshot.docs

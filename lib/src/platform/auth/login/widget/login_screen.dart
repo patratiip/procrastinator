@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/assets/resources.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/core/styles/text_field_theme.dart';
+import 'package:procrastinator/src/ui_kit/styles/text_field_theme.dart';
 import 'package:procrastinator/src/platform/app/di/app_scope.dart';
 import 'package:procrastinator/src/platform/auth/login/cubit/login_cubit.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';

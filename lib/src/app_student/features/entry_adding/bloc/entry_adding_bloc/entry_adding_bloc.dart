@@ -4,11 +4,12 @@ import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection.dart';
+import 'package:procrastinator/src/core/utils/little_helpers.dart';
+import 'package:table_calendar/table_calendar.dart';
 import 'package:uuid/uuid.dart';
 
 part 'entry_adding_event.dart';
@@ -25,7 +26,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
     required IEntryAddingRepository entryAddingRepository,
   })  : _entryAddingRepository = entryAddingRepository,
         super(_IdleEntryAddingState(
-          date: _normalizeDate(DateTime.now()),
+          date: dateNormalizer(DateTime.now()),
           entryType: null,
           calendarFormat: CalendarFormat.week,
           entriesList: [],
@@ -69,7 +70,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
       Emitter<EntryAddingState> emit) async {
     try {
       emit(_ValidatingEntryAddingState(
-        date: _normalizeDate(event.date ?? state.date),
+        date: dateNormalizer(event.date ?? state.date),
         entryType: event.entryType ?? state.entryType,
         calendarFormat: event.calendarFormat ?? state.calendarFormat,
         entriesList: event.entriesList ?? state.entriesList,

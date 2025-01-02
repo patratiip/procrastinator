@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:equatable/equatable.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection_model.dart';
+import 'package:procrastinator/src/core/utils/little_helpers.dart';
 
 //TODO: drop Equtable
 class Lection extends Equatable {
@@ -33,7 +34,7 @@ class Lection extends Equatable {
       lectionID: model.lectionID,
       theme: model.theme,
       trainer: model.trainer,
-      date: _normalizeDate(model.date),
+      date: dateNormalizer(model.date),
       dayOfWeek: model.dayOfWeek,
     );
   }
@@ -55,10 +56,5 @@ class Lection extends Equatable {
       date: date ?? this.date,
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,
     );
-  }
-
-  /// Returns normalized date
-  static DateTime _normalizeDate(DateTime date) {
-    return DateTime(date.year, date.month, date.day);
   }
 }

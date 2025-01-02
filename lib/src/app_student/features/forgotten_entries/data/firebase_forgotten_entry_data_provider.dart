@@ -26,7 +26,7 @@ final class ForgottenEntryFirebaseDataProviderImpl
     implements IForgottenEntryDataProvider {
   final CollectionReference<Map<String, dynamic>> _collectionRef;
   // TODO: Add method to write [ForgottenRequestStudent.requestId] in user doc
-  final CollectionReference<Map<String, dynamic>> _userCollectionRef;
+  // final CollectionReference<Map<String, dynamic>> _userCollectionRef;
   final String _userId;
 
   /// {@macro forgotten_entry_firebase_data_provider}
@@ -35,7 +35,7 @@ final class ForgottenEntryFirebaseDataProviderImpl
     required CollectionReference<Map<String, dynamic>> userCollectionRef,
     required String userId,
   })  : _collectionRef = collectionRef,
-        _userCollectionRef = userCollectionRef,
+        // _userCollectionRef = userCollectionRef,
         _userId = userId;
 
   @override

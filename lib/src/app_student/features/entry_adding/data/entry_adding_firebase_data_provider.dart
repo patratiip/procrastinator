@@ -37,16 +37,8 @@ final class EntryAddingFirebaseDataProviderImpl
 
   @override
   Stream<List<LectionModel>> lectionsStream() {
-    //TODO: When the feature wold be separated
-    //FROM OTHER FEATURES (foe example Calendar,
-    // because this repo handles there lections list)
-    //, uncommet things below
-    // final now = DateTime.now();
-    // final Timestamp today =
-    //     Timestamp.fromDate(DateTime(now.year, now.month, now.day));
     try {
       final lections = _lectionsCollectionRef
-          // .where('date', isGreaterThan: today)
           .orderBy('date', descending: false)
           .snapshots()
           .map((snapshot) => snapshot.docs
