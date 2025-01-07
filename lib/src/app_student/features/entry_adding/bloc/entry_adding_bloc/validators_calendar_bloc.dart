@@ -1,8 +1,8 @@
 part of 'entry_adding_bloc.dart';
 
 /// Checks if everything is allright or handled an Error State
-EntryAddingValidationResponse? _isNewStateValid(
-    {required EntryAddingState actualState}) {
+Future<EntryAddingValidationResponse?> _isNewStateValid(
+    {required EntryAddingState actualState}) async {
   // TODO: Add validation for situations:
   // state have no entryType, lections list is empty
 
@@ -40,8 +40,6 @@ EntryAddingValidationResponse? _isNewStateValid(
 
   return null;
 }
-
-
 
 /// Checking if entry at that date already exist in [entriesList]
 bool _entryAtThatDateExist(DateTime date, List<Entry> entriesList) {

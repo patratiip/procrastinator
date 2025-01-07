@@ -75,8 +75,10 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         calendarFormat: event.calendarFormat ?? state.calendarFormat,
         entriesList: event.entriesList ?? state.entriesList,
         lectionsList: event.lectionsList ?? state.lectionsList,
-        validationResponse: _isNewStateValid(actualState: state),
+        validationResponse: state.validationResponse,
       ));
+
+      final validationResponse = await _isNewStateValid(actualState: state);
 
       emit(_IdleEntryAddingState(
         date: state.date,
@@ -84,7 +86,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         calendarFormat: state.calendarFormat,
         entriesList: state.entriesList,
         lectionsList: state.lectionsList,
-        validationResponse: state.validationResponse,
+        validationResponse: validationResponse,
       ));
     } on Object catch (error, stackTrace) {
       onError(error, stackTrace);
