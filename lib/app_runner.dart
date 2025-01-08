@@ -5,6 +5,7 @@ import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/business.dart';
 import 'package:procrastinator/firebase_options.dart';
 import 'package:procrastinator/main.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/redux_app_state.dart';
@@ -46,11 +47,15 @@ final class AppRunner {
 
 ////////////////////////////////////////////////////
 
+// Moved to lib/business.dart
     // REDUX ASYNC: Creating initial App state
-    store = Store<ReduxAppState>(
-      initialState: ReduxAppState.initialState(),
-    );
+    // var store = Store<ReduxAppState>(
+    //   initialState: ReduxAppState.initialState(),
+    // );
 
+    await Future.wait([
+      Business.init(),
+    ]);
     // Dependencies initializing
     // getIt.registerSingleton<AppModel>(AppModelImplementation());  // Example
 

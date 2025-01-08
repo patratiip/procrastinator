@@ -8,8 +8,8 @@ import 'package:procrastinator/app_runner.dart';
 
 ////////////////////////////////////////////////////
 
-// Global AsyncRedux app state
-late Store<ReduxAppState> store;
+// // Global AsyncRedux app state
+// late Store<ReduxAppState> store;
 
 // Global ServiceLocator
 GetIt getIt = GetIt.instance;

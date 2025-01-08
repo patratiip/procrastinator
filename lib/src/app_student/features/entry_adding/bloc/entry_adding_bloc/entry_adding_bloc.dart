@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/business.dart';
+import 'package:procrastinator/main.dart';
 
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/data/entry_adding_repository.dart';
@@ -78,6 +80,16 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
         lectionsList: event.lectionsList ?? state.lectionsList,
         validationResponse: state.validationResponse,
       ));
+
+      ///
+      Business.store.state.reduxEntryAddingState
+          .copy(date: state.date, lectionsList: state.lectionsList);
+      log('1' + Business.store.state.reduxEntryAddingState.toString());
+      Business.store.state.reduxEntryAddingState
+          .copy(date: dateNormalizer(DateTime.now()));
+      log(Business.store.state.reduxEntryAddingState.toString());
+
+      ///
 
       final validationResponse = await _isNewStateValid(actualState: state);
 

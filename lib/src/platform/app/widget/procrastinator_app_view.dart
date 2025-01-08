@@ -2,7 +2,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:procrastinator/main.dart';
+import 'package:procrastinator/business.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/redux_app_state.dart';
 
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
@@ -20,7 +20,7 @@ class ProcrastinatorAppView extends StatelessWidget {
     final settings = SettingsScope.settingsOf(context);
 
     return StoreProvider<ReduxAppState>(
-      store: store,
+      store: Business.store,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Procrastinator',
