@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:async_redux/async_redux.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/firebase_options.dart';
+import 'package:procrastinator/main.dart';
+import 'package:procrastinator/src/app_student/features/entry_adding/redux_app_state.dart';
 import 'package:procrastinator/src/core/constant/config.dart';
 import 'package:procrastinator/src/core/di/composition_root.dart';
 import 'package:procrastinator/src/core/utils/app_bloc_observer.dart';
@@ -41,10 +44,17 @@ final class AppRunner {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
 
-    //
-    //
-    //
-    //REDUX ASYNC
+////////////////////////////////////////////////////
+
+    // REDUX ASYNC: Creating initial App state
+    store = Store<ReduxAppState>(
+      initialState: ReduxAppState.initialState(),
+    );
+
+    // Dependencies initializing
+    // getIt.registerSingleton<AppModel>(AppModelImplementation());  // Example
+
+////////////////////////////////////////////////////
 
     Future<void> initializeAndRun() async {
       try {
