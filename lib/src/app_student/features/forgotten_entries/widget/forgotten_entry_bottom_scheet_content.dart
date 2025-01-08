@@ -13,6 +13,8 @@ import 'package:procrastinator/src/ui_kit/widget/my_circular_progress.dart';
 import 'package:procrastinator/src/ui_kit/widget/user_image_widget.dart';
 
 class ForgottenEntryBottomSheetContent extends StatelessWidget {
+  //TODO: take parameters like Repo, date from [EntryAddingBloc]
+  //from constructor and ...
   final BuildContext parentContext;
   const ForgottenEntryBottomSheetContent(
       {super.key, required this.parentContext});
