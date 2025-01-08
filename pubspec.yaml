@@ -51,6 +51,11 @@ dependencies:
   bloc_concurrency: ^0.2.5
   equatable: ^2.0.5
 
+  ##REDUX deps
+  async_redux: ^24.0.6
+  get_it: ^8.0.3
+  #
+
   ## Utils
   auto_size_text: ^3.0.0
   flutter_launcher_icons: ^0.14.0

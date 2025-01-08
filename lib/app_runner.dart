@@ -41,6 +41,11 @@ final class AppRunner {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
 
+    //
+    //
+    //
+    //REDUX ASYNC
+
     Future<void> initializeAndRun() async {
       try {
         final result =

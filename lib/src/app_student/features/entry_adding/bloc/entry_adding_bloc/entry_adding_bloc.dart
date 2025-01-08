@@ -34,6 +34,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
           validationResponse: EntryAddingValidationResponse(
               stateValidityType: StateValidityType.noEntryType),
         )) {
+    /// Subscriptons initialization
     _initializeListeners();
 
     on<EntryAddingEvent>(
@@ -46,7 +47,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
     );
   }
 
-  /// Subscriptons initialization
+  /// Subscriptons initialization method
   void _initializeListeners() {
     _entrysListListener = _entryAddingRepository.entriesStream().listen(
       (entriesList) {
