@@ -19,7 +19,7 @@ part 'validators_calendar_bloc.dart';
 class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
   final IEntryAddingRepository _entryAddingRepository;
 
-  late final StreamSubscription<List<Entry>?> _entrysListListener;
+  late final StreamSubscription<List<Entry>?> _entriesListListener;
   late final StreamSubscription<List<Lection>?> _lectionListListener;
 
   EntryAddingBloc({
@@ -48,7 +48,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
 
   /// Subscriptons initialization
   void _initializeListeners() {
-    _entrysListListener = _entryAddingRepository.entriesStream().listen(
+    _entriesListListener = _entryAddingRepository.entriesStream().listen(
       (entriesList) {
         add(_StateDataChangedEntryAddingEvent(entriesList: entriesList));
       },
@@ -212,7 +212,7 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
 
   @override
   Future<void> close() {
-    _entrysListListener.cancel();
+    _entriesListListener.cancel();
     _lectionListListener.cancel();
     log('EntryAddingBloc listeners are closed');
     return super.close();
