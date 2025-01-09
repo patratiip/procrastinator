@@ -1,8 +1,12 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:procrastinator/business.dart';
+import 'package:procrastinator/src/app_student/features/entry_adding/redux_app_state.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
+import 'package:procrastinator/src/core/utils/extensions/context_extension.dart';
 import 'package:procrastinator/src/core/utils/little_helpers.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
@@ -119,6 +123,7 @@ class CalendarEntyAddingWidget extends StatelessWidget {
           onDaySelected: (DateTime day, DateTime focusedDay) {
             bloc.add(
                 EntryAddingEvent.stateDataChanged(date: dateNormalizer(day)));
+                
           },
         );
       },

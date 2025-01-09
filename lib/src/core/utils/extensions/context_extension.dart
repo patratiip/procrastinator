@@ -1,4 +1,6 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:procrastinator/src/app_student/features/entry_adding/redux_app_state.dart';
 
 /// List of extensions for [BuildContext]
 extension ContextExtension on BuildContext {
@@ -8,8 +10,9 @@ extension ContextExtension on BuildContext {
   /// when that widget changes (or a new widget of that type is introduced,
   /// or the widget goes away), this build context is rebuilt so that it can
   /// obtain new values from that widget.
-  T? inhMaybeOf<T extends InheritedWidget>({bool listen = true}) =>
-      listen ? dependOnInheritedWidgetOfExactType<T>() : getInheritedWidgetOfExactType<T>();
+  T? inhMaybeOf<T extends InheritedWidget>({bool listen = true}) => listen
+      ? dependOnInheritedWidgetOfExactType<T>()
+      : getInheritedWidgetOfExactType<T>();
 
   /// Obtain the nearest widget of the given type T,
   /// which must be the type of a concrete [InheritedWidget] subclass,
@@ -39,4 +42,6 @@ extension ContextExtension on BuildContext {
             'a $T of the exact type',
         'out_of_scope',
       ));
+
+  ReduxAppState get state => getState<ReduxAppState>();
 }
