@@ -39,6 +39,9 @@ class ReduxEntryAddingState {
       required this.lectionsList,
       required this.validationResponse});
 
+  /// Check if state is is an Valid state.
+  bool get isValid => validationResponse == null;
+
   ReduxEntryAddingState copy({
     DateTime? date,
     EntryType? entryType,

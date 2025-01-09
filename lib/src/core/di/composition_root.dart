@@ -3,6 +3,7 @@ import 'package:clock/clock.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:group_repository/group_repository.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:procrastinator/main.dart';
 import 'package:procrastinator/src/app_student/features/loosed_entries/data/loosed_entries_firebase_data_provider.dart';
 import 'package:procrastinator/src/app_student/features/loosed_entries/data/loosed_entries_repository.dart';
 import 'package:procrastinator/src/core/constant/mocked_geoposition.dart';
@@ -256,6 +257,9 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
 
     final statisticComputingServise =
         StatisticComputingServiseFactory().create();
+
+    /// Adding [IEntryAddingRepository] in GetIt
+    getIt.registerSingleton<EntryAddingRepositoryImpl>(entryAddingRepository);
 
     return StudentDependenciesContainer(
       entryRepository: entryRepository,

@@ -9,6 +9,7 @@ import 'package:procrastinator/main.dart';
 
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/data/entry_adding_repository.dart';
+import 'package:procrastinator/src/app_student/features/entry_adding/actions_redux/ACTION_state_data_changed.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/core/utils/little_helpers.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -82,12 +83,17 @@ class EntryAddingBloc extends Bloc<EntryAddingEvent, EntryAddingState> {
       ));
 
       ///
-      Business.store.state.reduxEntryAddingState
-          .copy(date: state.date, lectionsList: state.lectionsList);
-      log('1' + Business.store.state.reduxEntryAddingState.toString());
-      Business.store.state.reduxEntryAddingState
-          .copy(date: dateNormalizer(DateTime.now()));
-      log(Business.store.state.reduxEntryAddingState.toString());
+
+      // log('1' + Business.store.state.reduxEntryAddingState.toString());
+
+      Business.store.dispatch(StateDataChangedAction(
+        date: dateNormalizer(event.date ?? state.date),
+        entryType: event.entryType ?? state.entryType,
+        calendarFormat: event.calendarFormat ?? state.calendarFormat,
+        entriesList: event.entriesList ?? state.entriesList,
+        lectionsList: event.lectionsList ?? state.lectionsList,
+      ));
+      // log(Business.store.state.reduxEntryAddingState.toString());
 
       ///
 

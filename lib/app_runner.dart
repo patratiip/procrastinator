@@ -47,15 +47,11 @@ final class AppRunner {
 
 ////////////////////////////////////////////////////
 
-// Moved to lib/business.dart
     // REDUX ASYNC: Creating initial App state
-    // var store = Store<ReduxAppState>(
-    //   initialState: ReduxAppState.initialState(),
-    // );
-
     await Future.wait([
       Business.init(),
     ]);
+
     // Dependencies initializing
     // getIt.registerSingleton<AppModel>(AppModelImplementation());  // Example
 

@@ -84,10 +84,10 @@ class CalendarEntyAddingWidget extends StatelessWidget {
             dowTextFormatter: (date, locale) =>
                 DateFormat.E(locale).format(date).substring(0, 2),
           ),
+          // Focused day
           focusedDay: today,
           firstDay: DateTime(1900),
           lastDay: DateTime(3000),
-          //
           selectedDayPredicate: (day) => isSameDay(day, today),
           locale: Localizations.localeOf(context).languageCode,
           // Available calendar formats
@@ -115,7 +115,7 @@ class CalendarEntyAddingWidget extends StatelessWidget {
           calendarFormat: formatOfCalendar,
           startingDayOfWeek: StartingDayOfWeek.monday,
 
-          //Set Bloc State.date
+          // Set ReduxEntryAddingState.date
           onDaySelected: (DateTime day, DateTime focusedDay) {
             bloc.add(
                 EntryAddingEvent.stateDataChanged(date: dateNormalizer(day)));
