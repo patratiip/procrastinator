@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/app_student/features/forgotten_entries/widget/forgotten_entry_bottom_scheet_content.dart';
+import 'package:procrastinator/src/core/utils/extensions/context_extension.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/bottom_sheet_widget.dart';
 
@@ -15,44 +15,43 @@ class MessageCalendarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EntryAddingBloc, EntryAddingState>(
-        builder: (context, state) {
-      if (!state.isValid) {
-        return Container(
-          child: switch (state.validationResponse!.stateValidityType) {
-            StateValidityType.noEntryType => const SizedBox.shrink(),
-            StateValidityType.futureError => _ValidityStateWidget(
-                text:
-                    Localization.of(context).calendarStateErrorMessage_future),
-            StateValidityType.schoolOnlyToday => _ValidityStateWidget(
-                text: Localization.of(context)
-                    .calendarStateErrorMessage_schoolTypeOnlyToday,
-                actionButton: _ErrorActionButton(
-                    text: Localization.of(context)
-                        .calendarStateErrorMessage_buttonText_youAreForgot),
-              ),
-            StateValidityType.enrtyWithThisDateExists => _ValidityStateWidget(
-                text: Localization.of(context)
-                    .calendarStateErrorMessage_thisDateExists),
-            StateValidityType.noLessonsToday => _ValidityStateWidget(
-                text: Localization.of(context)
-                    .calendarStateErrorMessage_noLessonsToday),
-            StateValidityType.distanceToSchool => _ValidityStateWidget(
-                text: Localization.of(context)
-                    .calendarStateErrorMessage_distanceToSchool(
-                        state.validationResponse!.value)),
+    // Feture Redux state
+    final state = context.state.reduxEntryAddingState;
 
-            //TODO: handle cases down
-            StateValidityType.errorOnGeopositionCheck =>
-              const _ValidityStateWidget(text: ''),
-            StateValidityType.unexpectedError =>
-              const _ValidityStateWidget(text: 'Unexpected Error'),
-          },
-        );
-      } else {
-        return const SizedBox.shrink();
-      }
-    });
+    if (!state.isValid) {
+      return Container(
+        child: switch (state.validationResponse!.stateValidityType) {
+          StateValidityType.noEntryType => const SizedBox.shrink(),
+          StateValidityType.futureError => _ValidityStateWidget(
+              text: Localization.of(context).calendarStateErrorMessage_future),
+          StateValidityType.schoolOnlyToday => _ValidityStateWidget(
+              text: Localization.of(context)
+                  .calendarStateErrorMessage_schoolTypeOnlyToday,
+              actionButton: _ErrorActionButton(
+                  text: Localization.of(context)
+                      .calendarStateErrorMessage_buttonText_youAreForgot),
+            ),
+          StateValidityType.enrtyWithThisDateExists => _ValidityStateWidget(
+              text: Localization.of(context)
+                  .calendarStateErrorMessage_thisDateExists),
+          StateValidityType.noLessonsToday => _ValidityStateWidget(
+              text: Localization.of(context)
+                  .calendarStateErrorMessage_noLessonsToday),
+          StateValidityType.distanceToSchool => _ValidityStateWidget(
+              text: Localization.of(context)
+                  .calendarStateErrorMessage_distanceToSchool(
+                      state.validationResponse!.value)),
+
+          //TODO: handle cases down
+          StateValidityType.errorOnGeopositionCheck =>
+            const _ValidityStateWidget(text: ''),
+          StateValidityType.unexpectedError =>
+            const _ValidityStateWidget(text: 'Unexpected Error'),
+        },
+      );
+    } else {
+      return const SizedBox.shrink();
+    }
   }
 }
 

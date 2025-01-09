@@ -31,37 +31,35 @@ class StateDataChangedAction extends AppAction {
     this.lectionsList,
   });
 
-  //
   @override
   ReduxAppState? reduce() {
-    log(date.toString());
+    // log(date.toString());
     final actualState = state.reduxEntryAddingState;
-    log('1' + state.reduxEntryAddingState.toString());
+    // log('1' + state.reduxEntryAddingState.toString());
 
-    final validatingState = state.copy(
-      reduxEntryAddingState: state.reduxEntryAddingState.copy(
-        date: dateNormalizer(date ?? actualState.date),
-        entryType: entryType ?? actualState.entryType,
-        calendarFormat: calendarFormat ?? actualState.calendarFormat,
-        entriesList: entriesList ?? actualState.entriesList,
-        lectionsList: lectionsList ?? actualState.lectionsList,
-        validationResponse: actualState.validationResponse,
-      ),
+    final validatingState = actualState.copy(
+      date: dateNormalizer(date ?? actualState.date),
+      entryType: entryType ?? actualState.entryType,
+      calendarFormat: calendarFormat ?? actualState.calendarFormat,
+      entriesList: entriesList ?? actualState.entriesList,
+      lectionsList: lectionsList ?? actualState.lectionsList,
+      validationResponse: actualState.validationResponse,
     );
-    log(validatingState.toString());
-    final validationResponse =
-        _isNewStateValid(actualState: validatingState.reduxEntryAddingState);
+    // log(validatingState.toString());
+
+    final validationResponse = _isNewStateValid(actualState: validatingState);
+
+    log(validationResponse.toString());
+    log(validatingState.validationResponse.toString());
+    log(validatingState.isValid.toString());
 
     final successState = validatingState.copy(
-      reduxEntryAddingState: validatingState.reduxEntryAddingState.copy(
-        validationResponse: validationResponse,
-      ),
+      validationResponse: validationResponse,
     );
-    log(successState.toString());
-
-  
-    return state.copy(
-        reduxEntryAddingState: successState.reduxEntryAddingState);
+    // log(successState.toString());
+    log(successState.validationResponse.toString());
+    log(successState.isValid.toString());
+    return state.copy(reduxEntryAddingState: successState);
   }
 }
 

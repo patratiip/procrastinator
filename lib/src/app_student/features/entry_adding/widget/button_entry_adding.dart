@@ -1,8 +1,11 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:procrastinator/main.dart';
+import 'package:procrastinator/src/app_student/features/entry_adding/actions_redux/ACTION_add_entry.dart';
+import 'package:procrastinator/src/app_student/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
+import 'package:procrastinator/src/core/utils/extensions/context_extension.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
-import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/ui_kit/widget/my_circular_progress.dart';
 
 /// {@template entry_adding_button}
@@ -14,45 +17,43 @@ class EntryAddingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<EntryAddingBloc, EntryAddingState>(
-      builder: (context, state) {
-        // Button is enabled
-        if (state.isValid) {
-          return _EntryAddingButtonBody(
-            child: Text(
-              Localization.of(context).addEntryButtonText,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Colors.white,
-                  ),
-            ),
-            onTap: () {
-              final bloc = BlocProvider.of<EntryAddingBloc>(context);
-              bloc.add(const EntryAddingEvent.add());
-            },
-          );
+    // Feture Redux state
+    final state = context.state.reduxEntryAddingState;
+    // Button is enabled
+    if (state.isValid) {
+      return _EntryAddingButtonBody(
+        child: Text(
+          Localization.of(context).addEntryButtonText,
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Colors.white,
+              ),
+        ),
+        onTap: () {
+          context.dispatch(AddEntryAction(
+              entryAddingRepository: getIt<IEntryAddingRepository>()));
+        },
+      );
 
-          // Button is in Progress
-        } else if (state.validating) {
-          return const _EntryAddingButtonBody(
-              child: MyCircularProgress(
-            color: Colors.white,
-          ));
+      // Button is in Progress
+    } else if (context.isWaiting(AddEntryAction)) {
+      return const _EntryAddingButtonBody(
+          child: MyCircularProgress(
+        color: Colors.white,
+      ));
 
-          // Button is disabled
-        } else {
-          return _EntryAddingButtonBody(
-            color: Colors.grey,
-            child: Text(
-              Localization.of(context).addEntryButtonText,
-              style: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: Colors.white,
-                    //fontWeight: FontWeight.w500
-                  ),
-            ),
-          );
-        }
-      },
-    );
+      // Button is disabled
+    } else {
+      return _EntryAddingButtonBody(
+        color: Colors.grey,
+        child: Text(
+          Localization.of(context).addEntryButtonText,
+          style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                color: Colors.white,
+                //fontWeight: FontWeight.w500
+              ),
+        ),
+      );
+    }
   }
 }
 

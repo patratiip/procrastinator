@@ -56,7 +56,7 @@ class ReduxEntryAddingState {
       calendarFormat: calendarFormat ?? this.calendarFormat,
       entriesList: entriesList ?? this.entriesList,
       lectionsList: lectionsList ?? this.lectionsList,
-      validationResponse: validationResponse ?? this.validationResponse,
+      validationResponse: validationResponse,
     );
   }
 

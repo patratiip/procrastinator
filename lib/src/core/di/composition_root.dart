@@ -259,7 +259,7 @@ class StudentDependenciesFactory extends Factory<StudentDependenciesContainer> {
         StatisticComputingServiseFactory().create();
 
     /// Adding [IEntryAddingRepository] in GetIt
-    getIt.registerSingleton<EntryAddingRepositoryImpl>(entryAddingRepository);
+    getIt.registerSingleton<IEntryAddingRepository>(entryAddingRepository);
 
     return StudentDependenciesContainer(
       entryRepository: entryRepository,

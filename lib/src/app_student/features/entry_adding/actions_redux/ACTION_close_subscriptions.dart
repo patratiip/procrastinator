@@ -35,6 +35,9 @@ class CloseEntryAddingSubscriptionsAction extends AppAction {
       _entrysListListener.cancel();
       _lectionListListener.cancel();
       log('EntryAdding feature listeners are closed');
+
+      store.props.remove("_entriesListListener_ReduxEntryAddingState");
+      store.props.remove("_lectionListListener_ReduxEntryAddingState");
     }
 
     /// Subscriptons closing
