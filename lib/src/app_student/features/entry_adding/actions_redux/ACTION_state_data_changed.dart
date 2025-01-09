@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:developer';
 
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
@@ -33,9 +32,7 @@ class StateDataChangedAction extends AppAction {
 
   @override
   ReduxAppState? reduce() {
-    // log(date.toString());
     final actualState = state.reduxEntryAddingState;
-    // log('1' + state.reduxEntryAddingState.toString());
 
     final validatingState = actualState.copy(
       date: dateNormalizer(date ?? actualState.date),
@@ -45,20 +42,13 @@ class StateDataChangedAction extends AppAction {
       lectionsList: lectionsList ?? actualState.lectionsList,
       validationResponse: actualState.validationResponse,
     );
-    // log(validatingState.toString());
 
     final validationResponse = _isNewStateValid(actualState: validatingState);
-
-    log(validationResponse.toString());
-    log(validatingState.validationResponse.toString());
-    log(validatingState.isValid.toString());
 
     final successState = validatingState.copy(
       validationResponse: validationResponse,
     );
-    // log(successState.toString());
-    log(successState.validationResponse.toString());
-    log(successState.isValid.toString());
+
     return state.copy(reduxEntryAddingState: successState);
   }
 }

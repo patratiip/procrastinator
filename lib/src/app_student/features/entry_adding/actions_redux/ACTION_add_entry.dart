@@ -9,8 +9,14 @@ import 'package:procrastinator/src/app_student/features/entry_adding/data/entry_
 import 'package:procrastinator/src/app_student/features/entry_adding/redux_app_state.dart';
 import 'package:uuid/uuid.dart';
 
+/// {@template add_entry_action}
+/// [AddEntryAction] validate state data and add entry to database.
+/// {@endtemplate}
+
 class AddEntryAction extends AppAction {
   final IEntryAddingRepository _entryAddingRepository;
+
+  /// {@macro add_entry_action}
   AddEntryAction({
     required IEntryAddingRepository entryAddingRepository,
   }) : _entryAddingRepository = entryAddingRepository;
