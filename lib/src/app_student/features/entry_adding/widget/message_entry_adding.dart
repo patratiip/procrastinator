@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
+import 'package:procrastinator/src/app_student/features/entries/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/app_student/features/forgotten_entries/widget/forgotten_entry_bottom_scheet_content.dart';
 import 'package:procrastinator/src/core/utils/extensions/context_extension.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';

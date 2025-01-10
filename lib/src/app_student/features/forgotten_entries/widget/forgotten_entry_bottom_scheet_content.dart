@@ -6,7 +6,7 @@ import 'package:procrastinator/src/core/constant/localization/generated/l10n.dar
 import 'package:procrastinator/src/ui_kit/styles/text_field_theme.dart';
 import 'package:procrastinator/src/platform/app/di/app_scope.dart';
 import 'package:procrastinator/src/app_student/di/student_app_scope.dart';
-import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
+import 'package:procrastinator/src/app_student/features/entries/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/app_student/features/forgotten_entries/bloc/forgotten_entry_cubit/forgotten_entry_cubit.dart';
 import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 import 'package:procrastinator/src/ui_kit/widget/my_circular_progress.dart';

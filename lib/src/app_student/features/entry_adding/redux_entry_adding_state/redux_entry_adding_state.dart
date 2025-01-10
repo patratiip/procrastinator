@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
-import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
+import 'package:procrastinator/src/app_student/features/entries/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection.dart';
 import 'package:procrastinator/src/core/utils/little_helpers.dart';
 

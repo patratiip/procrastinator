@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
-import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
+import 'package:procrastinator/src/app_student/features/entries/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/actions_redux/app_action.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/redux_app_state.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/redux_entry_adding_state/redux_entry_adding_state.dart';
