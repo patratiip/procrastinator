@@ -1,24 +1,17 @@
 import 'dart:developer';
 
-import 'package:animated_icon/animated_icon.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:procrastinator/main.dart';
-import 'package:procrastinator/src/app_student/features/entry_adding/actions_redux/ACTION_add_entry.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/actions_redux/ACTION_close_subscriptions.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/actions_redux/ACTION_initialize_subscriptions.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/data/entry_adding_repository.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/redux_app_state.dart';
 
-import 'package:procrastinator/src/core/constant/localization/generated/l10n.dart';
-import 'package:procrastinator/src/app_student/features/entry_adding/bloc/entry_adding_bloc/entry_adding_bloc.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/widget/dropdown_entry_type.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/widget/button_entry_adding.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/widget/message_entry_adding.dart';
 import 'package:procrastinator/src/app_student/features/entry_adding/widget/calendar_entry_adding.dart';
-import 'package:procrastinator/src/ui_kit/color/color_scheme_my.dart';
 
 /// {@template entry_adding_widget}
 /// [EntryAddingWidget] that shows all other entry adding widgets.
@@ -40,57 +33,7 @@ class EntryAddingWidget extends StatelessWidget {
           log('build: listeners are disposed');
         },
         vm: () => Factory(this),
-        distinct: false,
         builder: (context, vm) {
-          // Hide snackBars and show new one on successfully [Entry] adding
-          // Now works everytime when build() method was called
-          // TODO: Works incorrectly. Ask Mark or Philip about that...
-
-          // if (!context.isFailed(AddEntryAction)) {
-          //   WidgetsBinding.instance.addPostFrameCallback((_) {
-          //     ScaffoldMessenger.of(context).clearSnackBars();
-          //     ScaffoldMessenger.of(context).showSnackBar(
-          //       SnackBar(
-          //         duration: const Duration(seconds: 5),
-          //         elevation: 40,
-          //         shape: RoundedRectangleBorder(
-          //           borderRadius: BorderRadius.circular(10.0),
-          //         ),
-          //         behavior: SnackBarBehavior.floating,
-          //         backgroundColor: MyAppColorScheme.sucsessColor,
-          //         content: Container(
-          //           width: double.infinity,
-          //           height: 38,
-          //           decoration: const BoxDecoration(
-          //               color: MyAppColorScheme.sucsessColor),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.center,
-          //             children: [
-          //               Padding(
-          //                 padding: const EdgeInsets.only(right: 12),
-          //                 child: AnimateIcon(
-          //                     key: UniqueKey(),
-          //                     onTap: () {},
-          //                     iconType: IconType.continueAnimation,
-          //                     height: 50,
-          //                     width: 50,
-          //                     color: Colors.white,
-          //                     animateIcon: AnimateIcons.upload),
-          //               ),
-          //               Text(
-          //                   Localization.of(context)
-          //                       .entrySuccessfulAddedCalendarMessage,
-          //                   style: Theme.of(context)
-          //                       .textTheme
-          //                       .labelLarge!
-          //                       .copyWith(color: Colors.white)),
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     );
-          //   });
-          // }
           return Center(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 24),

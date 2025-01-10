@@ -1,3 +1,4 @@
+import 'package:animated_icon/animated_icon.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:procrastinator/main.dart';
@@ -28,12 +29,60 @@ class EntryAddingButton extends StatelessWidget {
                 color: Colors.white,
               ),
         ),
-        onTap: () {
-          context.dispatch(AddEntryAction(
+        onTap: () async {
+          final entryAddingActionStatus = await context.dispatch(AddEntryAction(
               entryAddingRepository: getIt<IEntryAddingRepository>()));
+
+          // Hide snackBars and show new one on successfully [Entry] adding
+          if (entryAddingActionStatus.isCompletedOk) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).clearSnackBars();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  duration: const Duration(seconds: 5),
+                  elevation: 40,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: MyAppColorScheme.sucsessColor,
+                  content: Container(
+                    width: double.infinity,
+                    height: 38,
+                    decoration: const BoxDecoration(
+                        color: MyAppColorScheme.sucsessColor),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 12),
+                          child: AnimateIcon(
+                              key: UniqueKey(),
+                              onTap: () {},
+                              iconType: IconType.continueAnimation,
+                              height: 50,
+                              width: 50,
+                              color: Colors.white,
+                              animateIcon: AnimateIcons.upload),
+                        ),
+                        Text(
+                            Localization.of(context)
+                                .entrySuccessfulAddedCalendarMessage,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .copyWith(color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            });
+          }
         },
       );
 
+      //TODO: Don't works. Need to ask Mark of Philip about that shit...
       // Button is in Progress
     } else if (context.isWaiting(AddEntryAction)) {
       return const _EntryAddingButtonBody(
