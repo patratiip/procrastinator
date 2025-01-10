@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animated_icon/animated_icon.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/foundation.dart';
@@ -27,59 +29,68 @@ class EntryAddingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (!context.isFailed(AddEntryAction)) {
-    //         ScaffoldMessenger.of(context).clearSnackBars();
-    //         ScaffoldMessenger.of(context).showSnackBar(
-    //           SnackBar(
-    //             duration: const Duration(seconds: 5),
-    //             elevation: 40,
-    //             shape: RoundedRectangleBorder(
-    //               borderRadius: BorderRadius.circular(10.0),
-    //             ),
-    //             behavior: SnackBarBehavior.floating,
-    //             backgroundColor: MyAppColorScheme.sucsessColor,
-    //             content: Container(
-    //               width: double.infinity,
-    //               height: 38,
-    //               decoration:
-    //                   const BoxDecoration(color: MyAppColorScheme.sucsessColor),
-    //               child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.center,
-    //                 children: [
-    //                   Padding(
-    //                     padding: const EdgeInsets.only(right: 12),
-    //                     child: AnimateIcon(
-    //                         key: UniqueKey(),
-    //                         onTap: () {},
-    //                         iconType: IconType.continueAnimation,
-    //                         height: 50,
-    //                         width: 50,
-    //                         color: Colors.white,
-    //                         animateIcon: AnimateIcons.upload),
-    //                   ),
-    //                   Text(
-    //                       Localization.of(context)
-    //                           .entrySuccessfulAddedCalendarMessage,
-    //                       style: Theme.of(context)
-    //                           .textTheme
-    //                           .labelLarge!
-    //                           .copyWith(color: Colors.white)),
-    //                 ],
-    //               ),
-    //             ),
-    //           ),
-    //         );
-    //       }
     return StoreConnector(
         onInit: (store) {
           store.dispatch(InitializeEntryAddingSubscriptionsAction(
               entryAddingRepository: getIt<IEntryAddingRepository>()));
+          log('build: listeners are created');
         },
         onDispose: (store) {
           store.dispatch(CloseEntryAddingSubscriptionsAction());
+          log('build: listeners are disposed');
         },
         vm: () => Factory(this),
+        distinct: false,
         builder: (context, vm) {
+          // Hide snackBars and show new one on successfully [Entry] adding
+          // Now works everytime when build() method was called
+          // TODO: Works incorrectly. Ask Mark or Philip about that...
+
+          // if (!context.isFailed(AddEntryAction)) {
+          //   WidgetsBinding.instance.addPostFrameCallback((_) {
+          //     ScaffoldMessenger.of(context).clearSnackBars();
+          //     ScaffoldMessenger.of(context).showSnackBar(
+          //       SnackBar(
+          //         duration: const Duration(seconds: 5),
+          //         elevation: 40,
+          //         shape: RoundedRectangleBorder(
+          //           borderRadius: BorderRadius.circular(10.0),
+          //         ),
+          //         behavior: SnackBarBehavior.floating,
+          //         backgroundColor: MyAppColorScheme.sucsessColor,
+          //         content: Container(
+          //           width: double.infinity,
+          //           height: 38,
+          //           decoration: const BoxDecoration(
+          //               color: MyAppColorScheme.sucsessColor),
+          //           child: Row(
+          //             mainAxisAlignment: MainAxisAlignment.center,
+          //             children: [
+          //               Padding(
+          //                 padding: const EdgeInsets.only(right: 12),
+          //                 child: AnimateIcon(
+          //                     key: UniqueKey(),
+          //                     onTap: () {},
+          //                     iconType: IconType.continueAnimation,
+          //                     height: 50,
+          //                     width: 50,
+          //                     color: Colors.white,
+          //                     animateIcon: AnimateIcons.upload),
+          //               ),
+          //               Text(
+          //                   Localization.of(context)
+          //                       .entrySuccessfulAddedCalendarMessage,
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .labelLarge!
+          //                       .copyWith(color: Colors.white)),
+          //             ],
+          //           ),
+          //         ),
+          //       ),
+          //     );
+          //   });
+          // }
           return Center(
             child: Padding(
               padding: const EdgeInsets.only(bottom: 24),
@@ -107,6 +118,7 @@ class EntryAddingWidget extends StatelessWidget {
   }
 }
 
+//TODO: Ask about ViewModels, when they're don't needed...
 class ViewModel extends Vm {
   // final int counter;
   // final String description;

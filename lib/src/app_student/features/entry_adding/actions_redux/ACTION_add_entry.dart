@@ -43,6 +43,8 @@ class AddEntryAction extends AppAction {
     // Entry Adding
     _entryAddingRepository.addEntry(entry);
 
+    log('Entry was successfully added $entry');
+
     return null;
   }
 
