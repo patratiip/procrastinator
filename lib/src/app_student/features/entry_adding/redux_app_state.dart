@@ -17,6 +17,7 @@ class ReduxAppState {
     required this.reduxEntryAddingState,
   });
 
+  /// Returns copy of [ReduxAppState]
   ReduxAppState copy({
     ReduxEntryAddingState? reduxEntryAddingState,
   }) {

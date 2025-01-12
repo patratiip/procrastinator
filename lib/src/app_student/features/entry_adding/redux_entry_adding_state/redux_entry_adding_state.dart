@@ -42,6 +42,8 @@ class ReduxEntryAddingState {
   /// Check if state is is an Valid state.
   bool get isValid => validationResponse == null;
 
+
+/// Returns copy of [ReduxEntryAddingState] 
   ReduxEntryAddingState copy({
     DateTime? date,
     EntryType? entryType,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:procrastinator/main.dart';
@@ -24,13 +22,13 @@ class EntryAddingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector(
         onInit: (store) {
+          /// Subscriptons initialization
           store.dispatch(InitializeEntryAddingSubscriptionsAction(
               entryAddingRepository: getIt<IEntryAddingRepository>()));
-          log('build: listeners are created');
         },
         onDispose: (store) {
+          /// Subscriptons closing
           store.dispatch(CloseEntryAddingSubscriptionsAction());
-          log('build: listeners are disposed');
         },
         vm: () => Factory(this),
         builder: (context, vm) {
