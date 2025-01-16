@@ -5,9 +5,14 @@ import 'package:procrastinator/src/core/utils/little_helpers.dart';
 
 /// {@template entry_type_enum}
 /// Determined [EntryType] for [Entry].
-/// Thay can be{ [schoolVisit], [homeOffice], [sick], [loosed] }
+/// Thay can be [schoolVisit], [homeOffice], [sick], [loosed]
 /// {@endtemplate}
-enum EntryType { schoolVisit, homeOffice, sick, loosed }
+enum EntryType {
+  schoolVisit,
+  homeOffice,
+  sick,
+  loosed,
+}
 
 /// {@macro entry_type_enum}
 

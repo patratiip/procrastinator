@@ -1,10 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:equatable/equatable.dart';
 import 'package:procrastinator/src/app_student/features/lection_plan/model/lection_model.dart';
 import 'package:procrastinator/src/core/utils/little_helpers.dart';
 
-//TODO: drop Equtable
-class Lection extends Equatable {
+class Lection {
   final String? lectionID;
   final String theme;
   final String trainer;
@@ -39,9 +37,6 @@ class Lection extends Equatable {
     );
   }
 
-  @override
-  List<Object?> get props => [theme, trainer, date, dayOfWeek, lectionID];
-
   Lection copyWith({
     String? lectionID,
     String? theme,
@@ -56,5 +51,30 @@ class Lection extends Equatable {
       date: date ?? this.date,
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,
     );
+  }
+
+  @override
+  bool operator ==(covariant Lection other) {
+    if (identical(this, other)) return true;
+
+    return other.lectionID == lectionID &&
+        other.theme == theme &&
+        other.trainer == trainer &&
+        other.date == date &&
+        other.dayOfWeek == dayOfWeek;
+  }
+
+  @override
+  int get hashCode {
+    return lectionID.hashCode ^
+        theme.hashCode ^
+        trainer.hashCode ^
+        date.hashCode ^
+        dayOfWeek.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'Lection(lectionID: $lectionID, theme: $theme, trainer: $trainer, date: $date, dayOfWeek: $dayOfWeek)';
   }
 }
