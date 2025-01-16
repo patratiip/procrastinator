@@ -21,7 +21,7 @@ class CalendarEntyAddingWidget extends StatelessWidget {
     initializeDateFormatting('de_DE', null);
     initializeDateFormatting('ru_RU', null);
 
-    // Feture Redux state
+    // Feature Redux state
     final state = context.state.reduxEntryAddingState;
     final formatOfCalendar = state.calendarFormat;
     final today = state.date;

@@ -15,7 +15,7 @@ class EntryTypeDropdownWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Feture Redux state
+    // Feature Redux state
     final state = context.state.reduxEntryAddingState;
 
     /// Aviable [EntryType]'s

@@ -18,7 +18,7 @@ class EntryAddingButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Feture Redux state
+    // Feature Redux state
     final state = context.state.reduxEntryAddingState;
     // Button is enabled
     if (state.isValid) {
@@ -85,6 +85,7 @@ class EntryAddingButton extends StatelessWidget {
       //TODO: Don't works. Need to ask Mark of Philip about that shit...
       // Button is in Progress
     } else if (context.isWaiting(AddEntryAction)) {
+      // log('Adding Entry');
       return const _EntryAddingButtonBody(
           child: MyCircularProgress(
         color: Colors.white,
