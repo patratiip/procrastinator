@@ -54,7 +54,9 @@ final class LoosedEntriesRepositoryImpl implements ILoosedEntriesRepository {
 
   @override
   Future<List<Lection>> comareLectionsAndEntries(
-      List<Lection> lectionList, List<Entry> entryList) async {
+    List<Lection> lectionList,
+    List<Entry> entryList,
+  ) async {
     final filteredLectionsList = lectionList
         .where((lection) => lection.date.isBefore(DateTime.now()))
         .toList();

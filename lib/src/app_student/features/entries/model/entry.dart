@@ -77,12 +77,11 @@ class Entry {
   }
 
   Entry copyWith({
-    String? visitID,
     DateTime? date,
     EntryType? entryType,
   }) {
     return Entry(
-      visitID: visitID ?? this.visitID,
+      visitID: visitID,
       date: date ?? this.date,
       entryType: entryType ?? this.entryType,
     );

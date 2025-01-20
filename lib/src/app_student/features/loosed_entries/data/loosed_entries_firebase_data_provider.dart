@@ -44,7 +44,6 @@ final class LoosedEntriesFirebaseDataProviderImpl
           .map((snapshot) => snapshot.docs
               .map((doc) => LectionModel.fromFirestore(doc.data()))
               .toList());
-
       return lections;
     } catch (e) {
       log(e.toString());
