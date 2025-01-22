@@ -31,6 +31,7 @@ class Entry {
     required this.entryType,
   });
 
+  /// Converts [Entry] to model
   EntryModel toModel() {
     final EntryModel model = EntryModel(visitID: visitID, date: date);
 
@@ -43,12 +44,10 @@ class Entry {
         {
           model.homeOffice = true;
         }
-
       case EntryType.sick:
         {
           model.krank = true;
         }
-
       case EntryType.loosed:
         {
           model.fehl = true;
@@ -58,6 +57,7 @@ class Entry {
     return model;
   }
 
+  /// Converts model to [Entry] entity
   static Entry fromModel(EntryModel model) {
     Entry entry = Entry(
         visitID: model.visitID,

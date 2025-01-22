@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 /// {@template entry_model}
-/// [EntryModel] is a DTO for [Entry].
+/// [EntryModel] is a DTO for [Entry] entity.
 /// {@endtemplate}
 
 class EntryModel {
@@ -22,6 +22,7 @@ class EntryModel {
       this.krank,
       this.fehl});
 
+  /// Converts [EntryModel] to json for Firestore
   Map<String, Object?> toFirestore() {
     return {
       'visitID': visitID,
@@ -33,6 +34,7 @@ class EntryModel {
     };
   }
 
+  /// Converts json from Firestore to [EntryModel]
   static EntryModel fromFirestore(Map<String, dynamic> doc) {
     return EntryModel(
         visitID: doc['visitID'],
@@ -63,5 +65,10 @@ class EntryModel {
         homeOffice.hashCode ^
         krank.hashCode ^
         fehl.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'EntryModel(visitID: $visitID, date: $date, schoolVisit: $schoolVisit, homeOffice: $homeOffice, krank: $krank, fehl: $fehl)';
   }
 }
