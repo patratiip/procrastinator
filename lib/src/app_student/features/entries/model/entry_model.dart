@@ -14,13 +14,14 @@ class EntryModel {
   bool? fehl;
 
   /// {@macro entry_model}
-  EntryModel(
-      {required this.visitID,
-      required this.date,
-      this.schoolVisit,
-      this.homeOffice,
-      this.krank,
-      this.fehl});
+  EntryModel({
+    required this.visitID,
+    required this.date,
+    this.schoolVisit,
+    this.homeOffice,
+    this.krank,
+    this.fehl,
+  });
 
   /// Converts [EntryModel] to json for Firestore
   Map<String, Object?> toFirestore() {

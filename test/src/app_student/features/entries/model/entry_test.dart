@@ -24,6 +24,35 @@ void main() {
       expect(model.fehl, null);
     });
 
+    test('toModel() handles all entry types correctly', () {
+      // Arrange
+      final entryHomeOffice = Entry(
+        visitID: '124',
+        date: DateTime(2023, 1, 1),
+        entryType: EntryType.homeOffice,
+      );
+      final entrySick = Entry(
+        visitID: '125',
+        date: DateTime(2023, 1, 1),
+        entryType: EntryType.sick,
+      );
+      final entryLoosed = Entry(
+        visitID: '126',
+        date: DateTime(2023, 1, 1),
+        entryType: EntryType.loosed,
+      );
+
+      // Act
+      final entryModelHomeOffice = entryHomeOffice.toModel();
+      final entryModelSick = entrySick.toModel();
+      final entryModelLoosed = entryLoosed.toModel();
+
+      // Assert
+      expect(entryModelHomeOffice.homeOffice, isTrue);
+      expect(entryModelSick.krank, isTrue);
+      expect(entryModelLoosed.fehl, isTrue);
+    });
+
     test('fromModel() correctly converts EntryModel to Entry', () {
       // Arrange
       final model = EntryModel(
@@ -44,7 +73,7 @@ void main() {
     test('fromModel() handles all entry types correctly', () {
       // Arrange
       final modelHomeOffice = EntryModel(
-        visitID: '789',
+        visitID: '100',
         date: DateTime(2023, 3, 3),
         homeOffice: true,
       );
@@ -56,7 +85,7 @@ void main() {
       );
 
       final modelLoosed = EntryModel(
-        visitID: '112',
+        visitID: '102',
         date: DateTime(2023, 5, 5),
         fehl: true,
       );
