@@ -10,8 +10,8 @@ class EntryModel {
   DateTime date;
   bool? schoolVisit;
   bool? homeOffice;
-  bool? krank;
-  bool? fehl;
+  bool? sick;
+  bool? loosed;
 
   /// {@macro entry_model}
   EntryModel({
@@ -19,8 +19,8 @@ class EntryModel {
     required this.date,
     this.schoolVisit,
     this.homeOffice,
-    this.krank,
-    this.fehl,
+    this.sick,
+    this.loosed,
   });
 
   /// Converts [EntryModel] to json for Firestore
@@ -30,8 +30,8 @@ class EntryModel {
       'date': Timestamp.fromDate(date),
       if (schoolVisit != null) 'schoolVisit': schoolVisit,
       if (homeOffice != null) 'homeOffice': homeOffice,
-      if (krank != null) 'Krank': krank,
-      if (fehl != null) 'Fehl': fehl
+      if (sick != null) 'Krank': sick,
+      if (loosed != null) 'Fehl': loosed
     };
   }
 
@@ -42,8 +42,8 @@ class EntryModel {
         date: (doc['date'] as Timestamp).toDate(),
         schoolVisit: doc['schoolVisit'],
         homeOffice: doc['homeOffice'],
-        krank: doc['Krank'],
-        fehl: doc['Fehl']);
+        sick: doc['Krank'],
+        loosed: doc['Fehl']);
   }
 
   @override
@@ -54,8 +54,8 @@ class EntryModel {
         other.date == date &&
         other.schoolVisit == schoolVisit &&
         other.homeOffice == homeOffice &&
-        other.krank == krank &&
-        other.fehl == fehl;
+        other.sick == sick &&
+        other.loosed == loosed;
   }
 
   @override
@@ -64,12 +64,12 @@ class EntryModel {
         date.hashCode ^
         schoolVisit.hashCode ^
         homeOffice.hashCode ^
-        krank.hashCode ^
-        fehl.hashCode;
+        sick.hashCode ^
+        loosed.hashCode;
   }
 
   @override
   String toString() {
-    return 'EntryModel(visitID: $visitID, date: $date, schoolVisit: $schoolVisit, homeOffice: $homeOffice, krank: $krank, fehl: $fehl)';
+    return 'EntryModel(visitID: $visitID, date: $date, schoolVisit: $schoolVisit, homeOffice: $homeOffice, krank: $sick, fehl: $loosed)';
   }
 }

@@ -24,5 +24,25 @@ void main() {
       expect(docForFirestore['Krank'], isNull);
       expect(docForFirestore['Fehl'], isNull);
     });
+
+    test('fromFirestore() successfully converts json to EntryModel', () {
+      // Arrange
+      final jsonFromFirestore = {
+        'visitID': '123',
+        'date': Timestamp.fromDate(DateTime(2022, 1, 10)),
+        'schoolVisit': true,
+      };
+
+      // Act
+      final entryModel = EntryModel.fromFirestore(jsonFromFirestore);
+
+      // Assert
+      expect(entryModel.visitID, '123');
+      expect(entryModel.date, DateTime(2022, 1, 10));
+      expect(entryModel.schoolVisit, isTrue);
+      expect(entryModel.homeOffice, isNull);
+      expect(entryModel.sick, isNull);
+      expect(entryModel.loosed, isNull);
+    });
   });
 }

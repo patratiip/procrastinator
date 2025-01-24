@@ -46,11 +46,11 @@ class Entry {
         }
       case EntryType.sick:
         {
-          model.krank = true;
+          model.sick = true;
         }
       case EntryType.loosed:
         {
-          model.fehl = true;
+          model.loosed = true;
         }
     }
 
@@ -67,10 +67,10 @@ class Entry {
     if (model.schoolVisit != null) {
       entry = entry.copyWith(entryType: EntryType.schoolVisit);
     }
-    if (model.krank != null) {
+    if (model.sick != null) {
       entry = entry.copyWith(entryType: EntryType.sick);
     }
-    if (model.fehl != null) {
+    if (model.loosed != null) {
       entry = entry.copyWith(entryType: EntryType.loosed);
     }
     return entry;

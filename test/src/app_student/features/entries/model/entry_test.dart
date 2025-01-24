@@ -20,8 +20,8 @@ void main() {
       expect(model.date, DateTime(2023, 1, 1));
       expect(model.schoolVisit, true);
       expect(model.homeOffice, null);
-      expect(model.krank, null);
-      expect(model.fehl, null);
+      expect(model.sick, null);
+      expect(model.loosed, null);
     });
 
     test('toModel() handles all entry types correctly', () {
@@ -49,8 +49,8 @@ void main() {
 
       // Assert
       expect(entryModelHomeOffice.homeOffice, isTrue);
-      expect(entryModelSick.krank, isTrue);
-      expect(entryModelLoosed.fehl, isTrue);
+      expect(entryModelSick.sick, isTrue);
+      expect(entryModelLoosed.loosed, isTrue);
     });
 
     test('fromModel() correctly converts EntryModel to Entry', () {
@@ -81,13 +81,13 @@ void main() {
       final modelSick = EntryModel(
         visitID: '101',
         date: DateTime(2023, 4, 4),
-        krank: true,
+        sick: true,
       );
 
       final modelLoosed = EntryModel(
         visitID: '102',
         date: DateTime(2023, 5, 5),
-        fehl: true,
+        loosed: true,
       );
 
       // Act
@@ -116,9 +116,9 @@ void main() {
       );
 
       // Assert
-      expect(updatedEntry.visitID, '123'); // ID remains the same
-      expect(updatedEntry.date, DateTime(2023, 7, 7)); // Date updated
-      expect(updatedEntry.entryType, EntryType.loosed); // Type updated
+      expect(updatedEntry.visitID, '123');
+      expect(updatedEntry.date, DateTime(2023, 7, 7));
+      expect(updatedEntry.entryType, EntryType.loosed);
     });
   });
 }
