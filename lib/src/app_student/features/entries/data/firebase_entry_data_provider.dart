@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:procrastinator/src/app_student/features/entries/model/entry.dart';
 import 'package:procrastinator/src/app_student/features/entries/model/entry_model.dart';
@@ -40,7 +39,6 @@ final class EntryFirebaseDataProviderImpl implements IEntryDataProvider {
               .toList());
       return entries;
     } catch (e) {
-      log(e.toString());
       rethrow;
     }
   }
@@ -53,7 +51,6 @@ final class EntryFirebaseDataProviderImpl implements IEntryDataProvider {
     try {
       await _collectionRef.doc(entry.visitID).set(entryData);
     } catch (e) {
-      log(e.toString());
       rethrow;
     }
   }
@@ -63,7 +60,6 @@ final class EntryFirebaseDataProviderImpl implements IEntryDataProvider {
     try {
       await _collectionRef.doc(entryId).delete();
     } catch (e) {
-      log(e.toString());
       rethrow;
     }
   }
