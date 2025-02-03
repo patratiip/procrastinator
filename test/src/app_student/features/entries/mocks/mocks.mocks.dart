@@ -7,13 +7,15 @@ import 'dart:async' as _i4;
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i2;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i7;
-import 'package:procrastinator/src/app_student/features/entries/data/firebase_entry_data_provider.dart'
+import 'package:mockito/src/dummies.dart' as _i8;
+import 'package:procrastinator/src/app_student/features/entries/data/entry_repository.dart'
     as _i3;
-import 'package:procrastinator/src/app_student/features/entries/model/entry.dart'
+import 'package:procrastinator/src/app_student/features/entries/data/firebase_entry_data_provider.dart'
     as _i6;
-import 'package:procrastinator/src/app_student/features/entries/model/entry_model.dart'
+import 'package:procrastinator/src/app_student/features/entries/model/entry.dart'
     as _i5;
+import 'package:procrastinator/src/app_student/features/entries/model/entry_model.dart'
+    as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -117,26 +119,64 @@ class _FakeSnapshotMetadata_7 extends _i1.SmartFake
         );
 }
 
+/// A class which mocks [IEntryRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockIEntryRepository extends _i1.Mock implements _i3.IEntryRepository {
+  MockIEntryRepository() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Stream<List<_i5.Entry>> entriesStream() => (super.noSuchMethod(
+        Invocation.method(
+          #entriesStream,
+          [],
+        ),
+        returnValue: _i4.Stream<List<_i5.Entry>>.empty(),
+      ) as _i4.Stream<List<_i5.Entry>>);
+
+  @override
+  _i4.Future<void> addEntry(_i5.Entry? entry) => (super.noSuchMethod(
+        Invocation.method(
+          #addEntry,
+          [entry],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteEntry(String? visitId) => (super.noSuchMethod(
+        Invocation.method(
+          #deleteEntry,
+          [visitId],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+}
+
 /// A class which mocks [IEntryDataProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockIEntryDataProvider extends _i1.Mock
-    implements _i3.IEntryDataProvider {
+    implements _i6.IEntryDataProvider {
   MockIEntryDataProvider() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Stream<List<_i5.EntryModel>> entriesStream() => (super.noSuchMethod(
+  _i4.Stream<List<_i7.EntryModel>> entriesStream() => (super.noSuchMethod(
         Invocation.method(
           #entriesStream,
           [],
         ),
-        returnValue: _i4.Stream<List<_i5.EntryModel>>.empty(),
-      ) as _i4.Stream<List<_i5.EntryModel>>);
+        returnValue: _i4.Stream<List<_i7.EntryModel>>.empty(),
+      ) as _i4.Stream<List<_i7.EntryModel>>);
 
   @override
-  _i4.Future<void> addEntry(_i6.Entry? entry) => (super.noSuchMethod(
+  _i4.Future<void> addEntry(_i5.Entry? entry) => (super.noSuchMethod(
         Invocation.method(
           #addEntry,
           [entry],
@@ -169,7 +209,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
   @override
   String get id => (super.noSuchMethod(
         Invocation.getter(#id),
-        returnValue: _i7.dummyValue<String>(
+        returnValue: _i8.dummyValue<String>(
           this,
           Invocation.getter(#id),
         ),
@@ -178,7 +218,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
   @override
   String get path => (super.noSuchMethod(
         Invocation.getter(#path),
-        returnValue: _i7.dummyValue<String>(
+        returnValue: _i8.dummyValue<String>(
           this,
           Invocation.getter(#path),
         ),
@@ -671,7 +711,7 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
   @override
   String get id => (super.noSuchMethod(
         Invocation.getter(#id),
-        returnValue: _i7.dummyValue<String>(
+        returnValue: _i8.dummyValue<String>(
           this,
           Invocation.getter(#id),
         ),
@@ -689,7 +729,7 @@ class MockDocumentReference<T extends Object?> extends _i1.Mock
   @override
   String get path => (super.noSuchMethod(
         Invocation.getter(#path),
-        returnValue: _i7.dummyValue<String>(
+        returnValue: _i8.dummyValue<String>(
           this,
           Invocation.getter(#path),
         ),
@@ -860,7 +900,7 @@ class MockQueryDocumentSnapshot<T extends Object?> extends _i1.Mock
   @override
   String get id => (super.noSuchMethod(
         Invocation.getter(#id),
-        returnValue: _i7.dummyValue<String>(
+        returnValue: _i8.dummyValue<String>(
           this,
           Invocation.getter(#id),
         ),
@@ -896,7 +936,7 @@ class MockQueryDocumentSnapshot<T extends Object?> extends _i1.Mock
           #data,
           [],
         ),
-        returnValue: _i7.dummyValue<T>(
+        returnValue: _i8.dummyValue<T>(
           this,
           Invocation.method(
             #data,

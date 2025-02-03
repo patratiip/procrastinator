@@ -11,7 +11,7 @@ part 'last_entries_list_state.dart';
 
 class EntriesListBloc extends Bloc<EntriesListEvent, LastEntriesListState> {
   final IEntryRepository _entriesRepository;
-  late final StreamSubscription<List<Entry>?> _entriesListListener;
+  late final StreamSubscription<List<Entry>> _entriesListListener;
 
   EntriesListBloc({required entrysRepository})
       : _entriesRepository = entrysRepository,
